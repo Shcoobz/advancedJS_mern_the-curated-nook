@@ -1,0 +1,29 @@
+{
+  "name": "the-curated-nook",
+  "version": "1.0.0",
+  "description": "The Curated Nook - MERN Project",
+  "type": "module",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "vite --config frontend/vite.config.js",
+    "dev": "concurrently -n SERVER,CLIENT -c blue,green --raw \"npm run server\" \"npm run client\"",
+    "build-frontend": "cd frontend && npx vite build --config vite.config.js",
+    "prepare-backend": "echo 'Backend prepared'",
+    "debug": "ls -la && cd frontend && ls -la && npx vite --version",
+    "render-build": "npm install && npm run build-frontend && npm run prepare-backend",
+    "render-start": "node backend/server.js"
+  },
+  "keywords": [],
+  "author": "Shcoobz",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  }
+}
