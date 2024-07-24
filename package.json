@@ -19,8 +19,11 @@
   "author": "Shcoobz",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

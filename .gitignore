@@ -1,4 +1,9 @@
+# dir
 node_modules
-package-lock.json
+logs
 
+#files
+package-lock.json
 .env
+
+TODO.md

@@ -5,6 +5,8 @@ export const REGEX = {
 export const FILE = {
   MAIN_HTML: 'index.html',
   ERROR_404: '404.html',
+  REQ_LOG: 'reqLog.log',
+  ERR_LOG: 'errLog.log',
 };
 
 export const ROUTE = {
@@ -13,6 +15,7 @@ export const ROUTE = {
   STATIC: {
     PUBLIC: '../../public',
     VIEWS: '../../views',
+    LOGS: '../../logs',
   },
 };
 
