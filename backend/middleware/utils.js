@@ -1,6 +1,7 @@
-import { promises as fsPromises } from 'fs';
 import path from 'path';
 import express from 'express';
+import { promises as fsPromises } from 'fs';
+
 import { __dirname } from '../config/common/dirname.js';
 import { ROUTE } from '../config/common/constants.js';
 

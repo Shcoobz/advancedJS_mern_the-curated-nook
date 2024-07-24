@@ -42,3 +42,7 @@ export const HTTP_STATUS = {
     NO_CONTENT: 204,
   },
 };
+
+export const INDEX = {
+  NO_MATCH: -1,
+};

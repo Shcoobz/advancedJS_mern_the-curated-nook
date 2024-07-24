@@ -22,3 +22,9 @@ export const SERVER = {
   },
   NOT_FOUND: '404 Not found',
 };
+
+export const ERROR = {
+  CORS: {
+    NOT_ALLOWED: 'Not allowed by CORS!',
+  },
+};

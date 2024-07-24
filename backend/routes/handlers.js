@@ -1,7 +1,8 @@
 import path from 'path';
+
+import { __dirname } from '../config/common/dirname.js';
 import { ROUTE, FILE, CONTENT_TYPE, HTTP_STATUS } from '../config/common/constants.js';
 import { SERVER } from '../config/common/messages.js';
-import { __dirname } from '../config/common/dirname.js';
 
 export function handleWildcardRoute(req, res) {
   res.status(HTTP_STATUS.ERROR.NOT_FOUND);
