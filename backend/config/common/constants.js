@@ -1,5 +1,11 @@
+export const DEFAULT_ORIGINS = ['http://localhost:3000'];
+
 export const REGEX = {
   HOMEPAGE_ROUTE: '^/$|/index(.html)?',
+};
+
+export const DELIMITER = {
+  COMMA: ',',
 };
 
 export const FILE = {
@@ -7,6 +13,7 @@ export const FILE = {
   ERROR_404: '404.html',
   REQ_LOG: 'reqLog.log',
   ERR_LOG: 'errLog.log',
+  MONGO_ERR_LOG: 'mongoErrLog.log',
 };
 
 export const ROUTE = {
@@ -16,6 +23,7 @@ export const ROUTE = {
     PUBLIC: '../../public',
     VIEWS: '../../views',
     LOGS: '../../logs',
+    LOCAL_HOST: '',
   },
 };
 
@@ -45,4 +53,11 @@ export const HTTP_STATUS = {
 
 export const INDEX = {
   NO_MATCH: -1,
+};
+
+export const MONGO_EVENTS = {
+  OPEN: 'open',
+  ERROR: 'error',
+  DISCONNECTED: 'disconnected',
+  RECONNECTED: 'reconnected',
 };

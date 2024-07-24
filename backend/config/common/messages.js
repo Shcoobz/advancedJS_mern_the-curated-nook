@@ -1,5 +1,6 @@
 export const SERVER = {
-  LOG: {
+  NOT_FOUND: '404 Not found',
+  MONGO: {
     START: (PORT, LOCAL_URL) => `
   ========================================
   🚀 Connected to MongoDB!
@@ -20,7 +21,6 @@ export const SERVER = {
   ========================================
 `,
   },
-  NOT_FOUND: '404 Not found',
 };
 
 export const ERROR = {

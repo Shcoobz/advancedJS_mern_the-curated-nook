@@ -1,7 +1,9 @@
-import { HTTP_STATUS, INDEX } from './common/constants.js';
+import { DEFAULT_ORIGINS, DELIMITER, HTTP_STATUS, INDEX } from './common/constants.js';
 import { ERROR } from './common/messages.js';
 
-export const allowedOrigins = ['http://localhost:3000'];
+export const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(DELIMITER.COMMA)
+  : DEFAULT_ORIGINS;
 
 function getCorsOrigin(allowedOrigins) {
   return (origin, callback) => {

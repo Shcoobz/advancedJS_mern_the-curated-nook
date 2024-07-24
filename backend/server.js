@@ -4,6 +4,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import rootRouter from './routes/root.js';
+import connectDB from './config/database/dbConnection.js';
 
 import { __dirname } from './config/common/dirname.js';
 import { ROUTE } from './config/common/constants.js';
@@ -12,10 +13,18 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { handleWildcardRoute } from './routes/handlers.js';
 import { serveStaticPublicFiles } from './middleware/utils.js';
 import { corsOptions } from './config/corsOptions.js';
+import {
+  handleMongoDisconnected,
+  handleMongoError,
+  handleMongoOpen,
+  handleMongoReconnected,
+} from './config/database/mongoEventHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 3500;
 const HTTP_LOCALHOST = process.env.HTTP_LOCALHOST;
+
+connectDB();
 
 app.use(logger);
 
@@ -33,6 +42,7 @@ app.all(ROUTE.WILDCARD, handleWildcardRoute);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`\nServer running on ${PORT}, visit: ${HTTP_LOCALHOST}:${PORT}\n`);
-});
+handleMongoOpen(app, PORT, HTTP_LOCALHOST);
+handleMongoError();
+handleMongoDisconnected();
+handleMongoReconnected();
