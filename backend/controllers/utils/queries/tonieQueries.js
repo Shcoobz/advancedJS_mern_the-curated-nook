@@ -38,7 +38,7 @@ export function updateTonieFields(tonie, updatedFields) {
 }
 
 export async function saveTonie(tonie) {
-  const savedTonie = await saveTonie(tonie);
+  const savedTonie = await tonie.save();
 
   return savedTonie;
 }

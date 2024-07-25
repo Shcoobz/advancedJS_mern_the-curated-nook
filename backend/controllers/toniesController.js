@@ -1,5 +1,4 @@
 import { ENTITY, FIELD } from '../config/common/messages.js';
-
 import {
   createTonie,
   createTonieObject,
@@ -57,7 +56,7 @@ export async function updateTonie(req, res) {
 
   updateTonieFields(tonie, { name, description, imgUrl });
 
-  const updatedTonie = await tonie.save();
+  const updatedTonie = await saveTonie(tonie);
 
   return sendEntityUpdated(res, ENTITY.TONIE, updatedTonie.name);
 }
