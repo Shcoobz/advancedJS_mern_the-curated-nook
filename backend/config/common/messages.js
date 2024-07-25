@@ -46,6 +46,7 @@ export const ENTITY = {
   USER: 'User',
   BOOK: 'Book',
   TONIE: 'Tonie',
+  LEGO: 'Lego Set',
 };
 
 export const FIELD = {
@@ -53,4 +54,5 @@ export const FIELD = {
   TITLE: 'TITLE',
   ISBN: 'ISBN',
   ID: 'ID',
+  NAME: 'NAME',
 };

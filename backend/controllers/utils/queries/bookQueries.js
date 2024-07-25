@@ -19,7 +19,7 @@ export function createBookObject(book) {
     authors: book.authors || DEFAULT.EMPTY_ARRAY,
     publisher: book.publisher || DEFAULT.EMPTY_STRING,
     publishedDate: book.publishedDate || DEFAULT.EMPTY_STRING,
-    description: book.description || DEFAULT.BOOK.NO_DESCRIPTION,
+    description: book.description || DEFAULT.NO_DESCRIPTION,
     isbn: book.isbn,
     categories: book.categories || DEFAULT.EMPTY_ARRAY,
     thumbnail: book.thumbnail || DEFAULT.EMPTY_STRING,
@@ -69,7 +69,7 @@ export function updateBookFields(book, updatedFields) {
   book.authors = updatedFields.authors || DEFAULT.EMPTY_ARRAY;
   book.publisher = updatedFields.publisher || DEFAULT.EMPTY_STRING;
   book.publishedDate = updatedFields.publishedDate || DEFAULT.EMPTY_STRING;
-  book.description = updatedFields.description || DEFAULT.BOOK.NO_DESCRIPTION;
+  book.description = updatedFields.description || DEFAULT.NO_DESCRIPTION;
   book.isbn = updatedFields.isbn;
   book.categories = updatedFields.categories || DEFAULT.EMPTY_ARRAY;
   book.thumbnail = updatedFields.thumbnail || DEFAULT.EMPTY_STRING;

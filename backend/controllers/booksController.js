@@ -46,11 +46,9 @@ export async function createNewBook(req, res) {
   if (!isbn || !isbn.length) return sendFieldRequired(res, ENTITY.BOOK, FIELD.ISBN);
 
   const duplicate = await findBookByIsbn(isbn);
-
   if (duplicate) return sendDuplicateEntity(res, ENTITY.BOOK);
 
   const bookObject = createBookObject(req.body);
-
   const newBook = await createBookInDatabase(bookObject);
 
   // Todo: implement for all?

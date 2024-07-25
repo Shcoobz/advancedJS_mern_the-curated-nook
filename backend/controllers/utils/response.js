@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '../../config/common/constants.js';
-import { ERROR } from '../../config/common/messages.js';
+import { ERROR, SUCCESS } from '../../config/common/messages.js';
 
 export function sendNotFound(res, entity) {
   return res

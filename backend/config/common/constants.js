@@ -4,8 +4,8 @@ export const DEFAULT = {
   EMPTY_ARRAY: [],
   EMPTY_STRING: '',
   WISHLIST: false,
+  NO_DESCRIPTION: 'Leider keine Beschreibung verfügbar :(',
   BOOK: {
-    NO_DESCRIPTION: 'Leider keine Beschreibung verfügbar :(',
     LANGUAGE: 'de',
   },
 };
