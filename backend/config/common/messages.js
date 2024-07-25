@@ -49,6 +49,7 @@ export const SUCCESS = {
 export const ENTITY = {
   USER: 'User',
   BOOK: 'Book',
+  TONIE: 'Tonie',
 };
 
 export const FIELD = {

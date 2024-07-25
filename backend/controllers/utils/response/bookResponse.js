@@ -1,5 +1,5 @@
-import { HTTP_STATUS } from '../../config/common/constants.js';
-import { ERROR, ENTITY, FIELD, SUCCESS } from '../../config/common/messages.js';
+import { HTTP_STATUS } from '../../../config/common/constants.js';
+import { ERROR, ENTITY, FIELD, SUCCESS } from '../../../config/common/messages.js';
 
 export function sendBooksNotFound(res) {
   return res

@@ -7,4 +7,6 @@ const legoSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('Lego', legoSchema);
+const Lego = mongoose.model('Lego', legoSchema);
+
+export default Lego;

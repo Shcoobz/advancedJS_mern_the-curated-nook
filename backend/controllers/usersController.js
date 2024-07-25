@@ -1,15 +1,15 @@
-import User from '../models/User.js';
+import { ENTITY, FIELD } from '../config/common/messages.js';
 import {
-  sendSpecificFieldsRequired,
-  sendUserAllFieldsRequired,
-  sendUserCreated,
-  sendUserDeleted,
-  sendUserDuplicateUsername,
-  sendUserIdRequired,
-  sendUserInvalidData,
-  sendUserNotFound,
-  sendUserUpdated,
-} from './utils/userResponses.js';
+  sendAllFieldsRequired,
+  sendDuplicateEntity,
+  sendEntityCreated,
+  sendEntityDeleted,
+  sendEntityUpdated,
+  sendFieldRequired,
+  sendInvalidData,
+  sendItems,
+  sendNotFound,
+} from './utils/response.js';
 import {
   createUser,
   createUserObject,
@@ -21,33 +21,32 @@ import {
   hashPassword,
   isUserValid,
   saveUser,
-  sendUsers,
   updateUserFields,
 } from './utils/userQueries.js';
 
 export async function getAllUsers(req, res) {
   const users = await fetchUsersWithoutPasswords();
 
-  if (!users?.length) return sendUserNotFound(res);
+  if (!users?.length) return sendNotFound(res, ENTITY.USER);
 
-  return sendUsers(res, users);
+  return sendItems(res, users);
 }
 
 export async function createNewUser(req, res) {
   const { username, password, roles } = req.body;
-  if (!username || !password) return sendUserAllFieldsRequired(res);
+  if (!username || !password) return sendAllFieldsRequired(res, ENTITY.USER);
 
   const duplicate = await findUserByName(username);
-  if (duplicate) return sendUserDuplicateUsername(res);
+  if (duplicate) return sendDuplicateEntity(res, ENTITY.USER);
 
   const hashedPwd = await hashPassword(password);
   const userObject = createUserObject(username, hashedPwd, roles);
   const newUser = await createUser(userObject);
 
   if (newUser) {
-    return sendUserCreated(res, newUser.username);
+    return sendEntityCreated(res, ENTITY.USER, newUser.username);
   } else {
-    return sendUserInvalidData(res);
+    return sendInvalidData(res, ENTITY.USER);
   }
 }
 
@@ -55,16 +54,16 @@ export async function updateUser(req, res) {
   const { id, username, roles, active, password } = req.body;
 
   if (!isUserValid({ id, username, roles, active }))
-    return sendSpecificFieldsRequired(res);
+    return sendFieldRequired(res, ENTITY.USER, FIELD.PASSWORD);
 
   const user = await findUserById(id);
 
-  if (!user) return sendUserNotFound(res);
+  if (!user) return sendNotFound(res, ENTITY.USER);
 
-  const duplicate = await User.findOne({ username }).lean().exec();
+  const duplicate = await findUserByName(username);
 
   if (duplicate && duplicate?._id.toString() !== id)
-    return sendUserDuplicateUsername(res);
+    return sendDuplicateEntity(res, ENTITY.USER);
 
   updateUserFields(user, { username, roles, active });
 
@@ -72,19 +71,19 @@ export async function updateUser(req, res) {
 
   const updatedUser = await saveUser(user);
 
-  return sendUserUpdated(res, updatedUser.username);
+  return sendEntityUpdated(res, ENTITY.USER, updatedUser.username);
 }
 
 export async function deleteUser(req, res) {
   const { id } = req.body;
-  if (!id) return sendUserIdRequired(res);
+  if (!id) return sendFieldRequired(res, ENTITY.USER, FIELD.ID);
 
   const user = await findUserById(id);
-  if (!user) return sendUserNotFound(res);
+  if (!user) return sendNotFound(res, ENTITY.USER);
 
   const { username, userId } = extractUserDetails(user);
 
   await deleteUserFromDatabase(user);
 
-  return sendUserDeleted(res, username, userId);
+  return sendEntityDeleted(res, ENTITY.USER, username, userId);
 }

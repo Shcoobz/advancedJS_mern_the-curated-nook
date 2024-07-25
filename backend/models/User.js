@@ -4,15 +4,18 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
+    trim: true,
   },
   roles: [
     {
       type: String,
       default: 'User',
+      trim: true,
     },
   ],
   active: {
@@ -21,4 +24,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;

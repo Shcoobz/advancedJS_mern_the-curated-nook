@@ -1,17 +1,14 @@
-import { HTTP_STATUS, INDEX } from '../config/common/constants.js';
-import { ENTITY, ERROR } from '../config/common/messages.js';
-import Book from '../models/Book.js';
+import { INDEX } from '../config/common/constants.js';
 import {
   createBookInDatabase,
   createBookObject,
   deleteBookFromDatabase,
   extractBookDetails,
-  findAllBooksInCollection,
-  findAllBooksOnWishlist,
+  fetchAllBooksInCollection,
+  fetchAllBooksOnWishlist,
   findBookById,
   findBookByIsbn,
   findBooksByIsbnExcludingId,
-  isBookValid,
   saveBook,
   updateBookFields,
 } from './utils/bookQueries.js';
@@ -26,10 +23,10 @@ import {
   sendBookUpdated,
   sendIdRequired,
   sendBookDeleted,
-} from './utils/bookResponse.js';
+} from './utils/response/bookResponse.js';
 
 export async function getAllBooksInCollection(req, res) {
-  const books = await findAllBooksInCollection();
+  const books = await fetchAllBooksInCollection();
 
   if (!books?.length) return sendBooksNotFound(res);
 
@@ -37,7 +34,7 @@ export async function getAllBooksInCollection(req, res) {
 }
 
 export async function getAllBooksOnWishlist(req, res) {
-  const books = await findAllBooksOnWishlist();
+  const books = await fetchAllBooksOnWishlist();
 
   if (!books?.length) return sendBooksNotFound(res);
 

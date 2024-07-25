@@ -1,13 +1,13 @@
 import { DEFAULT } from '../../config/common/constants.js';
 import Book from '../../models/Book.js';
 
-export async function findAllBooksInCollection() {
+export async function fetchAllBooksInCollection() {
   const books = await Book.find({ isOnWishlist: false }).lean();
 
   return books;
 }
 
-export async function findAllBooksOnWishlist() {
+export async function fetchAllBooksOnWishlist() {
   const books = await Book.find({ isOnWishlist: true }).lean();
 
   return books;
