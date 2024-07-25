@@ -1,4 +1,7 @@
-export const DEFAULT_ORIGINS = ['http://localhost:3000'];
+export const DEFAULT = {
+  ORIGINS: ['http://localhost:3000'],
+  HOST: 'http://localhost',
+};
 
 export const REGEX = {
   HOMEPAGE_ROUTE: '^/$|/index(.html)?',
@@ -31,6 +34,8 @@ export const ENDPOINT = {
   ROOT: '/',
   USERS: '/users',
   BOOKS: '/books',
+  LEGO: '/lego',
+  TONIES: '/tonies',
 };
 
 export const CONTENT_TYPE = {

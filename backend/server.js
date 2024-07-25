@@ -11,7 +11,7 @@ import userRoutes from './routes/userRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
 
 import { __dirname } from './config/common/dirname.js';
-import { ENDPOINT, ROUTE } from './config/common/constants.js';
+import { DEFAULT, ENDPOINT, ROUTE } from './config/common/constants.js';
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { handleWildcardRoute } from './routes/handlers.js';
@@ -26,7 +26,7 @@ import {
 
 const app = express();
 const PORT = process.env.PORT || 3500;
-const HTTP_HOST = process.env.HTTP_HOST || 'http://localhost';
+const HTTP_HOST = process.env.HTTP_HOST || DEFAULT.HOST;
 
 connectDB();
 
