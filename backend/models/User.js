@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
       default: 'User',
     },
   ],
+  active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export default mongoose.model('User', userSchema);

@@ -27,6 +27,11 @@ export const ROUTE = {
   },
 };
 
+export const ENDPOINT = {
+  ROOT: '/',
+  USERS: '/users',
+};
+
 export const CONTENT_TYPE = {
   HTML: 'html',
   JSON: 'json',
@@ -60,4 +65,14 @@ export const MONGO_EVENTS = {
   ERROR: 'error',
   DISCONNECTED: 'disconnected',
   RECONNECTED: 'reconnected',
+};
+
+export const ENVIRONMENT = {
+  DEVELOPMENT: 'development',
+  PRODUCTION: 'production',
+};
+
+export const LOCALE_SETTINGS = {
+  DEFAULT_LOCALE: 'de_AT',
+  DEFAULT_STRENGTH: 2,
 };

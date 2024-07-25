@@ -8,3 +8,6 @@ const bookSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Book', bookSchema);
+
+// Todo:
+// * add a isOnWishlist Boolean?

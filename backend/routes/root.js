@@ -6,8 +6,6 @@ import { ROUTE, REGEX, FILE } from '../config/common/constants.js';
 const rootRouter = express.Router();
 
 rootRouter.get(REGEX.HOMEPAGE_ROUTE, (req, res) => {
-  console.log('rootRouter dirname: ', __dirname);
-
   res.sendFile(path.join(__dirname, ROUTE.STATIC.VIEWS, FILE.MAIN_HTML));
 });
 
