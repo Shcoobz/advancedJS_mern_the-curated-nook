@@ -22,7 +22,7 @@ import {
   isUserValid,
   saveUser,
   updateUserFields,
-} from './utils/userQueries.js';
+} from './utils/queries/userQueries.js';
 
 export async function getAllUsers(req, res) {
   const users = await fetchUsersWithoutPasswords();

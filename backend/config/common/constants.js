@@ -18,6 +18,10 @@ export const DELIMITER = {
   COMMA: ',',
 };
 
+export const BCRYPT = {
+  SALT_ROUNDS: 10,
+};
+
 export const FILE = {
   MAIN_HTML: 'index.html',
   ERROR_404: '404.html',

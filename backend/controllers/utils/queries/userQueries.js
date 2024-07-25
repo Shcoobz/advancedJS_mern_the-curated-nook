@@ -1,7 +1,6 @@
-import { LOCALE_SETTINGS } from '../../config/common/constants.js';
-import { BCRYPT } from '../../config/common/messages.js';
+import { BCRYPT } from '../../../config/common/constants.js';
 import bcrypt from 'bcrypt';
-import User from '../../models/User.js';
+import User from '../../../models/User.js';
 
 export async function fetchUsersWithoutPasswords() {
   const users = await User.find().select('-password').lean();
@@ -22,7 +21,6 @@ export async function findUserByName(username) {
 //     .lean()
 //     .exec();
 // }
-
 
 export async function hashPassword(password) {
   return await bcrypt.hash(password, BCRYPT.SALT_ROUNDS);

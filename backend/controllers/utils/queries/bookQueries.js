@@ -1,5 +1,5 @@
-import { DEFAULT } from '../../config/common/constants.js';
-import Book from '../../models/Book.js';
+import { DEFAULT } from '../../../config/common/constants.js';
+import Book from '../../../models/Book.js';
 
 export async function fetchAllBooksInCollection() {
   const books = await Book.find({ isOnWishlist: false }).lean();

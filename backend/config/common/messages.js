@@ -23,10 +23,6 @@ export const SERVER = {
   },
 };
 
-export const BCRYPT = {
-  SALT_ROUNDS: 10,
-};
-
 export const ERROR = {
   NOT_FOUND: (entity) => `No ${entity}(s) found!`,
   ALL_FIELDS_REQUIRED: (entity) => `All fields are required for ${entity}!`,
