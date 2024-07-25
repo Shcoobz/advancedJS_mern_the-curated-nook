@@ -19,6 +19,10 @@ export async function findUserByName(username) {
     .exec();
 }
 
+export function sendUsers(res, users) {
+  return res.json(users);
+}
+
 export async function hashPassword(password) {
   return await bcrypt.hash(password, BCRYPT.SALT_ROUNDS);
 }

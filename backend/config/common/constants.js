@@ -30,6 +30,7 @@ export const ROUTE = {
 export const ENDPOINT = {
   ROOT: '/',
   USERS: '/users',
+  BOOKS: '/books',
 };
 
 export const CONTENT_TYPE = {
@@ -58,6 +59,7 @@ export const HTTP_STATUS = {
 
 export const INDEX = {
   NO_MATCH: -1,
+  EMPTY_ARRAY: 0,
 };
 
 export const MONGO_EVENTS = {

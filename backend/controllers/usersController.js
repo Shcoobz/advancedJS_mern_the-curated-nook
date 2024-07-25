@@ -21,6 +21,7 @@ import {
   hashPassword,
   isUserValid,
   saveUser,
+  sendUsers,
   updateUserFields,
 } from './utils/userQueries.js';
 
@@ -29,7 +30,7 @@ export async function getAllUsers(req, res) {
 
   if (!users?.length) return sendUserNotFound(res);
 
-  res.json(users);
+  return sendUsers(res, users);
 }
 
 export async function createNewUser(req, res) {
@@ -71,7 +72,7 @@ export async function updateUser(req, res) {
 
   const updatedUser = await saveUser(user);
 
-  sendUserUpdated(res, updatedUser.username);
+  return sendUserUpdated(res, updatedUser.username);
 }
 
 export async function deleteUser(req, res) {
@@ -85,5 +86,5 @@ export async function deleteUser(req, res) {
 
   await deleteUserFromDatabase(user);
 
-  sendUserDeleted(res, username, userId);
+  return sendUserDeleted(res, username, userId);
 }

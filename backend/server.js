@@ -4,9 +4,11 @@ import 'express-async-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+
+import connectDB from './config/database/dbConnection.js';
 import rootRoutes from './routes/root.js';
 import userRoutes from './routes/userRoutes.js';
-import connectDB from './config/database/dbConnection.js';
+import bookRoutes from './routes/bookRoutes.js';
 
 import { __dirname } from './config/common/dirname.js';
 import { ENDPOINT, ROUTE } from './config/common/constants.js';
@@ -40,6 +42,7 @@ app.use(ROUTE.ROOT, serveStaticPublicFiles());
 
 app.use(ENDPOINT.ROOT, rootRoutes);
 app.use(ENDPOINT.USERS, userRoutes);
+app.use(ENDPOINT.BOOKS, bookRoutes);
 
 app.all(ROUTE.WILDCARD, handleWildcardRoute);
 

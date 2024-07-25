@@ -23,28 +23,37 @@ export const SERVER = {
   },
 };
 
+export const BCRYPT = {
+  SALT_ROUNDS: 10,
+};
+
 export const ERROR = {
+  NOT_FOUND: (entity) => `No ${entity}(s) found!`,
+  ALL_FIELDS_REQUIRED: (entity) => `All fields are required for ${entity}!`,
+  DUPLICATE: (entity) => `Duplicate ${entity} found!`,
+  INVALID_DATA: (entity) => `Invalid ${entity} data received!`,
+  FIELDS_REQUIRED: (entity, fields) =>
+    `All fields are required for ${entity} except ${fields}!`,
+  ID_REQUIRED: (entity) => `${entity} ID Required!`,
   CORS: {
     NOT_ALLOWED: 'Not allowed by CORS!',
   },
 };
 
-export const USER = {
-  ERROR: {
-    NOT_FOUND: 'No users found!',
-    ALL_FIELDS_REQUIRED: 'All fields are required!',
-    DUPLICATE_USERNAME: 'Duplicate username!',
-    INVALID_DATA: 'Invalid user data received!',
-    FIELDS_REQUIRED: 'All fields except password are required!',
-    ID_REQUIRED: 'User ID Required!',
-  },
-  SUCCESS: {
-    CREATED: (username) => `New user ${username} created!`,
-    UPDATED: (username) => `${username} updated!`,
-    DELETED: (username, userId) => `Username ${username} with ID ${userId} deleted!`,
-  },
+export const SUCCESS = {
+  CREATED: (entity, name) => `${entity} "${name}" created!`,
+  UPDATED: (entity, name) => `${entity} "${name}" updated!`,
+  DELETED: (entity, name, id) => `${entity} "${name}" with ID ${id} deleted!`,
 };
 
-export const BCRYPT = {
-  SALT_ROUNDS: 10,
+export const ENTITY = {
+  USER: 'User',
+  BOOK: 'Book',
+};
+
+export const FIELD = {
+  PASSWORD: 'PASSWORD',
+  TITLE: 'TITLE',
+  ISBN: 'ISBN',
+  ID: 'ID',
 };
