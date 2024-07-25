@@ -11,7 +11,7 @@ export const LINK = {
   login: '/login',
   backstageRoot: '/backstage',
   backstageViewBooks: '/backstage/books',
-  backstageViewUsers: 'backstage/users',
+  backstageViewUsers: '/backstage/users',
 };
 
 export const DATE = {

@@ -1,34 +1,31 @@
 import { Routes, Route } from 'react-router-dom';
-import { PATH } from './config/common/constants';
-
-import Layout from './components/Layout';
-import Public from './components/Public';
-import Login from './features/auth/components/Login';
-import BackstageLayout from './components/backstage/BackstageLayout';
-import Welcome from './features/auth/components/Welcome';
-import BooksList from './features/books/BooksList';
-import UsersList from './features/users/UsersList';
+import Layout from '../src/components/Layout';
+import Public from '../src/components/Public';
+import Login from '../src/features/auth/components/Login';
+import BackstageLayout from '../src/components/backstage/BackstageLayout';
+import Welcome from '../src/features/auth/components/Welcome';
+import NotesList from '../src/features/books/BooksList';
+import UsersList from '../src/features/users/UsersList';
 
 function App() {
   return (
     <Routes>
-      <Route path={PATH.root} element={<Layout />}>
+      <Route path='/' element={<Layout />}>
         <Route index element={<Public />} />
-        <Route path={PATH.login} element={<Login />} />
+        <Route path='login' element={<Login />} />
 
-        {/* protected routes */}
-        <Route path={PATH.backstage} element={<BackstageLayout />}>
+        <Route path='backstage' element={<BackstageLayout />}>
           <Route index element={<Welcome />} />
 
-          <Route path={PATH.books}>
-            <Route index element={<BooksList />} />
+          <Route path='notes'>
+            <Route index element={<NotesList />} />
           </Route>
 
-          <Route path={PATH.users}>
+          <Route path='users'>
             <Route index element={<UsersList />} />
           </Route>
         </Route>
-        {/* end protected routes */}
+        {/* End Backstage */}
       </Route>
     </Routes>
   );

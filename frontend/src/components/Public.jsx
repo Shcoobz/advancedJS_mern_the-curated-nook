@@ -1,29 +1,35 @@
 import { Link } from 'react-router-dom';
-import { UI } from '../config/common/messages';
-import { LINK } from '../config/common/constants';
 
-function Public() {
+const Public = () => {
   const content = (
     <section className='public'>
       <header>
         <h1>
-          {UI.PUBLIC.title} <span className='nowrap'>{UI.PUBLIC.projectName}</span>
+          Welcome to <span className='nowrap'>Dan D. Repairs!</span>
         </h1>
       </header>
       <main className='public__main'>
-        <p>{UI.PUBLIC.paragraph}</p>
+        <p>
+          Located in Beautiful Downtown Foo City, Dan D. Repairs provides a trained staff
+          ready to meet your tech repair needs.
+        </p>
+        <address className='public__addr'>
+          Dan D. Repairs
+          <br />
+          555 Foo Drive
+          <br />
+          Foo City, CA 12345
+          <br />
+          <a href='tel:+15555555555'>(555) 555-5555</a>
+        </address>
         <br />
-        <p>{UI.PUBLIC.paragraph}</p>
-        <br />
-        <p>{UI.PUBLIC.paragraph}</p>
+        <p>Owner: Dan Davidson</p>
       </main>
       <footer>
-        <Link to={LINK.login}>{UI.PUBLIC.login}</Link>
+        <Link to='/login'>Employee Login</Link>
       </footer>
     </section>
   );
-
   return content;
-}
-
+};
 export default Public;

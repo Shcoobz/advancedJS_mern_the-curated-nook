@@ -2,16 +2,15 @@ import { Outlet } from 'react-router-dom';
 import BackstageHeader from './BackstageHeader';
 import BackstageFooter from './BackstageFooter';
 
-function BackstageLayout() {
+const BackstageLayout = () => {
   return (
     <>
       <BackstageHeader />
-      <div className='background-container'>
+      <div className='backstage-container'>
         <Outlet />
       </div>
       <BackstageFooter />
     </>
   );
-}
-
+};
 export default BackstageLayout;
