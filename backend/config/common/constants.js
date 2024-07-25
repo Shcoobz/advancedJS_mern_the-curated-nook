@@ -1,6 +1,13 @@
 export const DEFAULT = {
   ORIGINS: ['http://localhost:3000'],
   HOST: 'http://localhost',
+  EMPTY_ARRAY: [],
+  EMPTY_STRING: '',
+  WISHLIST: false,
+  BOOK: {
+    NO_DESCRIPTION: 'Leider keine Beschreibung verfügbar :(',
+    LANGUAGE: 'de',
+  },
 };
 
 export const REGEX = {

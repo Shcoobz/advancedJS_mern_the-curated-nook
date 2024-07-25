@@ -1,3 +1,4 @@
+import { DEFAULT } from '../../config/common/constants.js';
 import Book from '../../models/Book.js';
 
 export async function findAllBooksInCollection() {
@@ -12,20 +13,19 @@ export async function findAllBooksOnWishlist() {
   return books;
 }
 
-// Todo: make default const
 export function createBookObject(book) {
   return {
     title: book.title,
-    authors: book.authors || [],
-    publisher: book.publisher || '',
-    publishedDate: book.publishedDate || '',
-    description: book.description || 'Leider keine Beschreibung verfügbar :(',
+    authors: book.authors || DEFAULT.EMPTY_ARRAY,
+    publisher: book.publisher || DEFAULT.EMPTY_STRING,
+    publishedDate: book.publishedDate || DEFAULT.EMPTY_STRING,
+    description: book.description || DEFAULT.BOOK.NO_DESCRIPTION,
     isbn: book.isbn,
-    categories: book.categories || [],
-    thumbnail: book.thumbnail || '',
-    imageUrl: book.imageUrl || '',
-    language: book.language || 'de',
-    isOnWishlist: book.isOnWishlist || false,
+    categories: book.categories || DEFAULT.EMPTY_ARRAY,
+    thumbnail: book.thumbnail || DEFAULT.EMPTY_STRING,
+    imageUrl: book.imageUrl || DEFAULT.EMPTY_STRING,
+    language: book.language || DEFAULT.BOOK.LANGUAGE,
+    isOnWishlist: book.isOnWishlist || DEFAULT.WISHLIST,
   };
 }
 
@@ -64,20 +64,18 @@ export async function findBooksByIsbnExcludingId(isbns, excludeId) {
     .exec();
 }
 
-// Todo: add constants for defaults
 export function updateBookFields(book, updatedFields) {
   book.title = updatedFields.title;
-  book.authors = updatedFields.authors || [];
-  book.publisher = updatedFields.publisher || '';
-  book.publishedDate = updatedFields.publishedDate || '';
-  book.description =
-    updatedFields.description || 'Leider keine Beschreibung verfügbar :(';
+  book.authors = updatedFields.authors || DEFAULT.EMPTY_ARRAY;
+  book.publisher = updatedFields.publisher || DEFAULT.EMPTY_STRING;
+  book.publishedDate = updatedFields.publishedDate || DEFAULT.EMPTY_STRING;
+  book.description = updatedFields.description || DEFAULT.BOOK.NO_DESCRIPTION;
   book.isbn = updatedFields.isbn;
-  book.categories = updatedFields.categories || [];
-  book.thumbnail = updatedFields.thumbnail || '';
-  book.imageUrl = updatedFields.imageUrl || '';
-  book.language = updatedFields.language || 'de';
-  book.isOnWishlist = updatedFields.isOnWishlist || false;
+  book.categories = updatedFields.categories || DEFAULT.EMPTY_ARRAY;
+  book.thumbnail = updatedFields.thumbnail || DEFAULT.EMPTY_STRING;
+  book.imageUrl = updatedFields.imageUrl || DEFAULT.EMPTY_STRING;
+  book.language = updatedFields.language || DEFAULT.BOOK.LANGUAGE;
+  book.isOnWishlist = updatedFields.isOnWishlist || DEFAULT.WISHLIST;
 }
 
 export function extractBookDetails(book) {
