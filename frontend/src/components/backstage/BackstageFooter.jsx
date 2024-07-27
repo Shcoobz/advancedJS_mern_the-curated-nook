@@ -1,15 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { LINK } from '../../config/common/constants';
+import { UI } from '../../config/common/messages';
 
 function BackstageFooter() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const onGoHomeClicked = () => navigate('/backstage');
+  function onGoHomeClicked() {
+    return navigate(LINK.bsRoot);
+  }
 
   let goHomeButton = null;
-  if (pathname !== '/backstage') {
+  if (pathname !== LINK.bsRoot) {
     goHomeButton = (
       <button
         className='backstage-footer__button icon-button'
@@ -23,8 +27,8 @@ function BackstageFooter() {
   const content = (
     <footer className='backstage-footer'>
       {goHomeButton}
-      <p>Current User:</p>
-      <p>Status:</p>
+      <p>{UI.BS.currentUser}</p>
+      <p>{UI.BS.status}</p>
     </footer>
   );
 

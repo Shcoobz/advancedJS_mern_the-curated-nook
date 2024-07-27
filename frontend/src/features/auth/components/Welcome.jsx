@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { UI } from '../../../config/common/messages';
+import { LINK } from '../../../config/common/constants';
 
-const Welcome = () => {
+function Welcome() {
   const date = new Date();
   const today = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',
@@ -11,18 +13,26 @@ const Welcome = () => {
     <section className='welcome'>
       <p>{today}</p>
 
-      <h1>Welcome!</h1>
+      <h1>{UI.BS.welcome}</h1>
 
       <p>
-        <Link to='/backstage/notes'>View techNotes</Link>
+        <Link to={LINK.bsViewBooks}>{UI.BS.viewBooks}</Link>
       </p>
 
       <p>
-        <Link to='/backstage/users'>View User Settings</Link>
+        <Link to={LINK.bsViewUsers}>{UI.BS.viewUsers}</Link>
+      </p>
+
+      <p>
+        <Link to={LINK.bsViewTonies}>{UI.BS.viewTonies}</Link>
+      </p>
+
+      <p>
+        <Link to={LINK.bsViewLego}>{UI.BS.viewLego}</Link>
       </p>
     </section>
   );
 
   return content;
-};
+}
 export default Welcome;

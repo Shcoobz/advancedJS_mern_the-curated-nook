@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import BackstageHeader from './BackstageHeader';
 import BackstageFooter from './BackstageFooter';
 
-const BackstageLayout = () => {
+function BackstageLayout() {
   return (
     <>
       <BackstageHeader />
@@ -12,5 +12,6 @@ const BackstageLayout = () => {
       <BackstageFooter />
     </>
   );
-};
+}
+
 export default BackstageLayout;

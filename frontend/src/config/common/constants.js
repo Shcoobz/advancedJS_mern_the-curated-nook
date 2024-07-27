@@ -5,13 +5,17 @@ export const PATH = {
   backstage: 'backstage',
   books: 'books',
   users: 'users',
+  tonies: 'tonies',
+  lego: 'lego',
 };
 
 export const LINK = {
   login: '/login',
-  backstageRoot: '/backstage',
-  backstageViewBooks: '/backstage/books',
-  backstageViewUsers: '/backstage/users',
+  bsRoot: '/backstage',
+  bsViewBooks: '/backstage/books',
+  bsViewUsers: '/backstage/users',
+  bsViewTonies: '/backstage/tonies',
+  bsViewLego: '/backstage/lego',
 };
 
 export const DATE = {
