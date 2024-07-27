@@ -234,24 +234,41 @@ tr {
   background-color: var(--INACTIVE);
 }
 
-/* ||  BOOK */
+/* || TABS */
 
-.book__created,
-.book__updated,
-.book__username {
-  display: none;
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -15px !important;
+  position: relative;
+  top: 1px;
+  margin-left: 11px;
 }
 
-.book__status {
-  font-weight: bold;
+.tabs__tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #7e7575;
+  margin-right: 9px;
+  text-decoration: none;
+  color: black !important;
+  border-radius: 8px 8px 0 0;
+  top: 1px;
 }
 
-.book__status--open {
-  color: var(--STATUS-OPEN);
+.tabs__tab--active {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  color: black;
+  position: relative;
+  top: 1px;
+  z-index: 1;
 }
 
-.book__status--completed {
-  color: var(--STATUS-COMPLETE);
+.tabs__tab:hover {
+  background-color: #ddd;
+  color: black;
 }
 
 /* || FORM - GENERAL */
@@ -330,6 +347,10 @@ tr {
 }
 
 @media screen and (max-width: 400px) {
+  .tabs {
+    margin-left: 9px;
+  }
+
   h1 {
     font-size: 2rem;
   }

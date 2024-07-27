@@ -1,11 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import BackstageHeader from './BackstageHeader';
 import BackstageFooter from './BackstageFooter';
+import Tabs from '../../features/tabs/Tabs';
 
 function BackstageLayout() {
+  const location = useLocation();
+  const showTabs =
+    location.pathname.includes('/backstage/users') ||
+    location.pathname.includes('/backstage/books') ||
+    location.pathname.includes('/backstage/tonies');
+
   return (
     <>
       <BackstageHeader />
+      {showTabs && <Tabs />}
       <div className='backstage-container'>
         <Outlet />
       </div>
