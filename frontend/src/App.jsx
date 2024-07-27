@@ -6,7 +6,7 @@ import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
 import BooksList from './features/inventory/books/BooksList/BooksList';
 import UsersList from './features/users/components/UsersList/UsersList';
-import ToniesList from './features/inventory/tonies/ToniesList';
+import ToniesList from './features/inventory/tonies/ToniesList/ToniesList';
 import LegoList from './features/inventory/lego/LegoList';
 import { PATH } from './config/common/constants';
 

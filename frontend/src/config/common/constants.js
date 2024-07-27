@@ -43,6 +43,12 @@ export const LINK = {
   BOOK: {
     books: '/books',
   },
+  TONIE: {
+    tonies: '/tonies',
+  },
+  LEGO: {
+    lego: '/lego',
+  },
 };
 
 export const DATE = {
@@ -98,6 +104,14 @@ export const TAG_TYPE = {
   },
   BOOK: {
     type: 'Book',
+    id: 'LIST',
+  },
+  TONIE: {
+    type: 'Tonie',
+    id: 'LIST',
+  },
+  LEGO: {
+    type: 'Lego',
     id: 'LIST',
   },
 };
