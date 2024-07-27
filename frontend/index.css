@@ -22,6 +22,7 @@
   --STATUS-OPEN: firebrick;
   --TABLE-BGCOLOR: #fff;
   --TABLE-COLOR: #000;
+  --INPUT-INVALID: #f00;
 }
 
 /* || UTILITY CLASSES */
@@ -64,7 +65,7 @@ body {
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
-  background-image: url('./img/background.jpg');
+  background-image: url('./img/bookshelf.jpg');
   background-size: cover;
   background-position: top right;
   background-blend-mode: multiply;
@@ -144,6 +145,10 @@ a:focus-visible {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+}
+
+.backstage-header__container--small {
+  max-width: 800px;
 }
 
 .backstage-header__nav {
@@ -284,8 +289,8 @@ tr {
 }
 
 .form__input--incomplete {
-  border: 1px solid red;
-  outline: 1px solid red;
+  border: 1px solid var(--INPUT-INVALID);
+  outline: 1px solid var(--INPUT-INVALID);
 }
 
 .form__checkbox {
@@ -324,7 +329,7 @@ tr {
     font-size: 2rem;
   }
 
-  .backstage-header__nav {
+  .backstage -header__nav {
     gap: 0;
   }
 
@@ -338,11 +343,11 @@ tr {
     font-size: 1.25rem;
   }
 
-  .backstage-header {
+  .backstage -header {
     padding: 0 1em;
   }
 
-  .backstage-container {
+  .backstage -container {
     padding: 1em;
   }
 
