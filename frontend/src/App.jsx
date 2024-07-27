@@ -4,10 +4,10 @@ import Public from '../src/components/Public';
 import Login from '../src/features/auth/components/Login';
 import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
-import BooksList from '../src/features/books/BooksList';
+import BooksList from './features/inventory/books/BooksList';
 import UsersList from '../src/features/users/UsersList';
-import ToniesList from './features/tonies/ToniesList';
-import LegoList from './features/lego/LegoList';
+import ToniesList from './features/inventory/tonies/ToniesList';
+import LegoList from './features/inventory/lego/LegoList';
 import { PATH } from './config/common/constants';
 
 function App() {

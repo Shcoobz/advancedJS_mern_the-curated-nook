@@ -16,11 +16,11 @@ function Welcome() {
       <h1>{UI.BS.welcome}</h1>
 
       <p>
-        <Link to={LINK.bsViewBooks}>{UI.BS.viewBooks}</Link>
+        <Link to={LINK.bsViewUsers}>{UI.BS.viewUsers}</Link>
       </p>
 
       <p>
-        <Link to={LINK.bsViewUsers}>{UI.BS.viewUsers}</Link>
+        <Link to={LINK.bsViewBooks}>{UI.BS.viewBooks}</Link>
       </p>
 
       <p>
