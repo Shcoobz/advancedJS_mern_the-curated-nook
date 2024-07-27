@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 function Tabs() {
-  const [activeTab, setActiveTab] = useState('books');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
-  function handleTabClick(tab) {
-    setActiveTab(tab);
-  }
+  useEffect(() => {
+    setActiveTab(location.pathname);
+  }, [location.pathname]);
 
   return (
     <div className='tabs-wrapper'>
@@ -16,7 +17,7 @@ function Tabs() {
             activeTab === '/backstage/users' ? 'tabs__tab--active' : ''
           }`}
           to='/backstage/users'
-          onClick={() => handleTabClick('/backstage/users')}>
+          onClick={() => setActiveTab('/backstage/users')}>
           Users
         </Link>
         <Link
@@ -24,7 +25,7 @@ function Tabs() {
             activeTab === '/backstage/books' ? 'tabs__tab--active' : ''
           }`}
           to='/backstage/books'
-          onClick={() => handleTabClick('/backstage/books')}>
+          onClick={() => setActiveTab('/backstage/books')}>
           Books
         </Link>
         <Link
@@ -32,7 +33,7 @@ function Tabs() {
             activeTab === '/backstage/tonies' ? 'tabs__tab--active' : ''
           }`}
           to='/backstage/tonies'
-          onClick={() => handleTabClick('/backstage/tonies')}>
+          onClick={() => setActiveTab('/backstage/tonies')}>
           Tonies
         </Link>
       </div>
