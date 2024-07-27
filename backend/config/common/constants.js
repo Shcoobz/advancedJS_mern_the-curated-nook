@@ -1,5 +1,5 @@
 export const DEFAULT = {
-  ORIGINS: ['http://localhost:3000'],
+  ORIGINS: ['http://localhost:5173'],
   HOST: 'http://localhost',
   EMPTY_ARRAY: [],
   EMPTY_STRING: '',

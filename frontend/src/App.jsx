@@ -5,7 +5,7 @@ import Login from '../src/features/auth/components/Login';
 import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
 import BooksList from './features/inventory/books/BooksList';
-import UsersList from '../src/features/users/UsersList';
+import UsersList from './features/users/components/UsersList/UsersList';
 import ToniesList from './features/inventory/tonies/ToniesList';
 import LegoList from './features/inventory/lego/LegoList';
 import { PATH } from './config/common/constants';

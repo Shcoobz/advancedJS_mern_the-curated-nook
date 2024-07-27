@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createApi } from '@reduxjs/toolkit/query';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { API, HTTP_STATUS, LINK, TAG_TYPE } from '../../config/common/constants';
 import { getToken, prepareRequestHeaders, refreshToken } from './apiSliceUtils';
 

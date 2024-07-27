@@ -7,6 +7,10 @@ export const API = {
   AUTH: {
     sliceName: 'auth',
   },
+  CACHE_KEY: {
+    usersList: 'usersList',
+    booksList: 'booksList',
+  },
 };
 
 export const PATH = {
@@ -52,7 +56,7 @@ export const REPLACEMENT = {
   emptyString: '',
   emptyArray: [],
   singleSpace: ' ',
-  noteTicket: '${note.ticket}',
+  bookTicket: '${book.ticket}',
   comma: ',',
   commaSpace: ', ',
 };
@@ -92,5 +96,15 @@ export const TAG_TYPE = {
   BOOK: {
     type: 'Book',
     id: 'LIST',
+  },
+};
+
+export const TABLE = {
+  TITLE: {
+    USER: {
+      name: 'Username',
+      roles: 'Roles',
+      action: 'Edit',
+    },
   },
 };

@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { UI } from '../../../config/common/messages';
-import { LINK } from '../../../config/common/constants';
+import { DATE, LINK } from '../../../config/common/constants';
 
 function Welcome() {
   const date = new Date();
-  const today = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'full',
-    timeStyle: 'long',
-  }).format(date);
+  const formatter = new Intl.DateTimeFormat(DATE.locale, {
+    dateStyle: DATE.dateStyle,
+    timeStyle: DATE.timeStyle,
+  });
+
+  let formattedDateTime = formatter.format(date);
+  let today = formattedDateTime.replace(' um ', ' || Uhrzeit: ').replace('MESZ', '');
 
   const content = (
     <section className='welcome'>
