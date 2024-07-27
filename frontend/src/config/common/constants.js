@@ -89,4 +89,8 @@ export const TAG_TYPE = {
     type: 'User',
     id: 'LIST',
   },
+  BOOK: {
+    type: 'Book',
+    id: 'LIST',
+  },
 };

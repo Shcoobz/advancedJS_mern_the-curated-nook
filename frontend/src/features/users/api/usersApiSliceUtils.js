@@ -7,6 +7,8 @@ import {
   HTTP_METHOD,
 } from '../../../config/common/constants';
 
+// Todo: make more generic, to use for all
+
 export const usersAdapter = createEntityAdapter({});
 
 function validateUserResponseStatus(response, result) {
