@@ -23,6 +23,7 @@
   --TABLE-BGCOLOR: #fff;
   --TABLE-COLOR: #000;
   --INPUT-INVALID: #f00;
+  --SPINNER-COLOR: #fff;
 }
 
 /* || UTILITY CLASSES */
@@ -56,6 +57,10 @@
 
 .icon-button[disabled] {
   visibility: hidden;
+}
+
+.spinner-container {
+  color: var(--SPINNER-COLOR);
 }
 
 /* || GENERAL STYLES */
