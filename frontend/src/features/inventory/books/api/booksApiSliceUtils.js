@@ -5,7 +5,7 @@ import {
   HTTP_STATUS,
   TAG_TYPE,
   HTTP_METHOD,
-} from '../../../config/common/constants';
+} from '../../../../config/common/constants';
 
 export const booksAdapter = createEntityAdapter({});
 

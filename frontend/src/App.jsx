@@ -4,7 +4,7 @@ import Public from '../src/components/Public';
 import Login from '../src/features/auth/components/Login';
 import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
-import BooksList from './features/inventory/books/BooksList';
+import BooksList from './features/inventory/books/BooksList/BooksList';
 import UsersList from './features/users/components/UsersList/UsersList';
 import ToniesList from './features/inventory/tonies/ToniesList';
 import LegoList from './features/inventory/lego/LegoList';
@@ -20,12 +20,12 @@ function App() {
         <Route path={PATH.backstage} element={<BackstageLayout />}>
           <Route index element={<Welcome />} />
 
-          <Route path={PATH.books}>
-            <Route index element={<BooksList />} />
-          </Route>
-
           <Route path={PATH.users}>
             <Route index element={<UsersList />} />
+          </Route>
+
+          <Route path={PATH.books}>
+            <Route index element={<BooksList />} />
           </Route>
 
           <Route path={PATH.tonies}>

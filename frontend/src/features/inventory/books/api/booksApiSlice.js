@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { apiSlice } from '../../../app/api/apiSlice';
+import { apiSlice } from '../../../../app/api/apiSlice';
 import {
   addNewBookQuery,
   booksAdapter,

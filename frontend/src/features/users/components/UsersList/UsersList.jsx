@@ -10,7 +10,7 @@ function UsersList() {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery(API.CACHE_KEY.usersList, {
+  } = useGetUsersQuery(undefined, {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

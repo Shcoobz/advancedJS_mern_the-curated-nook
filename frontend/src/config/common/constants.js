@@ -40,6 +40,9 @@ export const LINK = {
   USER: {
     users: '/users',
   },
+  BOOK: {
+    books: '/books',
+  },
 };
 
 export const DATE = {
@@ -52,7 +55,7 @@ export const REGEX = {
   removePeriodSpace: /\.\s/g,
 };
 
-export const REPLACEMENT = {
+export const DEFAULT = {
   emptyString: '',
   emptyArray: [],
   singleSpace: ' ',
