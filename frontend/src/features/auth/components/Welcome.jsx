@@ -19,19 +19,19 @@ function Welcome() {
       <h1>{UI.BS.welcome}</h1>
 
       <p>
-        <Link to={LINK.bsViewUsers}>{UI.BS.viewUsers}</Link>
+        <Link to={LINK.USER.viewUsers}>{UI.BS.viewUsers}</Link>
       </p>
 
       <p>
-        <Link to={LINK.bsViewBooks}>{UI.BS.viewBooks}</Link>
+        <Link to={LINK.BOOK.viewBooks}>{UI.BS.viewBooks}</Link>
       </p>
 
       <p>
-        <Link to={LINK.bsViewTonies}>{UI.BS.viewTonies}</Link>
+        <Link to={LINK.TONIE.viewTonies}>{UI.BS.viewTonies}</Link>
       </p>
 
       <p>
-        <Link to={LINK.bsViewLego}>{UI.BS.viewLego}</Link>
+        <Link to={LINK.LEGO.viewLego}>{UI.BS.viewLego}</Link>
       </p>
     </section>
   );

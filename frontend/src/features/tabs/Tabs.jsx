@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { LINK } from '../../config/common/constants';
 
 const tabs = [
-  { name: 'Users', path: '/backstage/users' },
-  { name: 'Books', path: '/backstage/books' },
-  { name: 'Tonies', path: '/backstage/tonies' },
+  { name: 'Users', path: LINK.USER.viewUsers },
+  { name: 'Books', path: LINK.BOOK.viewBooks },
+  { name: 'Tonies', path: LINK.TONIE.viewTonies },
+  { name: 'Lego', path: LINK.LEGO.viewLego },
 ];
 
 export default function Tabs({ currentPath, children }) {

@@ -28,10 +28,6 @@ export const LINK = {
   login: '/login',
   bsRoot: '/backstage',
   placeholder: '/placeholder',
-  bsViewBooks: '/backstage/books',
-  bsViewUsers: '/backstage/users',
-  bsViewTonies: '/backstage/tonies',
-  bsViewLego: '/backstage/lego',
   AUTH: {
     baseUrl: '/auth',
     refresh: '/auth/refresh',
@@ -39,15 +35,19 @@ export const LINK = {
   },
   USER: {
     users: '/users',
+    viewUsers: '/backstage/users',
   },
   BOOK: {
     books: '/books',
+    viewBooks: '/backstage/books',
   },
   TONIE: {
     tonies: '/tonies',
+    viewTonies: '/backstage/tonies',
   },
   LEGO: {
     lego: '/lego',
+    viewLego: '/backstage/lego',
   },
 };
 
