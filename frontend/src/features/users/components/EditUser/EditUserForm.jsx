@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ROLE } from '../../../../config/common/constants';
-import { UI } from '../../../../config/common/messages';
+import { TOAST, UI } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
 import {
   canSaveExistingUserForm,
@@ -23,8 +23,10 @@ import {
   useValidatePassword,
   useValidateUsername,
 } from '../utils';
+import Modal from '../../../../components/common/Modal';
+import { toast } from 'react-toastify';
 
-function EditUserForm({ user }) {
+function EditUserForm({ user, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateUser, { isLoading, isSuccess, isError, error }] = useUpdateUserMutation();
@@ -57,36 +59,44 @@ function EditUserForm({ user }) {
   useValidatePassword(password, setValidPassword);
   useHandleSuccess(isSuccess, isDelSuccess, navigate, setUsername, setPassword, setRoles);
 
-  const content = (
-    <>
-      <p className={errClass}>{errContent}</p>
+  async function handleSave(e) {
+    e.preventDefault();
 
-      <form className='form' onSubmit={(e) => e.preventDefault()}>
-        <div className='form__title-row'>
-          <h2>{UI.BS.PAGE.USER.TABLE.titleEdit}</h2>
-          <div className='form__action-buttons'>
-            <button
-              className='icon-button'
-              title='Save'
-              onClick={handleSaveExistingUser(
-                updateUser,
-                user.id,
-                username,
-                password,
-                roles,
-                active
-              )}
-              disabled={!canSave}>
-              <FontAwesomeIcon icon={faSave} />
-            </button>
-            <button
-              className='icon-button'
-              title='Delete'
-              onClick={handleDeleteUser(deleteUser, user.id)}>
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-          </div>
+    await handleSaveExistingUser(updateUser, user.id, username, password, roles, active);
+
+    onClose();
+
+    toast.success(TOAST.USER.updated, { autoClose: 1000 });
+  }
+
+  async function handleDelete() {
+    await handleDeleteUser(deleteUser, user.id);
+
+    onClose();
+
+    toast.success(TOAST.USER.deleted, { autoClose: 1000 });
+  }
+
+  const modalContent = (
+    <>
+      <div className='backstage-header__container'>
+        <h2>Edit User</h2>
+        <div className='backstage-header__action-buttons'>
+          <button
+            className='icon-button'
+            title='Save'
+            onClick={handleSave}
+            disabled={!canSave}>
+            <FontAwesomeIcon icon={faSave} />
+          </button>
+          <button className='icon-button' title='Delete' onClick={handleDelete}>
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
         </div>
+      </div>
+      <form className='form' onSubmit={handleSave}>
+        <p className={errClass}>{errContent}</p>
+
         <label className='form__label' htmlFor='username'>
           {UI.BS.PAGE.USER.TABLE.username}{' '}
           <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>
@@ -140,11 +150,18 @@ function EditUserForm({ user }) {
           onChange={handleRolesChange(setRoles)}>
           {options}
         </select>
+        <button type='submit' className='submit-button' disabled={!canSave}></button>
       </form>
     </>
   );
 
-  return content;
+  const modal = (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      {modalContent}
+    </Modal>
+  );
+
+  return modal;
 }
 
 export default EditUserForm;

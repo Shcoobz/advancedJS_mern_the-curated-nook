@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import '../index.css';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Routes>
           <Route path='/*' element={<App />} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

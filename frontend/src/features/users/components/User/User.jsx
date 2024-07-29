@@ -19,12 +19,16 @@ function getCellStatus(userActive) {
   return userActive ? DEFAULT.emptyString : 'table__cell--inactive';
 }
 
-function User({ userId }) {
-  const navigate = useNavigate();
+function User({ userId, onEdit }) {
+  // const navigate = useNavigate();
   const user = useSelector((state) => selectUserById(state, userId));
 
+  function handleEdit() {
+    onEdit(user);
+  }
+
   if (user) {
-    const handleEdit = createHandleEdit(navigate, userId);
+    // const handleEdit = createHandleEdit(navigate, userId);
     const userRolesString = formatRoles(user.roles);
     const cellStatus = getCellStatus(user.active);
 

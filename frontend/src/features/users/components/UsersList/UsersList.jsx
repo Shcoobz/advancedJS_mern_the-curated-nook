@@ -1,8 +1,10 @@
-import { API, TABLE } from '../../../../config/common/constants';
+import { TABLE } from '../../../../config/common/constants';
 import Spinner from '../../../../components/common/Spinner';
 import User from '../User/User';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
 import { UI } from '../../../../config/common/messages';
+import { useState } from 'react';
+import EditUserForm from '../EditUser/EditUserForm';
 
 function UsersList() {
   const {
@@ -16,8 +18,20 @@ function UsersList() {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   let content;
+
+  function openModal(user) {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  }
 
   if (isLoading) return <Spinner />;
 
@@ -29,7 +43,7 @@ function UsersList() {
     const { ids } = users;
 
     const tableContent = ids?.length
-      ? ids.map((userId) => <User key={userId} userId={userId} />)
+      ? ids.map((userId) => <User key={userId} userId={userId} onEdit={openModal} />)
       : null;
 
     content = (
@@ -52,6 +66,9 @@ function UsersList() {
           </thead>
           <tbody>{tableContent}</tbody>
         </table>
+        {selectedUser && (
+          <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />
+        )}
       </div>
     );
   }

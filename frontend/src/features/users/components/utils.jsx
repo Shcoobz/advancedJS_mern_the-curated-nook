@@ -70,7 +70,7 @@ export function handleSaveNewUser(addNewUser, canSave, username, password, roles
   };
 }
 
-export function handleSaveExistingUser(
+export async function handleSaveExistingUser(
   updateUser,
   userId,
   username,
@@ -78,28 +78,22 @@ export function handleSaveExistingUser(
   roles,
   active
 ) {
-  return async function (e) {
-    e.preventDefault();
-
-    const payload = {
-      id: userId,
-      username: username,
-      roles: roles,
-      active: active,
-    };
-
-    if (password) {
-      payload.password = password;
-    }
-
-    await updateUser(payload);
+  const payload = {
+    id: userId,
+    username: username,
+    roles: roles,
+    active: active,
   };
+
+  if (password) {
+    payload.password = password;
+  }
+
+  await updateUser(payload);
 }
 
-export function handleDeleteUser(deleteUser, userId) {
-  return async function () {
-    await deleteUser({ id: userId });
-  };
+export async function handleDeleteUser(deleteUser, userId) {
+  await deleteUser({ id: userId });
 }
 
 export function canSaveNewUserForm(rolesCount, validUsername, validPassword, isLoading) {

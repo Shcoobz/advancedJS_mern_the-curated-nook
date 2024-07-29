@@ -76,3 +76,10 @@ export const ERROR = {
     loginExpired: 'Your login has expired!',
   },
 };
+
+export const TOAST = {
+  USER: {
+    updated: 'User updated!',
+    deleted: 'User deleted!',
+  },
+};
