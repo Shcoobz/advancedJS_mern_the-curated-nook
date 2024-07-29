@@ -5,6 +5,7 @@ import { useGetUsersQuery } from '../../api/usersApiSlice';
 import { UI } from '../../../../config/common/messages';
 import { useState } from 'react';
 import EditUserForm from '../EditUser/EditUserForm';
+import NewUserForm from '../NewUser/NewUserForm';
 
 function UsersList() {
   const {
@@ -48,6 +49,12 @@ function UsersList() {
 
     content = (
       <div>
+        <br />
+        <button onClick={() => openModal()} className='button'>
+          Create New User
+        </button>
+        <br />
+
         <p className='table-description'>{UI.BS.PAGE.USER.list.paragraph}</p>
         <br />
         <table className='table table--users'>
@@ -66,9 +73,15 @@ function UsersList() {
           </thead>
           <tbody>{tableContent}</tbody>
         </table>
-        {selectedUser && (
+        {/* {selectedUser && (
           <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />
-        )}
+        )} */}
+        {isModalOpen &&
+          (selectedUser ? (
+            <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />
+          ) : (
+            <NewUserForm isOpen={isModalOpen} onClose={closeModal} />
+          ))}
       </div>
     );
   }

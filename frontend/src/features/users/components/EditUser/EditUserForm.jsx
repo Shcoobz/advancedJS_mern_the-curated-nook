@@ -88,9 +88,9 @@ function EditUserForm({ user, isOpen, onClose }) {
 
   const modalContent = (
     <>
-      <div className='backstage-header__container'>
+      <div className='form-header__container'>
         <h2>Edit User</h2>
-        <div className='backstage-header__action-buttons'>
+        <div className='form-header__action-buttons'>
           <button
             className='icon-button'
             title='Save'
@@ -105,7 +105,7 @@ function EditUserForm({ user, isOpen, onClose }) {
       </div>
       <form className='form' onSubmit={handleSave}>
         <label className='form__label' htmlFor='username'>
-          {UI.BS.PAGE.USER.TABLE.username}{' '}
+          {UI.BS.PAGE.USER.TABLE.username}
           <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>
         </label>
         <input

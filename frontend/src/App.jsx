@@ -6,8 +6,8 @@ import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
 
 import UsersList from './features/users/components/UsersList/UsersList';
-
 import EditUser from './features/users/components/EditUser/EditUser';
+import NewUserForm from './features/users/components/NewUser/NewUserForm';
 
 import BooksList from './features/inventory/books/components/BooksList/BooksList';
 import NewBook from './features/inventory/books/components/NewBook/NewBookForm';
@@ -30,7 +30,7 @@ function App() {
 
           <Route path={PATH.users}>
             <Route index element={<UsersList />} />
-            {/* <Route path='new' element={<NewUserFormModal />} /> */}
+            <Route path='new' element={<NewUserForm />} />
             <Route path=':id' element={<EditUser />} />
           </Route>
 

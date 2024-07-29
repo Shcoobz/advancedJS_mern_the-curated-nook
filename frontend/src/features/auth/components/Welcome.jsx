@@ -39,6 +39,10 @@ function Welcome() {
       </p>
 
       <p>
+        <Link to={'/backstage/users/new'}>Add new User</Link>
+      </p>
+
+      <p>
         <Link to={LINK.BOOK.viewBooks}>{UI.BS.PAGE.WELCOME.viewBooks}</Link>
       </p>
 

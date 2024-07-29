@@ -270,14 +270,14 @@ tr {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.modal__content .backstage-header__container {
+.modal__content .form-header__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: black;
 }
 
-.modal__content .backstage-header__action-buttons {
+.modal__content .form-header__action-buttons {
   display: flex;
   gap: 10px;
 }

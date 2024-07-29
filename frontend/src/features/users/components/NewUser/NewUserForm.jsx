@@ -4,11 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { useAddNewUserMutation } from '../../api/usersApiSlice';
 import { DEFAULT, ROLE } from '../../../../config/common/constants';
-import { UI } from '../../../../config/common/messages';
+import { TOAST, UI } from '../../../../config/common/messages';
 import {
   canSaveNewUserForm,
   generateOptionsFromRoles,
-  getErrorMessageClass,
   getPasswordInputClass,
   getRolesInputClass,
   getUsernameInputClass,
@@ -20,17 +19,19 @@ import {
   useValidatePassword,
   useValidateUsername,
 } from '../utils';
+import { toast } from 'react-toastify';
+import Modal from '../../../../components/common/Modal';
 
-function NewUserForm() {
+function NewUserForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
-  const [addNewUser, { isLoading, isSuccess, isError, error }] = useAddNewUserMutation();
+  const [addNewUser, { isLoading, isSuccess }] = useAddNewUserMutation();
 
   const [username, setUsername] = useState(DEFAULT.emptyString);
   const [validUsername, setValidUsername] = useState(false);
-  const [password, setPassword] = useState(DEFAULT.emptyString);
+  const [password, setPassword] = useState('');
   const [validPassword, setValidPassword] = useState(false);
-  const [roles, setRoles] = useState([ROLE.user]);
+  const [roles, setRoles] = useState(['User']);
 
   const canSave = canSaveNewUserForm(
     roles.length,
@@ -40,32 +41,46 @@ function NewUserForm() {
   );
   const options = generateOptionsFromRoles(ROLE);
 
-  const errClass = getErrorMessageClass(isError);
   const validUserClass = getUsernameInputClass(validUsername);
   const validPwdClass = getPasswordInputClass(validPassword);
   const validRolesClass = getRolesInputClass(roles.length);
 
   useValidateUsername(username, setValidUsername);
   useValidatePassword(password, setValidPassword);
-  useHandleSuccess(isSuccess, navigate, setUsername, setPassword, setRoles);
+  useHandleSuccess(isSuccess, undefined, navigate, setUsername, setPassword, setRoles);
 
-  const content = (
+  async function handleSave(e) {
+    e.preventDefault();
+
+    console.log('handleSave is called');
+
+    const result = await handleSaveNewUser(addNewUser, username, password, roles);
+
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.USER.created);
+    }
+  }
+
+  const modalContent = (
     <>
-      <p className={errClass}>{error?.data?.message}</p>
-      <form
-        className='form'
-        onSubmit={handleSaveNewUser(addNewUser, canSave, username, password, roles)}>
-        <div className='form__title-row'>
-          <h2>{UI.BS.PAGE.USER.TABLE.titleNew}</h2>
-          <div className='form__action-buttons'>
-            <button className='icon-button' title='Save' disabled={!canSave}>
-              <FontAwesomeIcon icon={faSave} />
-            </button>
-          </div>
+      <div className='form-header__container'>
+        <h2>Create User</h2>
+        <div className='form-header__action-buttons'>
+          <button
+            className='icon-button'
+            title='Save'
+            onClick={handleSave}
+            disabled={!canSave}>
+            <FontAwesomeIcon icon={faSave} />
+          </button>
         </div>
-
+      </div>
+      <form className='form' onSubmit={handleSave}>
         <label className='form__label' htmlFor='username'>
-          {UI.BS.PAGE.USER.TABLE.username}{' '}
+          {UI.BS.PAGE.USER.TABLE.username}
           <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>
         </label>
         <input
@@ -104,11 +119,18 @@ function NewUserForm() {
           onChange={handleRolesChange(setRoles)}>
           {options}
         </select>
+        <button type='submit' className='submit-button' disabled={!canSave}></button>
       </form>
     </>
   );
 
-  return content;
+  const modal = (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      {modalContent}
+    </Modal>
+  );
+
+  return modal;
 }
 
 export default NewUserForm;

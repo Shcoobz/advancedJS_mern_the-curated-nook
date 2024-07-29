@@ -25,7 +25,7 @@ export function useHandleSuccess(
     if (isSuccess || isDelSuccess) {
       setUsername(DEFAULT.emptyString);
       setPassword(DEFAULT.emptyString);
-      setRoles(DEFAULT.emptyArray);
+      setRoles([]);
       navigate(LINK.USER.viewUsers);
     }
   }, [isSuccess, isDelSuccess, navigate, setUsername, setPassword, setRoles]);
@@ -42,6 +42,16 @@ export function handlePasswordChange(setPassword) {
     setPassword(e.target.value);
   };
 }
+
+// export function handleRolesChangeNewUser(setNewUserRoles) {
+//   return function (e) {
+//     const values = Array.from(
+//       e.target.selectedOptions, // HTMLCollection
+//       (option) => option.value
+//     );
+//     setNewUserRoles(values);
+//   };
+// }
 
 export function handleRolesChange(setRoles) {
   return function (e) {
@@ -60,20 +70,14 @@ export function handleToggleActive(setActive) {
   };
 }
 
-export function handleSaveNewUser(addNewUser, canSave, username, password, roles) {
-  return async function (e) {
-    e.preventDefault();
+export async function handleSaveNewUser(addNewUser, username, password, roles) {
+  const response = await addNewUser({ username, password, roles });
 
-    if (canSave) {
-      const response = await addNewUser({ username, password, roles });
+  if (response.error || response.status >= 400) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
 
-      if (response.error || response.status >= 400) {
-        return { success: false, errorMessage: getErrorContent(response.error) };
-      }
-
-      return { success: true };
-    }
-  };
+  return { success: true };
 }
 
 export async function handleSaveExistingUser(

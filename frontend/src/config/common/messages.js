@@ -80,6 +80,7 @@ export const ERROR = {
 export const TOAST = {
   SUCCESS: {
     USER: {
+      created: 'User created!',
       updated: 'User updated!',
       deleted: 'User deleted!',
     },
