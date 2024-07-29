@@ -14,6 +14,10 @@ const tonieSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  isOnWishlist: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Tonie = mongoose.model('Tonie', tonieSchema);

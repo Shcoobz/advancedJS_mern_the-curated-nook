@@ -4,7 +4,7 @@ import {
   createTonieObject,
   deleteTonieFromDatabase,
   extractTonieDetails,
-  fetchAllTonies,
+  fetchAllToniesInCollection,
   findTonieById,
   findTonieByName,
   saveTonie,
@@ -20,8 +20,8 @@ import {
   sendNotFound,
 } from './utils/response.js';
 
-export async function getAllTonies(req, res) {
-  const tonies = await fetchAllTonies();
+export async function getAllToniesInCollection(req, res) {
+  const tonies = await fetchAllToniesInCollection();
 
   if (!tonies?.length) {
     return sendNotFound(res, ENTITY.TONIE);

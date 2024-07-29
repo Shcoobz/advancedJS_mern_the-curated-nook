@@ -1,44 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Tabs() {
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState(location.pathname);
+const tabs = [
+  { name: 'Users', path: '/backstage/users' },
+  { name: 'Books', path: '/backstage/books' },
+  { name: 'Tonies', path: '/backstage/tonies' },
+];
 
-  useEffect(() => {
-    setActiveTab(location.pathname);
-  }, [location.pathname]);
-
+export default function Tabs({ currentPath, children }) {
   return (
-    <div className='tabs-wrapper'>
+    <div className='tabs-container'>
       <div className='tabs'>
-        <Link
-          className={`tabs__tab ${
-            activeTab === '/backstage/users' ? 'tabs__tab--active' : ''
-          }`}
-          to='/backstage/users'
-          onClick={() => setActiveTab('/backstage/users')}>
-          Users
-        </Link>
-        <Link
-          className={`tabs__tab ${
-            activeTab === '/backstage/books' ? 'tabs__tab--active' : ''
-          }`}
-          to='/backstage/books'
-          onClick={() => setActiveTab('/backstage/books')}>
-          Books
-        </Link>
-        <Link
-          className={`tabs__tab ${
-            activeTab === '/backstage/tonies' ? 'tabs__tab--active' : ''
-          }`}
-          to='/backstage/tonies'
-          onClick={() => setActiveTab('/backstage/tonies')}>
-          Tonies
-        </Link>
+        {tabs.map((tab) => (
+          <Link
+            key={tab.name}
+            to={tab.path}
+            className={`tab ${currentPath.includes(tab.path) ? 'active' : ''}`}>
+            {tab.name}
+          </Link>
+        ))}
       </div>
+      <div className='tab-content'>{children}</div>
     </div>
   );
 }
-
-export default Tabs;

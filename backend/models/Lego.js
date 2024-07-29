@@ -5,6 +5,10 @@ const legoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isOnWishlist: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Lego = mongoose.model('Lego', legoSchema);

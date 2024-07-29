@@ -3,7 +3,7 @@ import { ENDPOINT } from '../config/common/constants.js';
 import {
   createNewTonie,
   deleteTonie,
-  getAllTonies,
+  getAllToniesInCollection,
   updateTonie,
 } from '../controllers/toniesController.js';
 
@@ -11,7 +11,7 @@ const tonieRouter = express.Router();
 
 tonieRouter
   .route(ENDPOINT.ROOT)
-  .get(getAllTonies)
+  .get(getAllToniesInCollection)
   .post(createNewTonie)
   .patch(updateTonie)
   .delete(deleteTonie);

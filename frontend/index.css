@@ -150,6 +150,7 @@ a:focus-visible {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
 }
 
 .backstage-header__container--small {
@@ -234,41 +235,60 @@ tr {
   background-color: var(--INACTIVE);
 }
 
+.book__published-date,
+.book__categories,
+.book__isbn {
+  display: none;
+}
+
 /* || TABS */
+.tabs-container {
+  width: 100%;
+  padding: 20px 0.5em;
+}
 
 .tabs {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: -15px !important;
-  position: relative;
-  top: 1px;
-  margin-left: 11px;
-}
-
-.tabs__tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #7e7575;
-  margin-right: 9px;
-  text-decoration: none;
-  color: black !important;
+  background-color: var(--BGCOLOR);
   border-radius: 8px 8px 0 0;
-  top: 1px;
+  overflow: hidden;
 }
 
-.tabs__tab--active {
-  background-color: #fff;
-  border-bottom: 1px solid #fff;
-  color: black;
+.tab {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--COLOR);
+  transition: background-color 0.3s, color 0.3s;
+  border: 1px solid var(--BORDER-COLOR);
+  border-bottom: none;
+  margin-right: -1px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.tab:hover {
+  background-color: var(--LINK-HOVER);
+}
+
+.tab.active {
+  background-color: var(--TABLE-BGCOLOR);
+  color: var(--TABLE-COLOR);
+  border-bottom: 1px solid var(--TABLE-BGCOLOR);
   position: relative;
-  top: 1px;
   z-index: 1;
 }
 
-.tabs__tab:hover {
-  background-color: #ddd;
-  color: black;
+.tab-content {
+  padding: 20px;
+  background-color: var(--TABLE-BGCOLOR);
+  color: var(--TABLE-COLOR);
+  border: 1px solid var(--BORDER-COLOR);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
 }
 
 /* || FORM - GENERAL */
@@ -347,10 +367,6 @@ tr {
 }
 
 @media screen and (max-width: 400px) {
-  .tabs {
-    margin-left: 9px;
-  }
-
   h1 {
     font-size: 2rem;
   }
@@ -361,6 +377,33 @@ tr {
 
   .icon-button {
     font-size: 1.5rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  /* Todo: fix view -> table: hide fields */
+  .book__published-date,
+  .book__categories,
+  .book__isbn {
+    display: block;
+  }
+
+  .tab {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--BORDER-COLOR);
+    border-bottom: none;
+    margin-right: 0;
+  }
+
+  .tab:last-child {
+    border-bottom: 1px solid var(--BORDER-COLOR);
+  }
+
+  .tab.active {
+    border-bottom: 1px solid var(--BORDER-COLOR);
   }
 }
 
@@ -385,9 +428,10 @@ tr {
     grid-template-columns: repeat(3, 1fr) 2fr repeat(2, 1fr);
   }
 
-  .book__created,
-  .book__updated,
-  .book__username {
+  /* Todo: fix view -> table: hide fields */
+  .book__published-date,
+  .book__categories,
+  .book__isbn {
     display: block;
   }
 

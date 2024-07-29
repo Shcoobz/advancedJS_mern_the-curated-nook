@@ -13,9 +13,12 @@ function BackstageLayout() {
   return (
     <>
       <BackstageHeader />
-      {showTabs && <Tabs />}
       <div className='backstage-container'>
-        <Outlet />
+        {showTabs ? (
+          <Tabs currentPath={location.pathname}>
+            <Outlet />
+          </Tabs>
+        ) : null}
       </div>
       <BackstageFooter />
     </>

@@ -1,8 +1,16 @@
 import Tonie from '../../../models/Tonie.js';
 import { DEFAULT } from '../../../config/common/constants.js';
 
-export async function fetchAllTonies() {
-  return Tonie.find().lean().exec();
+export async function fetchAllToniesInCollection() {
+  const tonies = await Tonie.find({ isOnWishlist: false }).lean().exec();
+
+  return tonies;
+}
+
+export async function fetchAllToniesOnWishlist() {
+  const tonies = await Tonie.find({ isOnWishlist: true }).lean().exec();
+
+  return tonies;
 }
 
 export async function findTonieByName(name) {
