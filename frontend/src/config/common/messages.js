@@ -29,6 +29,32 @@ export const UI = {
     viewLego: 'Checkout Lego!',
     currentUser: 'Current User: ',
     status: 'Status',
+    PAGE: {
+      USER: {
+        list: {
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
+          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+        },
+      },
+      BOOK: {
+        list: {
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
+          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+        },
+      },
+      TONIE: {
+        list: {
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
+          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+        },
+      },
+      LEGO: {
+        list: {
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
+          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+        },
+      },
+    },
   },
 };
 

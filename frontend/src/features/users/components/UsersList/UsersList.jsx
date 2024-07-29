@@ -2,6 +2,7 @@ import { API, TABLE } from '../../../../config/common/constants';
 import Spinner from '../../../../components/common/Spinner';
 import User from '../User/User';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
+import { UI } from '../../../../config/common/messages';
 
 function UsersList() {
   const {
@@ -32,22 +33,26 @@ function UsersList() {
       : null;
 
     content = (
-      <table className='table table--users'>
-        <thead className='table__thead'>
-          <tr>
-            <th scope='col' className='table__th user__username'>
-              {TABLE.TITLE.USER.name}
-            </th>
-            <th scope='col' className='table__th user__roles'>
-              {TABLE.TITLE.USER.roles}
-            </th>
-            <th scope='col' className='table__th user__action'>
-              {TABLE.TITLE.USER.action}
-            </th>
-          </tr>
-        </thead>
-        <tbody>{tableContent}</tbody>
-      </table>
+      <div>
+        <p className='table-description'>{UI.BS.PAGE.USER.list.paragraph}</p>
+        <br />
+        <table className='table table--users'>
+          <thead className='table__thead'>
+            <tr>
+              <th scope='col' className='table__th user__username'>
+                {TABLE.TITLE.USER.name}
+              </th>
+              <th scope='col' className='table__th user__roles'>
+                {TABLE.TITLE.USER.roles}
+              </th>
+              <th scope='col' className='table__th user__action'>
+                {TABLE.TITLE.USER.action}
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableContent}</tbody>
+        </table>
+      </div>
     );
   }
 

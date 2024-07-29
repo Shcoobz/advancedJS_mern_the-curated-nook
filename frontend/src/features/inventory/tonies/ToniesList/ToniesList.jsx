@@ -1,6 +1,7 @@
 import Tonie from '../Tonie/Tonie';
 import Spinner from '../../../../components/common/Spinner';
 import { useGetToniesQuery } from '../api/toniesApiSlice';
+import { UI } from '../../../../config/common/messages';
 
 function ToniesList() {
   const {
@@ -31,22 +32,26 @@ function ToniesList() {
       : null;
 
     content = (
-      <table className='table table--tonies'>
-        <thead className='table__thead'>
-          <tr>
-            <th scope='col' className='table__th tonie__name'>
-              Name
-            </th>
-            <th scope='col' className='table__th tonie__description'>
-              Description
-            </th>
-            <th scope='col' className='table__th tonie__action'>
-              Edit
-            </th>
-          </tr>
-        </thead>
-        <tbody>{tableContent}</tbody>
-      </table>
+      <div>
+        <p className='table-description'>{UI.BS.PAGE.TONIE.list.paragraph}</p>
+        <br />
+        <table className='table table--tonies'>
+          <thead className='table__thead'>
+            <tr>
+              <th scope='col' className='table__th tonie__name'>
+                Name
+              </th>
+              <th scope='col' className='table__th tonie__description'>
+                Description
+              </th>
+              <th scope='col' className='table__th tonie__action'>
+                Edit
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableContent}</tbody>
+        </table>
+      </div>
     );
   }
 

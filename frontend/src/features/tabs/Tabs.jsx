@@ -8,7 +8,7 @@ const tabs = [
   { name: 'Lego', path: LINK.LEGO.viewLego },
 ];
 
-export default function Tabs({ currentPath, children }) {
+function Tabs({ currentPath, children }) {
   return (
     <div className='tabs-container'>
       <div className='tabs'>
@@ -25,3 +25,5 @@ export default function Tabs({ currentPath, children }) {
     </div>
   );
 }
+
+export default Tabs;
