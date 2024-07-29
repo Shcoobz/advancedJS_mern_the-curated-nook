@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectBookById } from '../api/booksApiSlice';
-import { DEFAULT } from '../../../../config/common/constants';
+import { selectBookById } from '../../api/booksApiSlice';
+import { DEFAULT } from '../../../../../config/common/constants';
 
 function createHandleEdit(navigate, bookId) {
   return function handleEdit() {

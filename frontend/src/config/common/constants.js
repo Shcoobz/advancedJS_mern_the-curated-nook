@@ -59,6 +59,8 @@ export const DATE = {
 
 export const REGEX = {
   removePeriodSpace: /\.\s/g,
+  checkUsername: /^[A-z]{3,20}$/,
+  checkPassword: /^[A-z0-9!@#$%]{4,12}$/,
 };
 
 export const DEFAULT = {
@@ -68,6 +70,12 @@ export const DEFAULT = {
   bookTicket: '${book.ticket}',
   comma: ',',
   commaSpace: ', ',
+};
+
+export const ROLE = {
+  user: 'User',
+  superuser: 'Superuser',
+  admin: 'Admin',
 };
 
 export const HTTP_STATUS = {
@@ -124,4 +132,10 @@ export const TABLE = {
       action: 'Edit',
     },
   },
+};
+
+export const CLASS_NAME = {
+  errMsg: 'errmsg',
+  offscreen: 'offscreen',
+  formIncomplete: 'form__input--incomplete',
 };

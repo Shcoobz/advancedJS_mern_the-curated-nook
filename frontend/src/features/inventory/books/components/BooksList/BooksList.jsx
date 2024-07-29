@@ -1,6 +1,6 @@
-import Spinner from '../../../../components/common/Spinner';
-import { UI } from '../../../../config/common/messages';
-import { useGetBooksQuery } from '../api/booksApiSlice';
+import Spinner from '../../../../../components/common/Spinner';
+import { UI } from '../../../../../config/common/messages';
+import { useGetBooksQuery } from '../../api/booksApiSlice';
 import Book from '../Book/Book';
 
 function BooksList() {

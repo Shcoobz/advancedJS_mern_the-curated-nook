@@ -10,7 +10,7 @@ export const UI = {
   BS: {
     title: 'The Curated Nook - Backstage!',
     currentUser: 'Current User: ',
-    status: 'Status',
+    status: 'Status: ',
     PAGE: {
       WELCOME: {
         greeting: 'Hallöchen!',
@@ -36,6 +36,17 @@ export const UI = {
         list: {
           paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
           Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+        },
+        TABLE: {
+          titleNew: 'New User',
+          titleEdit: 'Edit User',
+          username: 'Username: ',
+          usernameRule: '[3-20 letters]',
+          password: 'Password: ',
+          passwordRule: '[4-12 chars incl. !@#$%]',
+          passwordRuleEmpty: '[empty = no change]',
+          active: 'ACTIVE: ',
+          assignedRoles: 'ASSIGNED ROLES: ',
         },
       },
       BOOK: {
