@@ -1,15 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserById } from '../../api/usersApiSlice';
 import { DEFAULT } from '../../../../config/common/constants';
-
-function createHandleEdit(navigate, userId) {
-  return function handleEdit() {
-    navigate(`/backstage/users/${userId}`);
-  };
-}
 
 function formatRoles(roles) {
   return roles.toString().replaceAll(DEFAULT.comma, DEFAULT.commaSpace);
@@ -20,7 +13,6 @@ function getCellStatus(userActive) {
 }
 
 function User({ userId, onEdit }) {
-  // const navigate = useNavigate();
   const user = useSelector((state) => selectUserById(state, userId));
 
   function handleEdit() {
@@ -28,7 +20,6 @@ function User({ userId, onEdit }) {
   }
 
   if (user) {
-    // const handleEdit = createHandleEdit(navigate, userId);
     const userRolesString = formatRoles(user.roles);
     const cellStatus = getCellStatus(user.active);
 

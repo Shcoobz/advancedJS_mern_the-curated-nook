@@ -65,7 +65,13 @@ export function handleSaveNewUser(addNewUser, canSave, username, password, roles
     e.preventDefault();
 
     if (canSave) {
-      await addNewUser({ username, password, roles });
+      const response = await addNewUser({ username, password, roles });
+
+      if (response.error || response.status >= 400) {
+        return { success: false, errorMessage: getErrorContent(response.error) };
+      }
+
+      return { success: true };
     }
   };
 }
@@ -89,11 +95,23 @@ export async function handleSaveExistingUser(
     payload.password = password;
   }
 
-  await updateUser(payload);
+  const response = await updateUser(payload);
+
+  if (response.error || response.status >= 400) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  return { success: true };
 }
 
 export async function handleDeleteUser(deleteUser, userId) {
-  await deleteUser({ id: userId });
+  const response = await deleteUser({ id: userId });
+
+  if (response.error) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  return { success: true };
 }
 
 export function canSaveNewUserForm(rolesCount, validUsername, validPassword, isLoading) {

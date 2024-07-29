@@ -78,8 +78,16 @@ export const ERROR = {
 };
 
 export const TOAST = {
-  USER: {
-    updated: 'User updated!',
-    deleted: 'User deleted!',
+  SUCCESS: {
+    USER: {
+      updated: 'User updated!',
+      deleted: 'User deleted!',
+    },
+  },
+  ERROR: {
+    USER: {
+      usernameDuplicate: 'Username already exists!',
+      updateFailed: 'Something went terribly wrong!',
+    },
   },
 };

@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { ROLE } from '../../../../config/common/constants';
+import { DEFAULT, ROLE } from '../../../../config/common/constants';
 import { TOAST, UI } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
 import {
   canSaveExistingUserForm,
   generateOptionsFromRoles,
-  getErrorContent,
-  getErrorMessageClass,
   getPasswordInputClass,
   getRolesInputClass,
   getUsernameInputClass,
@@ -24,18 +23,16 @@ import {
   useValidateUsername,
 } from '../utils';
 import Modal from '../../../../components/common/Modal';
-import { toast } from 'react-toastify';
 
 function EditUserForm({ user, isOpen, onClose }) {
   const navigate = useNavigate();
 
-  const [updateUser, { isLoading, isSuccess, isError, error }] = useUpdateUserMutation();
-  const [deleteUser, { isSuccess: isDelSuccess, isError: isDelError, error: delError }] =
-    useDeleteUserMutation();
+  const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
+  const [deleteUser, { isSuccess: isDelSuccess }] = useDeleteUserMutation();
 
   const [username, setUsername] = useState(user.username);
   const [validUsername, setValidUsername] = useState(false);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(DEFAULT.emptyString);
   const [validPassword, setValidPassword] = useState(false);
   const [roles, setRoles] = useState(user.roles);
   const [active, setActive] = useState(user.active);
@@ -49,11 +46,9 @@ function EditUserForm({ user, isOpen, onClose }) {
   );
   const options = generateOptionsFromRoles(ROLE);
 
-  const errClass = getErrorMessageClass(isError, isDelError);
   const validUserClass = getUsernameInputClass(validUsername);
   const validPwdClass = getPasswordInputClass(validPassword);
   const validRolesClass = getRolesInputClass(roles.length);
-  const errContent = getErrorContent(error, delError);
 
   useValidateUsername(username, setValidUsername);
   useValidatePassword(password, setValidPassword);
@@ -62,19 +57,33 @@ function EditUserForm({ user, isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    await handleSaveExistingUser(updateUser, user.id, username, password, roles, active);
+    const result = await handleSaveExistingUser(
+      updateUser,
+      user.id,
+      username,
+      password,
+      roles,
+      active
+    );
 
-    onClose();
-
-    toast.success(TOAST.USER.updated, { autoClose: 1000 });
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.USER.updated);
+    }
   }
 
-  async function handleDelete() {
-    await handleDeleteUser(deleteUser, user.id);
+  async function handleDelete(e) {
+    e.preventDefault();
+    const result = await handleDeleteUser(deleteUser, user.id);
 
-    onClose();
-
-    toast.success(TOAST.USER.deleted, { autoClose: 1000 });
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.USER.deleted);
+    }
   }
 
   const modalContent = (
@@ -95,8 +104,6 @@ function EditUserForm({ user, isOpen, onClose }) {
         </div>
       </div>
       <form className='form' onSubmit={handleSave}>
-        <p className={errClass}>{errContent}</p>
-
         <label className='form__label' htmlFor='username'>
           {UI.BS.PAGE.USER.TABLE.username}{' '}
           <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>

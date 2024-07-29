@@ -23,7 +23,7 @@ function UsersList() {
 
   let content;
 
-  function openModal(user) {
+  function openModal(user = null) {
     setSelectedUser(user);
     setIsModalOpen(true);
   }
