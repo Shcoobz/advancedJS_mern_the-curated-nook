@@ -18,7 +18,9 @@ function BackstageLayout() {
           <Tabs currentPath={location.pathname}>
             <Outlet />
           </Tabs>
-        ) : null}
+        ) : (
+          <Outlet />
+        )}
       </div>
       <BackstageFooter />
     </>
