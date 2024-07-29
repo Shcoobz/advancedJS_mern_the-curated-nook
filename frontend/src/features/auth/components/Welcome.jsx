@@ -26,28 +26,28 @@ function Welcome() {
 
       <br />
 
-      <h1>{UI.BS.welcome}</h1>
+      <h1>{UI.BS.PAGE.WELCOME.greeting}</h1>
 
       <br />
 
-      <p>{UI.BS.paragraph}</p>
+      <p>{UI.BS.PAGE.WELCOME.paragraph}</p>
 
       <br />
 
       <p>
-        <Link to={LINK.USER.viewUsers}>{UI.BS.viewUsers}</Link>
+        <Link to={LINK.USER.viewUsers}>{UI.BS.PAGE.WELCOME.viewUsers}</Link>
       </p>
 
       <p>
-        <Link to={LINK.BOOK.viewBooks}>{UI.BS.viewBooks}</Link>
+        <Link to={LINK.BOOK.viewBooks}>{UI.BS.PAGE.WELCOME.viewBooks}</Link>
       </p>
 
       <p>
-        <Link to={LINK.TONIE.viewTonies}>{UI.BS.viewTonies}</Link>
+        <Link to={LINK.TONIE.viewTonies}>{UI.BS.PAGE.WELCOME.viewTonies}</Link>
       </p>
 
       <p>
-        <Link to={LINK.LEGO.viewLego}>{UI.BS.viewLego}</Link>
+        <Link to={LINK.LEGO.viewLego}>{UI.BS.PAGE.WELCOME.viewLego}</Link>
       </p>
     </section>
   );

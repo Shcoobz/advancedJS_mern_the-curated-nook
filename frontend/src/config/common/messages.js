@@ -9,8 +9,12 @@ export const UI = {
   },
   BS: {
     title: 'The Curated Nook - Backstage!',
-    welcome: 'Hallöchen!',
-    paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
+    currentUser: 'Current User: ',
+    status: 'Status',
+    PAGE: {
+      WELCOME: {
+        greeting: 'Hallöchen!',
+        paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
         Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Laborum magna ipsum
         ullamco ea Lorem. Proident cupidatat commodo adipisicing id nisi eiusmod. Nostrud
         elit ex et magna laboris. Proident culpa ullamco culpa consectetur nisi eu laborum
@@ -23,13 +27,11 @@ export const UI = {
         laborum cillum proident et. Adipisicing excepteur nostrud Lorem occaecat est sunt.
         Pariatur ipsum commodo est reprehenderit. Cillum consequat ipsum culpa nisi
         exercitation enim reprehenderit id qui commodo cillum mollit est.`,
-    viewBooks: 'Checkout Books!',
-    viewUsers: 'Checkout Users!',
-    viewTonies: 'Checkout Tonies!',
-    viewLego: 'Checkout Lego!',
-    currentUser: 'Current User: ',
-    status: 'Status',
-    PAGE: {
+        viewBooks: 'Checkout Books!',
+        viewUsers: 'Checkout Users!',
+        viewTonies: 'Checkout Tonies!',
+        viewLego: 'Checkout Lego!',
+      },
       USER: {
         list: {
           paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
