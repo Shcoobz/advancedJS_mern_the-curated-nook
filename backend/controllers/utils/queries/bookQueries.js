@@ -38,10 +38,6 @@ export function isBookValid(book) {
 }
 
 export async function findBookByIsbn(isbn) {
-  if (isbn === DEFAULT.PLACEHOLDER) {
-    return null;
-  }
-
   return Book.findOne({ isbn: { $in: isbn } })
     .lean()
     .exec();
