@@ -15,7 +15,7 @@ import {
   handleRolesChange,
   handleSaveNewUser,
   handleUsernameChange,
-  useHandleSuccess,
+  useHandleUserSuccess,
   useValidatePassword,
   useValidateUsername,
 } from '../userUtils';
@@ -47,12 +47,17 @@ function NewUserForm({ isOpen, onClose }) {
 
   useValidateUsername(username, setValidUsername);
   useValidatePassword(password, setValidPassword);
-  useHandleSuccess(isSuccess, undefined, navigate, setUsername, setPassword, setRoles);
+  useHandleUserSuccess(
+    isSuccess,
+    undefined,
+    navigate,
+    setUsername,
+    setPassword,
+    setRoles
+  );
 
   async function handleSave(e) {
     e.preventDefault();
-
-    console.log('handleSave is called');
 
     const result = await handleSaveNewUser(addNewUser, username, password, roles);
 
@@ -78,6 +83,7 @@ function NewUserForm({ isOpen, onClose }) {
           </button>
         </div>
       </div>
+      
       <form className='form' onSubmit={handleSave}>
         <label className='form__label' htmlFor='username'>
           {UI.BS.PAGE.USER.TABLE.username}

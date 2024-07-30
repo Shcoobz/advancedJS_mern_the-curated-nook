@@ -18,7 +18,7 @@ import {
   handleSaveExistingUser,
   handleToggleActive,
   handleUsernameChange,
-  useHandleSuccess,
+  useHandleUserSuccess,
   useValidatePassword,
   useValidateUsername,
 } from '../userUtils';
@@ -52,7 +52,14 @@ function EditUserForm({ user, isOpen, onClose }) {
 
   useValidateUsername(username, setValidUsername);
   useValidatePassword(password, setValidPassword);
-  useHandleSuccess(isSuccess, isDelSuccess, navigate, setUsername, setPassword, setRoles);
+  useHandleUserSuccess(
+    isSuccess,
+    isDelSuccess,
+    navigate,
+    setUsername,
+    setPassword,
+    setRoles
+  );
 
   async function handleSave(e) {
     e.preventDefault();
@@ -89,7 +96,7 @@ function EditUserForm({ user, isOpen, onClose }) {
   const modalContent = (
     <>
       <div className='form-header__container'>
-        <h2>Edit User</h2>
+        <h2>Edit User: {username}</h2>
         <div className='form-header__action-buttons'>
           <button
             className='icon-button'
@@ -103,6 +110,7 @@ function EditUserForm({ user, isOpen, onClose }) {
           </button>
         </div>
       </div>
+
       <form className='form' onSubmit={handleSave}>
         <label className='form__label' htmlFor='username'>
           {UI.BS.PAGE.USER.TABLE.username}

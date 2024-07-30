@@ -1,5 +1,18 @@
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectBookById } from '../../api/booksApiSlice';
+
+import Spinner from '../../../../../components/common/Spinner';
+import EditBookForm from './EditBookForm';
+
 function EditBook() {
-  return <h1>EditBook</h1>;
+  const { id } = useParams();
+
+  const book = useSelector((state) => selectBookById(state, id));
+
+  const content = book ? <EditBookForm book={book} /> : <Spinner />;
+
+  return content;
 }
 
 export default EditBook;

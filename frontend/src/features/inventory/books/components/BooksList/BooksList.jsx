@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import Spinner from '../../../../../components/common/Spinner';
 import { UI } from '../../../../../config/common/messages';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
 import Book from '../Book/Book';
+import EditBookForm from '../EditBook/EditBookForm';
+import NewBookForm from '../NewBook/NewBookForm';
 
 function BooksList() {
   const {
@@ -16,7 +19,20 @@ function BooksList() {
     refetchOnMountOrArgChange: true,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+
   let content;
+
+  function openModal(book = null) {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedBook(null);
+  }
 
   if (isLoading) return <Spinner />;
 
@@ -28,11 +44,17 @@ function BooksList() {
     const { ids } = books;
 
     const tableContent = ids?.length
-      ? ids.map((bookId) => <Book key={bookId} bookId={bookId} />)
+      ? ids.map((bookId) => <Book key={bookId} bookId={bookId} onEdit={openModal} />)
       : null;
 
     content = (
       <div>
+        <br />
+        <button onClick={() => openModal()} className='button'>
+          Create New Book
+        </button>
+        <br />
+
         <p className='table-description'>{UI.BS.PAGE.BOOK.list.paragraph}</p>
         <br />
         <table className='table table--books'>
@@ -60,6 +82,12 @@ function BooksList() {
           </thead>
           <tbody>{tableContent}</tbody>
         </table>
+        {isModalOpen &&
+          (selectedBook ? (
+            <EditBookForm book={selectedBook} isOpen={isModalOpen} onClose={closeModal} />
+          ) : (
+            <NewBookForm isOpen={isModalOpen} onClose={closeModal} />
+          ))}
       </div>
     );
   }

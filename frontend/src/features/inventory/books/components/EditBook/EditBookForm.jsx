@@ -1,46 +1,48 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewBookMutation } from '../../api/booksApiSlice';
-import { DEFAULT } from '../../../../../config/common/constants';
-import { TOAST } from '../../../../../config/common/messages';
+import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { useDeleteBookMutation, useUpdateBookMutation } from '../../api/booksApiSlice';
 import {
   getTitleInputClass,
   handleAuthorsChange,
   handleCategoriesChange,
+  handleDeleteBook,
   handleDescriptionChange,
   handleImgUrlChange,
   handleIsbnChange,
+  handleIsOnWishlistChange,
   handleLanguageChange,
   handlePublishedDateChange,
   handlePublisherChange,
   handleSaveExistingBook,
-  handleSaveNewBook,
   handleThumbnailUrlChange,
   handleTitleChange,
   useHandleBookSuccess,
   useValidateTitle,
 } from '../bookUtils';
+import { toast } from 'react-toastify';
+import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
 
-function NewBookForm({ isOpen, onClose }) {
+function EditBookForm({ book, isOpen, onClose }) {
+  const [updateBook, { isLoading, isSuccess }] = useUpdateBookMutation();
+  const [deleteBook, { isSuccess: isDelSuccess }] = useDeleteBookMutation();
+
   const navigate = useNavigate();
 
-  const [addNewBook, { isLoading, isSuccess }] = useAddNewBookMutation();
-
-  const [title, setTitle] = useState(DEFAULT.emptyString);
+  const [title, setTitle] = useState(book.title);
   const [validTitle, setValidTitle] = useState(false);
-  const [authors, setAuthors] = useState(DEFAULT.emptyString);
-  const [publisher, setPublisher] = useState(DEFAULT.emptyString);
-  const [publishedDate, setPublishedDate] = useState(DEFAULT.emptyString);
-  const [description, setDescription] = useState(DEFAULT.emptyString);
-  const [isbn, setIsbn] = useState(DEFAULT.emptyString);
-  const [categories, setCategories] = useState(DEFAULT.emptyString);
-  const [thumbnailUrl, setThumbnailUrl] = useState(DEFAULT.emptyString);
-  const [imgUrl, setImgUrl] = useState(DEFAULT.emptyString);
-  const [language, setLanguage] = useState(DEFAULT.emptyString);
+  const [authors, setAuthors] = useState(book.authors.join(', '));
+  const [publisher, setPublisher] = useState(book.publisher);
+  const [publishedDate, setPublishedDate] = useState(book.publishedDate);
+  const [description, setDescription] = useState(book.description);
+  const [isbn, setIsbn] = useState(book.isbn.join(', '));
+  const [categories, setCategories] = useState(book.categories.join(', '));
+  const [thumbnailUrl, setThumbnailUrl] = useState(book.thumbnailUrl);
+  const [imgUrl, setImgUrl] = useState(book.imgUrl);
+  const [language, setLanguage] = useState(book.language);
+  const [isOnWishlist, setIsOnWishlist] = useState(book.isOnWishlist);
 
   const canSave = Boolean(title) && !isLoading;
   const validTitleClass = getTitleInputClass(validTitle);
@@ -48,7 +50,7 @@ function NewBookForm({ isOpen, onClose }) {
   useValidateTitle(title, setValidTitle);
   useHandleBookSuccess(
     isSuccess,
-    undefined,
+    isDelSuccess,
     navigate,
     setTitle,
     setAuthors,
@@ -59,14 +61,16 @@ function NewBookForm({ isOpen, onClose }) {
     setCategories,
     setThumbnailUrl,
     setImgUrl,
-    setLanguage
+    setLanguage,
+    setIsOnWishlist
   );
 
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewBook(
-      addNewBook,
+    const result = await handleSaveExistingBook(
+      updateBook,
+      book,
       title,
       authors,
       publisher,
@@ -76,21 +80,34 @@ function NewBookForm({ isOpen, onClose }) {
       categories,
       thumbnailUrl,
       imgUrl,
-      language
+      language,
+      isOnWishlist
     );
 
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
       onClose();
-      toast.success(TOAST.SUCCESS.BOOK.created);
+      toast.success(TOAST.SUCCESS.BOOK.updated);
+    }
+  }
+
+  async function handleDelete(e) {
+    e.preventDefault();
+    const result = await handleDeleteBook(deleteBook, book.id);
+
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.BOOK.deleted);
     }
   }
 
   const modalContent = (
     <>
       <div className='form-header__container'>
-        <h2>Create Book</h2>
+        <h2>Edit Book: {title}</h2>
         <div className='form-header__action-buttons'>
           <button
             className='icon-button'
@@ -98,6 +115,9 @@ function NewBookForm({ isOpen, onClose }) {
             onClick={handleSave}
             disabled={!canSave}>
             <FontAwesomeIcon icon={faSave} />
+          </button>
+          <button className='icon-button' title='Delete' onClick={handleDelete}>
+            <FontAwesomeIcon icon={faTrashCan} />
           </button>
         </div>
       </div>
@@ -223,6 +243,18 @@ function NewBookForm({ isOpen, onClose }) {
           value={language}
           onChange={handleLanguageChange(setLanguage)}
         />
+
+        <label className='form__label form__checkbox-container' htmlFor='on-wishlist'>
+          on wishlist:
+          <input
+            className='form__checkbox'
+            id='on-wishlist'
+            name='on-wishlist'
+            type='checkbox'
+            checked={isOnWishlist}
+            onChange={handleIsOnWishlistChange(setIsOnWishlist)}
+          />
+        </label>
       </form>
     </>
   );
@@ -236,4 +268,4 @@ function NewBookForm({ isOpen, onClose }) {
   return modal;
 }
 
-export default NewBookForm;
+export default EditBookForm;

@@ -1,27 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectBookById } from '../../api/booksApiSlice';
 import { DEFAULT } from '../../../../../config/common/constants';
 
-function createHandleEdit(navigate, bookId) {
-  return function handleEdit() {
-    navigate(`/backstage/books/${bookId}`);
-  };
-}
+// function createHandleEdit(navigate, bookId) {
+//   return function handleEdit() {
+//     navigate(`/backstage/books/${bookId}`);
+//   };
+// }
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
 function Book({ bookId, onEdit }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const book = useSelector((state) => selectBookById(state, bookId));
-  const bookCategoryList = formatCategories(book.categories);
+
+  function handleEdit() {
+    onEdit(book);
+  }
 
   if (book) {
-    const handleEdit = createHandleEdit(navigate, bookId);
+    // const handleEdit = createHandleEdit(navigate, bookId);
+    const bookCategoryList = formatCategories(book.categories);
 
     return (
       <tr className='table__row book'>

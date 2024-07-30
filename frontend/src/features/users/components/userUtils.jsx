@@ -13,7 +13,7 @@ export function useValidatePassword(password, setValidPassword) {
   }, [password, setValidPassword]);
 }
 
-export function useHandleSuccess(
+export function useHandleUserSuccess(
   isSuccess,
   isDelSuccess,
   navigate,
@@ -26,6 +26,7 @@ export function useHandleSuccess(
       setUsername(DEFAULT.emptyString);
       setPassword(DEFAULT.emptyString);
       setRoles([]);
+
       navigate(LINK.USER.viewUsers);
     }
   }, [isSuccess, isDelSuccess, navigate, setUsername, setPassword, setRoles]);
@@ -42,16 +43,6 @@ export function handlePasswordChange(setPassword) {
     setPassword(e.target.value);
   };
 }
-
-// export function handleRolesChangeNewUser(setNewUserRoles) {
-//   return function (e) {
-//     const values = Array.from(
-//       e.target.selectedOptions, // HTMLCollection
-//       (option) => option.value
-//     );
-//     setNewUserRoles(values);
-//   };
-// }
 
 export function handleRolesChange(setRoles) {
   return function (e) {

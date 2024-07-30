@@ -275,17 +275,24 @@ tr {
   align-items: center;
 }
 
+.form__textarea {
+  border: 2px solid black;
+}
+
 .form__input,
+.form__textarea,
 .form__submit-button {
   padding: 0.5em;
   border-radius: 15px;
 }
 
-.form__input--text {
+.form__input--text,
+.form__textarea--text {
   min-height: 150px;
 }
 
-.form__input--incomplete {
+.form__input--incomplete,
+.form__textarea--incomplete {
   border: 1px solid var(--INPUT-INVALID);
   outline: 1px solid var(--INPUT-INVALID);
 }
@@ -343,6 +350,7 @@ tr {
   max-width: 90%;
   max-height: 90%;
   padding: 20px;
+  overflow-y: auto;
   z-index: 1001;
   background: white;
   border-radius: 8px;
