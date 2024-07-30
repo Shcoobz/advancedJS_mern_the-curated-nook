@@ -18,7 +18,7 @@ import {
   useHandleSuccess,
   useValidatePassword,
   useValidateUsername,
-} from '../utils';
+} from '../userUtils';
 import { toast } from 'react-toastify';
 import Modal from '../../../../components/common/Modal';
 

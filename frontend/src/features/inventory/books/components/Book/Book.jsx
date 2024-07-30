@@ -15,7 +15,7 @@ function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
-function Book({ bookId }) {
+function Book({ bookId, onEdit }) {
   const navigate = useNavigate();
   const book = useSelector((state) => selectBookById(state, bookId));
   const bookCategoryList = formatCategories(book.categories);

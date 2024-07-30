@@ -73,9 +73,6 @@ function UsersList() {
           </thead>
           <tbody>{tableContent}</tbody>
         </table>
-        {/* {selectedUser && (
-          <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />
-        )} */}
         {isModalOpen &&
           (selectedUser ? (
             <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />

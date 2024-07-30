@@ -21,7 +21,7 @@ import {
   useHandleSuccess,
   useValidatePassword,
   useValidateUsername,
-} from '../utils';
+} from '../userUtils';
 import Modal from '../../../../components/common/Modal';
 
 function EditUserForm({ user, isOpen, onClose }) {

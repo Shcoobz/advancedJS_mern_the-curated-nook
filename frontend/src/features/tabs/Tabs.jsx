@@ -27,3 +27,4 @@ function Tabs({ currentPath, children }) {
 }
 
 export default Tabs;
+
