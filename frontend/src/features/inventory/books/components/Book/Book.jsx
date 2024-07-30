@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { selectBookById } from '../../api/booksApiSlice';
 import { DEFAULT } from '../../../../../config/common/constants';
+import { EditButton } from '../../../../../components/common/Buttons';
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
@@ -26,9 +25,7 @@ function Book({ bookId, onEdit }) {
         <td className={'table__cell book__categories'}> {bookCategoryList}</td>
         <td className={'table__cell book__isbn'}>{book.isbn}</td>
         <td className={'table__cell'}>
-          <button className='icon-button table__button' onClick={handleEdit}>
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </button>
+          <EditButton onClick={handleEdit} />
         </td>
       </tr>
     );

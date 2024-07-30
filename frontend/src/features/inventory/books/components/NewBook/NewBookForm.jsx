@@ -107,18 +107,6 @@ function NewBookForm({ isOpen, onClose }) {
       </div>
 
       <form className='form' onSubmit={handleSave}>
-        <label className='form__label' htmlFor='isbn'>
-          ISBN:
-        </label>
-        <input
-          className='form__input'
-          id='isbn'
-          name='isbn'
-          type='text'
-          value={isbn}
-          onChange={handleIsbnChange(setIsbn)}
-        />
-
         <label className='form__label' htmlFor='title'>
           Title:
         </label>
@@ -178,6 +166,18 @@ function NewBookForm({ isOpen, onClose }) {
           rows='5'
           value={description}
           onChange={handleDescriptionChange(setDescription)}
+        />
+
+        <label className='form__label' htmlFor='isbn'>
+          ISBN:
+        </label>
+        <input
+          className='form__input'
+          id='isbn'
+          name='isbn'
+          type='text'
+          value={isbn}
+          onChange={handleIsbnChange(setIsbn)}
         />
 
         <label className='form__label' htmlFor='categories'>

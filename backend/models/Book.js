@@ -27,7 +27,6 @@ const bookSchema = new mongoose.Schema({
   isbn: [
     {
       type: String,
-      default: 'empty',
       trim: true,
     },
   ],

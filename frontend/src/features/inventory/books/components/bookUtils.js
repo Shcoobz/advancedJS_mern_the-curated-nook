@@ -142,6 +142,7 @@ export async function handleSaveNewBook(
   isbn,
   categories,
   thumbnailUrl,
+  imgUrl,
   language
 ) {
   const response = await addNewBook({
@@ -153,6 +154,7 @@ export async function handleSaveNewBook(
     isbn: isbn.split(',').map((isbn) => isbn.trim()),
     categories: categories.split(',').map((category) => category.trim()),
     thumbnailUrl: thumbnailUrl,
+    imgUrl: imgUrl,
     language: language,
   });
 
