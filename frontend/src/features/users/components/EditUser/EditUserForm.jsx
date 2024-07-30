@@ -23,6 +23,13 @@ import {
   useValidateUsername,
 } from '../userUtils';
 import Modal from '../../../../components/common/Modal';
+import {
+  DeleteButton,
+  SaveButton,
+  SubmitButton,
+} from '../../../../components/common/Buttons';
+
+import EditUserFormTable from '../Table/EditUserFormTable';
 
 function EditUserForm({ user, isOpen, onClose }) {
   const navigate = useNavigate();
@@ -44,11 +51,6 @@ function EditUserForm({ user, isOpen, onClose }) {
     isLoading,
     password
   );
-  const options = generateOptionsFromRoles(ROLE);
-
-  const validUserClass = getUsernameInputClass(validUsername);
-  const validPwdClass = getPasswordInputClass(validPassword);
-  const validRolesClass = getRolesInputClass(roles.length);
 
   useValidateUsername(username, setValidUsername);
   useValidatePassword(password, setValidPassword);
@@ -94,80 +96,21 @@ function EditUserForm({ user, isOpen, onClose }) {
   }
 
   const modalContent = (
-    <>
-      <div className='form-header__container'>
-        <h2>Edit User: {username}</h2>
-        <div className='form-header__action-buttons'>
-          <button
-            className='icon-button'
-            title='Save'
-            onClick={handleSave}
-            disabled={!canSave}>
-            <FontAwesomeIcon icon={faSave} />
-          </button>
-          <button className='icon-button' title='Delete' onClick={handleDelete}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
-        </div>
-      </div>
-
-      <form className='form' onSubmit={handleSave}>
-        <label className='form__label' htmlFor='username'>
-          {UI.BS.PAGE.USER.TABLE.username}
-          <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id='username'
-          name='username'
-          type='text'
-          autoComplete='off'
-          value={username}
-          onChange={handleUsernameChange(setUsername)}
-        />
-
-        <label className='form__label' htmlFor='password'>
-          {UI.BS.PAGE.USER.TABLE.password}
-          <span className='nowrap'> {UI.BS.PAGE.USER.TABLE.passwordRuleEmpty}</span>
-          <span className='nowrap'> {UI.BS.PAGE.USER.TABLE.passwordRule}</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id='password'
-          name='password'
-          type='password'
-          value={password}
-          onChange={handlePasswordChange(setPassword)}
-        />
-
-        <label className='form__label form__checkbox-container' htmlFor='user-active'>
-          {UI.BS.PAGE.USER.TABLE.active}
-          <input
-            className='form__checkbox'
-            id='user-active'
-            name='user-active'
-            type='checkbox'
-            checked={active}
-            onChange={handleToggleActive(setActive)}
-          />
-        </label>
-
-        <label className='form__label' htmlFor='roles'>
-          {UI.BS.PAGE.USER.TABLE.assignedRoles}
-        </label>
-        <select
-          id='roles'
-          name='roles'
-          className={`form__select ${validRolesClass}`}
-          multiple={true}
-          size='3'
-          value={roles}
-          onChange={handleRolesChange(setRoles)}>
-          {options}
-        </select>
-        <button type='submit' className='submit-button' disabled={!canSave}></button>
-      </form>
-    </>
+    <EditUserFormTable
+      username={username}
+      setUsername={setUsername}
+      validUsername={validUsername}
+      password={password}
+      setPassword={setPassword}
+      validPassword={validPassword}
+      roles={roles}
+      setRoles={setRoles}
+      active={active}
+      setActive={setActive}
+      canSave={canSave}
+      handleSave={handleSave}
+      handleDelete={handleDelete}
+    />
   );
 
   const modal = (
