@@ -16,7 +16,6 @@ import {
   handleLanguageChange,
   handlePublishedDateChange,
   handlePublisherChange,
-  handleSaveExistingBook,
   handleSaveNewBook,
   handleThumbnailUrlChange,
   handleTitleChange,
@@ -24,6 +23,7 @@ import {
   useValidateTitle,
 } from '../bookUtils';
 import Modal from '../../../../../components/common/Modal';
+import { v4 as uuidv4 } from 'uuid';
 
 function NewBookForm({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -65,6 +65,10 @@ function NewBookForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
+    const placeholderIsbn = isbn && isbn.trim() ? isbn.trim() : uuidv4();
+
+    setIsbn(placeholderIsbn);
+
     const result = await handleSaveNewBook(
       addNewBook,
       title,
@@ -72,7 +76,7 @@ function NewBookForm({ isOpen, onClose }) {
       publisher,
       publishedDate,
       description,
-      isbn,
+      placeholderIsbn,
       categories,
       thumbnailUrl,
       imgUrl,
@@ -103,6 +107,18 @@ function NewBookForm({ isOpen, onClose }) {
       </div>
 
       <form className='form' onSubmit={handleSave}>
+        <label className='form__label' htmlFor='isbn'>
+          ISBN:
+        </label>
+        <input
+          className='form__input'
+          id='isbn'
+          name='isbn'
+          type='text'
+          value={isbn}
+          onChange={handleIsbnChange(setIsbn)}
+        />
+
         <label className='form__label' htmlFor='title'>
           Title:
         </label>
@@ -164,18 +180,6 @@ function NewBookForm({ isOpen, onClose }) {
           onChange={handleDescriptionChange(setDescription)}
         />
 
-        <label className='form__label' htmlFor='isbn'>
-          ISBN:
-        </label>
-        <input
-          className='form__input'
-          id='isbn'
-          name='isbn'
-          type='text'
-          value={isbn}
-          onChange={handleIsbnChange(setIsbn)}
-        />
-
         <label className='form__label' htmlFor='categories'>
           Categories:
         </label>
@@ -223,6 +227,8 @@ function NewBookForm({ isOpen, onClose }) {
           value={language}
           onChange={handleLanguageChange(setLanguage)}
         />
+
+        <button type='submit' className='submit-button' disabled={!canSave}></button>
       </form>
     </>
   );

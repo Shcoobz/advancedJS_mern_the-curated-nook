@@ -83,7 +83,7 @@ function NewUserForm({ isOpen, onClose }) {
           </button>
         </div>
       </div>
-      
+
       <form className='form' onSubmit={handleSave}>
         <label className='form__label' htmlFor='username'>
           {UI.BS.PAGE.USER.TABLE.username}

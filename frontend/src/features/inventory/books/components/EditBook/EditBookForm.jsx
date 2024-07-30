@@ -255,6 +255,8 @@ function EditBookForm({ book, isOpen, onClose }) {
             onChange={handleIsOnWishlistChange(setIsOnWishlist)}
           />
         </label>
+
+        <button type='submit' className='submit-button' disabled={!canSave}></button>
       </form>
     </>
   );

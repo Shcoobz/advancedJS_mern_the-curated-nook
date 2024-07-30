@@ -1,22 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectBookById } from '../../api/booksApiSlice';
 import { DEFAULT } from '../../../../../config/common/constants';
-
-// function createHandleEdit(navigate, bookId) {
-//   return function handleEdit() {
-//     navigate(`/backstage/books/${bookId}`);
-//   };
-// }
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
 function Book({ bookId, onEdit }) {
-  // const navigate = useNavigate();
   const book = useSelector((state) => selectBookById(state, bookId));
 
   function handleEdit() {
@@ -24,7 +16,6 @@ function Book({ bookId, onEdit }) {
   }
 
   if (book) {
-    // const handleEdit = createHandleEdit(navigate, bookId);
     const bookCategoryList = formatCategories(book.categories);
 
     return (

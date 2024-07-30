@@ -22,12 +22,12 @@ const bookSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default: 'Leider keine Beschreibung verfügbar :(',
     trim: true,
   },
   isbn: [
     {
       type: String,
+      default: 'empty',
       trim: true,
     },
   ],

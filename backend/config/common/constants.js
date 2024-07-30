@@ -8,6 +8,7 @@ export const DEFAULT = {
   BOOK: {
     LANGUAGE: 'de',
   },
+  PLACEHOLDER: 'empty',
 };
 
 export const REGEX = {
