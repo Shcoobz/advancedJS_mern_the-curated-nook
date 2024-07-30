@@ -9,7 +9,7 @@ function getCellStatus(userActive) {
   return userActive ? DEFAULT.emptyString : 'table__cell--inactive';
 }
 
-function UserTableRow({ user, onEdit }) {
+function UserTable({ user, onEdit }) {
   if (!user) return null;
 
   const userRolesString = formatRoles(user.roles);
@@ -26,4 +26,4 @@ function UserTableRow({ user, onEdit }) {
   );
 }
 
-export default UserTableRow;
+export default UserTable;

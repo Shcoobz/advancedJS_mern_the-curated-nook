@@ -29,7 +29,7 @@ import {
   SubmitButton,
 } from '../../../../components/common/Buttons';
 
-import EditUserFormTable from '../Table/EditUserFormTable';
+import EditUserFormTable from './EditUserFormTable';
 
 function EditUserForm({ user, isOpen, onClose }) {
   const navigate = useNavigate();
