@@ -337,6 +337,10 @@ tr {
   gap: 0.5em;
 }
 
+.form__label {
+  font-weight: bold;
+}
+
 /* || MODAL */
 .modal__overlay {
   position: fixed;

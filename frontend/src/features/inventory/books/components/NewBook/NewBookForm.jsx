@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { DEFAULT } from '../../../../../config/common/constants';
@@ -10,8 +11,8 @@ import {
   useHandleBookSuccess,
   useValidateTitle,
 } from '../bookUtils';
+
 import Modal from '../../../../../components/common/Modal';
-import { v4 as uuidv4 } from 'uuid';
 import NewBookFormTable from './NewBookFormTable';
 
 function NewBookForm({ isOpen, onClose }) {
@@ -30,6 +31,7 @@ function NewBookForm({ isOpen, onClose }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(DEFAULT.emptyString);
   const [imageUrl, setImageUrl] = useState(DEFAULT.emptyString);
   const [language, setLanguage] = useState(DEFAULT.emptyString);
+  const [isOnWishlist, setIsOnWishlist] = useState(false);
 
   const canSave = Boolean(title) && !isLoading;
 
@@ -47,28 +49,12 @@ function NewBookForm({ isOpen, onClose }) {
     setCategories,
     setThumbnailUrl,
     setImageUrl,
-    setLanguage
+    setLanguage,
+    setIsOnWishlist
   );
 
   async function handleSave(e) {
     e.preventDefault();
-
-    // const placeholderIsbn = isbn && isbn.trim() ? isbn.trim() : uuidv4();
-
-    // setIsbn(placeholderIsbn);
-
-    console.log('Final data being sent:', {
-      title,
-      authors,
-      publisher,
-      publishedDate,
-      description,
-      isbn,
-      categories,
-      thumbnailUrl,
-      imageUrl,
-      language,
-    });
 
     const result = await handleSaveNewBook(
       addNewBook,
@@ -81,7 +67,8 @@ function NewBookForm({ isOpen, onClose }) {
       getDefaultValue(categories),
       getDefaultValue(thumbnailUrl),
       getDefaultValue(imageUrl),
-      getDefaultValue(language)
+      getDefaultValue(language),
+      isOnWishlist(false)
     );
 
     if (!result.success) {
@@ -115,8 +102,11 @@ function NewBookForm({ isOpen, onClose }) {
       setImageUrl={setImageUrl}
       language={language}
       setLanguage={setLanguage}
+      isOnWishlist={isOnWishlist}
+      setIsOnWishlist={setIsOnWishlist}
       canSave={canSave}
       handleSave={handleSave}
+      onClose={onClose}
     />
   );
 

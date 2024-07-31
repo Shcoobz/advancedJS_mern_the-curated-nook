@@ -10,10 +10,12 @@ export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }
           canSave={canSave}
           className='table__button table__button-save'
         />
-        <DeleteButton
-          handleDelete={handleDelete}
-          className='table__button table__button-delete'
-        />
+        {handleDelete && (
+          <DeleteButton
+            handleDelete={handleDelete}
+            className='table__button table__button-delete'
+          />
+        )}
         <CloseButton onClick={onClose} className='table__button table__button-close' />
       </div>
     </div>

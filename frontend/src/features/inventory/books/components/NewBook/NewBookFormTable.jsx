@@ -1,4 +1,10 @@
-import { SaveButton } from '../../../../../components/common/Buttons';
+import { SubmitButton } from '../../../../../components/common/Buttons';
+import {
+  FormCheckbox,
+  FormHeader,
+  FormInput,
+  FormTextarea,
+} from '../../../../../components/common/FormComponents';
 import {
   getTitleInputClass,
   handleAuthorsChange,
@@ -6,6 +12,7 @@ import {
   handleDescriptionChange,
   handleImageUrlChange,
   handleIsbnChange,
+  handleIsOnWishlistChange,
   handleLanguageChange,
   handlePublishedDateChange,
   handlePublisherChange,
@@ -35,143 +42,114 @@ function NewBookFormTable({
   setImageUrl,
   language,
   setLanguage,
+  isOnWishlist,
+  setIsOnWishlist,
   canSave,
   handleSave,
+  onClose,
 }) {
   const validTitleClass = getTitleInputClass(validTitle);
 
   const modalContent = (
     <>
-      <div className='form-header__container'>
-        <h2>Create Book</h2>
-        <div className='form-header__action-buttons'>
-          <SaveButton handleSave={handleSave} canSave={canSave} />
-        </div>
-      </div>
+      <FormHeader
+        title={'Create Book'}
+        handleSave={handleSave}
+        canSave={canSave}
+        onClose={onClose}
+      />
 
       <form className='form' onSubmit={handleSave}>
-        <label className='form__label' htmlFor='title'>
-          Title:
-        </label>
-        <input
-          className={`form__input ${validTitleClass}`}
+        <FormInput
+          label='Title:'
           id='title'
           name='title'
           type='text'
           value={title}
           onChange={handleTitleChange(setTitle)}
+          validClass={validTitleClass}
         />
-
-        <label className='form__label' htmlFor='authors'>
-          Author(s):
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='Author(s):'
           id='authors'
           name='authors'
           type='text'
           value={authors}
           onChange={handleAuthorsChange(setAuthors)}
         />
-
-        <label className='form__label' htmlFor='publisher'>
-          Publisher:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='Publisher:'
           id='publisher'
           name='publisher'
           type='text'
           value={publisher}
           onChange={handlePublisherChange(setPublisher)}
         />
-
-        <label className='form__label' htmlFor='publishedDate'>
-          Published Date:
-        </label>
-        {/* Todo: implement date formatter && sending to server */}
-        <input
-          className='form__input'
+        <FormInput
+          label='Published Date:'
           id='publishedDate'
           name='publishedDate'
           type='date'
           value={publishedDate}
           onChange={handlePublishedDateChange(setPublishedDate)}
         />
-
-        <label className='form__label' htmlFor='description'>
-          Description:
-        </label>
-        <textarea
-          className='form__textarea'
+        <FormTextarea
+          label='Description:'
           id='description'
           name='description'
           rows='5'
           value={description}
           onChange={handleDescriptionChange(setDescription)}
         />
-
-        <label className='form__label' htmlFor='isbn'>
-          ISBN:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='ISBN:'
           id='isbn'
           name='isbn'
           type='text'
           value={isbn}
           onChange={handleIsbnChange(setIsbn)}
         />
-
-        <label className='form__label' htmlFor='categories'>
-          Categories:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='Categories:'
           id='categories'
           name='categories'
           type='text'
           value={categories}
           onChange={handleCategoriesChange(setCategories)}
         />
-
-        <label className='form__label' htmlFor='thumbnailUrl'>
-          ThumbnailUrl:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='ThumbnailUrl:'
           id='thumbnailUrl'
           name='thumbnailUrl'
           type='text'
           value={thumbnailUrl}
           onChange={handleThumbnailUrlChange(setThumbnailUrl)}
         />
-
-        <label className='form__label' htmlFor='imageUrl'>
-          imageUrl:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='imageUrl:'
           id='imageUrl'
           name='imageUrl'
           type='text'
           value={imageUrl}
           onChange={handleImageUrlChange(setImageUrl)}
         />
-
-        <label className='form__label' htmlFor='language'>
-          Language:
-        </label>
-        <input
-          className='form__input'
+        <FormInput
+          label='Language:'
           id='language'
           name='language'
           type='text'
           value={language}
           onChange={handleLanguageChange(setLanguage)}
         />
+        <FormCheckbox
+          label='on wishlist:'
+          id='on-wishlist'
+          name='on-wishlist'
+          checked={isOnWishlist}
+          onChange={handleIsOnWishlistChange(setIsOnWishlist)}
+        />
 
-        <button type='submit' className='submit-button' disabled={!canSave}></button>
+        <SubmitButton canSave={canSave} />
       </form>
     </>
   );

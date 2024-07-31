@@ -147,21 +147,9 @@ export async function handleSaveNewBook(
   categories,
   thumbnailUrl,
   imageUrl,
-  language
+  language,
+  isOnWishlist
 ) {
-  console.log('data received:', {
-    title,
-    authors,
-    publisher,
-    publishedDate,
-    description,
-    isbn,
-    categories,
-    thumbnailUrl,
-    imageUrl,
-    language,
-  });
-
   const response = await addNewBook({
     title: title,
     authors: authors,
@@ -173,19 +161,7 @@ export async function handleSaveNewBook(
     thumbnailUrl: thumbnailUrl,
     imageUrl: imageUrl,
     language: language,
-  });
-
-  console.log('Final after save:', {
-    title,
-    authors,
-    publisher,
-    publishedDate,
-    description,
-    isbn,
-    categories,
-    thumbnailUrl,
-    imageUrl,
-    language,
+    isOnWishlist: isOnWishlist,
   });
 
   if (response.error || response.status >= 400) {
