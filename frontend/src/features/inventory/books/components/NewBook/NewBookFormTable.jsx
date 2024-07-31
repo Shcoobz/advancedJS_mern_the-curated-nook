@@ -1,7 +1,7 @@
 import { SubmitButton } from '../../../../../components/common/Buttons';
 import { FormHeader } from '../../../../../components/common/FormComponents';
 import { getTitleInputClass } from '../bookUtils';
-import getFormFields from '../bookData.js';
+import getFormFields from '../bookFormData.js';
 
 function NewBookFormTable({
   title,
