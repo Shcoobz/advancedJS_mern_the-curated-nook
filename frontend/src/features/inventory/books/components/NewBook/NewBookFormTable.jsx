@@ -1,25 +1,6 @@
 import { SubmitButton } from '../../../../../components/common/Buttons';
-import {
-  FormCheckbox,
-  FormHeader,
-  FormInput,
-  FormTextarea,
-} from '../../../../../components/common/FormComponents';
-import {
-  getTitleInputClass,
-  handleAuthorsChange,
-  handleCategoriesChange,
-  handleDescriptionChange,
-  handleImageUrlChange,
-  handleIsbnChange,
-  handleIsOnWishlistChange,
-  handleLanguageChange,
-  handlePublishedDateChange,
-  handlePublisherChange,
-  handleThumbnailUrlChange,
-  handleTitleChange,
-} from '../bookUtils';
-
+import { FormHeader } from '../../../../../components/common/FormComponents';
+import { getTitleInputClass } from '../bookUtils';
 import getFormFields from '../bookData.js';
 
 function NewBookFormTable({
@@ -84,7 +65,7 @@ function NewBookFormTable({
     return <Component key={index} {...field} />;
   });
 
-  const modalContent = (
+  const formContent = (
     <>
       <FormHeader
         title={'Create Book'}
@@ -101,7 +82,7 @@ function NewBookFormTable({
     </>
   );
 
-  return modalContent;
+  return formContent;
 }
 
 export default NewBookFormTable;
