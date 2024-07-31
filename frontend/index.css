@@ -429,8 +429,8 @@ tr {
   color: var(--TABLE-COLOR);
 }
 
-.details__user,
-.details__book {
+.details__value,
+.details__user {
   padding: 0.5em;
   background-color: var(--TABLE-BGCOLOR);
   border: 1px solid var(--TABLE-COLOR);
