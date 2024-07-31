@@ -132,9 +132,13 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-export const getDefaultValue = (value, defaultValue = 'N/A') => {
+export const setDefaultValue = (value, defaultValue = 'N/A') => {
   return value && value.trim() ? value.trim() : defaultValue;
 };
+
+export function setDefaultDate(value) {
+  return value === '' ? '1900-01-01' : value;
+}
 
 export async function handleSaveNewBook(
   addNewBook,

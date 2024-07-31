@@ -6,8 +6,9 @@ import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { DEFAULT } from '../../../../../config/common/constants';
 import { TOAST } from '../../../../../config/common/messages';
 import {
-  getDefaultValue,
+  setDefaultValue as setDefaultValue,
   handleSaveNewBook,
+  setDefaultDate,
   useHandleBookSuccess,
   useValidateTitle,
 } from '../bookUtils';
@@ -58,17 +59,17 @@ function NewBookForm({ isOpen, onClose }) {
 
     const result = await handleSaveNewBook(
       addNewBook,
-      getDefaultValue(title),
-      getDefaultValue(authors),
-      getDefaultValue(publisher),
-      getDefaultValue(publishedDate),
-      getDefaultValue(description),
-      getDefaultValue(isbn, uuidv4()),
-      getDefaultValue(categories),
-      getDefaultValue(thumbnailUrl),
-      getDefaultValue(imageUrl),
-      getDefaultValue(language),
-      isOnWishlist(false)
+      setDefaultValue(title),
+      setDefaultValue(authors),
+      setDefaultValue(publisher),
+      setDefaultDate(publishedDate),
+      setDefaultValue(description),
+      setDefaultValue(isbn, uuidv4()),
+      setDefaultValue(categories),
+      setDefaultValue(thumbnailUrl),
+      setDefaultValue(imageUrl),
+      setDefaultValue(language),
+      isOnWishlist
     );
 
     if (!result.success) {
