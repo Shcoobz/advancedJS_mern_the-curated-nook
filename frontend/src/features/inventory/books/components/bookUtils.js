@@ -106,9 +106,9 @@ export function handleThumbnailUrlChange(setThumbnailUrl) {
   };
 }
 
-export function handleImgUrlChange(setImgUrl) {
+export function handleImageUrlChange(setImageUrl) {
   return function (e) {
-    setImgUrl(e.target.value);
+    setImageUrl(e.target.value);
   };
 }
 
@@ -132,6 +132,10 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
+export const getDefaultValue = (value, defaultValue = 'N/A') => {
+  return value && value.trim() ? value.trim() : defaultValue;
+};
+
 export async function handleSaveNewBook(
   addNewBook,
   title,
@@ -142,20 +146,46 @@ export async function handleSaveNewBook(
   isbn,
   categories,
   thumbnailUrl,
-  imgUrl,
+  imageUrl,
   language
 ) {
+  console.log('data received:', {
+    title,
+    authors,
+    publisher,
+    publishedDate,
+    description,
+    isbn,
+    categories,
+    thumbnailUrl,
+    imageUrl,
+    language,
+  });
+
   const response = await addNewBook({
     title: title,
-    authors: authors.split(',').map((author) => author.trim()),
+    authors: authors,
     publisher: publisher,
     publishedDate: publishedDate,
     description: description,
-    isbn: isbn.split(',').map((isbn) => isbn.trim()),
-    categories: categories.split(',').map((category) => category.trim()),
+    isbn: isbn,
+    categories: categories,
     thumbnailUrl: thumbnailUrl,
-    imgUrl: imgUrl,
+    imageUrl: imageUrl,
     language: language,
+  });
+
+  console.log('Final after save:', {
+    title,
+    authors,
+    publisher,
+    publishedDate,
+    description,
+    isbn,
+    categories,
+    thumbnailUrl,
+    imageUrl,
+    language,
   });
 
   if (response.error || response.status >= 400) {
@@ -179,7 +209,7 @@ export async function handleSaveExistingBook(
   isbn,
   categories,
   thumbnailUrl,
-  imgUrl,
+  imageUrl,
   language,
   isOnWishlist
 ) {
@@ -193,7 +223,7 @@ export async function handleSaveExistingBook(
     isbn: isbn.split(',').map((isbn) => isbn.trim()),
     categories: categories.split(',').map((category) => category.trim()),
     thumbnailUrl: thumbnailUrl,
-    imgUrl: imgUrl,
+    imageUrl: imageUrl,
     language: language,
     isOnWishlist: isOnWishlist,
   };

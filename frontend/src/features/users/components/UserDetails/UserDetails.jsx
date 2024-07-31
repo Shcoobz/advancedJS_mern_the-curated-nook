@@ -35,7 +35,7 @@ function UserDetails({ user, isOpen, onClose, onEdit }) {
   const content = (
     <>
       <div className='details-header__container'>
-        <h2>User Details</h2>
+        <h2>User Details: {user?.username}</h2>
         <div className='details-header__action-buttons'>
           <EditButton onClick={handleEditClick} />
           <DeleteButton handleDelete={handleDelete} />

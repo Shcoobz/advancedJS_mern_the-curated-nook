@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Spinner from '../../../../../components/common/Spinner';
-import { UI } from '../../../../../config/common/messages';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
-import Book from '../Book/Book';
 import EditBookForm from '../EditBook/EditBookForm';
 import NewBookForm from '../NewBook/NewBookForm';
+import BooksListTable from './BooksListTable';
+import BookDetails from '../BookDetails/BookDetails';
 
 function BooksList() {
   const {
@@ -18,6 +18,8 @@ function BooksList() {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
+
+  console.log('books:', books);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -41,58 +43,38 @@ function BooksList() {
   }
 
   if (isSuccess) {
-    const { ids } = books;
+    console.log('Book details send: ', books);
+    content = <BooksListTable books={books} openModal={openModal} />;
+  }
 
-    const tableContent = ids?.length
-      ? ids.map((bookId) => <Book key={bookId} bookId={bookId} onEdit={openModal} />)
-      : null;
-
-    content = (
+  const booksList = (
+    <>
       <div>
-        <br />
-        <button onClick={() => openModal()} className='button'>
-          Create New Book
-        </button>
-        <br />
-
-        <p className='table-description'>{UI.BS.PAGE.BOOK.list.paragraph}</p>
-        <br />
-        <table className='table table--books'>
-          <thead className='table__thead'>
-            <tr>
-              <th scope='col' className='table__th book__published-date'>
-                Published Date
-              </th>
-              <th scope='col' className='table__th book__title'>
-                Title
-              </th>
-              <th scope='col' className='table__th book__description'>
-                Description
-              </th>
-              <th scope='col' className='table__th book__categories'>
-                Categories
-              </th>
-              <th scope='col' className='table__th book__isbn'>
-                ISBN
-              </th>
-              <th scope='col' className='table__th book__action'>
-                Edit
-              </th>
-            </tr>
-          </thead>
-          <tbody>{tableContent}</tbody>
-        </table>
+        {content}
         {isModalOpen &&
           (selectedBook ? (
-            <EditBookForm book={selectedBook} isOpen={isModalOpen} onClose={closeModal} />
+            selectedBook.isEditing ? (
+              <EditBookForm
+                book={selectedBook}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+              />
+            ) : (
+              <BookDetails
+                book={selectedBook}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onEdit={openModal}
+              />
+            )
           ) : (
             <NewBookForm isOpen={isModalOpen} onClose={closeModal} />
           ))}
       </div>
-    );
-  }
+    </>
+  );
 
-  return content;
+  return booksList;
 }
 
 export default BooksList;

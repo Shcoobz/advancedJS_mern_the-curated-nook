@@ -70,6 +70,7 @@ export const DEFAULT = {
   bookTicket: '${book.ticket}',
   comma: ',',
   commaSpace: ', ',
+  notAvailable: 'N/A',
 };
 
 export const ROLE = {

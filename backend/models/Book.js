@@ -9,19 +9,23 @@ const bookSchema = new mongoose.Schema({
   authors: [
     {
       type: String,
+      default: 'N/A',
       trim: true,
     },
   ],
   publisher: {
     type: String,
+    default: 'N/A',
     trim: true,
   },
   publishedDate: {
     type: String,
+    default: 'N/A',
     trim: true,
   },
   description: {
     type: String,
+    default: 'N/A',
     trim: true,
   },
   isbn: [
@@ -33,22 +37,23 @@ const bookSchema = new mongoose.Schema({
   categories: [
     {
       type: String,
+      default: 'N/A',
       trim: true,
     },
   ],
   thumbnailUrl: {
     type: String,
-    default: '',
+    default: 'N/A',
     trim: true,
   },
   imageUrl: {
     type: String,
-    default: '',
+    default: 'N/A',
     trim: true,
   },
   language: {
     type: String,
-    default: 'de',
+    default: 'N/A',
     trim: true,
   },
   isOnWishlist: {

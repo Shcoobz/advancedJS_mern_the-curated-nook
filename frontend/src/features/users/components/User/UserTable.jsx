@@ -10,8 +10,6 @@ function getCellStatus(userActive) {
 }
 
 function UserTable({ user, onEdit }) {
-  if (!user) return null;
-
   const userRolesString = formatRoles(user.roles);
   const cellStatus = getCellStatus(user.active);
 
