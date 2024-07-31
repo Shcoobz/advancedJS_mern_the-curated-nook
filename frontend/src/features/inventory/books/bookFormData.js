@@ -2,7 +2,7 @@ import {
   FormCheckbox,
   FormInput,
   FormTextarea,
-} from '../../../../components/common/FormComponents';
+} from '../../../components/common/FormComponents';
 import {
   handleAuthorsChange,
   handleCategoriesChange,
@@ -15,7 +15,7 @@ import {
   handlePublisherChange,
   handleThumbnailUrlChange,
   handleTitleChange,
-} from './bookUtils';
+} from './components/bookUtils';
 
 const getFormFields = ({
   title,

@@ -1,6 +1,11 @@
 import { CreateButton } from '../../../../components/common/Buttons';
 import { TABLE } from '../../../../config/common/constants';
 import { UI } from '../../../../config/common/messages';
+import {
+  TableCellHeader,
+  TableDescription,
+} from '../../../../components/common/TableComponents';
+
 import User from '../User/User';
 
 function UsersListTable({ users, openModal }) {
@@ -14,8 +19,7 @@ function UsersListTable({ users, openModal }) {
           <tr
             key={userId}
             onClick={() => openModal(user)}
-            className={'table__row user'}
-            style={{ cursor: 'pointer' }}>
+            className={'table__row-cursor'}>
             <User
               userId={userId}
               onEdit={() => openModal({ ...user, isEditing: true })}
@@ -28,22 +32,16 @@ function UsersListTable({ users, openModal }) {
   return (
     <div>
       <CreateButton onClick={() => openModal()} text={'New User'} />
+      <TableDescription text={UI.BS.PAGE.USER.list.paragraph} />
+
       <br />
 
-      <p className='table-description'>{UI.BS.PAGE.USER.list.paragraph}</p>
-      <br />
       <table className='table table--users'>
         <thead className='table__thead'>
           <tr>
-            <th scope='col' className='table__th user__username'>
-              {TABLE.TITLE.USER.name}
-            </th>
-            <th scope='col' className='table__th user__roles'>
-              {TABLE.TITLE.USER.roles}
-            </th>
-            <th scope='col' className='table__th user__action'>
-              {TABLE.TITLE.USER.action}
-            </th>
+            <TableCellHeader label={TABLE.TITLE.USER.name} className='user__username' />
+            <TableCellHeader label={TABLE.TITLE.USER.roles} className='user__roles' />
+            <TableCellHeader label={TABLE.TITLE.USER.action} className='user__action' />
           </tr>
         </thead>
         <tbody>{tableContent}</tbody>

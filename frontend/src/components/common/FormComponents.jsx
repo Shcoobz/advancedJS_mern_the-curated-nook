@@ -16,17 +16,29 @@ export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }
             className='table__button table__button-delete'
           />
         )}
-        <CloseButton onClick={onClose} className='table__button table__button-close' />
+        {onClose && (
+          <CloseButton onClick={onClose} className='table__button table__button-close' />
+        )}
       </div>
     </div>
   );
 }
 
-export function FormInput({ label, id, name, type, value, onChange, validClass = '' }) {
+export function FormInput({
+  label,
+  id,
+  name,
+  type,
+  value,
+  onChange,
+  validClass = '',
+  children,
+}) {
   return (
     <>
       <label className='form__label' htmlFor={id}>
         {label}
+        {children}
       </label>
 
       <input
@@ -75,6 +87,36 @@ export function FormCheckbox({ label, id, name, checked, onChange }) {
           onChange={onChange}
         />
       </label>
+    </>
+  );
+}
+
+export function FormSelect({
+  label,
+  id,
+  name,
+  multiple,
+  size,
+  value,
+  onChange,
+  options,
+  validClass = '',
+}) {
+  return (
+    <>
+      <label className='form__label' htmlFor={id}>
+        {label}
+      </label>
+      <select
+        id={id}
+        name={name}
+        className={`form__select  ${validClass}`}
+        multiple={multiple}
+        size={size}
+        value={value}
+        onChange={onChange}>
+        {options}
+      </select>
     </>
   );
 }

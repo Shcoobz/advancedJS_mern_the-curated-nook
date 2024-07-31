@@ -18,8 +18,7 @@ function BooksListTable({ books, openModal }) {
           <tr
             key={bookId}
             onClick={() => openModal(book)}
-            className={'table__row book'}
-            style={{ cursor: 'pointer' }}>
+            className={'table__row-cursor'}>
             <Book
               book={book}
               bookId={bookId}
@@ -33,10 +32,6 @@ function BooksListTable({ books, openModal }) {
   return (
     <div>
       <CreateButton onClick={() => openModal()} text={'New Book'} />
-
-      <br />
-      <br />
-
       <TableDescription text={UI.BS.PAGE.BOOK.list.paragraph} />
 
       <br />

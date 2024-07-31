@@ -249,6 +249,10 @@ tr {
   background-color: var(--INACTIVE);
 }
 
+.table__row-cursor {
+  cursor: pointer;
+}
+
 .book__published-date,
 .book__categories,
 .book__isbn {

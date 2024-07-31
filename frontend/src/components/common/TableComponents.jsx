@@ -4,8 +4,10 @@ export function TableDescription({ text }) {
   return <p className='table__description'>{text}</p>;
 }
 
-export function TableCell({ className, content }) {
-  return <td className={`table__cell ${className || ''}`}>{content}</td>;
+export function TableCell({ className, content, statusClass }) {
+  return (
+    <td className={`table__cell ${className || ''} ${statusClass || ''}`}>{content}</td>
+  );
 }
 
 export function TableCellHeader({ label, className }) {
@@ -16,13 +18,15 @@ export function TableCellHeader({ label, className }) {
   );
 }
 
-export function TableCellEdit({ onEdit, book }) {
+export function TableCellEdit({ onEdit, book, statusClass }) {
   const handleEditCellClick = (e) => {
     e.stopPropagation();
   };
 
   return (
-    <td className='table__cell no-pointer' onClick={handleEditCellClick}>
+    <td
+      className={`table__cell no-pointer ${statusClass || ''}`}
+      onClick={handleEditCellClick}>
       <EditButton onClick={() => onEdit(book)} />
     </td>
   );

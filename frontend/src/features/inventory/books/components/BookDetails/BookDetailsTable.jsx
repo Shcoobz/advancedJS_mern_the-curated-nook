@@ -4,7 +4,7 @@ import {
 } from '../../../../../components/common/TableComponents';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
-  return (
+  const tableContent = (
     <>
       <TableItemDetailHeader
         title={`Book Details: ${book.title}`}
@@ -28,6 +28,8 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
       </div>
     </>
   );
+
+  return tableContent;
 }
 
 export default BookDetailsTable;
