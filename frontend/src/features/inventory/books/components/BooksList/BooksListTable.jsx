@@ -1,11 +1,14 @@
 import { CreateButton } from '../../../../../components/common/Buttons';
 import { UI } from '../../../../../config/common/messages';
+import {
+  TableCellHeader,
+  TableDescription,
+} from '../../../../../components/common/TableComponents';
+
 import Book from '../Book/Book';
 
 function BooksListTable({ books, openModal }) {
   const { ids, entities } = books;
-
-  console.log('Book details received in List: ', books);
 
   const tableContent = ids?.length
     ? ids.map((bookId) => {
@@ -30,31 +33,23 @@ function BooksListTable({ books, openModal }) {
   return (
     <div>
       <CreateButton onClick={() => openModal()} text={'New Book'} />
+
+      <br />
       <br />
 
-      <p className='table-description'>{UI.BS.PAGE.BOOK.list.paragraph}</p>
+      <TableDescription text={UI.BS.PAGE.BOOK.list.paragraph} />
+
       <br />
+
       <table className='table table--books'>
         <thead className='table__thead'>
           <tr>
-            <th scope='col' className='table__th book__published-date'>
-              Published Date
-            </th>
-            <th scope='col' className='table__th book__title'>
-              Title
-            </th>
-            <th scope='col' className='table__th book__description'>
-              Description
-            </th>
-            <th scope='col' className='table__th book__categories'>
-              Categories
-            </th>
-            <th scope='col' className='table__th book__isbn'>
-              ISBN
-            </th>
-            <th scope='col' className='table__th book__action'>
-              Edit
-            </th>
+            <TableCellHeader label='Published Date' className='book__published-date' />
+            <TableCellHeader label='Title' className='book__title' />
+            <TableCellHeader label='Description' className='book__description' />
+            <TableCellHeader label='Categories' className='book__categories' />
+            <TableCellHeader label='ISBN' className='book__isbn' />
+            <TableCellHeader label='Edit' className='book__action' />
           </tr>
         </thead>
         <tbody>{tableContent}</tbody>

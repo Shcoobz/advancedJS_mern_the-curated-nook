@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Spinner from '../../../../../components/common/Spinner';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
+import Spinner from '../../../../../components/common/Spinner';
 import EditBookForm from '../EditBook/EditBookForm';
 import NewBookForm from '../NewBook/NewBookForm';
 import BooksListTable from './BooksListTable';
@@ -18,8 +18,6 @@ function BooksList() {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
-
-  console.log('books:', books);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -43,7 +41,6 @@ function BooksList() {
   }
 
   if (isSuccess) {
-    console.log('Book details send: ', books);
     content = <BooksListTable books={books} openModal={openModal} />;
   }
 

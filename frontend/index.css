@@ -215,6 +215,10 @@ tr {
   gap: 0.1em;
 }
 
+.table__description {
+  text-align: center;
+}
+
 .table__button,
 .table__button-edit {
   padding: 0.25em;
