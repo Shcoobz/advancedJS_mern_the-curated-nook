@@ -1,24 +1,19 @@
+import DetailItemHeader from '../../../../../components/table/DetailItemHeader';
 import DetailItem from '../../../../../components/table/DetailItem';
-import {
-  CloseButton,
-  DeleteButton,
-  EditButton,
-} from '../../../../../components/common/Buttons';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
   return (
     <>
-      <div className='details-header__container'>
-        <h2>Book Details: {book.title}</h2>
-        <div className='details-header__action-buttons'>
-          <EditButton onClick={handleEditClick} />
-          <DeleteButton handleDelete={handleDelete} />
-          <CloseButton onClick={onClose} />
-        </div>
-      </div>
+      <DetailItemHeader
+        title={`Book Details: ${book.title}`}
+        handleEditClick={handleEditClick}
+        handleDelete={handleDelete}
+        onClose={onClose}
+      />
+
       <div className='details'>
         <DetailItem label='Title:' value={book?.title} />
-        <DetailItem label='Authors:' value={book?.authors} />
+        <DetailItem label='Author(s):' value={book?.authors} />
         <DetailItem label='Publisher:' value={book?.publisher} />
         <DetailItem label='Published Date:' value={book?.publishedDate} />
         <DetailItem label='Description:' value={book?.description} />
