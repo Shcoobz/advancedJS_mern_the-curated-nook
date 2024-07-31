@@ -33,8 +33,6 @@ function UsersList() {
     setSelectedUser(null);
   }
 
-  
-
   if (isLoading) return <Spinner />;
 
   if (isError) {
