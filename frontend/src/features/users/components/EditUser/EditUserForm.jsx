@@ -94,6 +94,7 @@ function EditUserForm({ user, isOpen, onClose }) {
       canSave={canSave}
       handleSave={handleSave}
       handleDelete={handleDelete}
+      onClose={onClose}
     />
   );
 

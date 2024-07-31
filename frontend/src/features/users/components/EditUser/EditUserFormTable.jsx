@@ -1,6 +1,7 @@
 import { ROLE } from '../../../../config/common/constants';
 import { UI } from '../../../../config/common/messages';
 import {
+  CloseButton,
   DeleteButton,
   SaveButton,
   SubmitButton,
@@ -30,6 +31,7 @@ function EditUserFormTable({
   canSave,
   handleSave,
   handleDelete,
+  onClose,
 }) {
   const validUserClass = getUsernameInputClass(validUsername);
   const validPwdClass = getPasswordInputClass(validPassword);
@@ -43,6 +45,7 @@ function EditUserFormTable({
         <div className='form-header__action-buttons'>
           <SaveButton handleSave={handleSave} canSave={canSave} />
           <DeleteButton handleDelete={handleDelete} />
+          <CloseButton onClick={onClose} />
         </div>
       </div>
 
