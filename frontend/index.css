@@ -68,6 +68,10 @@
   color: var(--SPINNER-COLOR);
 }
 
+.no-pointer {
+  cursor: default;
+}
+
 /* || GENERAL STYLES */
 
 body {
@@ -211,7 +215,8 @@ tr {
   gap: 0.1em;
 }
 
-.table__button {
+.table__button,
+.table__button_edit {
   padding: 0.25em;
   font-size: 1.5rem;
   color: var(--TABLE-COLOR);
@@ -367,19 +372,87 @@ tr {
 .modal__content .form-header__action-buttons {
   display: flex;
   gap: 10px;
+  color: black;
 }
 
-.modal__content .icon-button {
+.modal__content .icon-button .table__button_edit {
   color: black;
 }
 
 .modal__content .form__label {
-  font-weight: bold;
   color: black;
 }
 
-.modal__content .submit-button {
+.submit-button {
   display: none;
+}
+
+/* || Details Modal */
+
+.details-header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  color: var(--TABLE-COLOR);
+}
+
+.details-header__container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.details-header__action-buttons {
+  display: flex;
+  gap: 0.5em;
+}
+
+.details-header__action-buttons .icon-button {
+  font-size: 1.5rem;
+  color: var(--TABLE-COLOR);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.details__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.details__label {
+  font-weight: bold;
+  color: var(--TABLE-COLOR);
+}
+
+.details__user {
+  padding: 0.5em;
+  background-color: var(--TABLE-BGCOLOR);
+  border: 1px solid var(--TABLE-COLOR);
+  border-radius: 15px;
+  color: black;
+}
+
+/* Adjustments for modal content */
+.modal__content .details-header__container {
+  color: var(--TABLE-COLOR);
+}
+
+.modal__content .icon-button {
+  color: var(--TABLE-COLOR);
+}
+
+/* Adjustments for modal content */
+.modal__content .details-header__container {
+  color: var(--TABLE-COLOR);
+}
+
+.modal__content .icon-button {
+  color: var(--TABLE-COLOR);
 }
 
 .success-message {

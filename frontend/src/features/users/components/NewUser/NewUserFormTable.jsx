@@ -71,7 +71,7 @@ function NewUserFormTable({
         <select
           id='roles'
           name='roles'
-          className={`form__select ${validRolesClass}`}
+          className='form__select'
           multiple={true}
           size='3'
           value={roles}

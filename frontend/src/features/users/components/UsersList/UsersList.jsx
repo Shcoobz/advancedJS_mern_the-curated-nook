@@ -4,6 +4,7 @@ import Spinner from '../../../../components/common/Spinner';
 import EditUserForm from '../EditUser/EditUserForm';
 import NewUserForm from '../NewUser/NewUserForm';
 import UsersListTable from './UsersListTable';
+import UserDetails from '../UserDetails/UserDetails';
 
 function UsersList() {
   const {
@@ -32,6 +33,8 @@ function UsersList() {
     setSelectedUser(null);
   }
 
+  
+
   if (isLoading) return <Spinner />;
 
   if (isError) {
@@ -39,18 +42,33 @@ function UsersList() {
   }
 
   if (isSuccess) {
-    content = <UsersListTable ids={users.ids} openModal={openModal} />;
+    content = <UsersListTable users={users} openModal={openModal} />;
   }
 
   const usersList = (
     <>
-      {content}
-      {isModalOpen &&
-        (selectedUser ? (
-          <EditUserForm user={selectedUser} isOpen={isModalOpen} onClose={closeModal} />
-        ) : (
-          <NewUserForm isOpen={isModalOpen} onClose={closeModal} />
-        ))}
+      <div>
+        {content}
+        {isModalOpen &&
+          (selectedUser ? (
+            selectedUser.isEditing ? (
+              <EditUserForm
+                user={selectedUser}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+              />
+            ) : (
+              <UserDetails
+                user={selectedUser}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onEdit={openModal}
+              />
+            )
+          ) : (
+            <NewUserForm isOpen={isModalOpen} onClose={closeModal} />
+          ))}
+      </div>
     </>
   );
 

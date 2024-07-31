@@ -1,34 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { DEFAULT, ROLE } from '../../../../config/common/constants';
-import { TOAST, UI } from '../../../../config/common/messages';
+import { DEFAULT } from '../../../../config/common/constants';
+import { TOAST } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
 import {
   canSaveExistingUserForm,
-  generateOptionsFromRoles,
-  getPasswordInputClass,
-  getRolesInputClass,
-  getUsernameInputClass,
   handleDeleteUser,
-  handlePasswordChange,
-  handleRolesChange,
   handleSaveExistingUser,
-  handleToggleActive,
-  handleUsernameChange,
   useHandleUserSuccess,
   useValidatePassword,
   useValidateUsername,
 } from '../userUtils';
 import Modal from '../../../../components/common/Modal';
-import {
-  DeleteButton,
-  SaveButton,
-  SubmitButton,
-} from '../../../../components/common/Buttons';
-
 import EditUserFormTable from './EditUserFormTable';
 
 function EditUserForm({ user, isOpen, onClose }) {

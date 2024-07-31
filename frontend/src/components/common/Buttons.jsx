@@ -1,4 +1,9 @@
-import { faPenToSquare, faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPenToSquare,
+  faSave,
+  faTimes,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function CreateButton({ onClick, text }) {
@@ -11,7 +16,7 @@ export function CreateButton({ onClick, text }) {
 
 export function EditButton({ onClick }) {
   return (
-    <button className='icon-button table__button' onClick={onClick}>
+    <button className='icon-button table__button_edit' onClick={onClick}>
       <FontAwesomeIcon icon={faPenToSquare} />
     </button>
   );
@@ -29,6 +34,14 @@ export function DeleteButton({ handleDelete }) {
   return (
     <button className='icon-button' title='Delete' onClick={handleDelete}>
       <FontAwesomeIcon icon={faTrashCan} />
+    </button>
+  );
+}
+
+export function CloseButton({ onClick }) {
+  return (
+    <button className='icon-button table__button_close' onClick={onClick}>
+      <FontAwesomeIcon icon={faTimes} />
     </button>
   );
 }
