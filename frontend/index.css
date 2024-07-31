@@ -216,7 +216,7 @@ tr {
 }
 
 .table__button,
-.table__button_edit {
+.table__button-edit {
   padding: 0.25em;
   font-size: 1.5rem;
   color: var(--TABLE-COLOR);
@@ -375,10 +375,6 @@ tr {
   color: black;
 }
 
-.modal__content .icon-button .table__button_edit {
-  color: black;
-}
-
 .modal__content .form__label {
   color: black;
 }
@@ -408,8 +404,12 @@ tr {
 }
 
 .details-header__action-buttons .icon-button {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: var(--TABLE-COLOR);
+}
+
+.details__button-close {
+  font-size: 3.5rem !important;
 }
 
 .details {

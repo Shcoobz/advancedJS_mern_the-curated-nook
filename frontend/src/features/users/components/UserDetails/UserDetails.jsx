@@ -1,3 +1,7 @@
+import { toast } from 'react-toastify';
+import { useDeleteUserMutation } from '../../api/usersApiSlice';
+import { handleDeleteUser } from '../userUtils';
+import { TOAST } from '../../../../config/common/messages';
 import {
   CloseButton,
   DeleteButton,
@@ -6,11 +10,26 @@ import {
 import Modal from '../../../../components/common/Modal';
 
 function UserDetails({ user, isOpen, onClose, onEdit }) {
+  const [deleteUser] = useDeleteUserMutation();
+
   if (!user) return null;
 
   function handleEditClick() {
     const updatedUser = { ...user, isEditing: true };
     onEdit(updatedUser);
+  }
+
+  async function handleDelete(e) {
+    e.preventDefault();
+
+    const result = await handleDeleteUser(deleteUser, user.id);
+
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.USER.deleted);
+    }
   }
 
   const content = (
@@ -19,7 +38,7 @@ function UserDetails({ user, isOpen, onClose, onEdit }) {
         <h2>User Details</h2>
         <div className='details-header__action-buttons'>
           <EditButton onClick={handleEditClick} />
-          <DeleteButton onClick={() => onDelete(user)} />
+          <DeleteButton handleDelete={handleDelete} />
           <CloseButton onClick={onClose} />
         </div>
       </div>
