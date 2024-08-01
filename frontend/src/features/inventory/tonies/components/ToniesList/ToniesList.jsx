@@ -1,7 +1,7 @@
 import Tonie from '../Tonie/Tonie';
-import Spinner from '../../../../components/common/Spinner';
-import { useGetToniesQuery } from '../api/toniesApiSlice';
-import { UI } from '../../../../config/common/messages';
+import Spinner from '../../../../../components/common/Spinner';
+import { useGetToniesQuery } from '../../api/toniesApiSlice';
+import { UI } from '../../../../../config/common/messages';
 
 function ToniesList() {
   const {

@@ -13,13 +13,16 @@ function BookTable({ book, onEdit }) {
 
   return (
     <>
-      <TableCell className='book__published-date' content={book.publishedDate} />
+      <TableCell
+        className='book__published-date hidden-col'
+        content={book.publishedDate}
+      />
       <TableCell className='book__title' content={book.title} />
       <TableCell className='book__description' content={book.description} />
       <TableCell className='book__categories' content={bookCategoryList} />
-      <TableCell className='book__isbn' content={book.isbn} />
+      <TableCell className='book__isbn hidden-col' content={book.isbn} />
 
-      <TableCellEdit onEdit={onEdit} book={book} />
+      <TableCellEdit onEdit={onEdit} item={book} className={'list__edit'} />
     </>
   );
 }

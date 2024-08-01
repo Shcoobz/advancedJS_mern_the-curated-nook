@@ -14,10 +14,10 @@ export function CreateButton({ onClick, text }) {
   );
 }
 
-export function EditButton({ onClick }) {
+export function EditButton({ onClick, className }) {
   return (
     <button
-      className='icon-button table__button-edit details__button-edit'
+      className={`icon-button table__button-edit ${className || ''}`}
       onClick={onClick}>
       <FontAwesomeIcon icon={faPenToSquare} />
     </button>

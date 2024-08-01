@@ -219,7 +219,16 @@ tr {
   font-size: 1rem;
   width: 100%;
   display: grid;
-  grid-template-columns: min-content 2fr 1fr 1fr;
+  grid-template-columns: min-content 1fr 1fr min-content;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
+
+.table__books {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: min-content 1fr 2fr 1fr min-content;
   color: var(--TABLE-COLOR);
   gap: 0.1em;
 }
@@ -262,14 +271,21 @@ tr {
   cursor: pointer;
 }
 
-.table__cell.user__number {
+.table__cell.item__number {
   text-align: center;
 }
 
-.book__published-date,
-.book__categories,
-.book__isbn {
-  display: none;
+.book__description {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.hidden-col {
+  display: none !important;
+}
+
+.list__edit {
+  font-size: 1.3em !important;
 }
 
 /* || FORM - GENERAL */

@@ -20,7 +20,7 @@ function UsersListTable({ users, openModal }) {
             key={userId}
             onClick={() => openModal(user)}
             className={'table__row-cursor'}>
-            <td className='table__cell user__number'>{index + 1}</td>
+            <td className='table__cell item__number'>{index + 1}</td>
             <User
               userId={userId}
               onEdit={() => openModal({ ...user, isEditing: true })}

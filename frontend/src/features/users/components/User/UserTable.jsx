@@ -27,7 +27,12 @@ function UserTable({ user, onEdit }) {
         statusClass={cellStatus}
       />
 
-      <TableCellEdit onEdit={onEdit} user={user} statusClass={cellStatus} />
+      <TableCellEdit
+        onEdit={onEdit}
+        item={user}
+        statusClass={cellStatus}
+        className={'list__edit'}
+      />
     </>
   );
 }

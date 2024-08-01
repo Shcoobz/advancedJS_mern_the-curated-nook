@@ -84,7 +84,7 @@ const getFormFields = ({
     label: 'Description:',
     id: 'description',
     name: 'description',
-    rows: '5',
+    rows: 5,
     value: description,
     onChange: handleDescriptionChange(setDescription),
   },

@@ -11,7 +11,7 @@ function BooksListTable({ books, openModal }) {
   const { ids, entities } = books;
 
   const tableContent = ids?.length
-    ? ids.map((bookId) => {
+    ? ids.map((bookId, index) => {
         const book = entities[bookId];
 
         return (
@@ -19,6 +19,7 @@ function BooksListTable({ books, openModal }) {
             key={bookId}
             onClick={() => openModal(book)}
             className={'table__row-cursor'}>
+            <td className='table__cell item__number'>{index + 1}</td>
             <Book
               book={book}
               bookId={bookId}
@@ -36,14 +37,18 @@ function BooksListTable({ books, openModal }) {
 
       <br />
 
-      <table className='table table--books'>
+      <table className='table table__books'>
         <thead className='table__thead'>
           <tr>
-            <TableCellHeader label='Published Date' className='book__published-date' />
+            <TableCellHeader label='Number' className='book__number' />
+            <TableCellHeader
+              label='Published Date'
+              className='book__published-date hidden-col'
+            />
             <TableCellHeader label='Title' className='book__title' />
             <TableCellHeader label='Description' className='book__description' />
             <TableCellHeader label='Categories' className='book__categories' />
-            <TableCellHeader label='ISBN' className='book__isbn' />
+            <TableCellHeader label='ISBN' className='book__isbn hidden-col' />
             <TableCellHeader label='Edit' className='book__action' />
           </tr>
         </thead>
