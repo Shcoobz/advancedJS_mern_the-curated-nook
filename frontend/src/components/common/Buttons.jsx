@@ -32,10 +32,10 @@ export function SaveButton({ handleSave, canSave }) {
   );
 }
 
-export function DeleteButton({ handleDelete }) {
+export function DeleteButton({ handleDelete, className }) {
   return (
     <button
-      className='icon-button table__button-edit details__button-delete'
+      className={`icon-button table__button-delete ${className || ''}`}
       title='Delete'
       onClick={handleDelete}>
       <FontAwesomeIcon icon={faTrashCan} />

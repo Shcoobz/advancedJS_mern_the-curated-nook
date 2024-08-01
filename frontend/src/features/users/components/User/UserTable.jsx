@@ -1,4 +1,3 @@
-import { EditButton } from '../../../../components/common/Buttons';
 import { TableCell, TableCellEdit } from '../../../../components/common/TableComponents';
 import { DEFAULT } from '../../../../config/common/constants';
 

@@ -6,14 +6,17 @@ import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
 
 import UsersList from './features/users/components/UsersList/UsersList';
-import EditUser from './features/users/components/EditUser/EditUser';
 import NewUserForm from './features/users/components/NewUser/NewUserForm';
+import EditUser from './features/users/components/EditUser/EditUser';
 
 import BooksList from './features/inventory/books/components/BooksList/BooksList';
-import NewBook from './features/inventory/books/components/NewBook/NewBookForm';
+import NewBookForm from './features/inventory/books/components/NewBook/NewBookForm';
 import EditBook from './features/inventory/books/components/EditBook/EditBook';
 
-import ToniesList from './features/inventory/tonies/ToniesList/ToniesList';
+import ToniesList from './features/inventory/tonies/components/ToniesList/ToniesList';
+import NewTonieForm from './features/inventory/tonies/components/NewTonie/NewTonieForm';
+import EditTonie from './features/inventory/tonies/components/EditTonie/EditTonie';
+
 import LegoList from './features/inventory/lego/LegoList';
 
 import { PATH } from './config/common/constants';
@@ -36,12 +39,14 @@ function App() {
 
           <Route path={PATH.books}>
             <Route index element={<BooksList />} />
-            <Route path='new' element={<NewBook />} />
+            <Route path='new' element={<NewBookForm />} />
             <Route path=':id' element={<EditBook />} />
           </Route>
 
           <Route path={PATH.tonies}>
             <Route index element={<ToniesList />} />
+            <Route path='new' element={<NewTonieForm />} />
+            <Route path=':id' element={<EditTonie />} />
           </Route>
 
           <Route path={PATH.lego}>

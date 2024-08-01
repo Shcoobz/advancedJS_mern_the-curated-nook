@@ -89,6 +89,11 @@ export const TOAST = {
       updated: 'Book updated!',
       deleted: 'Book deleted!',
     },
+    TONIE: {
+      created: 'Tonie created!',
+      updated: 'Tonie updated!',
+      deleted: 'Tonie deleted!',
+    },
   },
   ERROR: {
     USER: {

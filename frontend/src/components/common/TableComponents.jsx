@@ -18,7 +18,7 @@ export function TableCellHeader({ label, className }) {
   );
 }
 
-export function TableCellEdit({ onEdit, item, statusClass, className }) {
+export function TableCellEdit({ onEdit, onDelete, item, statusClass, className }) {
   const handleEditCellClick = (e) => {
     e.stopPropagation();
   };
@@ -28,7 +28,7 @@ export function TableCellEdit({ onEdit, item, statusClass, className }) {
       className={`table__cell no-pointer ${statusClass || ''}`}
       onClick={handleEditCellClick}>
       <EditButton onClick={() => onEdit(item)} className={className || ''} />
-      {/* Todo: add delete button */}
+      {/* <DeleteButton handleDelete={() => onDelete(item)} className={className || ''} /> */}
     </td>
   );
 }

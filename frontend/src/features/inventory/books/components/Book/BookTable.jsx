@@ -22,7 +22,7 @@ function BookTable({ book, onEdit }) {
       <TableCell className='book__categories' content={bookCategoryList} />
       <TableCell className='book__isbn hidden-col' content={book.isbn} />
 
-      <TableCellEdit onEdit={onEdit} item={book} className={'list__edit'} />
+      <TableCellEdit onEdit={onEdit} item={book} className='list__edit' />
     </>
   );
 }

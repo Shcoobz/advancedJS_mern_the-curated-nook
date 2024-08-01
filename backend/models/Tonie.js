@@ -8,10 +8,17 @@ const tonieSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    default: 'N/A',
     trim: true,
   },
-  imgUrl: {
+  thumbnailUrl: {
     type: String,
+    default: 'N/A',
+    trim: true,
+  },
+  imageUrl: {
+    type: String,
+    default: 'N/A',
     trim: true,
   },
   isOnWishlist: {

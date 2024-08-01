@@ -1,6 +1,14 @@
 import { useEffect } from 'react';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
 
+function getErrorContent(error, delError) {
+  const errorMsg = error?.data?.message;
+  const delErrorMsg = delError?.data?.message;
+  const DEFAULT = { emptyString: '' };
+
+  return errorMsg || delErrorMsg || DEFAULT.emptyString;
+}
+
 export function useValidateTitle(title, setValidTitle) {
   useEffect(() => {
     setValidTitle(title.trim().length > 0);
@@ -19,6 +27,7 @@ export function useHandleBookSuccess(
   setIsbn,
   setCategories,
   setThumbnailUrl,
+  setImageUrl,
   setLanguage,
   setIsOnWishlist
 ) {
@@ -32,6 +41,7 @@ export function useHandleBookSuccess(
       setIsbn(DEFAULT.emptyString);
       setCategories(DEFAULT.emptyString);
       setThumbnailUrl(DEFAULT.emptyString);
+      setImageUrl(DEFAULT.emptyString);
       setLanguage(DEFAULT.emptyString);
       setIsOnWishlist(false);
 
@@ -49,6 +59,7 @@ export function useHandleBookSuccess(
     setIsbn,
     setCategories,
     setThumbnailUrl,
+    setImageUrl,
     setLanguage,
     setIsOnWishlist,
   ]);
@@ -122,14 +133,6 @@ export function handleIsOnWishlistChange(setIsOnWishlist) {
   return function (e) {
     setIsOnWishlist((prev) => !prev);
   };
-}
-
-function getErrorContent(error, delError) {
-  const errorMsg = error?.data?.message;
-  const delErrorMsg = delError?.data?.message;
-  const DEFAULT = { emptyString: '' };
-
-  return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
 export const setDefaultValue = (value, defaultValue = 'N/A') => {

@@ -1,7 +1,11 @@
-import Tonie from '../Tonie/Tonie';
-import Spinner from '../../../../../components/common/Spinner';
+import { useState } from 'react';
 import { useGetToniesQuery } from '../../api/toniesApiSlice';
-import { UI } from '../../../../../config/common/messages';
+import Spinner from '../../../../../components/common/Spinner';
+import ToniesListTable from './ToniesListTable';
+
+import EditTonieForm from '../EditTonie/EditTonieForm';
+import TonieDetails from '../TonieDetails/TonieDetails';
+import NewTonieForm from '../NewTonie/NewTonieForm';
 
 function ToniesList() {
   const {
@@ -16,7 +20,20 @@ function ToniesList() {
     refetchOnMountOrArgChange: true,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTonie, setSelectedTonie] = useState(null);
+
   let content;
+
+  function openModal(tonie = null) {
+    setSelectedTonie(tonie);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedTonie(null);
+  }
 
   if (isLoading) return <Spinner />;
 
@@ -25,37 +42,37 @@ function ToniesList() {
   }
 
   if (isSuccess) {
-    const { ids } = tonies;
-
-    const tableContent = ids?.length
-      ? ids.map((tonieId) => <Tonie key={tonieId} tonieId={tonieId} />)
-      : null;
-
-    content = (
-      <div>
-        <p className='table-description'>{UI.BS.PAGE.TONIE.list.paragraph}</p>
-        <br />
-        <table className='table table--tonies'>
-          <thead className='table__thead'>
-            <tr>
-              <th scope='col' className='table__th tonie__name'>
-                Name
-              </th>
-              <th scope='col' className='table__th tonie__description'>
-                Description
-              </th>
-              <th scope='col' className='table__th tonie__action'>
-                Edit
-              </th>
-            </tr>
-          </thead>
-          <tbody>{tableContent}</tbody>
-        </table>
-      </div>
-    );
+    content = <ToniesListTable tonies={tonies} openModal={openModal} />;
   }
 
-  return content;
+  const toniesList = (
+    <>
+      <div>
+        {content}
+        {isModalOpen &&
+          (selectedTonie ? (
+            selectedTonie.isEditing ? (
+              <EditTonieForm
+                tonie={selectedTonie}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+              />
+            ) : (
+              <TonieDetails
+                tonie={selectedTonie}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onEdit={openModal}
+              />
+            )
+          ) : (
+            <NewTonieForm isOpen={isModalOpen} onClose={closeModal} />
+          ))}
+      </div>
+    </>
+  );
+
+  return toniesList;
 }
 
 export default ToniesList;

@@ -233,6 +233,15 @@ tr {
   gap: 0.1em;
 }
 
+.table__tonies {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: min-content 1fr 2fr min-content;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
+
 .table__description {
   text-align: center;
 }
@@ -284,7 +293,7 @@ tr {
   display: none !important;
 }
 
-.list__edit {
+.list__actions {
   font-size: 1.3em !important;
 }
 
