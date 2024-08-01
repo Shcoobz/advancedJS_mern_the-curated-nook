@@ -1,5 +1,12 @@
-import { TableCell, TableCellEdit } from '../../../../components/common/TableComponents';
+import { useDispatch } from 'react-redux';
+import {
+  TableCell,
+  TableCellActions,
+} from '../../../../components/common/TableComponents';
 import { DEFAULT } from '../../../../config/common/constants';
+import { useDeleteUserMutation } from '../../api/usersApiSlice';
+import { apiSlice } from '../../../../app/api/apiSlice';
+import { handleDeleteUserList } from '../userUtils';
 
 function formatRoles(roles) {
   return roles.toString().replaceAll(DEFAULT.comma, DEFAULT.commaSpace);
@@ -10,8 +17,16 @@ function getCellStatus(userActive) {
 }
 
 function UserTable({ user, onEdit }) {
+  const [deleteUser] = useDeleteUserMutation();
+  const dispatch = useDispatch();
   const userRolesString = formatRoles(user.roles);
   const cellStatus = getCellStatus(user.active);
+
+  async function handleDelete(e) {
+    await handleDeleteUserList(deleteUser, user.id);
+
+    dispatch(apiSlice.util.invalidateTags([{ type: 'User', id: 'LIST' }]));
+  }
 
   return (
     <>
@@ -26,11 +41,12 @@ function UserTable({ user, onEdit }) {
         statusClass={cellStatus}
       />
 
-      <TableCellEdit
+      <TableCellActions
         onEdit={onEdit}
+        handleDelete={handleDelete}
         item={user}
         statusClass={cellStatus}
-        className={'list__edit'}
+        className={'list__actions'}
       />
     </>
   );

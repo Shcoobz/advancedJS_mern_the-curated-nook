@@ -24,6 +24,7 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
 
     getToniesCount: builder.query({
       query: () => '/tonies/count',
+      providesTags: provideToniesTags,
     }),
 
     addNewTonie: builder.mutation({

@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
+import { toast } from 'react-toastify';
+import { TOAST } from '../../../../config/common/messages';
 
 function getErrorContent(error, delError) {
   const errorMsg = error?.data?.message;
@@ -230,5 +232,17 @@ export async function handleDeleteBook(deleteBook, bookId) {
     return { success: false, errorMessage: getErrorContent(response.error) };
   }
 
+  return { success: true };
+}
+
+export async function handleDeleteBookList(deleteBook, bookId) {
+  const response = await deleteBook({ id: bookId });
+
+  if (response.error) {
+    toast.error(response.error.data.message);
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  toast.success(TOAST.SUCCESS.BOOK.deleted);
   return { success: true };
 }

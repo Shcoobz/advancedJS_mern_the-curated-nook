@@ -18,7 +18,7 @@ export function TableCellHeader({ label, className }) {
   );
 }
 
-export function TableCellEdit({ onEdit, onDelete, item, statusClass, className }) {
+export function TableCellActions({ onEdit, handleDelete, item, statusClass, className }) {
   const handleEditCellClick = (e) => {
     e.stopPropagation();
   };
@@ -27,8 +27,13 @@ export function TableCellEdit({ onEdit, onDelete, item, statusClass, className }
     <td
       className={`table__cell no-pointer ${statusClass || ''}`}
       onClick={handleEditCellClick}>
-      <EditButton onClick={() => onEdit(item)} className={className || ''} />
-      {/* <DeleteButton handleDelete={() => onDelete(item)} className={className || ''} /> */}
+      <div className='list__action-buttons'>
+        <EditButton onClick={() => onEdit(item)} className={className || ''} />
+        <DeleteButton
+          handleDelete={() => handleDelete(item)}
+          className={className || ''}
+        />
+      </div>
     </td>
   );
 }

@@ -1,15 +1,27 @@
 import { DEFAULT } from '../../../../../config/common/constants';
 import {
   TableCell,
-  TableCellEdit,
+  TableCellActions,
 } from '../../../../../components/common/TableComponents';
+import { useDispatch } from 'react-redux';
+import { useDeleteBookMutation } from '../../api/booksApiSlice';
+import { handleDeleteBookList } from '../bookUtils';
+import { apiSlice } from '../../../../../app/api/apiSlice';
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
 function BookTable({ book, onEdit }) {
+  const [deleteBook] = useDeleteBookMutation();
+  const dispatch = useDispatch();
   const bookCategoryList = formatCategories(book.categories);
+
+  async function handleDelete(e) {
+    await handleDeleteBookList(deleteBook, book.id);
+
+    dispatch(apiSlice.util.invalidateTags([{ type: 'Book', id: 'LIST' }]));
+  }
 
   return (
     <>
@@ -22,7 +34,12 @@ function BookTable({ book, onEdit }) {
       <TableCell className='book__categories' content={bookCategoryList} />
       <TableCell className='book__isbn hidden-col' content={book.isbn} />
 
-      <TableCellEdit onEdit={onEdit} item={book} className='list__edit' />
+      <TableCellActions
+        onEdit={onEdit}
+        handleDelete={handleDelete}
+        item={book}
+        className='list__actions'
+      />
     </>
   );
 }

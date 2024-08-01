@@ -24,6 +24,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
     getUsersCount: builder.query({
       query: () => '/users/count',
+      providesTags: provideUsersTags,
     }),
 
     addNewUser: builder.mutation({

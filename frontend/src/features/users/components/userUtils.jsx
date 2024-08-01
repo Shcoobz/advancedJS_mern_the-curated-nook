@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { CLASS_NAME, DEFAULT, LINK, REGEX } from '../../../config/common/constants';
+import { toast } from 'react-toastify';
+import { TOAST } from '../../../config/common/messages';
 
 export function useValidateUsername(username, setValidUsername) {
   useEffect(() => {
@@ -157,4 +159,16 @@ export function getErrorContent(error, delError) {
   const delErrorMsg = delError?.data?.message;
 
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
+}
+
+export async function handleDeleteUserList(deleteUser, userId) {
+  const response = await deleteUser({ id: userId });
+
+  if (response.error) {
+    toast.error(response.error.data.message);
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  toast.success(TOAST.SUCCESS.USER.deleted);
+  return { success: true };
 }

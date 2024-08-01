@@ -24,6 +24,7 @@ export const booksApiSlice = apiSlice.injectEndpoints({
 
     getBooksCount: builder.query({
       query: () => '/books/count',
+      providesTags: provideBooksTags,
     }),
 
     addNewBook: builder.mutation({

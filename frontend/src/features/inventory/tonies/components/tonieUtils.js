@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
+import { TOAST } from '../../../../config/common/messages';
+import { toast } from 'react-toastify';
 
 function getErrorContent(error, delError) {
   const errorMsg = error?.data?.message;
@@ -148,5 +150,17 @@ export async function handleDeleteTonie(deleteTonie, tonieId) {
     return { success: false, errorMessage: getErrorContent(response.error) };
   }
 
+  return { success: true };
+}
+
+export async function handleDeleteTonieList(deleteTonie, tonieId) {
+  const response = await deleteTonie({ id: tonieId });
+
+  if (response.error) {
+    toast.error(response.error.data.message);
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  toast.success(TOAST.SUCCESS.TONIE.deleted);
   return { success: true };
 }

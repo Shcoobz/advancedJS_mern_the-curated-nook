@@ -42,7 +42,7 @@ function ToniesListTable({ tonies, openModal }) {
             <TableCellHeader label='Number' className='tonie__number' />
             <TableCellHeader label='Name' className='tonie__name' />
             <TableCellHeader label='Description' className='tonie__description' />
-            <TableCellHeader label='Edit' className='tonie__action' />
+            <TableCellHeader label='Actions' className='tonie__action' />
           </tr>
         </thead>
         <tbody>{tableContent}</tbody>

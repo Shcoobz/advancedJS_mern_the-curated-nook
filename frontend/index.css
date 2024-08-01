@@ -247,7 +247,8 @@ tr {
 }
 
 .table__button,
-.table__button-edit {
+.table__button-edit,
+.table__button-delete {
   padding: 0.25em;
   font-size: 2.5rem;
   color: var(--TABLE-COLOR);
@@ -293,7 +294,13 @@ tr {
   display: none !important;
 }
 
+.list__action-buttons {
+  display: flex;
+  align-items: center;
+}
+
 .list__actions {
+  color: black !important;
   font-size: 1.3em !important;
 }
 
