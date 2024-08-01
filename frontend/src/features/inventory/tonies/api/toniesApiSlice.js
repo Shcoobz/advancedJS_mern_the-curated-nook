@@ -22,6 +22,10 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
       providesTags: provideToniesTags,
     }),
 
+    getToniesCount: builder.query({
+      query: () => '/tonies/count',
+    }),
+
     addNewTonie: builder.mutation({
       query: addNewTonieQuery,
       invalidatesTags: invalidateToniesTags,
@@ -41,6 +45,7 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetToniesQuery,
+  useGetToniesCountQuery,
   useAddNewTonieMutation,
   useUpdateTonieMutation,
   useDeleteTonieMutation,

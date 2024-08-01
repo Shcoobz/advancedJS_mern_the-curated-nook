@@ -1,4 +1,5 @@
 import { ENTITY, FIELD } from '../config/common/messages.js';
+import Tonie from '../models/Tonie.js';
 import {
   createTonie,
   createTonieObject,
@@ -73,4 +74,10 @@ export async function deleteTonie(req, res) {
   await deleteTonieFromDatabase(tonie);
 
   return sendEntityDeleted(res, ENTITY.TONIE, name, tonieId);
+}
+
+export async function getTonieCount(req, res) {
+  const count = await Tonie.countDocuments();
+
+  return res.json({ count });
 }

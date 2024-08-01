@@ -12,7 +12,7 @@ function UsersListTable({ users, openModal }) {
   const { ids, entities } = users;
 
   const tableContent = ids?.length
-    ? ids.map((userId) => {
+    ? ids.map((userId, index) => {
         const user = entities[userId];
 
         return (
@@ -20,6 +20,7 @@ function UsersListTable({ users, openModal }) {
             key={userId}
             onClick={() => openModal(user)}
             className={'table__row-cursor'}>
+            <td className='table__cell user__number'>{index + 1}</td>
             <User
               userId={userId}
               onEdit={() => openModal({ ...user, isEditing: true })}
@@ -36,9 +37,10 @@ function UsersListTable({ users, openModal }) {
 
       <br />
 
-      <table className='table table--users'>
+      <table className='table table__users'>
         <thead className='table__thead'>
           <tr>
+            <TableCellHeader label='Number' className='user__number' />
             <TableCellHeader label={TABLE.TITLE.USER.name} className='user__username' />
             <TableCellHeader label={TABLE.TITLE.USER.roles} className='user__roles' />
             <TableCellHeader label={TABLE.TITLE.USER.action} className='user__action' />

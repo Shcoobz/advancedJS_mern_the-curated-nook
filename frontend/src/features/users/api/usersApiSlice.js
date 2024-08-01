@@ -22,6 +22,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: provideUsersTags,
     }),
 
+    getUsersCount: builder.query({
+      query: () => '/users/count',
+    }),
+
     addNewUser: builder.mutation({
       query: addNewUserQuery,
       invalidatesTags: invalidateUsersTags,
@@ -41,6 +45,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetUsersQuery,
+  useGetUsersCountQuery,
   useAddNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,

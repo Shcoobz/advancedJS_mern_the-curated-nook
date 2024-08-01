@@ -4,6 +4,7 @@ import {
   createNewTonie,
   deleteTonie,
   getAllToniesInCollection,
+  getTonieCount,
   updateTonie,
 } from '../controllers/toniesController.js';
 
@@ -15,5 +16,7 @@ tonieRouter
   .post(createNewTonie)
   .patch(updateTonie)
   .delete(deleteTonie);
+
+tonieRouter.get('/count', getTonieCount);
 
 export default tonieRouter;

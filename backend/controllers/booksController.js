@@ -1,5 +1,6 @@
 import { INDEX } from '../config/common/constants.js';
 import { ENTITY, FIELD } from '../config/common/messages.js';
+import Book from '../models/Book.js';
 import {
   createBookInDatabase,
   createBookObject,
@@ -90,4 +91,10 @@ export async function deleteBook(req, res) {
   await deleteBookFromDatabase(book);
 
   return sendEntityDeleted(res, ENTITY.BOOK, title, bookId);
+}
+
+export async function getBookCount(req, res) {
+  const count = await Book.countDocuments();
+
+  return res.json({ count });
 }

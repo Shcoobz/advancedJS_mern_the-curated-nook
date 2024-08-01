@@ -5,6 +5,7 @@ import {
   createNewUser,
   updateUser,
   deleteUser,
+  getUserCount,
 } from '../controllers/usersController.js';
 
 const userRouter = express.Router();
@@ -15,5 +16,7 @@ userRouter
   .post(createNewUser)
   .patch(updateUser)
   .delete(deleteUser);
+
+userRouter.get('/count', getUserCount);
 
 export default userRouter;

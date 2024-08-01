@@ -215,6 +215,15 @@ tr {
   gap: 0.1em;
 }
 
+.table__users {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: min-content 2fr 1fr 1fr;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
+
 .table__description {
   text-align: center;
 }
@@ -251,6 +260,10 @@ tr {
 
 .table__row-cursor {
   cursor: pointer;
+}
+
+.table__cell.user__number {
+  text-align: center;
 }
 
 .book__published-date,

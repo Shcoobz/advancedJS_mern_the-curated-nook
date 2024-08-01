@@ -23,6 +23,7 @@ import {
   saveUser,
   updateUserFields,
 } from './utils/queries/userQueries.js';
+import User from '../models/User.js';
 
 export async function getAllUsers(req, res) {
   const users = await fetchUsersWithoutPasswords();
@@ -86,4 +87,10 @@ export async function deleteUser(req, res) {
   await deleteUserFromDatabase(user);
 
   return sendEntityDeleted(res, ENTITY.USER, username, userId);
+}
+
+export async function getUserCount(req, res) {
+  const count = await User.countDocuments();
+
+  return res.json({ count });
 }

@@ -22,6 +22,10 @@ export const booksApiSlice = apiSlice.injectEndpoints({
       providesTags: provideBooksTags,
     }),
 
+    getBooksCount: builder.query({
+      query: () => '/books/count',
+    }),
+
     addNewBook: builder.mutation({
       query: addNewBookQuery,
       invalidatesTags: invalidateBooksTags,
@@ -41,6 +45,7 @@ export const booksApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetBooksQuery,
+  useGetBooksCountQuery,
   useAddNewBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,

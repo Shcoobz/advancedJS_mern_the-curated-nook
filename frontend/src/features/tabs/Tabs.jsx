@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { LINK } from '../../config/common/constants';
 
-const tabs = [
-  { name: 'Users', path: LINK.USER.viewUsers },
-  { name: 'Books', path: LINK.BOOK.viewBooks },
-  { name: 'Tonies', path: LINK.TONIE.viewTonies },
-  { name: 'Lego', path: LINK.LEGO.viewLego },
-];
+function Tabs({ currentPath, userCount, bookCount, tonieCount, children }) {
+  const tabs = [
+    { name: 'Users', path: LINK.USER.viewUsers, count: userCount },
+    { name: 'Books', path: LINK.BOOK.viewBooks, count: bookCount },
+    { name: 'Tonies', path: LINK.TONIE.viewTonies, count: tonieCount },
+    { name: 'Lego', path: LINK.LEGO.viewLego },
+  ];
 
-function Tabs({ currentPath, children }) {
   return (
     <div className='tabs-container'>
       <div className='tabs'>
@@ -17,7 +17,7 @@ function Tabs({ currentPath, children }) {
             key={tab.name}
             to={tab.path}
             className={`tab ${currentPath.includes(tab.path) ? 'active' : ''}`}>
-            {tab.name}
+            {tab.name} {tab.count > 0 ? `- ${tab.count}` : ''}
           </Link>
         ))}
       </div>
@@ -27,4 +27,3 @@ function Tabs({ currentPath, children }) {
 }
 
 export default Tabs;
-
