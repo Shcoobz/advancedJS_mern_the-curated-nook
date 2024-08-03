@@ -4,7 +4,24 @@ const legoSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
   },
+  thumbnailUrl: {
+    type: String,
+    default: 'N/A',
+    trim: true,
+  },
+  imageUrl: {
+    type: String,
+    default: 'N/A',
+    trim: true,
+  },
+  setNumber: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   isOnWishlist: {
     type: Boolean,
     default: false,

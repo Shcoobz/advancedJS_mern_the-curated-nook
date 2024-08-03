@@ -10,6 +10,7 @@ import rootRoutes from './routes/root.js';
 import userRoutes from './routes/userRoutes.js';
 import bookRoutes from './routes/bookRoutes.js';
 import tonieRoutes from './routes/tonieRoutes.js';
+import legoRoutes from './routes/legoRoutes.js';
 
 import { __dirname } from './config/common/dirname.js';
 import { DEFAULT, ENDPOINT, ROUTE } from './config/common/constants.js';
@@ -45,6 +46,7 @@ app.use(ENDPOINT.ROOT, rootRoutes);
 app.use(ENDPOINT.USERS, userRoutes);
 app.use(ENDPOINT.BOOKS, bookRoutes);
 app.use(ENDPOINT.TONIES, tonieRoutes);
+app.use(ENDPOINT.LEGO, legoRoutes);
 
 app.all(ROUTE.WILDCARD, handleWildcardRoute);
 

@@ -5,6 +5,7 @@ export const DEFAULT = {
   EMPTY_STRING: '',
   WISHLIST: false,
   NO_DESCRIPTION: 'Leider keine Beschreibung verfügbar :(',
+  NOT_AVAILABLE: 'N/A',
   BOOK: {
     LANGUAGE: 'de',
   },
