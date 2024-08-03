@@ -21,18 +21,14 @@ export async function createTonie(tonieObject) {
   return Tonie.create(tonieObject);
 }
 
-export function createTonieObject(name, description, imgUrl) {
-  const tonieObject = { name };
-
-  if (description) {
-    tonieObject.description = description;
-  }
-
-  if (imgUrl) {
-    tonieObject.imgUrl = imgUrl;
-  }
-
-  return tonieObject;
+export function createTonieObject(tonie) {
+  return {
+    name: tonie.name,
+    description: tonie.description || DEFAULT.NO_DESCRIPTION,
+    thumbnailUrl: tonie.thumbnailUrl || DEFAULT.EMPTY_STRING,
+    imageUrl: tonie.imageUrl || DEFAULT.EMPTY_STRING,
+    isOnWishlist: tonie.isOnWishlist || DEFAULT.WISHLIST,
+  };
 }
 
 export async function findTonieById(id) {
@@ -42,7 +38,9 @@ export async function findTonieById(id) {
 export function updateTonieFields(tonie, updatedFields) {
   tonie.name = updatedFields.name;
   tonie.description = updatedFields.description || DEFAULT.NO_DESCRIPTION;
-  tonie.imgUrl = updatedFields.imgUrl || DEFAULT.EMPTY_STRING;
+  tonie.thumbnailUrl = updatedFields.thumbnailUrl || DEFAULT.EMPTY_STRING;
+  tonie.imageUrl = updatedFields.imageUrl || DEFAULT.EMPTY_STRING;
+  tonie.isOnWishlist = updatedFields.isOnWishlist || DEFAULT.WISHLIST;
 }
 
 export async function saveTonie(tonie) {

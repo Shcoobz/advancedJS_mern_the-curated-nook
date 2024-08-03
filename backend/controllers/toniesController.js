@@ -32,13 +32,13 @@ export async function getAllToniesInCollection(req, res) {
 }
 
 export async function createNewTonie(req, res) {
-  const { name, description, imgUrl } = req.body;
+  const { name } = req.body;
   if (!name) return sendFieldRequired(res, ENTITY.TONIE, FIELD.NAME);
 
   const duplicate = await findTonieByName(name);
   if (duplicate) return sendDuplicateEntity(res, ENTITY.TONIE);
 
-  const tonieObject = createTonieObject(name, description, imgUrl);
+  const tonieObject = createTonieObject(req.body);
   const newTonie = await createTonie(tonieObject);
 
   if (newTonie) {
@@ -49,13 +49,13 @@ export async function createNewTonie(req, res) {
 }
 
 export async function updateTonie(req, res) {
-  const { id, name, description, imgUrl } = req.body;
+  const { id, name } = req.body;
   if (!name) return sendFieldRequired(res, ENTITY.TONIE, FIELD.NAME);
 
   const tonie = await findTonieById(id);
   if (!tonie) return sendNotFound(res, ENTITY.TONIE);
 
-  updateTonieFields(tonie, { name, description, imgUrl });
+  updateTonieFields(tonie, req.body);
 
   const updatedTonie = await saveTonie(tonie);
 
