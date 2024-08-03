@@ -5,7 +5,8 @@ import {
   deleteBook,
   getAllBooksInCollection,
   getAllBooksOnWishlist,
-  getBookCount,
+  getBookCollectionCount,
+  getBookWishlistCount,
   updateBook,
 } from '../controllers/booksController.js';
 
@@ -31,6 +32,7 @@ bookRouter
   .patch(updateBook)
   .delete(deleteBook);
 
-bookRouter.get('/count', getBookCount);
+bookRouter.get('/count-collection', getBookCollectionCount);
+bookRouter.get('/count-wishlist', getBookWishlistCount);
 
 export default bookRouter;

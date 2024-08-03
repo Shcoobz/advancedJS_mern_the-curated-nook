@@ -4,7 +4,8 @@ import {
   createNewTonie,
   deleteTonie,
   getAllToniesInCollection,
-  getTonieCount,
+  getTonieCollectionCount,
+  getTonieWishlistCount,
   updateTonie,
 } from '../controllers/toniesController.js';
 
@@ -17,6 +18,7 @@ tonieRouter
   .patch(updateTonie)
   .delete(deleteTonie);
 
-tonieRouter.get('/count', getTonieCount);
+tonieRouter.get('/count-collection', getTonieCollectionCount);
+tonieRouter.get('/count-wishlist', getTonieWishlistCount);
 
 export default tonieRouter;

@@ -5,7 +5,8 @@ import {
   deleteLego,
   getAllLegoInCollection,
   getAllLegoOnWishlist,
-  getLegoCount,
+  getLegoCollectionCount,
+  getLegoWishlistCount,
   updateLego,
 } from '../controllers/legoController.js';
 
@@ -31,6 +32,7 @@ legoRouter
   .patch(updateLego)
   .delete(deleteLego);
 
-legoRouter.get('/count', getLegoCount);
+legoRouter.get('/count-collection', getLegoCollectionCount);
+legoRouter.get('/count-wishlist', getLegoWishlistCount);
 
 export default legoRouter;

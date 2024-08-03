@@ -93,8 +93,18 @@ export async function deleteBook(req, res) {
   return sendEntityDeleted(res, ENTITY.BOOK, title, bookId);
 }
 
-export async function getBookCount(req, res) {
-  const count = await Book.countDocuments();
+// export async function getBookCount(req, res) {
+//   const count = await Book.countDocuments();
 
+//   return res.json({ count });
+// }
+
+export async function getBookCollectionCount(req, res) {
+  const count = await Book.countDocuments({ isOnWishlist: false });
+  return res.json({ count });
+}
+
+export async function getBookWishlistCount(req, res) {
+  const count = await Book.countDocuments({ isOnWishlist: true });
   return res.json({ count });
 }

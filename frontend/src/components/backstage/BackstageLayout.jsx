@@ -5,8 +5,8 @@ import Tabs from '../../features/tabs/Tabs';
 import { LINK } from '../../config/common/constants';
 import { useEffect, useState } from 'react';
 import { useGetUsersCountQuery } from '../../features/users/api/usersApiSlice';
-import { useGetBooksCountQuery } from '../../features/inventory/books/api/booksApiSlice';
-import { useGetToniesCountQuery } from '../../features/inventory/tonies/api/toniesApiSlice';
+import { useGetBooksInCollectionCountQuery } from '../../features/inventory/books/api/booksApiSlice';
+import { useGetToniesInCollectionCountQuery } from '../../features/inventory/tonies/api/toniesApiSlice';
 
 function BackstageLayout() {
   const location = useLocation();
@@ -21,22 +21,22 @@ function BackstageLayout() {
     location.pathname.includes(LINK.LEGO.viewLego);
 
   const { data: userCountData } = useGetUsersCountQuery();
-  const { data: bookCountData } = useGetBooksCountQuery();
-  const { data: tonieCountData } = useGetToniesCountQuery();
+  const { data: bookInCollectionCountData } = useGetBooksInCollectionCountQuery();
+  const { data: tonieInCollectionCountData } = useGetToniesInCollectionCountQuery();
 
   useEffect(() => {
     if (userCountData) {
       setUserCount(userCountData.count);
     }
 
-    if (bookCountData) {
-      setBookCount(bookCountData.count);
+    if (bookInCollectionCountData) {
+      setBookCount(bookInCollectionCountData.count);
     }
 
-    if (tonieCountData) {
-      setTonieCount(tonieCountData.count);
+    if (tonieInCollectionCountData) {
+      setTonieCount(tonieInCollectionCountData.count);
     }
-  }, [userCountData, bookCountData, tonieCountData]);
+  }, [userCountData, bookInCollectionCountData, tonieInCollectionCountData]);
 
   return (
     <>

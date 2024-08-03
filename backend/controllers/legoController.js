@@ -95,8 +95,18 @@ export async function deleteLego(req, res) {
   return sendEntityDeleted(res, ENTITY.LEGO, name, legoId);
 }
 
-export async function getLegoCount(req, res) {
-  const count = await Lego.countDocuments();
+// export async function getLegoCount(req, res) {
+//   const count = await Lego.countDocuments();
 
+//   return res.json({ count });
+// }
+
+export async function getLegoCollectionCount(req, res) {
+  const count = await Lego.countDocuments({ isOnWishlist: false });
+  return res.json({ count });
+}
+
+export async function getLegoWishlistCount(req, res) {
+  const count = await Lego.countDocuments({ isOnWishlist: true });
   return res.json({ count });
 }

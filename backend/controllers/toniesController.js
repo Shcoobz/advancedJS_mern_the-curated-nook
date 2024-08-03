@@ -76,8 +76,18 @@ export async function deleteTonie(req, res) {
   return sendEntityDeleted(res, ENTITY.TONIE, name, tonieId);
 }
 
-export async function getTonieCount(req, res) {
-  const count = await Tonie.countDocuments();
+// export async function getTonieCount(req, res) {
+//   const count = await Tonie.countDocuments();
 
+//   return res.json({ count });
+// }
+
+export async function getTonieCollectionCount(req, res) {
+  const count = await Tonie.countDocuments({ isOnWishlist: false });
+  return res.json({ count });
+}
+
+export async function getTonieWishlistCount(req, res) {
+  const count = await Tonie.countDocuments({ isOnWishlist: true });
   return res.json({ count });
 }
