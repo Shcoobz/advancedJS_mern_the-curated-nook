@@ -18,57 +18,39 @@ function EditBookForm({ book, isOpen, onClose }) {
   const [updateBook, { isLoading, isSuccess }] = useUpdateBookMutation();
   const [deleteBook, { isSuccess: isDelSuccess }] = useDeleteBookMutation();
 
-  const [title, setTitle] = useState(book.title);
-  const [validTitle, setValidTitle] = useState(false);
-  const [authors, setAuthors] = useState(book.authors.join(', '));
-  const [publisher, setPublisher] = useState(book.publisher);
-  const [publishedDate, setPublishedDate] = useState(book.publishedDate);
-  const [description, setDescription] = useState(book.description);
-  const [isbn, setIsbn] = useState(book.isbn.join(', '));
-  const [categories, setCategories] = useState(book.categories.join(', '));
-  const [thumbnailUrl, setThumbnailUrl] = useState(book.thumbnailUrl);
-  const [imageUrl, setImageUrl] = useState(book.imageUrl);
-  const [language, setLanguage] = useState(book.language);
-  const [isOnWishlist, setIsOnWishlist] = useState(book.isOnWishlist);
+  const initialFormState = {
+    title: book.title,
+    validTitle: false,
+    authors: book.authors.join(', '),
+    publisher: book.publisher,
+    publishedDate: book.publishedDate,
+    description: book.description,
+    isbn: book.isbn.join(', '),
+    categories: book.categories.join(', '),
+    thumbnailUrl: book.thumbnailUrl,
+    imageUrl: book.imageUrl,
+    language: book.language,
+    isOnWishlist: book.isOnWishlist,
+  };
+  const [formData, setFormData] = useState(initialFormState);
 
-  const canSave = Boolean(title) && !isLoading;
+  const canSave = Boolean(formData.title) && !isLoading;
 
-  useValidateTitle(title, setValidTitle);
-  useHandleBookSuccess(
-    isSuccess,
-    isDelSuccess,
-    navigate,
-    setTitle,
-    setAuthors,
-    setPublisher,
-    setPublishedDate,
-    setDescription,
-    setIsbn,
-    setCategories,
-    setThumbnailUrl,
-    setImageUrl,
-    setLanguage,
-    setIsOnWishlist
-  );
+  useValidateTitle(formData.title, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validTitle !== isValid) {
+        return { ...prev, validTitle: isValid };
+      }
+
+      return prev;
+    });
+  });
+
+  useHandleBookSuccess(isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
-
-    const result = await handleSaveExistingBook(
-      updateBook,
-      book,
-      title,
-      authors,
-      publisher,
-      publishedDate,
-      description,
-      isbn,
-      categories,
-      thumbnailUrl,
-      imageUrl,
-      language,
-      isOnWishlist
-    );
+    const result = await handleSaveExistingBook(updateBook, book, formData);
 
     if (!result.success) {
       toast.error(result.errorMessage);
@@ -90,31 +72,14 @@ function EditBookForm({ book, isOpen, onClose }) {
     }
   }
 
+  function updateField(field, value) {
+    setFormData((currentData) => ({ ...currentData, [field]: value }));
+  }
+
   const modalContent = (
     <EditBookFormTable
-      title={title}
-      setTitle={setTitle}
-      validTitle={validTitle}
-      authors={authors}
-      setAuthors={setAuthors}
-      publisher={publisher}
-      setPublisher={setPublisher}
-      publishedDate={publishedDate}
-      setPublishedDate={setPublishedDate}
-      description={description}
-      setDescription={setDescription}
-      isbn={isbn}
-      setIsbn={setIsbn}
-      categories={categories}
-      setCategories={setCategories}
-      thumbnailUrl={thumbnailUrl}
-      setThumbnailUrl={setThumbnailUrl}
-      imageUrl={imageUrl}
-      setImageUrl={setImageUrl}
-      language={language}
-      setLanguage={setLanguage}
-      isOnWishlist={isOnWishlist}
-      setIsOnWishlist={setIsOnWishlist}
+      formData={formData}
+      updateField={updateField}
       canSave={canSave}
       handleSave={handleSave}
       handleDelete={handleDelete}
@@ -122,13 +87,13 @@ function EditBookForm({ book, isOpen, onClose }) {
     />
   );
 
-  const modal = (
+  const editBookFormModal = (
     <Modal isOpen={isOpen} onClose={onClose}>
       {modalContent}
     </Modal>
   );
 
-  return modal;
+  return editBookFormModal;
 }
 
 export default EditBookForm;

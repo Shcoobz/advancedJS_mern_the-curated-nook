@@ -1,63 +1,21 @@
 import { SubmitButton } from '../../../../../components/common/Buttons';
 import { FormHeader } from '../../../../../components/common/FormComponents';
-import { getTitleInputClass } from '../bookUtils';
+import { handleClick } from '../bookUtils';
 import getFormFields from '../../bookFormData';
 
 function EditBookFormTable({
-  title,
-  setTitle,
-  validTitle,
-  authors,
-  setAuthors,
-  publisher,
-  setPublisher,
-  publishedDate,
-  setPublishedDate,
-  description,
-  setDescription,
-  isbn,
-  setIsbn,
-  categories,
-  setCategories,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  language,
-  setLanguage,
-  isOnWishlist,
-  setIsOnWishlist,
+  formData,
+  updateField,
   canSave,
   handleSave,
   handleDelete,
   onClose,
 }) {
-  const validTitleClass = getTitleInputClass(validTitle);
+  const handleFieldChange = handleClick(updateField);
 
   const formFields = getFormFields({
-    title,
-    setTitle,
-    validTitleClass,
-    authors,
-    setAuthors,
-    publisher,
-    setPublisher,
-    publishedDate,
-    setPublishedDate,
-    description,
-    setDescription,
-    isbn,
-    setIsbn,
-    categories,
-    setCategories,
-    thumbnailUrl,
-    setThumbnailUrl,
-    imageUrl,
-    setImageUrl,
-    language,
-    setLanguage,
-    isOnWishlist,
-    setIsOnWishlist,
+    formData,
+    handleFieldChange,
   });
 
   const renderFormFields = formFields.map((field, index) => {
@@ -69,7 +27,7 @@ function EditBookFormTable({
   const formContent = (
     <>
       <FormHeader
-        title={`Edit Book: ${title}`}
+        title={`Edit Book: ${formData.title}`}
         handleSave={handleSave}
         canSave={canSave}
         handleDelete={handleDelete}
