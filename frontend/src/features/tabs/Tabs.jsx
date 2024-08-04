@@ -11,6 +11,7 @@ function Tabs({ currentPath, userCount, bookCount, tonieCount, children }) {
 
   return (
     <div className='tabs-container'>
+      <div className='inventory-header'>Inventory:</div>
       <div className='tabs'>
         {tabs.map((tab) => (
           <Link

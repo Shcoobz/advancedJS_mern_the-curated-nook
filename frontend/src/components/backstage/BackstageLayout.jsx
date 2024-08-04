@@ -10,9 +10,12 @@ import { useGetToniesInCollectionCountQuery } from '../../features/inventory/ton
 
 function BackstageLayout() {
   const location = useLocation();
+
   const [userCount, setUserCount] = useState(null);
   const [bookCount, setBookCount] = useState(null);
   const [tonieCount, setTonieCount] = useState(null);
+
+  // Todo: add isInCollection && setIsInCollection state here or pass it down?
 
   const showTabs =
     location.pathname.includes(LINK.USER.viewUsers) ||

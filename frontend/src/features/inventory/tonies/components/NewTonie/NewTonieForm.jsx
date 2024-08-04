@@ -43,8 +43,6 @@ function NewTonieForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    console.log('isOnWishlist b4 save:', isOnWishlist);
-
     const result = await handleSaveNewTonie(
       addNewTonie,
       setDefaultValue(name),
@@ -53,8 +51,6 @@ function NewTonieForm({ isOpen, onClose }) {
       setDefaultValue(imageUrl),
       isOnWishlist
     );
-
-    console.log('isOnWishlist after save:', isOnWishlist);
 
     if (!result.success) {
       toast.error(result.errorMessage);
