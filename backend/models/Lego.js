@@ -6,6 +6,12 @@ const legoSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  setNumber: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
   thumbnailUrl: {
     type: String,
     default: 'N/A',
@@ -16,12 +22,6 @@ const legoSchema = new mongoose.Schema({
     default: 'N/A',
     trim: true,
   },
-  setNumber: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
   isOnWishlist: {
     type: Boolean,
     default: false,

@@ -17,7 +17,9 @@ import ToniesList from './features/inventory/tonies/components/ToniesList/Tonies
 import NewTonieForm from './features/inventory/tonies/components/NewTonie/NewTonieForm';
 import EditTonie from './features/inventory/tonies/components/EditTonie/EditTonie';
 
-import LegoList from './features/inventory/lego/LegoList';
+import LegoList from './features/inventory/lego/components/LegoList/LegoList';
+import NewLegoForm from './features/inventory/lego/components/NewLego/NewLegoForm';
+import EditLego from './features/inventory/lego/components/EditLego/EditLego';
 
 import { PATH } from './config/common/constants';
 
@@ -51,6 +53,8 @@ function App() {
 
           <Route path={PATH.lego}>
             <Route index element={<LegoList />} />
+            <Route path='new' element={<NewLegoForm />} />
+            <Route path=':id' element={<EditLego />} />
           </Route>
         </Route>
         {/* End Backstage */}

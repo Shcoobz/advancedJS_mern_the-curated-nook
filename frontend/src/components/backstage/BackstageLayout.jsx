@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useGetUsersCountQuery } from '../../features/users/api/usersApiSlice';
 import { useGetBooksInCollectionCountQuery } from '../../features/inventory/books/api/booksApiSlice';
 import { useGetToniesInCollectionCountQuery } from '../../features/inventory/tonies/api/toniesApiSlice';
+import { useGetLegoInCollectionCountQuery } from '../../features/inventory/lego/api/legoApiSlice';
 
 function BackstageLayout() {
   const location = useLocation();
@@ -14,6 +15,7 @@ function BackstageLayout() {
   const [userCount, setUserCount] = useState(null);
   const [bookCount, setBookCount] = useState(null);
   const [tonieCount, setTonieCount] = useState(null);
+  const [legoCount, setLegoCount] = useState(null);
 
   // Todo: add isInCollection && setIsInCollection state here or pass it down?
 
@@ -26,6 +28,7 @@ function BackstageLayout() {
   const { data: userCountData } = useGetUsersCountQuery();
   const { data: bookInCollectionCountData } = useGetBooksInCollectionCountQuery();
   const { data: tonieInCollectionCountData } = useGetToniesInCollectionCountQuery();
+  const { data: legoInCollectionCountData } = useGetLegoInCollectionCountQuery();
 
   useEffect(() => {
     if (userCountData) {
@@ -39,7 +42,16 @@ function BackstageLayout() {
     if (tonieInCollectionCountData) {
       setTonieCount(tonieInCollectionCountData.count);
     }
-  }, [userCountData, bookInCollectionCountData, tonieInCollectionCountData]);
+
+    if (legoInCollectionCountData) {
+      setLegoCount(legoInCollectionCountData.count);
+    }
+  }, [
+    userCountData,
+    bookInCollectionCountData,
+    tonieInCollectionCountData,
+    legoInCollectionCountData,
+  ]);
 
   return (
     <>
@@ -50,7 +62,8 @@ function BackstageLayout() {
             currentPath={location.pathname}
             userCount={userCount}
             bookCount={bookCount}
-            tonieCount={tonieCount}>
+            tonieCount={tonieCount}
+            legoCount={legoCount}>
             <Outlet />
           </Tabs>
         ) : (

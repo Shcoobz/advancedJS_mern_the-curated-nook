@@ -28,8 +28,7 @@ export const ERROR = {
   ALL_FIELDS_REQUIRED: (entity) => `All fields are required for ${entity}!`,
   DUPLICATE: (entity) => `Duplicate ${entity} found!`,
   INVALID_DATA: (entity) => `Invalid ${entity} data received!`,
-  FIELDS_REQUIRED: (entity, fields) =>
-    `All fields are required for ${entity} except ${fields}!`,
+  FIELDS_REQUIRED: (entity, fields) => `${fields} is required for ${entity}!`,
   ID_REQUIRED: (entity) => `${entity} ID Required!`,
   CORS: {
     NOT_ALLOWED: 'Not allowed by CORS!',

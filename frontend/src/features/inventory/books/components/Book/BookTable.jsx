@@ -5,7 +5,7 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { useDispatch } from 'react-redux';
 import { useDeleteBookMutation } from '../../api/booksApiSlice';
-import { handleDeleteBookList } from '../bookUtils';
+import { handleDeleteBookList, isUUID } from '../bookUtils';
 import { apiSlice } from '../../../../../app/api/apiSlice';
 
 function formatCategories(categories) {
@@ -16,6 +16,7 @@ function BookTable({ book, onEdit }) {
   const [deleteBook] = useDeleteBookMutation();
   const dispatch = useDispatch();
   const bookCategoryList = formatCategories(book.categories);
+  const displayIsbn = isUUID(book.isbn) ? 'N/A' : book.isbn;
 
   async function handleDelete(e) {
     await handleDeleteBookList(deleteBook, book.id);
@@ -32,7 +33,7 @@ function BookTable({ book, onEdit }) {
       <TableCell className='book__title' content={book.title} />
       <TableCell className='book__description' content={book.description} />
       <TableCell className='book__categories' content={bookCategoryList} />
-      <TableCell className='book__isbn hidden-col' content={book.isbn} />
+      <TableCell className='book__isbn hidden-col' content={displayIsbn} />
 
       <TableCellActions
         onEdit={onEdit}

@@ -94,6 +94,11 @@ export const TOAST = {
       updated: 'Tonie updated!',
       deleted: 'Tonie deleted!',
     },
+    LEGO: {
+      created: 'Lego created!',
+      updated: 'Lego updated!',
+      deleted: 'Lego deleted!',
+    },
   },
   ERROR: {
     USER: {

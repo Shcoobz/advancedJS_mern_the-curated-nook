@@ -246,3 +246,8 @@ export async function handleDeleteBookList(deleteBook, bookId) {
   toast.success(TOAST.SUCCESS.BOOK.deleted);
   return { success: true };
 }
+
+export function isUUID(string) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(string);
+}
