@@ -4,6 +4,7 @@ import { useDeleteBookMutation, useUpdateBookMutation } from '../../api/booksApi
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import {
+  createInitialFormState,
   handleDeleteBook,
   handleSaveExistingBook,
   useHandleBookSuccess,
@@ -17,22 +18,7 @@ function EditBookForm({ book, isOpen, onClose }) {
 
   const [updateBook, { isLoading, isSuccess }] = useUpdateBookMutation();
   const [deleteBook, { isSuccess: isDelSuccess }] = useDeleteBookMutation();
-
-  const initialFormState = {
-    title: book.title,
-    validTitle: false,
-    authors: book.authors.join(', '),
-    publisher: book.publisher,
-    publishedDate: book.publishedDate,
-    description: book.description,
-    isbn: book.isbn.join(', '),
-    categories: book.categories.join(', '),
-    thumbnailUrl: book.thumbnailUrl,
-    imageUrl: book.imageUrl,
-    language: book.language,
-    isOnWishlist: book.isOnWishlist,
-  };
-  const [formData, setFormData] = useState(initialFormState);
+  const [formData, setFormData] = useState(createInitialFormState(book));
 
   const canSave = Boolean(formData.title) && !isLoading;
 

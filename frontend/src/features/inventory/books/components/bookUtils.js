@@ -12,11 +12,39 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-// export function useValidateTitle(title, setValidTitle) {
-//   useEffect(() => {
-//     setValidTitle(title.trim().length > 0);
-//   }, [title, setValidTitle]);
-// }
+export function createInitialFormState(book = null) {
+  if (book) {
+    return {
+      title: book.title,
+      validTitle: false,
+      authors: book.authors.join(', '),
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      description: book.description,
+      isbn: book.isbn.join(', '),
+      categories: book.categories.join(', '),
+      thumbnailUrl: book.thumbnailUrl,
+      imageUrl: book.imageUrl,
+      language: book.language,
+      isOnWishlist: book.isOnWishlist,
+    };
+  } else {
+    return {
+      title: DEFAULT.emptyString,
+      validTitle: false,
+      authors: DEFAULT.emptyString,
+      publisher: DEFAULT.emptyString,
+      publishedDate: DEFAULT.emptyString,
+      description: DEFAULT.emptyString,
+      isbn: DEFAULT.emptyString,
+      categories: DEFAULT.emptyString,
+      thumbnailUrl: DEFAULT.emptyString,
+      imageUrl: DEFAULT.emptyString,
+      language: DEFAULT.emptyString,
+      isOnWishlist: false,
+    };
+  }
+}
 
 export function useValidateTitle(title, updateValidationStatus) {
   useEffect(() => {
@@ -25,56 +53,6 @@ export function useValidateTitle(title, updateValidationStatus) {
     updateValidationStatus(isValid);
   }, [title, updateValidationStatus]);
 }
-
-// export function useHandleBookSuccess(
-//   isSuccess,
-//   isDelSuccess,
-//   navigate,
-//   setTitle,
-//   setAuthors,
-//   setPublisher,
-//   setPublishedDate,
-//   setDescription,
-//   setIsbn,
-//   setCategories,
-//   setThumbnailUrl,
-//   setImageUrl,
-//   setLanguage,
-//   setIsOnWishlist
-// ) {
-//   useEffect(() => {
-//     if (isSuccess || isDelSuccess) {
-//       setTitle(DEFAULT.emptyString);
-//       setAuthors(DEFAULT.emptyString);
-//       setPublisher(DEFAULT.emptyString);
-//       setPublishedDate(DEFAULT.emptyString);
-//       setDescription(DEFAULT.emptyString);
-//       setIsbn(DEFAULT.emptyString);
-//       setCategories(DEFAULT.emptyString);
-//       setThumbnailUrl(DEFAULT.emptyString);
-//       setImageUrl(DEFAULT.emptyString);
-//       setLanguage(DEFAULT.emptyString);
-//       setIsOnWishlist(false);
-
-//       navigate(LINK.BOOK.viewBooks);
-//     }
-//   }, [
-//     isSuccess,
-//     isDelSuccess,
-//     navigate,
-//     setTitle,
-//     setAuthors,
-//     setPublisher,
-//     setPublishedDate,
-//     setDescription,
-//     setIsbn,
-//     setCategories,
-//     setThumbnailUrl,
-//     setImageUrl,
-//     setLanguage,
-//     setIsOnWishlist,
-//   ]);
-// }
 
 export function useHandleBookSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
   useEffect(() => {
@@ -101,72 +79,6 @@ export function useHandleBookSuccess(isSuccess, isDelSuccess, navigate, setFormD
 
 export function getTitleInputClass(validTitle) {
   return !validTitle ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
-}
-
-export function handleTitleChange(setTitle) {
-  return function (e) {
-    setTitle(e.target.value);
-  };
-}
-
-export function handleAuthorsChange(setAuthors) {
-  return function (e) {
-    setAuthors(e.target.value);
-  };
-}
-
-export function handlePublisherChange(setPublisher) {
-  return function (e) {
-    setPublisher(e.target.value);
-  };
-}
-
-export function handlePublishedDateChange(setPublishedDate) {
-  return function (e) {
-    setPublishedDate(e.target.value);
-  };
-}
-
-export function handleDescriptionChange(setDescription) {
-  return function (e) {
-    setDescription(e.target.value);
-  };
-}
-
-export function handleIsbnChange(setIsbn) {
-  return function (e) {
-    setIsbn(e.target.value);
-  };
-}
-
-export function handleCategoriesChange(setCategories) {
-  return function (e) {
-    setCategories(e.target.value);
-  };
-}
-
-export function handleThumbnailUrlChange(setThumbnailUrl) {
-  return function (e) {
-    setThumbnailUrl(e.target.value);
-  };
-}
-
-export function handleImageUrlChange(setImageUrl) {
-  return function (e) {
-    setImageUrl(e.target.value);
-  };
-}
-
-export function handleLanguageChange(setLanguage) {
-  return function (e) {
-    setLanguage(e.target.value);
-  };
-}
-
-export function handleIsOnWishlistChange(setIsOnWishlist) {
-  return function (e) {
-    setIsOnWishlist((prev) => !prev);
-  };
 }
 
 export const setDefaultValue = (value, defaultValue = 'N/A') => {
@@ -262,8 +174,6 @@ export function isUUID(string) {
 export function handleClick(updateField) {
   return function (event) {
     const { name, value, type, checked } = event.target;
-
-    console.log(`Field: ${name}, Value: ${type === 'checkbox' ? checked : value}`);
 
     updateField(name, type === 'checkbox' ? checked : value);
   };
