@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteBookMutation, useUpdateBookMutation } from '../../api/booksApiSlice';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
-import { handleDeleteBook, handleSaveExistingBook, useValidateTitle } from '../bookUtils';
+import { handleSaveExistingBook } from '../bookUtils';
 import Modal from '../../../../../components/common/Modal';
 import EditBookFormTable from './EditBookFormTable';
 import {
   createInitialFormState,
   createUpdateField,
+  handleDeleteEntity,
   useHandleSuccess,
   useValidate,
   validateTitle,
@@ -50,7 +51,7 @@ function EditBookForm({ book, isOpen, onClose }) {
 
   async function handleDelete(e) {
     e.preventDefault();
-    const result = await handleDeleteBook(deleteBook, book.id);
+    const result = await handleDeleteEntity(deleteBook, book.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);

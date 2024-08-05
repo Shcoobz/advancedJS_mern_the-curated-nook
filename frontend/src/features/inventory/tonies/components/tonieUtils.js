@@ -12,14 +12,6 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-export function useValidateName(name, updateValidationStatus) {
-  useEffect(() => {
-    const isValid = name.trim().length > 0;
-
-    updateValidationStatus(isValid);
-  }, [name, updateValidationStatus]);
-}
-
 export function getNameInputClass(validName) {
   return !validName ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
@@ -64,27 +56,5 @@ export async function handleSaveExistingTonie(updateTonie, tonie, formData) {
     };
   }
 
-  return { success: true };
-}
-
-export async function handleDeleteTonie(deleteTonie, tonieId) {
-  const response = await deleteTonie({ id: tonieId });
-
-  if (response.error) {
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  return { success: true };
-}
-
-export async function handleDeleteTonieList(deleteTonie, tonieId) {
-  const response = await deleteTonie({ id: tonieId });
-
-  if (response.error) {
-    toast.error(response.error.data.message);
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  toast.success(TOAST.SUCCESS.TONIE.deleted);
   return { success: true };
 }

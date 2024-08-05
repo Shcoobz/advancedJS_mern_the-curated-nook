@@ -12,14 +12,6 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-export function useValidateName(name, updateValidationStatus) {
-  useEffect(() => {
-    const isValid = name.trim().length > 0;
-
-    updateValidationStatus(isValid);
-  }, [name, updateValidationStatus]);
-}
-
 export function getNameInputClass(validName) {
   return !validName ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
@@ -65,31 +57,4 @@ export async function handleSaveExistingLego(updateLego, lego, formData) {
   }
 
   return { success: true };
-}
-
-export async function handleDeleteLego(deleteLego, legoId) {
-  const response = await deleteLego({ id: legoId });
-
-  if (response.error) {
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  return { success: true };
-}
-
-export async function handleDeleteLegoList(deleteLego, legoId) {
-  const response = await deleteLego({ id: legoId });
-
-  if (response.error) {
-    toast.error(response.error.data.message);
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  toast.success(TOAST.SUCCESS.LEGO.deleted);
-  return { success: true };
-}
-
-export function isUUID(string) {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  return uuidRegex.test(string);
 }

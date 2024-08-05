@@ -5,8 +5,9 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { useDispatch } from 'react-redux';
 import { useDeleteBookMutation } from '../../api/booksApiSlice';
-import { handleDeleteBookList, isUUID } from '../bookUtils';
 import { apiSlice } from '../../../../../app/api/apiSlice';
+import { handleDeleteEntityList, isUUID } from '../../../../utils/formUtils';
+import { TOAST } from '../../../../../config/common/messages';
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
@@ -19,7 +20,7 @@ function BookTable({ book, onEdit }) {
   const displayIsbn = isUUID(book.isbn) ? 'N/A' : book.isbn;
 
   async function handleDelete(e) {
-    await handleDeleteBookList(deleteBook, book.id);
+    await handleDeleteEntityList(deleteBook, book.id, TOAST.SUCCESS.BOOK.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'Book', id: 'LIST' }]));
   }

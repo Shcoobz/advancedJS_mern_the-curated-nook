@@ -1,5 +1,14 @@
 import { useEffect } from 'react';
 import { DEFAULT, LINK, REGEX } from '../../config/common/constants';
+import { toast } from 'react-toastify';
+
+function getErrorContent(error, delError) {
+  const errorMsg = error?.data?.message;
+  const delErrorMsg = delError?.data?.message;
+  const DEFAULT = { emptyString: '' };
+
+  return errorMsg || delErrorMsg || DEFAULT.emptyString;
+}
 
 export function createInitialFormState(type, data = null) {
   switch (type) {
@@ -172,4 +181,31 @@ export function handleClick(updateField) {
       updateField(name, type === 'checkbox' ? checked : value);
     }
   };
+}
+
+export async function handleDeleteEntity(deleteFunction, entityId) {
+  const response = await deleteFunction({ id: entityId });
+
+  if (response.error) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  return { success: true };
+}
+
+export async function handleDeleteEntityList(deleteFunction, entityId, successMessage) {
+  const response = await deleteFunction({ id: entityId });
+
+  if (response.error) {
+    toast.error(response.error.data.message);
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  toast.success(successMessage);
+  return { success: true };
+}
+
+export function isUUID(string) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(string);
 }

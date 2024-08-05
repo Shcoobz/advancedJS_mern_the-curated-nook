@@ -4,15 +4,16 @@ import {
   TableCellActions,
 } from '../../../../../components/common/TableComponents';
 import { useDeleteTonieMutation } from '../../api/toniesApiSlice';
-import { handleDeleteTonieList } from '../tonieUtils';
 import { apiSlice } from '../../../../../app/api/apiSlice';
+import { handleDeleteEntityList } from '../../../../utils/formUtils';
+import { TOAST } from '../../../../../config/common/messages';
 
 function TonieTable({ tonie, onEdit, onClose }) {
   const [deleteTonie] = useDeleteTonieMutation();
   const dispatch = useDispatch();
 
   async function handleDelete(e) {
-    await handleDeleteTonieList(deleteTonie, tonie.id);
+    await handleDeleteEntityList(deleteTonie, tonie.id, TOAST.SUCCESS.TONIE.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'Tonie', id: 'LIST' }]));
   }

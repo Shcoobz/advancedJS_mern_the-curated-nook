@@ -13,14 +13,6 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-export function useValidateTitle(title, updateValidationStatus) {
-  useEffect(() => {
-    const isValid = title.trim().length > 0;
-
-    updateValidationStatus(isValid);
-  }, [title, updateValidationStatus]);
-}
-
 export function getTitleInputClass(validTitle) {
   return !validTitle ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
@@ -78,31 +70,4 @@ export async function handleSaveExistingBook(updateBook, book, formData) {
   }
 
   return { success: true };
-}
-
-export async function handleDeleteBook(deleteBook, bookId) {
-  const response = await deleteBook({ id: bookId });
-
-  if (response.error) {
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  return { success: true };
-}
-
-export async function handleDeleteBookList(deleteBook, bookId) {
-  const response = await deleteBook({ id: bookId });
-
-  if (response.error) {
-    toast.error(response.error.data.message);
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  toast.success(TOAST.SUCCESS.BOOK.deleted);
-  return { success: true };
-}
-
-export function isUUID(string) {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  return uuidRegex.test(string);
 }

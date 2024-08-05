@@ -6,7 +6,8 @@ import {
 import { DEFAULT } from '../../../../config/common/constants';
 import { useDeleteUserMutation } from '../../api/usersApiSlice';
 import { apiSlice } from '../../../../app/api/apiSlice';
-import { handleDeleteUserList } from '../userUtils';
+import { handleDeleteEntityList } from '../../../utils/formUtils';
+import { TOAST } from '../../../../config/common/messages';
 
 function formatRoles(roles) {
   return roles.toString().replaceAll(DEFAULT.comma, DEFAULT.commaSpace);
@@ -23,7 +24,7 @@ function UserTable({ user, onEdit }) {
   const cellStatus = getCellStatus(user.active);
 
   async function handleDelete(e) {
-    await handleDeleteUserList(deleteUser, user.id);
+    await handleDeleteEntityList(deleteUser, user.id, TOAST.SUCCESS.USER.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'User', id: 'LIST' }]));
   }

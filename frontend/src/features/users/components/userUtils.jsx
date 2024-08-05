@@ -3,20 +3,6 @@ import { CLASS_NAME, DEFAULT, LINK, REGEX } from '../../../config/common/constan
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../config/common/messages';
 
-export function useValidateUsername(formData, updateValidationStatus) {
-  useEffect(() => {
-    const isValid = REGEX.checkUsername.test(formData.username);
-    updateValidationStatus(isValid);
-  }, [formData.username, updateValidationStatus]);
-}
-
-export function useValidatePassword(formData, updateValidationStatus) {
-  useEffect(() => {
-    const isValid = REGEX.checkPassword.test(formData.password);
-    updateValidationStatus(isValid);
-  }, [formData.password, updateValidationStatus]);
-}
-
 export async function handleSaveNewUser(addNewUser, formData) {
   const payload = {
     username: formData.username,
@@ -48,16 +34,6 @@ export async function handleSaveExistingUser(updateUser, user, formData) {
   const response = await updateUser(payload);
 
   if (response.error || response.status >= 400) {
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  return { success: true };
-}
-
-export async function handleDeleteUser(deleteUser, userId) {
-  const response = await deleteUser({ id: userId });
-
-  if (response.error) {
     return { success: false, errorMessage: getErrorContent(response.error) };
   }
 
@@ -111,16 +87,4 @@ export function getErrorContent(error, delError) {
   const delErrorMsg = delError?.data?.message;
 
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
-}
-
-export async function handleDeleteUserList(deleteUser, userId) {
-  const response = await deleteUser({ id: userId });
-
-  if (response.error) {
-    toast.error(response.error.data.message);
-    return { success: false, errorMessage: getErrorContent(response.error) };
-  }
-
-  toast.success(TOAST.SUCCESS.USER.deleted);
-  return { success: true };
 }
