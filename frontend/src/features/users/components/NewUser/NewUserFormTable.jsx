@@ -1,5 +1,5 @@
+import { handleClick } from '../../../utils/formUtils.js';
 import { DynamicForm } from '../../../../components/common/FormComponents';
-import { handleClick } from '../userUtils';
 import getUserFormFields from '../../userFormData';
 
 function NewUserFormTable({ formData, updateField, canSave, handleSave, onClose }) {

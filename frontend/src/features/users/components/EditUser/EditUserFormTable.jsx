@@ -1,4 +1,4 @@
-import { handleClick } from '../userUtils';
+import { handleClick } from '../../../utils/formUtils.js';
 import { DynamicForm } from '../../../../components/common/FormComponents';
 import getUserFormFields from '../../userFormData';
 

@@ -1,5 +1,5 @@
 import { DynamicForm } from '../../../../../components/common/FormComponents';
-import { handleClick } from '../bookUtils';
+import { handleClick } from '../../../../utils/formUtils';
 import getBookFormFields from '../../bookFormData';
 
 function NewBookFormTable({ formData, updateField, canSave, handleSave, onClose }) {

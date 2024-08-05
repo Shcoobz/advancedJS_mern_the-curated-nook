@@ -1,6 +1,6 @@
 import { DynamicForm } from '../../../../../components/common/FormComponents';
+import { handleClick } from '../../../../utils/formUtils';
 import getTonieFormFields from '../../tonieFormData';
-import { handleClick } from '../tonieUtils';
 
 function EditTonieFormTable({
   formData,

@@ -1,6 +1,6 @@
+import { handleClick } from '../../../../utils/formUtils';
 import { DynamicForm } from '../../../../../components/common/FormComponents';
 import getTonieFormFields from '../../tonieFormData';
-import { handleClick } from '../tonieUtils';
 
 function NewTonieFormTable({ formData, updateField, canSave, handleSave, onClose }) {
   const handleFieldChange = handleClick(updateField);

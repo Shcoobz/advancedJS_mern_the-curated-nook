@@ -1,5 +1,5 @@
 import { DynamicForm } from '../../../../../components/common/FormComponents';
-import { handleClick } from '../legoUtils';
+import { handleClick } from '../../../../utils/formUtils';
 import getLegoFormFields from '../../legoFormData';
 
 function NewLegoFormTable({ formData, updateField, canSave, handleSave, onClose }) {
