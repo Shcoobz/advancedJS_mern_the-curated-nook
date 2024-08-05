@@ -3,36 +3,18 @@ import {
   FormInput,
   FormTextarea,
 } from '../../../components/common/FormComponents';
-import {
-  handleDescriptionChange,
-  handleImageUrlChange,
-  handleIsOnWishlistChange,
-  handleNameChange,
-  handleThumbnailUrlChange,
-} from './components/tonieUtils';
+import { getNameInputClass } from './components/tonieUtils';
 
-const getFormFields = ({
-  name,
-  setName,
-  validNameClass,
-  description,
-  setDescription,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  isOnWishlist,
-  setIsOnWishlist,
-}) => [
+const getTonieFormFields = ({ formData, handleFieldChange }) => [
   {
     component: FormInput,
     label: 'Name:',
     id: 'name',
     name: 'name',
     type: 'text',
-    value: name,
-    onChange: handleNameChange(setName),
-    validClass: validNameClass,
+    value: formData.name,
+    onChange: handleFieldChange,
+    validClass: getNameInputClass(formData.validName),
   },
   {
     component: FormTextarea,
@@ -40,8 +22,8 @@ const getFormFields = ({
     id: 'description',
     name: 'description',
     rows: 5,
-    value: description,
-    onChange: handleDescriptionChange(setDescription),
+    value: formData.description,
+    onChange: handleFieldChange,
   },
   {
     component: FormInput,
@@ -49,8 +31,8 @@ const getFormFields = ({
     id: 'thumbnailUrl',
     name: 'thumbnailUrl',
     type: 'text',
-    value: thumbnailUrl,
-    onChange: handleThumbnailUrlChange(setThumbnailUrl),
+    value: formData.thumbnailUrl,
+    onChange: handleFieldChange,
   },
   {
     component: FormInput,
@@ -58,17 +40,17 @@ const getFormFields = ({
     id: 'imageUrl',
     name: 'imageUrl',
     type: 'text',
-    value: imageUrl,
-    onChange: handleImageUrlChange(setImageUrl),
+    value: formData.imageUrl,
+    onChange: handleFieldChange,
   },
   {
     component: FormCheckbox,
-    label: 'On Wishlist:',
-    id: 'on-wishlist',
-    name: 'on-wishlist',
-    checked: isOnWishlist,
-    onChange: handleIsOnWishlistChange(setIsOnWishlist),
+    label: 'Wishlist:',
+    id: 'isOnWishlist',
+    name: 'isOnWishlist',
+    checked: formData.isOnWishlist,
+    onChange: handleFieldChange,
   },
 ];
 
-export default getFormFields;
+export default getTonieFormFields;

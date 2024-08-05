@@ -1,34 +1,16 @@
 import { FormCheckbox, FormInput } from '../../../components/common/FormComponents';
-import {
-  handleImageUrlChange,
-  handleIsOnWishlistChange,
-  handleNameChange,
-  handleSetNumberChange,
-  handleThumbnailUrlChange,
-} from './components/legoUtils';
+import { getNameInputClass } from './components/legoUtils';
 
-const getFormFields = ({
-  name,
-  setName,
-  validNameClass,
-  setNumber,
-  setSetNumber,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  isOnWishlist,
-  setIsOnWishlist,
-}) => [
+const getLegoFormFields = ({ formData, handleFieldChange }) => [
   {
     component: FormInput,
     label: 'Name:',
     id: 'name',
     name: 'name',
     type: 'text',
-    value: name,
-    onChange: handleNameChange(setName),
-    validClass: validNameClass,
+    value: formData.name,
+    onChange: handleFieldChange,
+    validClass: getNameInputClass(formData.validName),
   },
   {
     component: FormInput,
@@ -36,8 +18,8 @@ const getFormFields = ({
     id: 'setNumber',
     name: 'setNumber',
     type: 'text',
-    value: setNumber,
-    onChange: handleSetNumberChange(setSetNumber),
+    value: formData.setNumber,
+    onChange: handleFieldChange,
   },
   {
     component: FormInput,
@@ -45,8 +27,8 @@ const getFormFields = ({
     id: 'thumbnailUrl',
     name: 'thumbnailUrl',
     type: 'text',
-    value: thumbnailUrl,
-    onChange: handleThumbnailUrlChange(setThumbnailUrl),
+    value: formData.thumbnailUrl,
+    onChange: handleFieldChange,
   },
   {
     component: FormInput,
@@ -54,17 +36,17 @@ const getFormFields = ({
     id: 'imageUrl',
     name: 'imageUrl',
     type: 'text',
-    value: imageUrl,
-    onChange: handleImageUrlChange(setImageUrl),
+    value: formData.imageUrl,
+    onChange: handleFieldChange,
   },
   {
     component: FormCheckbox,
-    label: 'on wishlist:',
-    id: 'on-wishlist',
-    name: 'on-wishlist',
-    checked: isOnWishlist,
-    onChange: handleIsOnWishlistChange(setIsOnWishlist),
+    label: 'Wishlist:',
+    id: 'isOnWishlist',
+    name: 'isOnWishlist',
+    checked: formData.isOnWishlist,
+    onChange: handleFieldChange,
   },
 ];
 
-export default getFormFields;
+export default getLegoFormFields;

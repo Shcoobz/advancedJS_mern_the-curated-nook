@@ -1,4 +1,4 @@
-import { CloseButton, DeleteButton, SaveButton } from './Buttons';
+import { CloseButton, DeleteButton, SaveButton, SubmitButton } from './Buttons';
 
 export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }) {
   return (
@@ -21,6 +21,15 @@ export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }
         )}
       </div>
     </div>
+  );
+}
+
+export function FormBody({ renderFormFields, handleSave, canSave }) {
+  return (
+    <form className='form' onSubmit={handleSave}>
+      {renderFormFields}
+      <SubmitButton canSave={canSave} />
+    </form>
   );
 }
 
@@ -119,4 +128,44 @@ export function FormSelect({
       </select>
     </>
   );
+}
+
+export function DynamicForm({
+  title,
+  formData,
+  getFormFields,
+  handleFieldChange,
+  handleSave,
+  canSave,
+  onClose,
+  handleDelete,
+}) {
+  const formFields = getFormFields({
+    formData,
+    handleFieldChange,
+  });
+
+  const renderFormFields = formFields.map((field, index) => {
+    const Component = field.component;
+    return <Component key={index} {...field} />;
+  });
+
+  const formContent = (
+    <>
+      <FormHeader
+        title={title}
+        handleSave={handleSave}
+        canSave={canSave}
+        onClose={onClose}
+        handleDelete={handleDelete}
+      />
+      <FormBody
+        renderFormFields={renderFormFields}
+        handleSave={handleSave}
+        canSave={canSave}
+      />
+    </>
+  );
+
+  return formContent;
 }

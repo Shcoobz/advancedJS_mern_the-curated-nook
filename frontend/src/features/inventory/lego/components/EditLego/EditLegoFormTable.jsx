@@ -1,66 +1,29 @@
-import { SubmitButton } from '../../../../../components/common/Buttons.jsx';
-import { FormHeader } from '../../../../../components/common/FormComponents.jsx';
-import { getNameInputClass } from '../legoUtils.js';
-import getFormFields from '../../legoFormData.js';
+import { DynamicForm } from '../../../../../components/common/FormComponents.jsx';
+import { handleClick } from '../legoUtils.js';
+import getLegoFormFields from '../../legoFormData.js';
 
 function EditLegoFormTable({
-  name,
-  setName,
-  validName,
-  setNumber,
-  setSetNumber,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  isOnWishlist,
-  setIsOnWishlist,
+  formData,
+  updateField,
   canSave,
   handleSave,
   handleDelete,
   onClose,
 }) {
-  const validNameClass = getNameInputClass(validName);
+  const handleFieldChange = handleClick(updateField);
 
-  const formFields = getFormFields({
-    name,
-    setName,
-    validNameClass,
-    setNumber,
-    setSetNumber,
-    thumbnailUrl,
-    setThumbnailUrl,
-    imageUrl,
-    setImageUrl,
-    isOnWishlist,
-    setIsOnWishlist,
-  });
-
-  const renderFormFields = formFields.map((field, index) => {
-    const Component = field.component;
-
-    return <Component key={index} {...field} />;
-  });
-
-  const formContent = (
-    <>
-      <FormHeader
-        title={`Edit Lego: ${name}`}
-        handleSave={handleSave}
-        canSave={canSave}
-        handleDelete={handleDelete}
-        onClose={onClose}
-      />
-
-      <form className='form' onSubmit={handleSave}>
-        {renderFormFields}
-
-        <SubmitButton canSave={canSave} />
-      </form>
-    </>
+  return (
+    <DynamicForm
+      title={`Edit Lego Set: ${formData.name}`}
+      formData={formData}
+      getFormFields={getLegoFormFields}
+      handleFieldChange={handleFieldChange}
+      handleSave={handleSave}
+      canSave={canSave}
+      handleDelete={handleDelete}
+      onClose={onClose}
+    />
   );
-
-  return formContent;
 }
 
 export default EditLegoFormTable;

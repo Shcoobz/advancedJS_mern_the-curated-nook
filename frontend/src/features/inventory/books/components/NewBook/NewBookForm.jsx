@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
-import { DEFAULT } from '../../../../../config/common/constants';
 import { TOAST } from '../../../../../config/common/messages';
 import {
   createInitialFormState,
@@ -13,6 +12,7 @@ import {
 
 import Modal from '../../../../../components/common/Modal';
 import NewBookFormTable from './NewBookFormTable';
+import { createUpdateField } from '../../../../utils/formUtils';
 
 function NewBookForm({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ function NewBookForm({ isOpen, onClose }) {
   const [formData, setFormData] = useState(createInitialFormState());
 
   const canSave = Boolean(formData.title) && !isLoading;
+  const updateField = createUpdateField(setFormData);
 
   useValidateTitle(formData.title, (isValid) => {
     setFormData((prev) => {
@@ -32,11 +33,7 @@ function NewBookForm({ isOpen, onClose }) {
     });
   });
 
-  useHandleBookSuccess(isSuccess, undefined, navigate, resetFormData);
-
-  function resetFormData() {
-    setFormData(createInitialFormState());
-  }
+  useHandleBookSuccess(isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
@@ -49,10 +46,6 @@ function NewBookForm({ isOpen, onClose }) {
       onClose();
       toast.success(TOAST.SUCCESS.BOOK.created);
     }
-  }
-
-  function updateField(field, value) {
-    setFormData((prev) => ({ ...prev, [field]: value }));
   }
 
   const modalContent = (

@@ -12,6 +12,7 @@ import {
 } from '../bookUtils';
 import Modal from '../../../../../components/common/Modal';
 import EditBookFormTable from './EditBookFormTable';
+import { createUpdateField } from '../../../../utils/formUtils';
 
 function EditBookForm({ book, isOpen, onClose }) {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function EditBookForm({ book, isOpen, onClose }) {
   const [formData, setFormData] = useState(createInitialFormState(book));
 
   const canSave = Boolean(formData.title) && !isLoading;
+  const updateField = createUpdateField(setFormData);
 
   useValidateTitle(formData.title, (isValid) => {
     setFormData((prev) => {
@@ -56,10 +58,6 @@ function EditBookForm({ book, isOpen, onClose }) {
       onClose();
       toast.success(TOAST.SUCCESS.BOOK.deleted);
     }
-  }
-
-  function updateField(field, value) {
-    setFormData((currentData) => ({ ...currentData, [field]: value }));
   }
 
   const modalContent = (

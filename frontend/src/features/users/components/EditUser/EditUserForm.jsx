@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { DEFAULT } from '../../../../config/common/constants';
 import { TOAST } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
 import {
   canSaveExistingUserForm,
+  createInitialFormState,
   handleDeleteUser,
   handleSaveExistingUser,
   useHandleUserSuccess,
@@ -14,50 +14,42 @@ import {
 } from '../userUtils';
 import Modal from '../../../../components/common/Modal';
 import EditUserFormTable from './EditUserFormTable';
+import { createUpdateField } from '../../../utils/formUtils';
 
 function EditUserForm({ user, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateUser, { isLoading, isSuccess }] = useUpdateUserMutation();
   const [deleteUser, { isSuccess: isDelSuccess }] = useDeleteUserMutation();
+  const [formData, setFormData] = useState(createInitialFormState(user));
 
-  const [username, setUsername] = useState(user.username);
-  const [validUsername, setValidUsername] = useState(false);
-  const [password, setPassword] = useState(DEFAULT.emptyString);
-  const [validPassword, setValidPassword] = useState(false);
-  const [roles, setRoles] = useState(user.roles);
-  const [active, setActive] = useState(user.active);
+  const canSave = canSaveExistingUserForm(formData, isLoading);
+  const updateField = createUpdateField(setFormData);
 
-  const canSave = canSaveExistingUserForm(
-    roles.length,
-    validUsername,
-    validPassword,
-    isLoading,
-    password
-  );
+  useValidateUsername(formData, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validUsername !== isValid) {
+        return { ...prev, validUsername: isValid };
+      }
+      return prev;
+    });
+  });
 
-  useValidateUsername(username, setValidUsername);
-  useValidatePassword(password, setValidPassword);
-  useHandleUserSuccess(
-    isSuccess,
-    isDelSuccess,
-    navigate,
-    setUsername,
-    setPassword,
-    setRoles
-  );
+  useValidatePassword(formData, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validPassword !== isValid) {
+        return { ...prev, validPassword: isValid };
+      }
+      return prev;
+    });
+  });
+
+  useHandleUserSuccess(isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveExistingUser(
-      updateUser,
-      user.id,
-      username,
-      password,
-      roles,
-      active
-    );
+    const result = await handleSaveExistingUser(updateUser, user, formData);
 
     if (!result.success) {
       toast.error(result.errorMessage);
@@ -81,16 +73,8 @@ function EditUserForm({ user, isOpen, onClose }) {
 
   const modalContent = (
     <EditUserFormTable
-      username={username}
-      setUsername={setUsername}
-      validUsername={validUsername}
-      password={password}
-      setPassword={setPassword}
-      validPassword={validPassword}
-      roles={roles}
-      setRoles={setRoles}
-      active={active}
-      setActive={setActive}
+      formData={formData}
+      updateField={updateField}
       canSave={canSave}
       handleSave={handleSave}
       handleDelete={handleDelete}

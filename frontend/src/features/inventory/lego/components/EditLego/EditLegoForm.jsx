@@ -5,52 +5,41 @@ import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
 import {
+  createInitialFormState,
   handleDeleteLego,
   handleSaveExistingLego,
   useHandleLegoSuccess,
   useValidateName,
 } from '../legoUtils';
 import EditLegoFormTable from './EditLegoFormTable';
+import { createUpdateField } from '../../../../utils/formUtils';
 
 function EditLegoForm({ lego, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateLego, { isLoading, isSuccess }] = useUpdateLegoMutation();
   const [deleteLego, { isSuccess: isDelSuccess }] = useDeleteLegoMutation();
+  const [formData, setFormData] = useState(createInitialFormState(lego));
 
-  const [name, setName] = useState(lego.name);
-  const [validName, setValidName] = useState(false);
-  const [setNumber, setSetNumber] = useState(lego.setNumber);
-  const [thumbnailUrl, setThumbnailUrl] = useState(lego.thumbnailUrl);
-  const [imageUrl, setImageUrl] = useState(lego.imageUrl);
-  const [isOnWishlist, setIsOnWishlist] = useState(lego.isOnWishlist);
+  const canSave = Boolean(formData.name) && !isLoading;
+  const updateField = createUpdateField(setFormData);
 
-  const canSave = Boolean(name) && !isLoading;
+  useValidateName(formData.name, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validName !== isValid) {
+        return { ...prev, validName: isValid };
+      }
 
-  useValidateName(name, setValidName);
-  useHandleLegoSuccess(
-    isSuccess,
-    isDelSuccess,
-    navigate,
-    setName,
-    setSetNumber,
-    setThumbnailUrl,
-    setImageUrl,
-    setIsOnWishlist
-  );
+      return prev;
+    });
+  });
+
+  useHandleLegoSuccess(isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveExistingLego(
-      updateLego,
-      lego,
-      name,
-      setNumber,
-      thumbnailUrl,
-      imageUrl,
-      isOnWishlist
-    );
+    const result = await handleSaveExistingLego(updateLego, lego, formData);
 
     if (!result.success) {
       toast.error(result.errorMessage);
@@ -74,17 +63,8 @@ function EditLegoForm({ lego, isOpen, onClose }) {
 
   const modalContent = (
     <EditLegoFormTable
-      name={name}
-      setName={setName}
-      validName={validName}
-      setNumber={setNumber}
-      setSetNumber={setSetNumber}
-      thumbnailUrl={thumbnailUrl}
-      setThumbnailUrl={setThumbnailUrl}
-      imageUrl={imageUrl}
-      setImageUrl={setImageUrl}
-      isOnWishlist={isOnWishlist}
-      setIsOnWishlist={setIsOnWishlist}
+      formData={formData}
+      updateField={updateField}
       canSave={canSave}
       handleSave={handleSave}
       handleDelete={handleDelete}

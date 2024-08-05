@@ -2,55 +2,43 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAddNewTonieMutation } from '../../api/toniesApiSlice';
-import { DEFAULT } from '../../../../../config/common/constants';
 import { TOAST } from '../../../../../config/common/messages';
 import {
+  createInitialFormState,
   handleSaveNewTonie,
-  setDefaultValue,
   useHandleTonieSuccess,
   useValidateName,
 } from '../tonieUtils';
 
 import Modal from '../../../../../components/common/Modal';
 import NewTonieFormTable from './NewTonieFormTable';
+import { createUpdateField } from '../../../../utils/formUtils';
 
 function NewTonieForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewTonie, { isLoading, isSuccess }] = useAddNewTonieMutation();
+  const [formData, setFormData] = useState(createInitialFormState());
 
-  const [name, setName] = useState(DEFAULT.emptyString);
-  const [validName, setValidName] = useState(false);
-  const [description, setDescription] = useState(DEFAULT.emptyString);
-  const [thumbnailUrl, setThumbnailUrl] = useState(DEFAULT.emptyString);
-  const [imageUrl, setImageUrl] = useState(DEFAULT.emptyString);
-  const [isOnWishlist, setIsOnWishlist] = useState(false);
+  const canSave = Boolean(formData.name) && !isLoading;
+  const updateField = createUpdateField(setFormData);
 
-  const canSave = Boolean(name) && !isLoading;
+  useValidateName(formData.name, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validName !== isValid) {
+        return { ...prev, validName: isValid };
+      }
 
-  useValidateName(name, setValidName);
-  useHandleTonieSuccess(
-    isSuccess,
-    undefined,
-    navigate,
-    setName,
-    setDescription,
-    setThumbnailUrl,
-    setImageUrl,
-    setIsOnWishlist
-  );
+      return prev;
+    });
+  });
+
+  useHandleTonieSuccess(isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewTonie(
-      addNewTonie,
-      setDefaultValue(name),
-      setDefaultValue(description),
-      setDefaultValue(thumbnailUrl),
-      setDefaultValue(imageUrl),
-      isOnWishlist
-    );
+    const result = await handleSaveNewTonie(addNewTonie, formData);
 
     if (!result.success) {
       toast.error(result.errorMessage);
@@ -62,17 +50,8 @@ function NewTonieForm({ isOpen, onClose }) {
 
   const modalContent = (
     <NewTonieFormTable
-      name={name}
-      setName={setName}
-      validName={validName}
-      description={description}
-      setDescription={setDescription}
-      thumbnailUrl={thumbnailUrl}
-      setThumbnailUrl={setThumbnailUrl}
-      imageUrl={imageUrl}
-      setImageUrl={setImageUrl}
-      isOnWishlist={isOnWishlist}
-      setIsOnWishlist={setIsOnWishlist}
+      formData={formData}
+      updateField={updateField}
       canSave={canSave}
       handleSave={handleSave}
       onClose={onClose}

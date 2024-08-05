@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddNewUserMutation } from '../../api/usersApiSlice';
-import { DEFAULT } from '../../../../config/common/constants';
 import { TOAST } from '../../../../config/common/messages';
 import {
   canSaveNewUserForm,
+  createInitialFormState,
   handleSaveNewUser,
   useHandleUserSuccess,
   useValidatePassword,
@@ -14,40 +14,41 @@ import { toast } from 'react-toastify';
 import Modal from '../../../../components/common/Modal';
 
 import NewUserFormTable from './NewUserFormTable';
+import { createUpdateField } from '../../../utils/formUtils';
 
 function NewUserForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewUser, { isLoading, isSuccess }] = useAddNewUserMutation();
+  const [formData, setFormData] = useState(createInitialFormState());
 
-  const [username, setUsername] = useState(DEFAULT.emptyString);
-  const [validUsername, setValidUsername] = useState(false);
-  const [password, setPassword] = useState('');
-  const [validPassword, setValidPassword] = useState(false);
-  const [roles, setRoles] = useState(['User']);
+  const canSave = canSaveNewUserForm(formData, isLoading);
+  const updateField = createUpdateField(setFormData);
 
-  const canSave = canSaveNewUserForm(
-    roles.length,
-    validUsername,
-    validPassword,
-    isLoading
-  );
+  useValidateUsername(formData, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validUsername !== isValid) {
+        return { ...prev, validUsername: isValid };
+      }
+      return prev;
+    });
+  });
 
-  useValidateUsername(username, setValidUsername);
-  useValidatePassword(password, setValidPassword);
-  useHandleUserSuccess(
-    isSuccess,
-    undefined,
-    navigate,
-    setUsername,
-    setPassword,
-    setRoles
-  );
+  useValidatePassword(formData, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validPassword !== isValid) {
+        return { ...prev, validPassword: isValid };
+      }
+      return prev;
+    });
+  });
+
+  useHandleUserSuccess(isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewUser(addNewUser, username, password, roles);
+    const result = await handleSaveNewUser(addNewUser, formData);
 
     if (!result.success) {
       toast.error(result.errorMessage);
@@ -59,16 +60,11 @@ function NewUserForm({ isOpen, onClose }) {
 
   const modalContent = (
     <NewUserFormTable
-      username={username}
-      setUsername={setUsername}
-      validUsername={validUsername}
-      password={password}
-      setPassword={setPassword}
-      validPassword={validPassword}
-      roles={roles}
-      setRoles={setRoles}
+      formData={formData}
+      updateField={updateField}
       canSave={canSave}
       handleSave={handleSave}
+      onClose={onClose}
     />
   );
 

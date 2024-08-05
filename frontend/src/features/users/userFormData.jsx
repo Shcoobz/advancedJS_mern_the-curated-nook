@@ -3,28 +3,16 @@ import {
   FormInput,
   FormSelect,
 } from '../../components/common/FormComponents';
+import { ROLE } from '../../config/common/constants';
 import { UI } from '../../config/common/messages';
 import {
-  handlePasswordChange,
-  handleRolesChange,
-  handleToggleActive,
-  handleUsernameChange,
+  generateOptionsFromRoles,
+  getPasswordInputClass,
+  getRolesInputClass,
+  getUsernameInputClass,
 } from './components/userUtils';
 
-const getFormFields = ({
-  username,
-  setUsername,
-  validUserClass,
-  password,
-  setPassword,
-  validPwdClass,
-  active,
-  setActive,
-  roles,
-  setRoles,
-  options,
-  validRolesClass,
-}) => {
+const getUserFormFields = ({ formData, handleFieldChange }) => {
   const fields = [
     {
       component: FormInput,
@@ -32,9 +20,9 @@ const getFormFields = ({
       id: 'username',
       name: 'username',
       type: 'text',
-      value: username,
-      onChange: handleUsernameChange(setUsername),
-      validClass: validUserClass,
+      value: formData.username,
+      onChange: handleFieldChange,
+      validClass: getUsernameInputClass(formData.validUsername),
       children: <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>,
     },
     {
@@ -43,9 +31,9 @@ const getFormFields = ({
       id: 'password',
       name: 'password',
       type: 'password',
-      value: password,
-      onChange: handlePasswordChange(setPassword),
-      validClass: validPwdClass,
+      value: formData.password,
+      onChange: handleFieldChange,
+      validClass: getPasswordInputClass(formData.validPassword),
       children: (
         <>
           <span className='nowrap'> {UI.BS.PAGE.USER.TABLE.passwordRuleEmpty}</span>
@@ -58,27 +46,27 @@ const getFormFields = ({
       label: UI.BS.PAGE.USER.TABLE.assignedRoles,
       id: 'roles',
       name: 'roles',
-      className: validRolesClass,
       multiple: true,
       size: '3',
-      value: roles,
-      onChange: handleRolesChange(setRoles),
-      options: options,
+      value: formData.roles,
+      onChange: handleFieldChange,
+      validClass: getRolesInputClass(formData.roles.length),
+      options: generateOptionsFromRoles(ROLE),
     },
   ];
 
-  if (active !== undefined && setActive !== undefined) {
+  if (formData.active !== undefined) {
     fields.push({
       component: FormCheckbox,
       label: UI.BS.PAGE.USER.TABLE.active,
-      id: 'user-active',
-      name: 'user-active',
-      checked: active,
-      onChange: handleToggleActive(setActive),
+      id: 'active',
+      name: 'active',
+      checked: formData.active,
+      onChange: handleFieldChange,
     });
   }
 
   return fields;
 };
 
-export default getFormFields;
+export default getUserFormFields;

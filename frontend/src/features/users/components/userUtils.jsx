@@ -3,68 +3,60 @@ import { CLASS_NAME, DEFAULT, LINK, REGEX } from '../../../config/common/constan
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../config/common/messages';
 
-export function useValidateUsername(username, setValidUsername) {
-  useEffect(() => {
-    setValidUsername(REGEX.checkUsername.test(username));
-  }, [username, setValidUsername]);
+export function createInitialFormState(user = null) {
+  if (user) {
+    return {
+      username: user.username,
+      validUsername: false,
+      password: '',
+      validPassword: false,
+      roles: user.roles,
+      active: user.active,
+    };
+  } else {
+    return {
+      username: DEFAULT.emptyString,
+      validUsername: false,
+      password: DEFAULT.emptyString,
+      validPassword: false,
+      roles: ['User'],
+      active: true,
+    };
+  }
 }
 
-export function useValidatePassword(password, setValidPassword) {
+export function useValidateUsername(formData, updateValidationStatus) {
   useEffect(() => {
-    setValidPassword(REGEX.checkPassword.test(password));
-  }, [password, setValidPassword]);
+    const isValid = REGEX.checkUsername.test(formData.username);
+    updateValidationStatus(isValid);
+  }, [formData.username, updateValidationStatus]);
 }
 
-export function useHandleUserSuccess(
-  isSuccess,
-  isDelSuccess,
-  navigate,
-  setUsername,
-  setPassword,
-  setRoles
-) {
+export function useValidatePassword(formData, updateValidationStatus) {
+  useEffect(() => {
+    const isValid = REGEX.checkPassword.test(formData.password);
+    updateValidationStatus(isValid);
+  }, [formData.password, updateValidationStatus]);
+}
+
+export function useHandleUserSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
-      setUsername(DEFAULT.emptyString);
-      setPassword(DEFAULT.emptyString);
-      setRoles([]);
+      setFormData(createInitialFormState());
 
       navigate(LINK.USER.viewUsers);
     }
-  }, [isSuccess, isDelSuccess, navigate, setUsername, setPassword, setRoles]);
+  }, [isSuccess, isDelSuccess, navigate, setFormData]);
 }
 
-export function handleUsernameChange(setUsername) {
-  return function (e) {
-    setUsername(e.target.value);
+export async function handleSaveNewUser(addNewUser, formData) {
+  const payload = {
+    username: formData.username,
+    password: formData.password,
+    roles: formData.roles,
   };
-}
 
-export function handlePasswordChange(setPassword) {
-  return function (e) {
-    setPassword(e.target.value);
-  };
-}
-
-export function handleRolesChange(setRoles) {
-  return function (e) {
-    const values = Array.from(
-      e.target.selectedOptions /* HTML Collection */,
-      (option) => option.value
-    );
-
-    setRoles(values);
-  };
-}
-
-export function handleToggleActive(setActive) {
-  return function () {
-    return setActive((prev) => !prev);
-  };
-}
-
-export async function handleSaveNewUser(addNewUser, username, password, roles) {
-  const response = await addNewUser({ username, password, roles });
+  const response = await addNewUser(payload);
 
   if (response.error || response.status >= 400) {
     return { success: false, errorMessage: getErrorContent(response.error) };
@@ -73,23 +65,16 @@ export async function handleSaveNewUser(addNewUser, username, password, roles) {
   return { success: true };
 }
 
-export async function handleSaveExistingUser(
-  updateUser,
-  userId,
-  username,
-  password,
-  roles,
-  active
-) {
+export async function handleSaveExistingUser(updateUser, user, formData) {
   const payload = {
-    id: userId,
-    username: username,
-    roles: roles,
-    active: active,
+    id: user.id,
+    username: formData.username,
+    roles: formData.roles,
+    active: formData.active,
   };
 
-  if (password) {
-    payload.password = password;
+  if (formData.password) {
+    payload.password = formData.password;
   }
 
   const response = await updateUser(payload);
@@ -111,21 +96,20 @@ export async function handleDeleteUser(deleteUser, userId) {
   return { success: true };
 }
 
-export function canSaveNewUserForm(rolesCount, validUsername, validPassword, isLoading) {
-  return [rolesCount, validUsername, validPassword].every(Boolean) && !isLoading;
+export function canSaveNewUserForm(formData, isLoading) {
+  return formData.roles.length && formData.validUsername && !isLoading;
 }
 
-export function canSaveExistingUserForm(
-  rolesCount,
-  validUsername,
-  validPassword,
-  isLoading,
-  password
-) {
-  if (password) {
-    return [rolesCount, validUsername, validPassword].every(Boolean) && !isLoading;
+export function canSaveExistingUserForm(formData, isLoading) {
+  if (formData.password) {
+    return (
+      formData.roles.length &&
+      formData.validUsername &&
+      formData.validPassword &&
+      !isLoading
+    );
   } else {
-    return [rolesCount, validUsername].every(Boolean) && !isLoading;
+    return formData.roles.length && formData.validUsername && !isLoading;
   }
 }
 
@@ -171,4 +155,19 @@ export async function handleDeleteUserList(deleteUser, userId) {
 
   toast.success(TOAST.SUCCESS.USER.deleted);
   return { success: true };
+}
+
+export function handleClick(updateField) {
+  return function (event) {
+    const { name, type, options, checked, value } = event.target;
+
+    if (type === 'select-multiple') {
+      const values = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => option.value);
+      updateField(name, values);
+    } else {
+      updateField(name, type === 'checkbox' ? checked : value);
+    }
+  };
 }

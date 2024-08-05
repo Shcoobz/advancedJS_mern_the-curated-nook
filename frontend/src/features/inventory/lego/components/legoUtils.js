@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../config/common/messages';
@@ -10,97 +11,64 @@ function getErrorContent(error, delError) {
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
 }
 
-export function useValidateName(name, setValidName) {
-  useEffect(() => {
-    setValidName(name.trim().length > 0);
-  }, [name, setValidName]);
+export function createInitialFormState(lego = null) {
+  if (lego) {
+    return {
+      name: lego.name,
+      validName: false,
+      setNumber: lego.setNumber,
+      thumbnailUrl: lego.thumbnailUrl,
+      imageUrl: lego.imageUrl,
+      isOnWishlist: lego.isOnWishlist,
+    };
+  } else {
+    return {
+      name: DEFAULT.emptyString,
+      validName: false,
+      setNumber: DEFAULT.emptyString,
+      thumbnailUrl: DEFAULT.emptyString,
+      imageUrl: DEFAULT.emptyString,
+      isOnWishlist: false,
+    };
+  }
 }
 
-export function useHandleLegoSuccess(
-  isSuccess,
-  isDelSuccess,
-  navigate,
-  setName,
-  setSetNumber,
-  setThumbnailUrl,
-  setImageUrl,
-  setIsOnWishlist
-) {
+export function useValidateName(name, updateValidationStatus) {
+  useEffect(() => {
+    const isValid = name.trim().length > 0;
+
+    updateValidationStatus(isValid);
+  }, [name, updateValidationStatus]);
+}
+
+export function useHandleLegoSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
-      setName(DEFAULT.emptyString);
-      setSetNumber(DEFAULT.emptyString);
-      setThumbnailUrl(DEFAULT.emptyString);
-      setImageUrl(DEFAULT.emptyString);
-      setIsOnWishlist(false);
+      setFormData(createInitialFormState());
 
       navigate(LINK.LEGO.viewLego);
     }
-  }, [
-    isSuccess,
-    isDelSuccess,
-    navigate,
-    setName,
-    setSetNumber,
-    setThumbnailUrl,
-    setImageUrl,
-    setIsOnWishlist,
-  ]);
+  }, [isSuccess, isDelSuccess, navigate, setFormData]);
 }
 
 export function getNameInputClass(validName) {
   return !validName ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
 
-export function handleNameChange(setName) {
-  return function (e) {
-    setName(e.target.value);
-  };
-}
-
-export function handleSetNumberChange(setSetNumber) {
-  return function (e) {
-    setSetNumber(e.target.value);
-  };
-}
-
-export function handleThumbnailUrlChange(setThumbnailUrl) {
-  return function (e) {
-    setThumbnailUrl(e.target.value);
-  };
-}
-
-export function handleImageUrlChange(setImageUrl) {
-  return function (e) {
-    setImageUrl(e.target.value);
-  };
-}
-
-export function handleIsOnWishlistChange(setIsOnWishlist) {
-  return function (e) {
-    setIsOnWishlist((prev) => !prev);
-  };
-}
-
 export const setDefaultValue = (value, defaultValue = 'N/A') => {
   return value && value.trim() ? value.trim() : defaultValue;
 };
 
-export async function handleSaveNewLego(
-  addNewLego,
-  name,
-  setNumber,
-  thumbnailUrl,
-  imageUrl,
-  isOnWishlist
-) {
-  const response = await addNewLego({
-    name: name,
-    setNumber: setNumber,
-    thumbnailUrl: thumbnailUrl,
-    imageUrl: imageUrl,
-    isOnWishlist: isOnWishlist,
-  });
+export async function handleSaveNewLego(addNewLego, formData) {
+  const payload = {
+    name: setDefaultValue(formData.name),
+    setNumber: setDefaultValue(formData.setNumber, uuidv4()),
+    thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
+    imageUrl: setDefaultValue(formData.imageUrl),
+    isOnWishlist: formData.isOnWishlist,
+  };
+
+  const response = await addNewLego(payload);
 
   if (response.error || response.status >= 400) {
     return {
@@ -112,22 +80,14 @@ export async function handleSaveNewLego(
   return { success: true };
 }
 
-export async function handleSaveExistingLego(
-  updateLego,
-  lego,
-  name,
-  setNumber,
-  thumbnailUrl,
-  imageUrl,
-  isOnWishlist
-) {
+export async function handleSaveExistingLego(updateLego, lego, formData) {
   const payload = {
     id: lego.id,
-    name: name,
-    setNumber: setNumber,
-    thumbnailUrl: thumbnailUrl,
-    imageUrl: imageUrl,
-    isOnWishlist: isOnWishlist,
+    name: formData.name,
+    setNumber: formData.setNumber,
+    thumbnailUrl: formData.thumbnailUrl,
+    imageUrl: formData.imageUrl,
+    isOnWishlist: formData.isOnWishlist,
   };
 
   const response = await updateLego(payload);
@@ -167,4 +127,12 @@ export async function handleDeleteLegoList(deleteLego, legoId) {
 export function isUUID(string) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   return uuidRegex.test(string);
+}
+
+export function handleClick(updateField) {
+  return function (event) {
+    const { name, value, type, checked } = event.target;
+
+    updateField(name, type === 'checkbox' ? checked : value);
+  };
 }

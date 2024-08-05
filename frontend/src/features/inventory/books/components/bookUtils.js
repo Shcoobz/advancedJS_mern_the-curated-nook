@@ -57,20 +57,7 @@ export function useValidateTitle(title, updateValidationStatus) {
 export function useHandleBookSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
-      setFormData({
-        title: DEFAULT.emptyString,
-        validTitle: false,
-        authors: DEFAULT.emptyString,
-        publisher: DEFAULT.emptyString,
-        publishedDate: DEFAULT.emptyString,
-        description: DEFAULT.emptyString,
-        isbn: DEFAULT.emptyString,
-        categories: DEFAULT.emptyString,
-        thumbnailUrl: DEFAULT.emptyString,
-        imageUrl: DEFAULT.emptyString,
-        language: DEFAULT.emptyString,
-        isOnWishlist: false,
-      });
+      setFormData(createInitialFormState());
 
       navigate(LINK.BOOK.viewBooks);
     }

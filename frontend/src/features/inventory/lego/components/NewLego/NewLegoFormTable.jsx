@@ -1,64 +1,21 @@
-import { SubmitButton } from '../../../../../components/common/Buttons';
-import { FormHeader } from '../../../../../components/common/FormComponents';
-import { getNameInputClass } from '../legoUtils';
-import getFormFields from '../../legoFormData';
+import { DynamicForm } from '../../../../../components/common/FormComponents';
+import { handleClick } from '../legoUtils';
+import getLegoFormFields from '../../legoFormData';
 
-function NewLegoFormTable({
-  name,
-  setName,
-  validName,
-  setNumber,
-  setSetNumber,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  isOnWishlist,
-  setIsOnWishlist,
-  canSave,
-  handleSave,
-  onClose,
-}) {
-  const validNameClass = getNameInputClass(validName);
+function NewLegoFormTable({ formData, updateField, canSave, handleSave, onClose }) {
+  const handleFieldChange = handleClick(updateField);
 
-  const formFields = getFormFields({
-    name,
-    setName,
-    validNameClass,
-    setNumber,
-    setSetNumber,
-    thumbnailUrl,
-    setThumbnailUrl,
-    imageUrl,
-    setImageUrl,
-    isOnWishlist,
-    setIsOnWishlist,
-  });
-
-  const renderFormFields = formFields.map((field, index) => {
-    const Component = field.component;
-
-    return <Component key={index} {...field} />;
-  });
-
-  const formContent = (
-    <>
-      <FormHeader
-        title={'Create Lego'}
-        handleSave={handleSave}
-        canSave={canSave}
-        onClose={onClose}
-      />
-
-      <form className='form' onSubmit={handleSave}>
-        {renderFormFields}
-
-        <SubmitButton canSave={canSave} />
-      </form>
-    </>
+  return (
+    <DynamicForm
+      title={`New Lego Set: ${formData.name}`}
+      formData={formData}
+      getFormFields={getLegoFormFields}
+      handleFieldChange={handleFieldChange}
+      handleSave={handleSave}
+      canSave={canSave}
+      onClose={onClose}
+    />
   );
-
-  return formContent;
 }
 
 export default NewLegoFormTable;

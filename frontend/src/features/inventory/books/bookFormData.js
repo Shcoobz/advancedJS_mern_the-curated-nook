@@ -5,7 +5,7 @@ import {
 } from '../../../components/common/FormComponents';
 import { getTitleInputClass } from './components/bookUtils';
 
-const getFormFields = ({ formData, handleFieldChange }) => [
+const getBookFormFields = ({ formData, handleFieldChange }) => [
   {
     component: FormInput,
     label: 'Title:',
@@ -107,4 +107,4 @@ const getFormFields = ({ formData, handleFieldChange }) => [
   },
 ];
 
-export default getFormFields;
+export default getBookFormFields;

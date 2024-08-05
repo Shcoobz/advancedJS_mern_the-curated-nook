@@ -1,64 +1,21 @@
-import { SubmitButton } from '../../../../../components/common/Buttons';
-import { FormHeader } from '../../../../../components/common/FormComponents';
-import getFormFields from '../../tonieFormData';
-import { getNameInputClass } from '../tonieUtils';
+import { DynamicForm } from '../../../../../components/common/FormComponents';
+import getTonieFormFields from '../../tonieFormData';
+import { handleClick } from '../tonieUtils';
 
-function NewTonieFormTable({
-  name,
-  setName,
-  validName,
-  description,
-  setDescription,
-  thumbnailUrl,
-  setThumbnailUrl,
-  imageUrl,
-  setImageUrl,
-  isOnWishlist,
-  setIsOnWishlist,
-  canSave,
-  handleSave,
-  onClose,
-}) {
-  const validNameClass = getNameInputClass(validName);
+function NewTonieFormTable({ formData, updateField, canSave, handleSave, onClose }) {
+  const handleFieldChange = handleClick(updateField);
 
-  const formFields = getFormFields({
-    name,
-    setName,
-    validNameClass,
-    description,
-    setDescription,
-    thumbnailUrl,
-    setThumbnailUrl,
-    imageUrl,
-    setImageUrl,
-    isOnWishlist,
-    setIsOnWishlist,
-  });
-
-  const renderFormFields = formFields.map((field, index) => {
-    const Component = field.component;
-
-    return <Component key={index} {...field} />;
-  });
-
-  const formContent = (
-    <>
-      <FormHeader
-        title={'Create Tonie'}
-        handleSave={handleSave}
-        canSave={canSave}
-        onClose={onClose}
-      />
-
-      <form className='form' onSubmit={handleSave}>
-        {renderFormFields}
-
-        <SubmitButton canSave={canSave} />
-      </form>
-    </>
+  return (
+    <DynamicForm
+      title='Create Tonie'
+      formData={formData}
+      getFormFields={getTonieFormFields}
+      handleFieldChange={handleFieldChange}
+      handleSave={handleSave}
+      canSave={canSave}
+      onClose={onClose}
+    />
   );
-
-  return formContent;
 }
 
 export default NewTonieFormTable;
