@@ -3,13 +3,13 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAddNewTonieMutation } from '../../api/toniesApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import { handleSaveNewTonie, useValidateName } from '../tonieUtils';
-
 import Modal from '../../../../../components/common/Modal';
 import NewTonieFormTable from './NewTonieFormTable';
 import {
   createInitialFormState,
   createUpdateField,
+  generateNewToniePayload,
+  handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
   validateName,
@@ -39,7 +39,11 @@ function NewTonieForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewTonie(addNewTonie, formData);
+    const result = await handleSaveNewEntity(
+      addNewTonie,
+      formData,
+      generateNewToniePayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

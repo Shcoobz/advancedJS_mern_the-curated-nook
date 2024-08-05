@@ -3,7 +3,7 @@ import {
   FormInput,
   FormTextarea,
 } from '../../../components/common/FormComponents';
-import { getTitleInputClass } from './components/bookUtils';
+import { getInputClass } from '../../utils/formUtils';
 
 const getBookFormFields = ({ formData, handleFieldChange }) => [
   {
@@ -14,7 +14,7 @@ const getBookFormFields = ({ formData, handleFieldChange }) => [
     type: 'text',
     value: formData.title,
     onChange: handleFieldChange,
-    validClass: getTitleInputClass(formData.validTitle),
+    validClass: getInputClass(formData.validTitle),
   },
   {
     component: FormInput,

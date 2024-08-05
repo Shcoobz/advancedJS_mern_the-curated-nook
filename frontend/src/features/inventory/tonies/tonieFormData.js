@@ -3,7 +3,7 @@ import {
   FormInput,
   FormTextarea,
 } from '../../../components/common/FormComponents';
-import { getNameInputClass } from './components/tonieUtils';
+import { getInputClass } from '../../utils/formUtils';
 
 const getTonieFormFields = ({ formData, handleFieldChange }) => [
   {
@@ -14,7 +14,7 @@ const getTonieFormFields = ({ formData, handleFieldChange }) => [
     type: 'text',
     value: formData.name,
     onChange: handleFieldChange,
-    validClass: getNameInputClass(formData.validName),
+    validClass: getInputClass(formData.validName),
   },
   {
     component: FormTextarea,

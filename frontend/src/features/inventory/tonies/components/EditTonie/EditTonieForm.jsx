@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDeleteTonieMutation, useUpdateTonieMutation } from '../../api/toniesApiSlice';
 import { useState } from 'react';
-import { handleSaveExistingTonie } from '../tonieUtils';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import EditTonieFormTable from './EditTonieFormTable';
@@ -9,7 +8,9 @@ import Modal from '../../../../../components/common/Modal';
 import {
   createInitialFormState,
   createUpdateField,
+  generateExistingToniePayload,
   handleDeleteEntity,
+  handleSaveExistingEntity,
   useHandleSuccess,
   useValidate,
   validateName,
@@ -40,7 +41,12 @@ function EditTonieForm({ tonie, isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveExistingTonie(updateTonie, tonie, formData);
+    const result = await handleSaveExistingEntity(
+      updateTonie,
+      tonie,
+      formData,
+      generateExistingToniePayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

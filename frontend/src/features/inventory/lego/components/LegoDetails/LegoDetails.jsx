@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useDeleteLegoMutation } from '../../api/legoApiSlice';
-import { handleDeleteLego } from '../legoUtils';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
 import LegoDetailsTable from './LegoDetailsTable';
+import { handleDeleteEntity } from '../../../../utils/formUtils';
 
 function LegoDetails({ lego, isOpen, onClose, onEdit }) {
   const [deleteLego] = useDeleteLegoMutation();
@@ -18,7 +18,7 @@ function LegoDetails({ lego, isOpen, onClose, onEdit }) {
   async function handleDelete(e) {
     e.preventDefault();
 
-    const result = await handleDeleteLego(deleteLego, lego.id);
+    const result = await handleDeleteEntity(deleteLego, lego.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);

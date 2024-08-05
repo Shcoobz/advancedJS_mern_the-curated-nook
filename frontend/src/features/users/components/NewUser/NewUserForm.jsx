@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddNewUserMutation } from '../../api/usersApiSlice';
 import { TOAST } from '../../../../config/common/messages';
-import { canSaveNewUserForm, handleSaveNewUser } from '../userUtils';
 import { toast } from 'react-toastify';
 import Modal from '../../../../components/common/Modal';
 
 import NewUserFormTable from './NewUserFormTable';
 import {
+  canSaveNewUserForm,
   createInitialFormState,
   createUpdateField,
+  generateNewUserPayload,
+  handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
   validatePassword,
@@ -49,7 +51,11 @@ function NewUserForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewUser(addNewUser, formData);
+    const result = await handleSaveNewEntity(
+      addNewUser,
+      formData,
+      generateNewUserPayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

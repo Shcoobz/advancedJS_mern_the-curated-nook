@@ -5,12 +5,7 @@ import {
 } from '../../components/common/FormComponents';
 import { ROLE } from '../../config/common/constants';
 import { UI } from '../../config/common/messages';
-import {
-  generateOptionsFromRoles,
-  getPasswordInputClass,
-  getRolesInputClass,
-  getUsernameInputClass,
-} from './components/userUtils';
+import { generateOptionsFromRoles, getInputClass } from '../utils/formUtils';
 
 const getUserFormFields = ({ formData, handleFieldChange }) => {
   const fields = [
@@ -22,7 +17,7 @@ const getUserFormFields = ({ formData, handleFieldChange }) => {
       type: 'text',
       value: formData.username,
       onChange: handleFieldChange,
-      validClass: getUsernameInputClass(formData.validUsername),
+      validClass: getInputClass(formData.validUsername),
       children: <span className='nowrap'>{UI.BS.PAGE.USER.TABLE.usernameRule}</span>,
     },
     {
@@ -33,7 +28,7 @@ const getUserFormFields = ({ formData, handleFieldChange }) => {
       type: 'password',
       value: formData.password,
       onChange: handleFieldChange,
-      validClass: getPasswordInputClass(formData.validPassword),
+      validClass: getInputClass(formData.validPassword),
       children: (
         <>
           <span className='nowrap'> {UI.BS.PAGE.USER.TABLE.passwordRuleEmpty}</span>
@@ -50,7 +45,7 @@ const getUserFormFields = ({ formData, handleFieldChange }) => {
       size: '3',
       value: formData.roles,
       onChange: handleFieldChange,
-      validClass: getRolesInputClass(formData.roles.length),
+      validClass: getInputClass(formData.roles.length, 'roles'),
       options: generateOptionsFromRoles(ROLE),
     },
   ];

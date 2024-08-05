@@ -2,7 +2,7 @@ import {
   TableItemDetail,
   TableItemDetailHeader,
 } from '../../../../../components/common/TableComponents';
-import { isUUID } from '../bookUtils';
+import { isUUID } from '../../../../utils/formUtils';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
   const displayIsbn = isUUID(book.isbn) ? 'N/A' : book.isbn;

@@ -1,5 +1,5 @@
 import { FormCheckbox, FormInput } from '../../../components/common/FormComponents';
-import { getNameInputClass } from './components/legoUtils';
+import { getInputClass } from '../../utils/formUtils';
 
 const getLegoFormFields = ({ formData, handleFieldChange }) => [
   {
@@ -10,7 +10,7 @@ const getLegoFormFields = ({ formData, handleFieldChange }) => [
     type: 'text',
     value: formData.name,
     onChange: handleFieldChange,
-    validClass: getNameInputClass(formData.validName),
+    validClass: getInputClass(formData.validName),
   },
   {
     component: FormInput,

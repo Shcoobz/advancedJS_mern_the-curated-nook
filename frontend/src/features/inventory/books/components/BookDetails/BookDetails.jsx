@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useDeleteBookMutation } from '../../api/booksApiSlice';
-import { handleDeleteBook } from '../bookUtils';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
 import BookDetailsTable from './BookDetailsTable';
+import { handleDeleteEntity } from '../../../../utils/formUtils';
 
 function BookDetails({ book, isOpen, onClose, onEdit }) {
   const [deleteBook] = useDeleteBookMutation();
@@ -18,7 +18,7 @@ function BookDetails({ book, isOpen, onClose, onEdit }) {
   async function handleDelete(e) {
     e.preventDefault();
 
-    const result = await handleDeleteBook(deleteBook, book.id);
+    const result = await handleDeleteEntity(deleteBook, book.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);

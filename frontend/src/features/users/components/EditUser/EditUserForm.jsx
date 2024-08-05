@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
-import { canSaveExistingUserForm, handleSaveExistingUser } from '../userUtils';
 import Modal from '../../../../components/common/Modal';
 import EditUserFormTable from './EditUserFormTable';
 import {
+  canSaveExistingUserForm,
   createInitialFormState,
   createUpdateField,
+  generateExistingUserPayload,
   handleDeleteEntity,
+  handleSaveExistingEntity,
   useHandleSuccess,
   useValidate,
   validatePassword,
@@ -50,7 +52,12 @@ function EditUserForm({ user, isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveExistingUser(updateUser, user, formData);
+    const result = await handleSaveExistingEntity(
+      updateUser,
+      user,
+      formData,
+      generateExistingUserPayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

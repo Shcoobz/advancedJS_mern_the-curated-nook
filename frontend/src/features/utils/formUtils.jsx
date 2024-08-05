@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { DEFAULT, LINK, REGEX } from '../../config/common/constants';
+import { v4 as uuidv4 } from 'uuid';
+import { CLASS_NAME, DEFAULT, LINK, REGEX } from '../../config/common/constants';
 import { toast } from 'react-toastify';
 
 function getErrorContent(error, delError) {
@@ -208,4 +209,167 @@ export async function handleDeleteEntityList(deleteFunction, entityId, successMe
 export function isUUID(string) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   return uuidRegex.test(string);
+}
+
+export function getErrorMessageClass(isError, isDelError = false) {
+  return isError || isDelError ? CLASS_NAME.errMsg : CLASS_NAME.offscreen;
+}
+
+export function getInputClass(validity, type = 'default') {
+  if (type === 'roles') {
+    return validity ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
+  }
+  return !validity ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
+}
+
+export function canSaveNewUserForm(formData, isLoading) {
+  return formData.roles.length && formData.validUsername && !isLoading;
+}
+
+export function canSaveExistingUserForm(formData, isLoading) {
+  if (formData.password) {
+    return (
+      formData.roles.length &&
+      formData.validUsername &&
+      formData.validPassword &&
+      !isLoading
+    );
+  } else {
+    return formData.roles.length && formData.validUsername && !isLoading;
+  }
+}
+
+export function generateOptionsFromRoles(roles) {
+  return Object.values(roles).map((role) => (
+    <option key={role} value={role}>
+      {role}
+    </option>
+  ));
+}
+
+export async function handleSaveNewEntity(addFunction, formData, generatePayload) {
+  const payload = generatePayload(formData);
+
+  const response = await addFunction(payload);
+
+  if (response.error || response.status >= 400) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  return { success: true };
+}
+
+export function generateNewUserPayload(formData) {
+  return {
+    username: formData.username,
+    password: formData.password,
+    roles: formData.roles,
+  };
+}
+
+export function generateNewToniePayload(formData) {
+  return {
+    name: setDefaultValue(formData.name),
+    description: setDefaultValue(formData.description),
+    thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
+    imageUrl: setDefaultValue(formData.imageUrl),
+    isOnWishlist: formData.isOnWishlist,
+  };
+}
+
+export function generateNewLegoPayload(formData) {
+  return {
+    name: setDefaultValue(formData.name),
+    setNumber: setDefaultValue(formData.setNumber, uuidv4()),
+    thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
+    imageUrl: setDefaultValue(formData.imageUrl),
+    isOnWishlist: formData.isOnWishlist,
+  };
+}
+
+export function generateNewBookPayload(formData) {
+  return {
+    title: setDefaultValue(formData.title),
+    authors: setDefaultValue(formData.authors),
+    publisher: setDefaultValue(formData.publisher),
+    publishedDate: setDefaultDate(formData.publishedDate),
+    description: setDefaultValue(formData.description),
+    isbn: setDefaultValue(formData.isbn, uuidv4()),
+    categories: setDefaultValue(formData.categories),
+    thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
+    imageUrl: setDefaultValue(formData.imageUrl),
+    language: setDefaultValue(formData.language),
+    isOnWishlist: formData.isOnWishlist,
+  };
+}
+
+export async function handleSaveExistingEntity(
+  updateFunction,
+  entity,
+  formData,
+  generatePayload
+) {
+  const payload = generatePayload(entity, formData);
+
+  const response = await updateFunction(payload);
+
+  if (response.error || response.status >= 400) {
+    return { success: false, errorMessage: getErrorContent(response.error) };
+  }
+
+  return { success: true };
+}
+
+export function generateExistingUserPayload(user, formData) {
+  const payload = {
+    id: user.id,
+    username: formData.username,
+    roles: formData.roles,
+    active: formData.active,
+  };
+
+  if (formData.password) {
+    payload.password = formData.password;
+  }
+
+  return payload;
+}
+
+export function generateExistingToniePayload(tonie, formData) {
+  return {
+    id: tonie.id,
+    name: formData.name,
+    description: formData.description,
+    thumbnailUrl: formData.thumbnailUrl,
+    imageUrl: formData.imageUrl,
+    isOnWishlist: formData.isOnWishlist,
+  };
+}
+
+export function generateExistingLegoPayload(lego, formData) {
+  return {
+    id: lego.id,
+    name: formData.name,
+    setNumber: formData.setNumber,
+    thumbnailUrl: formData.thumbnailUrl,
+    imageUrl: formData.imageUrl,
+    isOnWishlist: formData.isOnWishlist,
+  };
+}
+
+export function generateExistingBookPayload(book, formData) {
+  return {
+    id: book.id,
+    title: formData.title,
+    authors: formData.authors.split(',').map((author) => author.trim()),
+    publisher: formData.publisher,
+    publishedDate: formData.publishedDate,
+    description: formData.description,
+    isbn: formData.isbn.split(',').map((isbn) => isbn.trim()),
+    categories: formData.categories.split(',').map((category) => category.trim()),
+    thumbnailUrl: formData.thumbnailUrl,
+    imageUrl: formData.imageUrl,
+    language: formData.language,
+    isOnWishlist: formData.isOnWishlist,
+  };
 }

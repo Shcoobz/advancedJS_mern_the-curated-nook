@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useDeleteTonieMutation } from '../../api/toniesApiSlice';
-import { handleDeleteTonie } from '../tonieUtils';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
 import TonieDetailsTable from './TonieDetailsTable';
+import { handleDeleteEntity } from '../../../../utils/formUtils';
 
 function TonieDetails({ tonie, isOpen, onClose, onEdit }) {
   const [deleteTonie] = useDeleteTonieMutation();
@@ -18,7 +18,7 @@ function TonieDetails({ tonie, isOpen, onClose, onEdit }) {
   async function handleDelete(e) {
     e.preventDefault();
 
-    const result = await handleDeleteTonie(deleteTonie, tonie.id);
+    const result = await handleDeleteEntity(deleteTonie, tonie.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);

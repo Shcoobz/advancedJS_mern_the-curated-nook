@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useDeleteUserMutation } from '../../api/usersApiSlice';
-import { handleDeleteUser } from '../userUtils';
 import { TOAST } from '../../../../config/common/messages';
 import Modal from '../../../../components/common/Modal';
 import UserDetailsTable from './UserDetailsTable';
+import { handleDeleteEntity } from '../../../utils/formUtils';
 
 function UserDetails({ user, isOpen, onClose, onEdit }) {
   const [deleteUser] = useDeleteUserMutation();
@@ -18,7 +18,7 @@ function UserDetails({ user, isOpen, onClose, onEdit }) {
   async function handleDelete(e) {
     e.preventDefault();
 
-    const result = await handleDeleteUser(deleteUser, user.id);
+    const result = await handleDeleteEntity(deleteUser, user.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);

@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import { handleSaveNewBook, useValidateTitle } from '../bookUtils';
-
 import Modal from '../../../../../components/common/Modal';
 import NewBookFormTable from './NewBookFormTable';
 import {
   createInitialFormState,
   createUpdateField,
+  generateNewBookPayload,
+  handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
   validateTitle,
@@ -39,7 +39,11 @@ function NewBookForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewBook(addNewBook, formData);
+    const result = await handleSaveNewEntity(
+      addNewBook,
+      formData,
+      generateNewBookPayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

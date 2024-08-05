@@ -2,7 +2,7 @@ import {
   TableItemDetail,
   TableItemDetailHeader,
 } from '../../../../../components/common/TableComponents';
-import { isUUID } from '../legoUtils';
+import { isUUID } from '../../../../utils/formUtils';
 
 function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
   const displaySetNumber = isUUID(lego.setNumber) ? 'N/A' : lego.setNumber;

@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import { useAddNewLegoMutation } from '../../api/legoApiSlice';
-import { handleSaveNewLego, useValidateName } from '../legoUtils';
 import Modal from '../../../../../components/common/Modal';
 import NewLegoFormTable from './NewLegoFormTable';
 import {
   createInitialFormState,
   createUpdateField,
+  generateNewLegoPayload,
+  handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
   validateName,
@@ -38,7 +39,11 @@ function NewLegoForm({ isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveNewLego(addNewLego, formData);
+    const result = await handleSaveNewEntity(
+      addNewLego,
+      formData,
+      generateNewLegoPayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);

@@ -4,12 +4,13 @@ import { useDeleteLegoMutation, useUpdateLegoMutation } from '../../api/legoApiS
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
-import { handleSaveExistingLego } from '../legoUtils';
 import EditLegoFormTable from './EditLegoFormTable';
 import {
   createInitialFormState,
   createUpdateField,
+  generateExistingLegoPayload,
   handleDeleteEntity,
+  handleSaveExistingEntity,
   useHandleSuccess,
   useValidate,
   validateName,
@@ -40,7 +41,12 @@ function EditLegoForm({ lego, isOpen, onClose }) {
   async function handleSave(e) {
     e.preventDefault();
 
-    const result = await handleSaveExistingLego(updateLego, lego, formData);
+    const result = await handleSaveExistingEntity(
+      updateLego,
+      lego,
+      formData,
+      generateExistingLegoPayload
+    );
 
     if (!result.success) {
       toast.error(result.errorMessage);
