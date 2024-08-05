@@ -3,36 +3,37 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import { useAddNewLegoMutation } from '../../api/legoApiSlice';
-import {
-  createInitialFormState,
-  handleSaveNewLego,
-  useHandleLegoSuccess,
-  useValidateName,
-} from '../legoUtils';
+import { handleSaveNewLego, useValidateName } from '../legoUtils';
 import Modal from '../../../../../components/common/Modal';
 import NewLegoFormTable from './NewLegoFormTable';
-import { createUpdateField } from '../../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateName,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function NewLegoForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewLego, { isLoading, isSuccess }] = useAddNewLegoMutation();
-  const [formData, setFormData] = useState(createInitialFormState());
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.lego));
 
   const canSave = Boolean(formData.name) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateName(formData.name, (isValid) => {
+  useValidate(formData.name, validateName, (isValid) => {
     setFormData((prev) => {
       if (prev.validName !== isValid) {
         return { ...prev, validName: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleLegoSuccess(isSuccess, undefined, navigate, setFormData);
+  useHandleSuccess(ENTITY.lego, isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

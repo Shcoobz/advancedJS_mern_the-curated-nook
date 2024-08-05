@@ -3,28 +3,6 @@ import { CLASS_NAME, DEFAULT, LINK, REGEX } from '../../../config/common/constan
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../config/common/messages';
 
-export function createInitialFormState(user = null) {
-  if (user) {
-    return {
-      username: user.username,
-      validUsername: false,
-      password: '',
-      validPassword: false,
-      roles: user.roles,
-      active: user.active,
-    };
-  } else {
-    return {
-      username: DEFAULT.emptyString,
-      validUsername: false,
-      password: DEFAULT.emptyString,
-      validPassword: false,
-      roles: ['User'],
-      active: true,
-    };
-  }
-}
-
 export function useValidateUsername(formData, updateValidationStatus) {
   useEffect(() => {
     const isValid = REGEX.checkUsername.test(formData.username);
@@ -37,16 +15,6 @@ export function useValidatePassword(formData, updateValidationStatus) {
     const isValid = REGEX.checkPassword.test(formData.password);
     updateValidationStatus(isValid);
   }, [formData.password, updateValidationStatus]);
-}
-
-export function useHandleUserSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
-  useEffect(() => {
-    if (isSuccess || isDelSuccess) {
-      setFormData(createInitialFormState());
-
-      navigate(LINK.USER.viewUsers);
-    }
-  }, [isSuccess, isDelSuccess, navigate, setFormData]);
 }
 
 export async function handleSaveNewUser(addNewUser, formData) {
@@ -155,19 +123,4 @@ export async function handleDeleteUserList(deleteUser, userId) {
 
   toast.success(TOAST.SUCCESS.USER.deleted);
   return { success: true };
-}
-
-export function handleClick(updateField) {
-  return function (event) {
-    const { name, type, options, checked, value } = event.target;
-
-    if (type === 'select-multiple') {
-      const values = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-      updateField(name, values);
-    } else {
-      updateField(name, type === 'checkbox' ? checked : value);
-    }
-  };
 }

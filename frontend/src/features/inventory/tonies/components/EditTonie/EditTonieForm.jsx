@@ -2,39 +2,43 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteTonieMutation, useUpdateTonieMutation } from '../../api/toniesApiSlice';
 import { useState } from 'react';
 import {
-  createInitialFormState,
   handleDeleteTonie,
   handleSaveExistingTonie,
-  useHandleTonieSuccess,
   useValidateName,
 } from '../tonieUtils';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import EditTonieFormTable from './EditTonieFormTable';
 import Modal from '../../../../../components/common/Modal';
-import { createUpdateField } from '../../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateName,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function EditTonieForm({ tonie, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateTonie, { isLoading, isSuccess }] = useUpdateTonieMutation();
   const [deleteTonie, { isSuccess: isDelSuccess }] = useDeleteTonieMutation();
-  const [formData, setFormData] = useState(createInitialFormState(tonie));
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.tonie, tonie));
 
   const canSave = Boolean(formData.name) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateName(formData.name, (isValid) => {
+  useValidate(formData.name, validateName, (isValid) => {
     setFormData((prev) => {
       if (prev.validName !== isValid) {
         return { ...prev, validName: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleTonieSuccess(isSuccess, isDelSuccess, navigate, setFormData);
+  useHandleSuccess(ENTITY.tonie, isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

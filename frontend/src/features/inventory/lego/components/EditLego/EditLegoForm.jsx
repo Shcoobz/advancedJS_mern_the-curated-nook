@@ -4,37 +4,37 @@ import { useDeleteLegoMutation, useUpdateLegoMutation } from '../../api/legoApiS
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
 import Modal from '../../../../../components/common/Modal';
+import { handleDeleteLego, handleSaveExistingLego, useValidateName } from '../legoUtils';
+import EditLegoFormTable from './EditLegoFormTable';
 import {
   createInitialFormState,
-  handleDeleteLego,
-  handleSaveExistingLego,
-  useHandleLegoSuccess,
-  useValidateName,
-} from '../legoUtils';
-import EditLegoFormTable from './EditLegoFormTable';
-import { createUpdateField } from '../../../../utils/formUtils';
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateName,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function EditLegoForm({ lego, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateLego, { isLoading, isSuccess }] = useUpdateLegoMutation();
   const [deleteLego, { isSuccess: isDelSuccess }] = useDeleteLegoMutation();
-  const [formData, setFormData] = useState(createInitialFormState(lego));
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.lego, lego));
 
   const canSave = Boolean(formData.name) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateName(formData.name, (isValid) => {
+  useValidate(formData.name, validateName, (isValid) => {
     setFormData((prev) => {
       if (prev.validName !== isValid) {
         return { ...prev, validName: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleLegoSuccess(isSuccess, isDelSuccess, navigate, setFormData);
+  useHandleSuccess(ENTITY.lego, isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

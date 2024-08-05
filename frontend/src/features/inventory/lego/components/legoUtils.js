@@ -3,34 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../config/common/messages';
+import { setDefaultValue } from '../../../utils/formUtils';
 
 function getErrorContent(error, delError) {
   const errorMsg = error?.data?.message;
   const delErrorMsg = delError?.data?.message;
 
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
-}
-
-export function createInitialFormState(lego = null) {
-  if (lego) {
-    return {
-      name: lego.name,
-      validName: false,
-      setNumber: lego.setNumber,
-      thumbnailUrl: lego.thumbnailUrl,
-      imageUrl: lego.imageUrl,
-      isOnWishlist: lego.isOnWishlist,
-    };
-  } else {
-    return {
-      name: DEFAULT.emptyString,
-      validName: false,
-      setNumber: DEFAULT.emptyString,
-      thumbnailUrl: DEFAULT.emptyString,
-      imageUrl: DEFAULT.emptyString,
-      isOnWishlist: false,
-    };
-  }
 }
 
 export function useValidateName(name, updateValidationStatus) {
@@ -41,23 +20,9 @@ export function useValidateName(name, updateValidationStatus) {
   }, [name, updateValidationStatus]);
 }
 
-export function useHandleLegoSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
-  useEffect(() => {
-    if (isSuccess || isDelSuccess) {
-      setFormData(createInitialFormState());
-
-      navigate(LINK.LEGO.viewLego);
-    }
-  }, [isSuccess, isDelSuccess, navigate, setFormData]);
-}
-
 export function getNameInputClass(validName) {
   return !validName ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
-
-export const setDefaultValue = (value, defaultValue = 'N/A') => {
-  return value && value.trim() ? value.trim() : defaultValue;
-};
 
 export async function handleSaveNewLego(addNewLego, formData) {
   const payload = {
@@ -127,12 +92,4 @@ export async function handleDeleteLegoList(deleteLego, legoId) {
 export function isUUID(string) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   return uuidRegex.test(string);
-}
-
-export function handleClick(updateField) {
-  return function (event) {
-    const { name, value, type, checked } = event.target;
-
-    updateField(name, type === 'checkbox' ? checked : value);
-  };
 }

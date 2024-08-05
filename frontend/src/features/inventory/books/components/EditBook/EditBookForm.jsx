@@ -3,38 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteBookMutation, useUpdateBookMutation } from '../../api/booksApiSlice';
 import { toast } from 'react-toastify';
 import { TOAST } from '../../../../../config/common/messages';
-import {
-  createInitialFormState,
-  handleDeleteBook,
-  handleSaveExistingBook,
-  useHandleBookSuccess,
-  useValidateTitle,
-} from '../bookUtils';
+import { handleDeleteBook, handleSaveExistingBook, useValidateTitle } from '../bookUtils';
 import Modal from '../../../../../components/common/Modal';
 import EditBookFormTable from './EditBookFormTable';
-import { createUpdateField } from '../../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateTitle,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function EditBookForm({ book, isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [updateBook, { isLoading, isSuccess }] = useUpdateBookMutation();
   const [deleteBook, { isSuccess: isDelSuccess }] = useDeleteBookMutation();
-  const [formData, setFormData] = useState(createInitialFormState(book));
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.book, book));
 
   const canSave = Boolean(formData.title) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateTitle(formData.title, (isValid) => {
+  useValidate(formData.title, validateTitle, (isValid) => {
     setFormData((prev) => {
       if (prev.validTitle !== isValid) {
         return { ...prev, validTitle: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleBookSuccess(isSuccess, isDelSuccess, navigate, setFormData);
+  useHandleSuccess(ENTITY.book, isSuccess, isDelSuccess, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

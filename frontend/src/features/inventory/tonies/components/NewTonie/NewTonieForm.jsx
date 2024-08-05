@@ -3,37 +3,38 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAddNewTonieMutation } from '../../api/toniesApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import {
-  createInitialFormState,
-  handleSaveNewTonie,
-  useHandleTonieSuccess,
-  useValidateName,
-} from '../tonieUtils';
+import { handleSaveNewTonie, useValidateName } from '../tonieUtils';
 
 import Modal from '../../../../../components/common/Modal';
 import NewTonieFormTable from './NewTonieFormTable';
-import { createUpdateField } from '../../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateName,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function NewTonieForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewTonie, { isLoading, isSuccess }] = useAddNewTonieMutation();
-  const [formData, setFormData] = useState(createInitialFormState());
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.tonie));
 
   const canSave = Boolean(formData.name) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateName(formData.name, (isValid) => {
+  useValidate(formData.name, validateName, (isValid) => {
     setFormData((prev) => {
       if (prev.validName !== isValid) {
         return { ...prev, validName: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleTonieSuccess(isSuccess, undefined, navigate, setFormData);
+  useHandleSuccess(ENTITY.tonie, isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

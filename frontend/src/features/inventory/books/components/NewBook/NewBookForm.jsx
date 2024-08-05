@@ -3,37 +3,38 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import {
-  createInitialFormState,
-  handleSaveNewBook,
-  useHandleBookSuccess,
-  useValidateTitle,
-} from '../bookUtils';
+import { handleSaveNewBook, useValidateTitle } from '../bookUtils';
 
 import Modal from '../../../../../components/common/Modal';
 import NewBookFormTable from './NewBookFormTable';
-import { createUpdateField } from '../../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validateTitle,
+} from '../../../../utils/formUtils';
+import { ENTITY } from '../../../../../config/common/constants';
 
 function NewBookForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewBook, { isLoading, isSuccess }] = useAddNewBookMutation();
-  const [formData, setFormData] = useState(createInitialFormState());
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.book));
 
   const canSave = Boolean(formData.title) && !isLoading;
   const updateField = createUpdateField(setFormData);
 
-  useValidateTitle(formData.title, (isValid) => {
+  useValidate(formData.title, validateTitle, (isValid) => {
     setFormData((prev) => {
       if (prev.validTitle !== isValid) {
         return { ...prev, validTitle: isValid };
       }
-
       return prev;
     });
   });
 
-  useHandleBookSuccess(isSuccess, undefined, navigate, setFormData);
+  useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();

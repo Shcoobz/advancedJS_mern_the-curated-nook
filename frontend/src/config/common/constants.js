@@ -140,3 +140,10 @@ export const CLASS_NAME = {
   offscreen: 'offscreen',
   formIncomplete: 'form__input--incomplete',
 };
+
+export const ENTITY = {
+  user: 'user',
+  tonie: 'tonie',
+  lego: 'lego',
+  book: 'book',
+};

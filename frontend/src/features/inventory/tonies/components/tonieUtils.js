@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { CLASS_NAME, DEFAULT, LINK } from '../../../../config/common/constants';
 import { TOAST } from '../../../../config/common/messages';
 import { toast } from 'react-toastify';
+import { setDefaultValue } from '../../../utils/formUtils';
 
 function getErrorContent(error, delError) {
   const errorMsg = error?.data?.message;
@@ -9,28 +10,6 @@ function getErrorContent(error, delError) {
   const DEFAULT = { emptyString: '' };
 
   return errorMsg || delErrorMsg || DEFAULT.emptyString;
-}
-
-export function createInitialFormState(tonie = null) {
-  if (tonie) {
-    return {
-      name: tonie.name,
-      validName: false,
-      description: tonie.description,
-      thumbnailUrl: tonie.thumbnailUrl,
-      imageUrl: tonie.imageUrl,
-      isOnWishlist: tonie.isOnWishlist,
-    };
-  } else {
-    return {
-      name: DEFAULT.emptyString,
-      validName: false,
-      description: DEFAULT.emptyString,
-      thumbnailUrl: DEFAULT.emptyString,
-      imageUrl: DEFAULT.emptyString,
-      isOnWishlist: false,
-    };
-  }
 }
 
 export function useValidateName(name, updateValidationStatus) {
@@ -41,23 +20,9 @@ export function useValidateName(name, updateValidationStatus) {
   }, [name, updateValidationStatus]);
 }
 
-export function useHandleTonieSuccess(isSuccess, isDelSuccess, navigate, setFormData) {
-  useEffect(() => {
-    if (isSuccess || isDelSuccess) {
-      setFormData(createInitialFormState());
-
-      navigate(LINK.TONIE.viewTonies);
-    }
-  }, [isSuccess, isDelSuccess, navigate, setFormData]);
-}
-
 export function getNameInputClass(validName) {
   return !validName ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
-
-export const setDefaultValue = (value, defaultValue = 'N/A') => {
-  return value && value.trim() ? value.trim() : defaultValue;
-};
 
 export async function handleSaveNewTonie(addNewTonie, formData) {
   const payload = {
@@ -122,12 +87,4 @@ export async function handleDeleteTonieList(deleteTonie, tonieId) {
 
   toast.success(TOAST.SUCCESS.TONIE.deleted);
   return { success: true };
-}
-
-export function handleClick(updateField) {
-  return function (event) {
-    const { name, value, type, checked } = event.target;
-
-    updateField(name, type === 'checkbox' ? checked : value);
-  };
 }

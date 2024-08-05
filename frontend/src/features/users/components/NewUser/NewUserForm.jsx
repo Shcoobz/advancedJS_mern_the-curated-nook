@@ -2,30 +2,31 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddNewUserMutation } from '../../api/usersApiSlice';
 import { TOAST } from '../../../../config/common/messages';
-import {
-  canSaveNewUserForm,
-  createInitialFormState,
-  handleSaveNewUser,
-  useHandleUserSuccess,
-  useValidatePassword,
-  useValidateUsername,
-} from '../userUtils';
+import { canSaveNewUserForm, handleSaveNewUser } from '../userUtils';
 import { toast } from 'react-toastify';
 import Modal from '../../../../components/common/Modal';
 
 import NewUserFormTable from './NewUserFormTable';
-import { createUpdateField } from '../../../utils/formUtils';
+import {
+  createInitialFormState,
+  createUpdateField,
+  useHandleSuccess,
+  useValidate,
+  validatePassword,
+  validateUsername,
+} from '../../../utils/formUtils';
+import { ENTITY } from '../../../../config/common/constants';
 
 function NewUserForm({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const [addNewUser, { isLoading, isSuccess }] = useAddNewUserMutation();
-  const [formData, setFormData] = useState(createInitialFormState());
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.user));
 
   const canSave = canSaveNewUserForm(formData, isLoading);
   const updateField = createUpdateField(setFormData);
 
-  useValidateUsername(formData, (isValid) => {
+  useValidate(formData.username, validateUsername, (isValid) => {
     setFormData((prev) => {
       if (prev.validUsername !== isValid) {
         return { ...prev, validUsername: isValid };
@@ -34,7 +35,7 @@ function NewUserForm({ isOpen, onClose }) {
     });
   });
 
-  useValidatePassword(formData, (isValid) => {
+  useValidate(formData.password, validatePassword, (isValid) => {
     setFormData((prev) => {
       if (prev.validPassword !== isValid) {
         return { ...prev, validPassword: isValid };
@@ -43,7 +44,7 @@ function NewUserForm({ isOpen, onClose }) {
     });
   });
 
-  useHandleUserSuccess(isSuccess, undefined, navigate, setFormData);
+  useHandleSuccess(ENTITY.user, isSuccess, undefined, navigate, setFormData);
 
   async function handleSave(e) {
     e.preventDefault();
