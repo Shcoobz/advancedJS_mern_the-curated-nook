@@ -1,6 +1,7 @@
 import { CreateButton } from '../../../../../components/common/Buttons';
 import { UI } from '../../../../../config/common/messages';
 import {
+  TableAboveHeader,
   TableCellHeader,
   TableDescription,
 } from '../../../../../components/common/TableComponents';
@@ -31,10 +32,11 @@ function ToniesListTable({ tonies, openModal }) {
 
   return (
     <div>
-      <CreateButton onClick={() => openModal()} text={'New Tonie'} />
-      <TableDescription text={UI.BS.PAGE.TONIE.list.paragraph} />
-
-      <br />
+      <TableAboveHeader
+        descriptionText={UI.BS.PAGE.TONIE.list.paragraph}
+        onCreateClick={() => openModal()}
+        onWishlistClick={undefined}
+      />
 
       <table className='table table__tonies'>
         <thead className='table__thead'>

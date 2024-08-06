@@ -5,7 +5,7 @@ function SuggestionsDropdown({ suggestions, onSelectSuggestion }) {
     <ul className='suggestions-dropdown'>
       {suggestions.map((item, index) => (
         <li key={index} onClick={() => onSelectSuggestion(item)}>
-          {item.title} by {item.authors.join(', ')}
+          {item.title} - {item.authors.join(', ')}
         </li>
       ))}
     </ul>

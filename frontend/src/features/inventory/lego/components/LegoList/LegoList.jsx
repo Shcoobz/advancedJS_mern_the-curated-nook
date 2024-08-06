@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useGetLegoQuery } from '../../api/legoApiSlice';
 import Spinner from '../../../../../components/common/Spinner';
 import LegoListTable from './LegoListTable';
-import EditLegoForm from '../EditLego/EditLegoForm';
-import NewLegoForm from '../NewLego/NewLegoForm';
+import LegoFormEdit from '../LegoEdit/LegoFormEdit';
+import LegoNewForm from '../LegoNew/LegoFormNew';
 import LegoDetails from '../LegoDetails/LegoDetails';
 
 function LegoList() {
@@ -51,7 +51,7 @@ function LegoList() {
         {isModalOpen &&
           (selectedLego ? (
             selectedLego.isEditing ? (
-              <EditLegoForm
+              <LegoFormEdit
                 lego={selectedLego}
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -65,7 +65,7 @@ function LegoList() {
               />
             )
           ) : (
-            <NewLegoForm isOpen={isModalOpen} onClose={closeModal} />
+            <LegoNewForm isOpen={isModalOpen} onClose={closeModal} />
           ))}
       </div>
     </>

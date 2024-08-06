@@ -27,14 +27,9 @@ function BookTable({ book, onEdit }) {
 
   return (
     <>
-      <TableCell
-        className='book__published-date hidden-col'
-        content={book.publishedDate}
-      />
       <TableCell className='book__title' content={book.title} />
       <TableCell className='book__description' content={book.description} />
       <TableCell className='book__categories' content={bookCategoryList} />
-      <TableCell className='book__isbn hidden-col' content={displayIsbn} />
 
       <TableCellActions
         onEdit={onEdit}

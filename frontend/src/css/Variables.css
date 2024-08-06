@@ -1,0 +1,34 @@
+:root {
+  /* COLORS */
+  --SPINNER-COLOR: #fff;
+
+  --FONT-COLOR: #000;
+
+  --BGCOLOR: #0f172a;
+  --BORDER-COLOR: #fff;
+
+  --COLOR: #fff;
+
+  --ERROR: firebrick;
+  --INACTIVE: lightgray;
+
+  --LINK-COLOR: whitesmoke;
+  --LINK-HOVER: rgba(245, 245, 245, 0.9);
+
+  --BOOK-BGCOLOR: hsla(240, 64%, 27%, 0.65);
+
+  --STATUS-COMPLETE: limegreen;
+  --STATUS-OPEN: firebrick;
+
+  --TABLE-BGCOLOR: #fff;
+  --TABLE-COLOR: #000;
+
+  --FORM-COLOR: #000;
+  --INPUT-INVALID: #f00;
+
+  /* GRID */
+  --GRID-USERS: min-content 1fr 1fr min-content;
+  --GRID-BOOKS: min-content 1fr 2fr 1fr min-content;
+  --GRID-TONIES: min-content 1fr 2fr min-content;
+  --GRID-LEGO: min-content 1fr 1fr min-content;
+}

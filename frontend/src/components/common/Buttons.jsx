@@ -1,15 +1,25 @@
 import {
+  faHeart,
   faPenToSquare,
+  faPlus,
   faSave,
   faTimes,
   faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export function CreateButton({ onClick, text }) {
+export function WishlistButton({ onClick }) {
   return (
-    <button onClick={onClick} className='button'>
-      {text}
+    <button className='icon-button button__wishlist' title='Wishlist' onClick={onClick}>
+      <FontAwesomeIcon icon={faHeart} />
+    </button>
+  );
+}
+
+export function CreateButton({ onClick }) {
+  return (
+    <button className='icon-button button__create' title='New' onClick={onClick}>
+      <FontAwesomeIcon icon={faPlus} />
     </button>
   );
 }
@@ -17,7 +27,8 @@ export function CreateButton({ onClick, text }) {
 export function EditButton({ onClick, className }) {
   return (
     <button
-      className={`icon-button table__button-edit ${className || ''}`}
+      className={`icon-button button__edit ${className || ''}`}
+      title='Edit'
       onClick={onClick}>
       <FontAwesomeIcon icon={faPenToSquare} />
     </button>
@@ -26,7 +37,11 @@ export function EditButton({ onClick, className }) {
 
 export function SaveButton({ handleSave, canSave }) {
   return (
-    <button className='icon-button' title='Save' onClick={handleSave} disabled={!canSave}>
+    <button
+      className='icon-button button__save'
+      title='Save'
+      onClick={handleSave}
+      disabled={!canSave}>
       <FontAwesomeIcon icon={faSave} />
     </button>
   );
@@ -35,7 +50,7 @@ export function SaveButton({ handleSave, canSave }) {
 export function DeleteButton({ handleDelete, className }) {
   return (
     <button
-      className={`icon-button table__button-delete ${className || ''}`}
+      className={`icon-button button__delete ${className || ''}`}
       title='Delete'
       onClick={handleDelete}>
       <FontAwesomeIcon icon={faTrashCan} />
@@ -45,9 +60,7 @@ export function DeleteButton({ handleDelete, className }) {
 
 export function CloseButton({ onClick }) {
   return (
-    <button
-      className='icon-button table__button_close details__button-close'
-      onClick={onClick}>
+    <button className='icon-button button__close' title='Close' onClick={onClick}>
       <FontAwesomeIcon icon={faTimes} />
     </button>
   );
@@ -55,7 +68,7 @@ export function CloseButton({ onClick }) {
 
 export function SubmitButton({ canSave }) {
   return (
-    <button type='submit' className='submit-button' disabled={!canSave}>
+    <button type='submit' className='button__submit' disabled={!canSave}>
       Submit
     </button>
   );

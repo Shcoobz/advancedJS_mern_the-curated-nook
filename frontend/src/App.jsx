@@ -6,20 +6,20 @@ import BackstageLayout from '../src/components/backstage/BackstageLayout';
 import Welcome from '../src/features/auth/components/Welcome';
 
 import UsersList from './features/users/components/UsersList/UsersList';
-import NewUserForm from './features/users/components/NewUser/NewUserForm';
-import EditUser from './features/users/components/EditUser/EditUser';
+import UserFormNew from './features/users/components/UserNew/UserFormNew';
+import UserEdit from './features/users/components/UserEdit/UserEdit';
 
 import BooksList from './features/inventory/books/components/BooksList/BooksList';
-import NewBookForm from './features/inventory/books/components/NewBook/NewBookForm';
-import EditBook from './features/inventory/books/components/EditBook/EditBook';
+import BookFormNew from './features/inventory/books/components/BookNew/BookFormNew';
+import BookEdit from './features/inventory/books/components/BookEdit/BookEdit';
 
 import ToniesList from './features/inventory/tonies/components/ToniesList/ToniesList';
-import NewTonieForm from './features/inventory/tonies/components/NewTonie/NewTonieForm';
-import EditTonie from './features/inventory/tonies/components/EditTonie/EditTonie';
+import TonieFormNew from './features/inventory/tonies/components/TonieNew/TonieFormNew';
+import TonieEdit from './features/inventory/tonies/components/TonieEdit/TonieEdit';
 
 import LegoList from './features/inventory/lego/components/LegoList/LegoList';
-import NewLegoForm from './features/inventory/lego/components/NewLego/NewLegoForm';
-import EditLego from './features/inventory/lego/components/EditLego/EditLego';
+import LegoNewForm from './features/inventory/lego/components/LegoNew/LegoFormNew';
+import LegoEdit from './features/inventory/lego/components/LegoEdit/LegoEdit';
 
 import { PATH } from './config/common/constants';
 
@@ -35,26 +35,26 @@ function App() {
 
           <Route path={PATH.users}>
             <Route index element={<UsersList />} />
-            <Route path='new' element={<NewUserForm />} />
-            <Route path=':id' element={<EditUser />} />
+            <Route path='new' element={<UserFormNew />} />
+            <Route path=':id' element={<UserEdit />} />
           </Route>
 
           <Route path={PATH.books}>
             <Route index element={<BooksList />} />
-            <Route path='new' element={<NewBookForm />} />
-            <Route path=':id' element={<EditBook />} />
+            <Route path='new' element={<BookFormNew />} />
+            <Route path=':id' element={<BookEdit />} />
           </Route>
 
           <Route path={PATH.tonies}>
             <Route index element={<ToniesList />} />
-            <Route path='new' element={<NewTonieForm />} />
-            <Route path=':id' element={<EditTonie />} />
+            <Route path='new' element={<TonieFormNew />} />
+            <Route path=':id' element={<TonieEdit />} />
           </Route>
 
           <Route path={PATH.lego}>
             <Route index element={<LegoList />} />
-            <Route path='new' element={<NewLegoForm />} />
-            <Route path=':id' element={<EditLego />} />
+            <Route path='new' element={<LegoNewForm />} />
+            <Route path=':id' element={<LegoEdit />} />
           </Route>
         </Route>
         {/* End Backstage */}

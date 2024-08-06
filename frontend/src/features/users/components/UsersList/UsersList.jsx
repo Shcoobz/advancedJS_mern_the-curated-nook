@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
 import Spinner from '../../../../components/common/Spinner';
-import EditUserForm from '../EditUser/EditUserForm';
-import NewUserForm from '../NewUser/NewUserForm';
+import UserFormEdit from '../UserEdit/UserFormEdit';
+import UserFormNew from '../UserNew/UserFormNew';
 import UsersListTable from './UsersListTable';
 import UserDetails from '../UserDetails/UserDetails';
 
@@ -50,7 +50,7 @@ function UsersList() {
         {isModalOpen &&
           (selectedUser ? (
             selectedUser.isEditing ? (
-              <EditUserForm
+              <UserFormEdit
                 user={selectedUser}
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -64,7 +64,7 @@ function UsersList() {
               />
             )
           ) : (
-            <NewUserForm isOpen={isModalOpen} onClose={closeModal} />
+            <UserFormNew isOpen={isModalOpen} onClose={closeModal} />
           ))}
       </div>
     </>

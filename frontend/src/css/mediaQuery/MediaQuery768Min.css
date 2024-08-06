@@ -1,0 +1,32 @@
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 1.25rem;
+  }
+
+  .backstage -header {
+    padding: 0 1em;
+  }
+
+  .backstage -container {
+    padding: 1em;
+  }
+
+  .table {
+    font-size: 1.5rem;
+  }
+
+  .table--books {
+    grid-template-columns: repeat(3, 1fr) 2fr repeat(2, 1fr);
+  }
+
+  /* Todo: fix view -> table: hide fields */
+  .book__published-date,
+  .book__categories,
+  .book__isbn {
+    display: block;
+  }
+
+  .form__action-buttons {
+    position: static;
+  }
+}

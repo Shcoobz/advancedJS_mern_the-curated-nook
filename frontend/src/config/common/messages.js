@@ -34,8 +34,7 @@ export const UI = {
       },
       USER: {
         list: {
-          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
-          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
         },
         TABLE: {
           titleNew: 'New User',
@@ -51,20 +50,17 @@ export const UI = {
       },
       BOOK: {
         list: {
-          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
-          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
         },
       },
       TONIE: {
         list: {
-          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
-          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
         },
       },
       LEGO: {
         list: {
-          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
-          Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
+          paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia. Sunt duis aliquip aliquip nisi commodo id aute nulla culpa.`,
         },
       },
     },

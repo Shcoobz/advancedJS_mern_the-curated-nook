@@ -3,9 +3,9 @@ import { useGetToniesQuery } from '../../api/toniesApiSlice';
 import Spinner from '../../../../../components/common/Spinner';
 import ToniesListTable from './ToniesListTable';
 
-import EditTonieForm from '../EditTonie/EditTonieForm';
+import TonieFormEdit from '../TonieEdit/TonieFormEdit';
 import TonieDetails from '../TonieDetails/TonieDetails';
-import NewTonieForm from '../NewTonie/NewTonieForm';
+import TonieFormNew from '../TonieNew/TonieFormNew';
 
 function ToniesList() {
   const {
@@ -52,7 +52,7 @@ function ToniesList() {
         {isModalOpen &&
           (selectedTonie ? (
             selectedTonie.isEditing ? (
-              <EditTonieForm
+              <TonieFormEdit
                 tonie={selectedTonie}
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -66,7 +66,7 @@ function ToniesList() {
               />
             )
           ) : (
-            <NewTonieForm isOpen={isModalOpen} onClose={closeModal} />
+            <TonieFormNew isOpen={isModalOpen} onClose={closeModal} />
           ))}
       </div>
     </>

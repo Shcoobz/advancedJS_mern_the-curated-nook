@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
 import Spinner from '../../../../../components/common/Spinner';
-import EditBookForm from '../EditBook/EditBookForm';
-import NewBookForm from '../NewBook/NewBookForm';
+import BookFormEdit from '../BookEdit/BookFormEdit';
+import BookFormNew from '../BookNew/BookFormNew';
 import BooksListTable from './BooksListTable';
 import BookDetails from '../BookDetails/BookDetails';
 
@@ -51,7 +51,7 @@ function BooksList() {
         {isModalOpen &&
           (selectedBook ? (
             selectedBook.isEditing ? (
-              <EditBookForm
+              <BookFormEdit
                 book={selectedBook}
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -65,7 +65,7 @@ function BooksList() {
               />
             )
           ) : (
-            <NewBookForm isOpen={isModalOpen} onClose={closeModal} />
+            <BookFormNew isOpen={isModalOpen} onClose={closeModal} />
           ))}
       </div>
     </>

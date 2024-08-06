@@ -1,4 +1,10 @@
-import { CloseButton, DeleteButton, EditButton } from './Buttons';
+import {
+  CloseButton,
+  CreateButton,
+  DeleteButton,
+  EditButton,
+  WishlistButton,
+} from './Buttons';
 
 export function TableDescription({ text }) {
   return <p className='table__description'>{text}</p>;
@@ -45,9 +51,9 @@ export const TableItemDetailHeader = ({
   onClose,
 }) => {
   return (
-    <div className='details-header__container'>
+    <div className='form-header__container'>
       <h2>{title}</h2>
-      <div className='details-header__action-buttons'>
+      <div className='form-header__action-buttons'>
         <EditButton onClick={handleEditClick} />
         <DeleteButton handleDelete={handleDelete} />
         <CloseButton onClick={onClose} />
@@ -58,9 +64,21 @@ export const TableItemDetailHeader = ({
 
 export function TableItemDetail({ label, value, className }) {
   return (
-    <div className={`details__group ${className || ''}`}>
-      <label className='details__label'>{label}</label>
-      <p className='details__value'>{value}</p>
+    <div className={`form__group ${className || ''}`}>
+      <label className='form__label'>{label}</label>
+      <p className='form__value'>{value}</p>
+    </div>
+  );
+}
+
+export function TableAboveHeader({ descriptionText, onCreateClick, onWishlistClick }) {
+  return (
+    <div className='table__above-header'>
+      <TableDescription text={descriptionText} />
+      <div className='above-header buttons__action'>
+        <CreateButton onClick={onCreateClick} text={'New Book'} />
+        <WishlistButton onClick={onWishlistClick} />
+      </div>
     </div>
   );
 }

@@ -277,7 +277,7 @@ export function generateNewToniePayload(formData) {
   };
 }
 
-export function generateNewLegoPayload(formData) {
+export function generateLegoNewPayload(formData) {
   return {
     name: setDefaultValue(formData.name),
     setNumber: setDefaultValue(formData.setNumber, uuidv4()),

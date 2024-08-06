@@ -1,0 +1,40 @@
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .backstage -header__nav {
+    gap: 0;
+  }
+
+  .icon-button {
+    font-size: 1.5rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  /* Todo: fix view -> table: hide fields */
+  .book__published-date,
+  .book__categories,
+  .book__isbn {
+    display: block;
+  }
+
+  .tab {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--BORDER-COLOR);
+    border-bottom: none;
+    margin-right: 0;
+  }
+
+  .tab:last-child {
+    border-bottom: 1px solid var(--BORDER-COLOR);
+  }
+
+  .tab.active {
+    border-bottom: 1px solid var(--BORDER-COLOR);
+  }
+}

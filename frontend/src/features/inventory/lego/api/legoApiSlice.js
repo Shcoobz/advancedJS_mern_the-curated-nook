@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { apiSlice } from '../../../../app/api/apiSlice';
 import {
-  addNewLegoQuery,
+  addLegoNewQuery,
   deleteLegoQuery,
   getLegoQuery,
   invalidateLegoTag,
@@ -32,8 +32,8 @@ export const legoApiSlice = apiSlice.injectEndpoints({
       providesTags: provideLegoTags,
     }),
 
-    addNewLego: builder.mutation({
-      query: addNewLegoQuery,
+    addLegoNew: builder.mutation({
+      query: addLegoNewQuery,
       invalidatesTags: invalidateLegoTags,
     }),
 
@@ -53,7 +53,7 @@ export const {
   useGetLegoQuery,
   useGetLegoInCollectionCountQuery,
   useGetLegoOnWishlistCountQuery,
-  useAddNewLegoMutation,
+  useAddLegoNewMutation,
   useUpdateLegoMutation,
   useDeleteLegoMutation,
 } = legoApiSlice;

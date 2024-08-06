@@ -37,7 +37,7 @@ export function provideLegoTags(result) {
   }
 }
 
-export function addNewLegoQuery(initialLego) {
+export function addLegoNewQuery(initialLego) {
   return {
     url: LINK.LEGO.lego,
     method: HTTP_METHOD.post,

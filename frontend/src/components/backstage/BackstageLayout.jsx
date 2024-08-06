@@ -56,7 +56,7 @@ function BackstageLayout() {
   return (
     <>
       <BackstageHeader />
-      <div className='backstage-container'>
+      <div className='backstage-layout__container'>
         {showTabs ? (
           <Tabs
             currentPath={location.pathname}

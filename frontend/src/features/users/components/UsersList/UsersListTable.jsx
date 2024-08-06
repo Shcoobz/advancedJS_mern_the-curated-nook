@@ -2,6 +2,7 @@ import { CreateButton } from '../../../../components/common/Buttons';
 import { TABLE } from '../../../../config/common/constants';
 import { UI } from '../../../../config/common/messages';
 import {
+  TableAboveHeader,
   TableCellHeader,
   TableDescription,
 } from '../../../../components/common/TableComponents';
@@ -32,10 +33,11 @@ function UsersListTable({ users, openModal }) {
 
   return (
     <div>
-      <CreateButton onClick={() => openModal()} text={'New User'} />
-      <TableDescription text={UI.BS.PAGE.USER.list.paragraph} />
-
-      <br />
+      <TableAboveHeader
+        descriptionText={UI.BS.PAGE.USER.list.paragraph}
+        onCreateClick={() => openModal()}
+        onWishlistClick={undefined}
+      />
 
       <table className='table table__users'>
         <thead className='table__thead'>

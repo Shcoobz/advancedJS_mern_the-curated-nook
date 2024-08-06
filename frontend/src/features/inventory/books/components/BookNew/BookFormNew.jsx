@@ -1,0 +1,97 @@
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAddNewBookMutation } from '../../api/booksApiSlice';
+import { TOAST } from '../../../../../config/common/messages';
+import { ENTITY } from '../../../../../config/common/constants';
+import {
+  createInitialFormState,
+  createUpdateField,
+  generateNewBookPayload,
+  handleSaveNewEntity,
+  useHandleSuccess,
+  useValidate,
+  validateTitle,
+} from '../../../../utils/formUtils';
+import Modal from '../../../../../components/common/Modal';
+import BookFormTableNew from './BookFormTableNew';
+
+function BookFormNew({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
+  const [addNewBook, { isLoading, isSuccess }] = useAddNewBookMutation();
+  const [formData, setFormData] = useState(createInitialFormState(ENTITY.book));
+
+  const canSave = Boolean(formData.title) && !isLoading;
+  const updateField = createUpdateField(setFormData);
+
+  useValidate(formData.title, validateTitle, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validTitle !== isValid) {
+        return { ...prev, validTitle: isValid };
+      }
+      return prev;
+    });
+  });
+
+  useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
+
+  function handleTitleChange(e) {
+    updateField('title', e.target.value);
+  }
+
+  function handleSelectSuggestion(book) {
+    setFormData({
+      ...formData,
+      title: book.title,
+      authors: book.authors.join(', '),
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      description: book.description,
+      isbn: book.isbn,
+      categories: book.categories.join(', '),
+      thumbnailUrl: book.thumbnailUrl,
+      imageUrl: book.imageUrl,
+      language: book.language,
+    });
+  }
+
+  async function handleSave(e) {
+    e.preventDefault();
+
+    const result = await handleSaveNewEntity(
+      addNewBook,
+      formData,
+      generateNewBookPayload
+    );
+
+    if (!result.success) {
+      toast.error(result.errorMessage);
+    } else {
+      onClose();
+      toast.success(TOAST.SUCCESS.BOOK.created);
+    }
+  }
+
+  const modalContent = (
+    <BookFormTableNew
+      formData={formData}
+      updateField={updateField}
+      canSave={canSave}
+      handleSave={handleSave}
+      onClose={onClose}
+      handleTitleChange={handleTitleChange}
+      handleSelectSuggestion={handleSelectSuggestion}
+    />
+  );
+
+  const modal = (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      {modalContent}
+    </Modal>
+  );
+
+  return modal;
+}
+
+export default BookFormNew;

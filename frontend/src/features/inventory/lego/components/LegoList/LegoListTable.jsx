@@ -1,6 +1,7 @@
-import { CreateButton } from '../../../../../components/common/Buttons';
+import { CreateButton, WishlistButton } from '../../../../../components/common/Buttons';
 import { UI } from '../../../../../config/common/messages';
 import {
+  TableAboveHeader,
   TableCellHeader,
   TableDescription,
 } from '../../../../../components/common/TableComponents';
@@ -32,10 +33,11 @@ function LegoListTable({ lego, openModal }) {
 
   return (
     <div>
-      <CreateButton onClick={() => openModal()} text={'New Lego'} />
-      <TableDescription text={UI.BS.PAGE.LEGO.list.paragraph} />
-
-      <br />
+      <TableAboveHeader
+        descriptionText={UI.BS.PAGE.LEGO.list.paragraph}
+        onCreateClick={() => openModal()}
+        onWishlistClick={undefined}
+      />
 
       <table className='table table__lego'>
         <thead className='table__thead'>

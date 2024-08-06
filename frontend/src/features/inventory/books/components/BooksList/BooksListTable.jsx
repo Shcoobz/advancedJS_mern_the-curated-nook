@@ -1,8 +1,9 @@
-import { CreateButton } from '../../../../../components/common/Buttons';
+import { CreateButton, WishlistButton } from '../../../../../components/common/Buttons';
 import { UI } from '../../../../../config/common/messages';
 import {
   TableCellHeader,
   TableDescription,
+  TableAboveHeader,
 } from '../../../../../components/common/TableComponents';
 
 import Book from '../Book/Book';
@@ -32,23 +33,19 @@ function BooksListTable({ books, openModal }) {
 
   return (
     <div>
-      <CreateButton onClick={() => openModal()} text={'New Book'} />
-      <TableDescription text={UI.BS.PAGE.BOOK.list.paragraph} />
-
-      <br />
+      <TableAboveHeader
+        descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
+        onCreateClick={() => openModal()}
+        onWishlistClick={undefined}
+      />
 
       <table className='table table__books'>
         <thead className='table__thead'>
           <tr>
-            <TableCellHeader label='Number' className='book__number' />
-            <TableCellHeader
-              label='Published Date'
-              className='book__published-date hidden-col'
-            />
+            <TableCellHeader label='No.' className='book__number' />
             <TableCellHeader label='Title' className='book__title' />
             <TableCellHeader label='Description' className='book__description' />
             <TableCellHeader label='Categories' className='book__categories' />
-            <TableCellHeader label='ISBN' className='book__isbn hidden-col' />
             <TableCellHeader label='Edit' className='book__action' />
           </tr>
         </thead>
