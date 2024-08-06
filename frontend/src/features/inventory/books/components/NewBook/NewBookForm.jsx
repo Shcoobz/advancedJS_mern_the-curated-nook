@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import Modal from '../../../../../components/common/Modal';
-import NewBookFormTable from './NewBookFormTable';
+import { ENTITY } from '../../../../../config/common/constants';
 import {
   createInitialFormState,
   createUpdateField,
@@ -14,7 +13,8 @@ import {
   useValidate,
   validateTitle,
 } from '../../../../utils/formUtils';
-import { ENTITY } from '../../../../../config/common/constants';
+import Modal from '../../../../../components/common/Modal';
+import NewBookFormTable from './NewBookFormTable';
 
 function NewBookForm({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -35,6 +35,26 @@ function NewBookForm({ isOpen, onClose }) {
   });
 
   useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
+
+  function handleTitleChange(e) {
+    updateField('title', e.target.value);
+  }
+
+  function handleSelectSuggestion(book) {
+    setFormData({
+      ...formData,
+      title: book.title,
+      authors: book.authors.join(', '),
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      description: book.description,
+      isbn: book.isbn,
+      categories: book.categories.join(', '),
+      thumbnailUrl: book.thumbnailUrl,
+      imageUrl: book.imageUrl,
+      language: book.language,
+    });
+  }
 
   async function handleSave(e) {
     e.preventDefault();
@@ -60,6 +80,8 @@ function NewBookForm({ isOpen, onClose }) {
       canSave={canSave}
       handleSave={handleSave}
       onClose={onClose}
+      handleTitleChange={handleTitleChange}
+      handleSelectSuggestion={handleSelectSuggestion}
     />
   );
 

@@ -3,17 +3,19 @@ import {
   FormInput,
   FormTextarea,
 } from '../../../components/common/FormComponents';
+import TitleInputWithSuggestions from '../../../components/common/TitleInputWithSuggestions';
 import { getInputClass } from '../../utils/formUtils';
 
-const getBookFormFields = ({ formData, handleFieldChange }) => [
+const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [
   {
-    component: FormInput,
+    component: TitleInputWithSuggestions,
     label: 'Title:',
     id: 'title',
     name: 'title',
     type: 'text',
     value: formData.title,
     onChange: handleFieldChange,
+    onSelectSuggestion: handleSelectSuggestion,
     validClass: getInputClass(formData.validTitle),
   },
   {

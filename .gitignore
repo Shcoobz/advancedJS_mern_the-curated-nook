@@ -7,3 +7,5 @@ package-lock.json
 .env
 
 TODO.md
+
+combine_files.sh
