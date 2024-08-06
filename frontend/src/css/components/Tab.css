@@ -6,8 +6,11 @@
 .tabs {
   display: flex;
   background-color: var(--BGCOLOR);
-  border-radius: 8px 8px 0 0;
   overflow: hidden;
+  border: 1px solid var(--BORDER-COLOR);
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .tab {
@@ -17,10 +20,20 @@
   font-size: 1rem;
   color: var(--COLOR);
   transition: background-color 0.3s, color 0.3s;
-  border: 1px solid var(--BORDER-COLOR);
+  border-right: 1px solid var(--BORDER-COLOR);
   margin-right: -1px;
   text-align: center;
   text-decoration: none;
+  background-clip: padding-box;
+}
+
+.tab:first-child {
+  border-top-left-radius: 8px;
+}
+
+.tab:last-child {
+  border-top-right-radius: 8px;
+  border-right: 1px solid var(--BORDER-COLOR);
 }
 
 .tab:hover {
@@ -31,8 +44,9 @@
   background-color: var(--TABLE-BGCOLOR);
   color: var(--TABLE-COLOR);
   border-bottom: 1px solid var(--TABLE-BGCOLOR);
+  margin-bottom: -1px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
 }
 
 .tab-content {
