@@ -1,9 +1,7 @@
 import { replaceHtmlEntities } from './utils';
 
 export function debounceFetch(functionToDebounce, inputValue, setSuggestions) {
-  return function () {
-    functionToDebounce(inputValue, setSuggestions);
-  };
+  functionToDebounce(inputValue, setSuggestions);
 }
 
 export async function fetchSuggestionsByBookTitle(inputValue, setSuggestions) {

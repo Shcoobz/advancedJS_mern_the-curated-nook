@@ -1,9 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import SuggestionsDropdown from './SuggestionsDropdown';
-import {
-  debounceFetch,
-  fetchSuggestionsByBookTitle,
-} from '../../features/utils/fetchUtils';
+import { debounceFetch } from '../../features/utils/fetchUtils';
 
 function FormInputWithSuggestions({
   label,
@@ -16,33 +13,40 @@ function FormInputWithSuggestions({
 }) {
   const [inputValue, setInputValue] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
-  const [shouldFetchSuggestions, setShouldFetchSuggestions] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
   const inputId = useId();
 
   useEffect(() => {
-    setInputValue(value);
-  }, [value]);
+    if (value !== inputValue) {
+      setInputValue(value);
+      setIsEditing(false);
+      setSuggestions([]);
+    }
+  }, [value, inputValue]);
 
   useEffect(() => {
-    if (!shouldFetchSuggestions) return;
+    if (inputValue.length >= 3 && (!value || isEditing)) {
+      const debounceTimer = setTimeout(() => {
+        debounceFetch(fetchSuggestions, inputValue, (newSuggestions) => {
+          setSuggestions(newSuggestions);
+        });
+      }, 300);
 
-    const debounceTimer = setTimeout(
-      debounceFetch(fetchSuggestions, inputValue, setSuggestions),
-      300
-    );
-
-    function cleanup() {
-      return clearTimeout(debounceTimer);
+      return () => {
+        clearTimeout(debounceTimer);
+      };
+    } else {
+      setSuggestions([]);
     }
-
-    return cleanup;
-  }, [inputValue, shouldFetchSuggestions, fetchSuggestions]);
+  }, [inputValue, fetchSuggestions, value, isEditing]);
 
   function handleInputChange(e) {
-    setInputValue(e.target.value);
+    const newValue = e.target.value;
+
+    setInputValue(newValue);
+    setIsEditing(true);
     onChange(e);
-    setShouldFetchSuggestions(true);
   }
 
   function handleSelectSuggestion(suggestion) {
@@ -54,7 +58,7 @@ function FormInputWithSuggestions({
     }
 
     setSuggestions([]);
-    setShouldFetchSuggestions(false);
+    setIsEditing(false);
 
     if (inputRef.current) inputRef.current.focus();
   }
