@@ -1,7 +1,7 @@
 {
   "name": "the-curated-nook",
   "version": "1.0.0",
-  "description": "The Curated Nook - MERN Project",
+  "description": "The Curated Nook",
   "type": "module",
   "main": "backend/server.js",
   "scripts": {
