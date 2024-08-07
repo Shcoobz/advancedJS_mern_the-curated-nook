@@ -3,11 +3,46 @@ import {
   FormInput,
   FormTextarea,
 } from '../../../components/common/FormComponents';
-import FormInputWithSuggestions from '../../../components/common/TitleInputWithSuggestions';
-import { fetchSuggestionsByBookTitle } from '../../utils/fetchUtils';
+import FormInputWithSuggestions from '../../../components/common/FormInputWithSuggestions';
+import {
+  fetchSuggestionsByBookISBN,
+  fetchSuggestionsByBookTitle,
+} from '../../utils/fetchUtils';
 import { getInputClass } from '../../utils/formUtils';
 
 const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [
+  // {
+  //   component: FormInput,
+  //   label: 'ISBN:',
+  //   id: 'isbn',
+  //   name: 'isbn',
+  //   type: 'text',
+  //   value: formData.isbn,
+  //   onChange: handleFieldChange,
+  // },
+  // {
+  //   component: FormInput,
+  //   label: 'ISBN:',
+  //   id: 'isbn',
+  //   name: 'isbn',
+  //   type: 'text',
+  //   value: formData.isbn,
+  //   onChange: handleFieldChange,
+  //   validClass: getInputClass(formData.isbn, 'isbn'),
+  //   children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
+  // },
+  {
+    component: FormInputWithSuggestions,
+    label: 'ISBNs',
+    id: 'isbn',
+    name: 'isbn',
+    value: formData.isbn,
+    onChange: handleFieldChange,
+    onSelectSuggestion: handleSelectSuggestion,
+    validClass: getInputClass(formData.validIsbn, 'isbn'),
+    fetchSuggestions: fetchSuggestionsByBookISBN,
+    children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
+  },
   {
     component: FormInputWithSuggestions,
     label: 'Title',
@@ -18,6 +53,7 @@ const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     onSelectSuggestion: handleSelectSuggestion,
     validClass: getInputClass(formData.validTitle),
     fetchSuggestions: fetchSuggestionsByBookTitle,
+    children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
   },
   {
     component: FormInput,
@@ -53,15 +89,6 @@ const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     name: 'description',
     rows: 5,
     value: formData.description,
-    onChange: handleFieldChange,
-  },
-  {
-    component: FormInput,
-    label: 'ISBN:',
-    id: 'isbn',
-    name: 'isbn',
-    type: 'text',
-    value: formData.isbn,
     onChange: handleFieldChange,
   },
   {

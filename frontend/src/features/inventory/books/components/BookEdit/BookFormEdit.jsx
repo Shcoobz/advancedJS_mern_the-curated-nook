@@ -13,6 +13,7 @@ import {
   handleSaveExistingEntity,
   useHandleSuccess,
   useValidate,
+  validateISBN,
   validateTitle,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
@@ -31,6 +32,15 @@ function BookFormEdit({ book, isOpen, onClose }) {
     setFormData((prev) => {
       if (prev.validTitle !== isValid) {
         return { ...prev, validTitle: isValid };
+      }
+      return prev;
+    });
+  });
+
+  useValidate(formData.isbn, validateISBN, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validIsbn !== isValid) {
+        return { ...prev, validIsbn: isValid };
       }
       return prev;
     });

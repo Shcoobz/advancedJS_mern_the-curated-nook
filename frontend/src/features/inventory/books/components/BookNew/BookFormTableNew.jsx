@@ -8,7 +8,6 @@ function BookFormTableNew({
   canSave,
   handleSave,
   onClose,
-  handleTitleChange,
   handleSelectSuggestion,
 }) {
   const handleFieldChange = handleClick(updateField);
@@ -17,7 +16,6 @@ function BookFormTableNew({
     const bookFormFields = getBookFormFields({
       formData,
       handleFieldChange,
-      handleTitleChange,
       handleSelectSuggestion,
     });
 

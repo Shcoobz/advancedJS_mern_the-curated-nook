@@ -10,6 +10,7 @@ function FormInputWithSuggestions({
   onSelectSuggestion,
   validClass,
   fetchSuggestions,
+  children,
 }) {
   const [inputValue, setInputValue] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
@@ -57,7 +58,7 @@ function FormInputWithSuggestions({
   return (
     <>
       <label htmlFor={inputId} className='form__label'>
-        {label}:
+        {label}:{children}
       </label>
       <div className='form__input-container'>
         <input

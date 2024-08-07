@@ -109,6 +109,7 @@ export function createInitialFormState(type, data = null) {
 export function useValidate(value, validateFn, updateValidationStatus) {
   useEffect(() => {
     const isValid = validateFn(value);
+
     updateValidationStatus(isValid);
   }, [value, validateFn, updateValidationStatus]);
 }
@@ -127,6 +128,10 @@ export function validateName(name) {
 
 export function validateTitle(title) {
   return title.trim().length > 0;
+}
+
+export function validateISBN(isbn) {
+  return isbn.trim().length > 0;
 }
 
 export function useHandleSuccess(type, isSuccess, isDelSuccess, navigate, setFormData) {
@@ -218,7 +223,10 @@ export function getErrorMessageClass(isError, isDelError = false) {
 export function getInputClass(validity, type = 'default') {
   if (type === 'roles') {
     return validity ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
+  } else if (type === 'isbn') {
+    return validity ? DEFAULT.emptyString : CLASS_NAME.formIncomplete;
   }
+
   return !validity ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
 }
 

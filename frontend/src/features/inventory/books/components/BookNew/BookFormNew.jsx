@@ -11,6 +11,7 @@ import {
   handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
+  validateISBN,
   validateTitle,
 } from '../../../../utils/formUtils';
 import Modal from '../../../../../components/common/Modal';
@@ -34,11 +35,16 @@ function BookFormNew({ isOpen, onClose }) {
     });
   });
 
-  useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
+  useValidate(formData.isbn, validateISBN, (isValid) => {
+    setFormData((prev) => {
+      if (prev.validIsbn !== isValid) {
+        return { ...prev, validIsbn: isValid };
+      }
+      return prev;
+    });
+  });
 
-  function handleTitleChange(e) {
-    updateField('title', e.target.value);
-  }
+  useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
 
   function handleSelectSuggestion(book) {
     setFormData({
@@ -80,7 +86,6 @@ function BookFormNew({ isOpen, onClose }) {
       canSave={canSave}
       handleSave={handleSave}
       onClose={onClose}
-      handleTitleChange={handleTitleChange}
       handleSelectSuggestion={handleSelectSuggestion}
     />
   );
