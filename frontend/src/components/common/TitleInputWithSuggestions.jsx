@@ -26,41 +26,32 @@ function FormInputWithSuggestions({
   }, [value, inputValue]);
 
   useEffect(() => {
-    if (inputValue.length >= 3 && (!value || isEditing)) {
+    if (inputValue.length >= 3 && isEditing) {
       const debounceTimer = setTimeout(() => {
-        debounceFetch(fetchSuggestions, inputValue, (newSuggestions) => {
-          setSuggestions(newSuggestions);
-        });
+        debounceFetch(fetchSuggestions, inputValue, setSuggestions);
       }, 300);
 
-      return () => {
-        clearTimeout(debounceTimer);
-      };
+      return () => clearTimeout(debounceTimer);
     } else {
       setSuggestions([]);
     }
-  }, [inputValue, fetchSuggestions, value, isEditing]);
+  }, [inputValue, fetchSuggestions, isEditing]);
 
   function handleInputChange(e) {
-    const newValue = e.target.value;
-
-    setInputValue(newValue);
+    setInputValue(e.target.value);
     setIsEditing(true);
     onChange(e);
   }
 
   function handleSelectSuggestion(suggestion) {
-    setInputValue(suggestion[name]);
-    onChange({ target: { name, value: suggestion[name] } });
+    const newValue = suggestion[name];
 
-    if (onSelectSuggestion) {
-      onSelectSuggestion(suggestion);
-    }
-
+    setInputValue(newValue);
+    onChange({ target: { name, value: newValue } });
+    onSelectSuggestion?.(suggestion);
     setSuggestions([]);
     setIsEditing(false);
-
-    if (inputRef.current) inputRef.current.focus();
+    inputRef.current?.focus();
   }
 
   return (
@@ -78,10 +69,12 @@ function FormInputWithSuggestions({
           onChange={handleInputChange}
           className={`form__input ${validClass}`}
         />
-        <SuggestionsDropdown
-          suggestions={suggestions}
-          onSelectSuggestion={handleSelectSuggestion}
-        />
+        {suggestions.length > 0 && (
+          <SuggestionsDropdown
+            suggestions={suggestions}
+            onSelectSuggestion={handleSelectSuggestion}
+          />
+        )}
       </div>
     </>
   );
