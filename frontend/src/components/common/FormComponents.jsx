@@ -57,6 +57,7 @@ export function FormInput({
         type={type}
         value={value}
         onChange={onChange}
+        autoComplete='off'
       />
     </>
   );

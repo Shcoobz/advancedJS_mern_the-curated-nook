@@ -11,26 +11,6 @@ import {
 import { getInputClass } from '../../utils/formUtils';
 
 const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [
-  // {
-  //   component: FormInput,
-  //   label: 'ISBN:',
-  //   id: 'isbn',
-  //   name: 'isbn',
-  //   type: 'text',
-  //   value: formData.isbn,
-  //   onChange: handleFieldChange,
-  // },
-  // {
-  //   component: FormInput,
-  //   label: 'ISBN:',
-  //   id: 'isbn',
-  //   name: 'isbn',
-  //   type: 'text',
-  //   value: formData.isbn,
-  //   onChange: handleFieldChange,
-  //   validClass: getInputClass(formData.isbn, 'isbn'),
-  //   children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
-  // },
   {
     component: FormInputWithSuggestions,
     label: 'ISBNs',

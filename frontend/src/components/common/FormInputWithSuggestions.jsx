@@ -69,6 +69,7 @@ function FormInputWithSuggestions({
           value={inputValue}
           onChange={handleInputChange}
           className={`form__input ${validClass}`}
+          autoComplete='off'
         />
         {suggestions.length > 0 && (
           <SuggestionsDropdown
