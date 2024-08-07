@@ -1,12 +1,11 @@
-import { CreateButton, WishlistButton } from '../../../../../components/common/Buttons';
 import { UI } from '../../../../../config/common/messages';
 import {
   TableCellHeader,
-  TableDescription,
   TableAboveHeader,
 } from '../../../../../components/common/TableComponents';
 
 import Book from '../Book/Book';
+import stockImageBook from '../../../../../img/stockimageBook.png';
 
 function BooksListTable({ books, openModal }) {
   const { ids, entities } = books;
@@ -14,6 +13,10 @@ function BooksListTable({ books, openModal }) {
   const tableContent = ids?.length
     ? ids.map((bookId, index) => {
         const book = entities[bookId];
+        const thumbnailUrl =
+          book.thumbnailUrl && book.thumbnailUrl !== 'N/A'
+            ? book.thumbnailUrl
+            : stockImageBook;
 
         return (
           <tr
@@ -21,6 +24,9 @@ function BooksListTable({ books, openModal }) {
             onClick={() => openModal(book)}
             className={'table__row-cursor'}>
             <td className='table__cell item__number'>{index + 1}</td>
+            <td className='table__cell book__thumbnail-cell'>
+              <img src={thumbnailUrl} alt={book.title} />
+            </td>
             <Book
               book={book}
               bookId={bookId}
@@ -43,6 +49,7 @@ function BooksListTable({ books, openModal }) {
         <thead className='table__thead'>
           <tr>
             <TableCellHeader label='No.' className='book__number' />
+            <TableCellHeader label='Thumbnail' className='book__thumbnail' />
             <TableCellHeader label='Title' className='book__title' />
             <TableCellHeader label='Description' className='book__description' />
             <TableCellHeader label='Categories' className='book__categories' />

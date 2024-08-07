@@ -22,7 +22,7 @@ export function createBookObject(book) {
     description: book.description || DEFAULT.NO_DESCRIPTION,
     isbn: book.isbn,
     categories: book.categories || DEFAULT.EMPTY_ARRAY,
-    thumbnail: book.thumbnail || DEFAULT.EMPTY_STRING,
+    thumbnailUrl: book.thumbnailUrl || DEFAULT.EMPTY_STRING,
     imageUrl: book.imageUrl || DEFAULT.EMPTY_STRING,
     language: book.language || DEFAULT.BOOK.LANGUAGE,
     isOnWishlist: book.isOnWishlist || DEFAULT.WISHLIST,

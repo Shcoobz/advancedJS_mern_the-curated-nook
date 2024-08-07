@@ -16,7 +16,7 @@ export async function fetchAllLegoOnWishlist() {
 export function createLegoObject(lego) {
   return {
     name: lego.name,
-    thumbnail: lego.thumbnail || DEFAULT.NOT_AVAILABLE,
+    thumbnailUrl: lego.thumbnailUrl || DEFAULT.NOT_AVAILABLE,
     imageUrl: lego.imageUrl || DEFAULT.NOT_AVAILABLE,
     setNumber: lego.setNumber,
     isOnWishlist: lego.isOnWishlist || DEFAULT.WISHLIST,

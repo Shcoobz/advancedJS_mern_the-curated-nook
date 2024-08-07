@@ -4,9 +4,18 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { isUUID } from '../../../../utils/formUtils';
 
+import stockImageBook from '../../../../../img/stockimageBook.png';
+
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
   const displayIsbn = isUUID(book.isbn) ? 'N/A' : book.isbn;
   const displayDate = book.publishedDate === '1900-01-01' ? 'N/A' : book.publishedDate;
+
+  const imageUrl =
+    book.imageUrl && book.imageUrl !== 'N/A'
+      ? book.imageUrl
+      : book.thumbnailUrl && book.thumbnailUrl !== 'N/A'
+      ? book.thumbnailUrl
+      : stockImageBook;
 
   const tableContent = (
     <>
@@ -18,6 +27,15 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
       />
 
       <div className='details'>
+        <TableItemDetail
+          value={
+            <img
+              src={imageUrl}
+              alt={`Cover of ${book.title}`}
+              style={{ width: '100px', height: 'auto' }}
+            />
+          }
+        />
         <TableItemDetail label='Title:' value={book?.title} />
         <TableItemDetail label='Author(s):' value={book?.authors} />
         <TableItemDetail label='Publisher:' value={book?.publisher} />

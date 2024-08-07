@@ -108,3 +108,18 @@ tr {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+.book__thumbnail-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 5px;
+}
+
+.book__thumbnail-cell img {
+  max-width: 150px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
