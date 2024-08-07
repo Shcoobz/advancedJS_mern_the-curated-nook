@@ -5,7 +5,15 @@ import {
   fetchSuggestionsByBookTitle,
 } from '../../features/utils/fetchUtils';
 
-function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validClass }) {
+function FormInputWithSuggestions({
+  label,
+  name,
+  value,
+  onChange,
+  onSelectSuggestion,
+  validClass,
+  fetchSuggestions,
+}) {
   const [inputValue, setInputValue] = useState(value);
   const [suggestions, setSuggestions] = useState([]);
   const [shouldFetchSuggestions, setShouldFetchSuggestions] = useState(true);
@@ -20,7 +28,7 @@ function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validC
     if (!shouldFetchSuggestions) return;
 
     const debounceTimer = setTimeout(
-      debounceFetch(fetchSuggestionsByBookTitle, inputValue, setSuggestions),
+      debounceFetch(fetchSuggestions, inputValue, setSuggestions),
       300
     );
 
@@ -29,7 +37,7 @@ function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validC
     }
 
     return cleanup;
-  }, [inputValue, shouldFetchSuggestions]);
+  }, [inputValue, shouldFetchSuggestions, fetchSuggestions]);
 
   function handleInputChange(e) {
     setInputValue(e.target.value);
@@ -37,12 +45,12 @@ function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validC
     setShouldFetchSuggestions(true);
   }
 
-  function handleSelectSuggestion(book) {
-    setInputValue(book.title);
-    onChange({ target: { name: 'title', value: book.title } });
+  function handleSelectSuggestion(suggestion) {
+    setInputValue(suggestion[name]);
+    onChange({ target: { name, value: suggestion[name] } });
 
     if (onSelectSuggestion) {
-      onSelectSuggestion(book);
+      onSelectSuggestion(suggestion);
     }
 
     setSuggestions([]);
@@ -54,14 +62,14 @@ function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validC
   return (
     <>
       <label htmlFor={inputId} className='form__label'>
-        Title:
+        {label}:
       </label>
-      <div className='title-input-container'>
+      <div className='form__input-container'>
         <input
           id={inputId}
           ref={inputRef}
           type='text'
-          name='title'
+          name={name}
           value={inputValue}
           onChange={handleInputChange}
           className={`form__input ${validClass}`}
@@ -75,4 +83,4 @@ function TitleInputWithSuggestions({ value, onChange, onSelectSuggestion, validC
   );
 }
 
-export default TitleInputWithSuggestions;
+export default FormInputWithSuggestions;

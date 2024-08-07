@@ -79,7 +79,7 @@
   outline: 1px solid var(--INPUT-INVALID);
 }
 
-.title-input-container {
+.form__input-container {
   position: relative;
   margin-bottom: 0.75em;
 }

@@ -5,6 +5,7 @@ import {
   faSave,
   faTimes,
   faTrashCan,
+  faBarcode,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -20,6 +21,14 @@ export function CreateButton({ onClick }) {
   return (
     <button className='icon-button button__create' title='New' onClick={onClick}>
       <FontAwesomeIcon icon={faPlus} />
+    </button>
+  );
+}
+
+export function ScanButton({ onClick }) {
+  return (
+    <button className='icon-button button__scan' title='Scan' onClick={onClick}>
+      <FontAwesomeIcon icon={faBarcode} />
     </button>
   );
 }
