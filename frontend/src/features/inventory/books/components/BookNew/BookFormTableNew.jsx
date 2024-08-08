@@ -9,6 +9,7 @@ function BookFormTableNew({
   handleSave,
   onClose,
   handleSelectSuggestion,
+  handleScan,
 }) {
   const handleFieldChange = handleClick(updateField);
 
@@ -30,6 +31,7 @@ function BookFormTableNew({
       handleFieldChange={handleFieldChange}
       handleSave={handleSave}
       canSave={canSave}
+      handleScan={handleScan}
       onClose={onClose}
     />
   );

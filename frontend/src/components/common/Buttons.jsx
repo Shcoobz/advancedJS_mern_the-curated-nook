@@ -25,9 +25,9 @@ export function CreateButton({ onClick }) {
   );
 }
 
-export function ScanButton({ onClick }) {
+export function ScanButton({ handleScan }) {
   return (
-    <button className='icon-button button__scan' title='Scan' onClick={onClick}>
+    <button className='icon-button button__scan' title='Scan' onClick={handleScan}>
       <FontAwesomeIcon icon={faBarcode} />
     </button>
   );

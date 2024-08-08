@@ -1,6 +1,19 @@
-import { CloseButton, DeleteButton, SaveButton, SubmitButton } from './Buttons';
+import {
+  CloseButton,
+  DeleteButton,
+  SaveButton,
+  ScanButton,
+  SubmitButton,
+} from './Buttons';
 
-export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }) {
+export function FormHeader({
+  title,
+  handleSave,
+  canSave,
+  handleDelete,
+  handleScan,
+  onClose,
+}) {
   return (
     <div className='form-header__container modal__header-container'>
       <h2>{title}</h2>
@@ -14,6 +27,12 @@ export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }
           <DeleteButton
             handleDelete={handleDelete}
             className='table__button table__button-delete modal__button-delete'
+          />
+        )}
+        {handleScan && (
+          <ScanButton
+            handleScan={handleScan}
+            className='table__button table__button-scan modal__button-scan'
           />
         )}
         {onClose && (
@@ -141,6 +160,7 @@ export function DynamicForm({
   handleFieldChange,
   handleSave,
   canSave,
+  handleScan,
   onClose,
   handleDelete,
 }) {
@@ -162,6 +182,7 @@ export function DynamicForm({
         canSave={canSave}
         onClose={onClose}
         handleDelete={handleDelete}
+        handleScan={handleScan}
       />
       <FormBody
         renderFormFields={renderFormFields}
