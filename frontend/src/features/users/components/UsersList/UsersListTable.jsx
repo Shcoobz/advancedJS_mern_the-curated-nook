@@ -1,13 +1,12 @@
-import { CreateButton } from '../../../../components/common/Buttons';
 import { TABLE } from '../../../../config/common/constants';
 import { UI } from '../../../../config/common/messages';
 import {
   TableAboveHeader,
   TableCellHeader,
-  TableDescription,
 } from '../../../../components/common/TableComponents';
 
 import User from '../User/User';
+import stockImageUser from '../../../../img/stockimageUser.png';
 
 function UsersListTable({ users, openModal }) {
   const { ids, entities } = users;
@@ -15,6 +14,10 @@ function UsersListTable({ users, openModal }) {
   const tableContent = ids?.length
     ? ids.map((userId, index) => {
         const user = entities[userId];
+        const thumbnailUrl =
+          user.thumbnailUrl && user.thumbnailUrl !== 'N/A'
+            ? user.thumbnailUrl
+            : stockImageUser;
 
         return (
           <tr
@@ -22,6 +25,9 @@ function UsersListTable({ users, openModal }) {
             onClick={() => openModal(user)}
             className={'table__row-cursor'}>
             <td className='table__cell item__number'>{index + 1}</td>
+            <td className='table__cell user__thumbnail-cell'>
+              <img src={thumbnailUrl} alt={user.title} />
+            </td>
             <User
               userId={userId}
               onEdit={() => openModal({ ...user, isEditing: true })}
@@ -42,7 +48,8 @@ function UsersListTable({ users, openModal }) {
       <table className='table table__users'>
         <thead className='table__thead'>
           <tr>
-            <TableCellHeader label='Number' className='user__number' />
+            <TableCellHeader label='No.' className='user__number' />
+            <TableCellHeader label='Image' className='user__thumbnail' />
             <TableCellHeader label={TABLE.TITLE.USER.name} className='user__username' />
             <TableCellHeader label={TABLE.TITLE.USER.roles} className='user__roles' />
             <TableCellHeader label={TABLE.TITLE.USER.action} className='user__action' />

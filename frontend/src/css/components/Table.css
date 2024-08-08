@@ -107,9 +107,6 @@ tr {
 .table__cell.book__description {
   white-space: pre-wrap;
   word-wrap: break-word;
-  /* display: -webkit-box; */
-  /* -webkit-line-clamp: 3; Limit text to 4 lines */
-  /* -webkit-box-orient: vertical; */
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -118,7 +115,9 @@ tr {
 }
 
 .book__thumbnail-cell,
-.lego__thumbnail-cell {
+.lego__thumbnail-cell,
+.tonie__thumbnail-cell,
+.user__thumbnail-cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +126,9 @@ tr {
 }
 
 .book__thumbnail-cell img,
-.lego__thumbnail-cell img {
+.lego__thumbnail-cell img,
+.tonie__thumbnail-cell img,
+.user__thumbnail-cell img {
   max-width: 150px;
   width: 100%;
   height: auto;

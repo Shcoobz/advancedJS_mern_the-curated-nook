@@ -29,7 +29,7 @@ function UserDetails({ user, isOpen, onClose, onEdit }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className='user__modal'>
       <UserDetailsTable
         user={user}
         onClose={onClose}

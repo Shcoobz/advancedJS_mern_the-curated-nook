@@ -2,22 +2,25 @@ import { CloseButton, DeleteButton, SaveButton, SubmitButton } from './Buttons';
 
 export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }) {
   return (
-    <div className='form-header__container'>
+    <div className='form-header__container modal__header-container'>
       <h2>{title}</h2>
-      <div className='form-header__action-buttons'>
+      <div className='form-header__action-buttons modal__header-action-buttons'>
         <SaveButton
           handleSave={handleSave}
           canSave={canSave}
-          className='table__button table__button-save'
+          className='table__button table__button-save modal__button-save'
         />
         {handleDelete && (
           <DeleteButton
             handleDelete={handleDelete}
-            className='table__button table__button-delete'
+            className='table__button table__button-delete modal__button-delete'
           />
         )}
         {onClose && (
-          <CloseButton onClick={onClose} className='table__button table__button-close' />
+          <CloseButton
+            onClick={onClose}
+            className='table__button table__button-close modal__button-delete'
+          />
         )}
       </div>
     </div>
@@ -26,7 +29,7 @@ export function FormHeader({ title, handleSave, canSave, handleDelete, onClose }
 
 export function FormBody({ renderFormFields, handleSave, canSave }) {
   return (
-    <form className='form' onSubmit={handleSave}>
+    <form className='form modal' onSubmit={handleSave}>
       {renderFormFields}
       <SubmitButton canSave={canSave} />
     </form>
@@ -45,13 +48,13 @@ export function FormInput({
 }) {
   return (
     <>
-      <label className='form__label' htmlFor={id}>
+      <label className='form__label modal__label' htmlFor={id}>
         {label}
         {children}
       </label>
 
       <input
-        className={`form__input ${validClass}`}
+        className={`form__input modal__input${validClass}`}
         id={id}
         name={name}
         type={type}

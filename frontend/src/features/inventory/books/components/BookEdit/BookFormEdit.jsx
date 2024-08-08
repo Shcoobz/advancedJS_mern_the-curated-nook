@@ -90,7 +90,7 @@ function BookFormEdit({ book, isOpen, onClose }) {
   );
 
   const editBookFormModal = (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className='modal__book-edit'>
       {modalContent}
     </Modal>
   );

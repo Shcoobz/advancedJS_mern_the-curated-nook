@@ -29,7 +29,7 @@ function TonieDetails({ tonie, isOpen, onClose, onEdit }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className='tonie__modal'>
       <TonieDetailsTable
         tonie={tonie}
         onClose={onClose}
