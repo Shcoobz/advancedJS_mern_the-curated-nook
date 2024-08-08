@@ -107,6 +107,14 @@ tr {
 .table__cell.book__description {
   white-space: pre-wrap;
   word-wrap: break-word;
+  /* display: -webkit-box; */
+  /* -webkit-line-clamp: 3; Limit text to 4 lines */
+  /* -webkit-box-orient: vertical; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 1.2em;
+  max-height: 8em;
 }
 
 .book__thumbnail-cell,
