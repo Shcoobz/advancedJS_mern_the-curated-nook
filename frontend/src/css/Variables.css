@@ -30,5 +30,5 @@
   --GRID-USERS: min-content 1fr 1fr min-content;
   --GRID-BOOKS: min-content 150px 1fr 2fr 1fr min-content;
   --GRID-TONIES: min-content 1fr 2fr min-content;
-  --GRID-LEGO: min-content 1fr 1fr min-content;
+  --GRID-LEGO: min-content 150px 1fr 1fr min-content;
 }

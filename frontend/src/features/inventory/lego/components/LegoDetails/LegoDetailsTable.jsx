@@ -1,29 +1,49 @@
 import {
   TableItemDetail,
   TableItemDetailHeader,
+  TableItemDetailImage,
 } from '../../../../../components/common/TableComponents';
 import { isUUID } from '../../../../utils/formUtils';
+import stockImageLego from '../../../../../img/stockimageLego.png';
 
 function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
   const displaySetNumber = isUUID(lego.setNumber) ? 'N/A' : lego.setNumber;
 
+  const hasValidImageUrl = lego.imageUrl && lego.imageUrl !== 'N/A';
+  const hasValidThumbnailUrl = lego.thumbnailUrl && lego.thumbnailUrl !== 'N/A';
+
+  const imageUrl = hasValidImageUrl
+    ? lego.imageUrl
+    : hasValidThumbnailUrl
+    ? lego.thumbnailUrl
+    : stockImageLego;
+
   const tableContent = (
-    <>
+    <div className='lego__modal-container'>
       <TableItemDetailHeader
-        title={`Lego Details: ${lego.name}`}
+        title={`Lego Set: ${lego.name}`}
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
       />
 
-      <div className='details'>
-        <TableItemDetail label='Name:' value={lego?.name} />
-        <TableItemDetail label='SetNumber:' value={displaySetNumber} />
-        <TableItemDetail label='Thumbnail URL:' value={lego?.thumbnailUrl} />
-        <TableItemDetail label='Image URL:' value={lego?.imageUrl} />
-        <TableItemDetail label='On Wishlist:' value={lego?.isOnWishlist ? 'Yes' : 'No'} />
+      <div className='lego__modal-content'>
+        <div className='lego__modal-image'>
+          <TableItemDetailImage
+            src={imageUrl}
+            alt={`Cover of ${lego.title}`}
+            title={`Cover Image of ${lego.title}`}
+            className='lego__cover-image'
+          />
+        </div>
+
+        <div className='lego__modal-info'>
+          <div className='lego__modal-details'>
+            <TableItemDetail label='SetNumber:' value={displaySetNumber} />
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 
   return tableContent;

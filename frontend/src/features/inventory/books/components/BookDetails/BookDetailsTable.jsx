@@ -25,6 +25,7 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
         handleDelete={handleDelete}
         onClose={onClose}
       />
+
       <div className='book__modal-content'>
         <div className='book__modal-image'>
           <TableItemDetailImage
@@ -34,6 +35,7 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
             className='book__cover-image'
           />
         </div>
+        
         <div className='book__modal-info'>
           <div className='book__modal-details'>
             <TableItemDetail label='Author(s):' value={book?.authors} />

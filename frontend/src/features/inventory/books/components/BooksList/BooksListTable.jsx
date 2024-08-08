@@ -49,7 +49,7 @@ function BooksListTable({ books, openModal }) {
         <thead className='table__thead'>
           <tr>
             <TableCellHeader label='No.' className='book__number' />
-            <TableCellHeader label='Thumbnail' className='book__thumbnail' />
+            <TableCellHeader label='Image' className='book__thumbnail' />
             <TableCellHeader label='Title' className='book__title' />
             <TableCellHeader label='Description' className='book__description' />
             <TableCellHeader label='Categories' className='book__categories' />

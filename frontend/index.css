@@ -15,6 +15,7 @@
 
 /* || MODALS */
 @import './src/css/modal/ModalBook.css';
+@import './src/css/modal/ModalLego.css';
 
 /* || PAGES */
 @import './src/css/pages/public/Public.css';

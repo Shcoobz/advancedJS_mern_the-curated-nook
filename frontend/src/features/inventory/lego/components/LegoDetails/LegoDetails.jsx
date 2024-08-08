@@ -29,7 +29,7 @@ function LegoDetails({ lego, isOpen, onClose, onEdit }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className='lego__modal'>
       <LegoDetailsTable
         lego={lego}
         onClose={onClose}

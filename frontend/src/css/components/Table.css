@@ -109,7 +109,8 @@ tr {
   word-wrap: break-word;
 }
 
-.book__thumbnail-cell {
+.book__thumbnail-cell,
+.lego__thumbnail-cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,7 +118,8 @@ tr {
   padding: 5px;
 }
 
-.book__thumbnail-cell img {
+.book__thumbnail-cell img,
+.lego__thumbnail-cell img {
   max-width: 150px;
   width: 100%;
   height: auto;
