@@ -1,54 +1,53 @@
 import {
   TableItemDetail,
   TableItemDetailHeader,
+  TableItemDetailImage,
 } from '../../../../../components/common/TableComponents';
-import { isUUID } from '../../../../utils/formUtils';
-
 import stockImageBook from '../../../../../img/stockimageBook.png';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
-  const displayIsbn = isUUID(book.isbn) ? 'N/A' : book.isbn;
   const displayDate = book.publishedDate === '1900-01-01' ? 'N/A' : book.publishedDate;
 
-  const imageUrl =
-    book.imageUrl && book.imageUrl !== 'N/A'
-      ? book.imageUrl
-      : book.thumbnailUrl && book.thumbnailUrl !== 'N/A'
-      ? book.thumbnailUrl
-      : stockImageBook;
+  const hasValidImageUrl = book.imageUrl && book.imageUrl !== 'N/A';
+  const hasValidThumbnailUrl = book.thumbnailUrl && book.thumbnailUrl !== 'N/A';
+
+  const imageUrl = hasValidImageUrl
+    ? book.imageUrl
+    : hasValidThumbnailUrl
+    ? book.thumbnailUrl
+    : stockImageBook;
 
   const tableContent = (
-    <>
+    <div className='book__modal-container'>
       <TableItemDetailHeader
-        title={`Book Details: ${book.title}`}
+        title={`Book: ${book.title}`}
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
       />
-
-      <div className='details'>
-        <TableItemDetail
-          value={
-            <img
-              src={imageUrl}
-              alt={`Cover of ${book.title}`}
-              style={{ width: '100px', height: 'auto' }}
-            />
-          }
-        />
-        <TableItemDetail label='Title:' value={book?.title} />
-        <TableItemDetail label='Author(s):' value={book?.authors} />
-        <TableItemDetail label='Publisher:' value={book?.publisher} />
-        <TableItemDetail label='Published Date:' value={displayDate} />
-        <TableItemDetail label='Description:' value={book?.description} />
-        <TableItemDetail label='ISBN:' value={displayIsbn} />
-        <TableItemDetail label='Categories:' value={book?.categories} />
-        <TableItemDetail label='Thumbnail URL:' value={book?.thumbnailUrl} />
-        <TableItemDetail label='Image URL:' value={book?.imageUrl} />
-        <TableItemDetail label='Language:' value={book?.language} />
-        <TableItemDetail label='On Wishlist:' value={book?.isOnWishlist ? 'Yes' : 'No'} />
+      <div className='book__modal-content'>
+        <div className='book__modal-image'>
+          <TableItemDetailImage
+            src={imageUrl}
+            alt={`Cover of ${book.title}`}
+            title={`Cover Image of ${book.title}`}
+            className='book__cover-image'
+          />
+        </div>
+        <div className='book__modal-info'>
+          <div className='book__modal-details'>
+            <TableItemDetail label='Author(s):' value={book?.authors} />
+            <TableItemDetail label='Publisher:' value={book?.publisher} />
+            <TableItemDetail label='Published Date:' value={displayDate} />
+            <TableItemDetail label='Categories:' value={book?.categories} />
+            <TableItemDetail label='Language:' value={book?.language} />
+          </div>
+        </div>
       </div>
-    </>
+      <div className='book__modal-description'>
+        <TableItemDetail label='Description:' value={book?.description} />
+      </div>
+    </div>
   );
 
   return tableContent;

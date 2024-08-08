@@ -29,7 +29,7 @@ function BookDetails({ book, isOpen, onClose, onEdit }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} className='book__modal'>
       <BookDetailsTable
         book={book}
         onClose={onClose}

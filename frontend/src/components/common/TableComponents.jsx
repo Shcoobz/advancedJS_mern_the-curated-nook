@@ -82,3 +82,7 @@ export function TableAboveHeader({ descriptionText, onCreateClick, onWishlistCli
     </div>
   );
 }
+
+export function TableItemDetailImage({ src, alt, title, className }) {
+  return <img src={src} alt={alt} title={title} className={className} />;
+}
