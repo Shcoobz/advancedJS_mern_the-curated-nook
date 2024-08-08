@@ -1,12 +1,43 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserMultiFormatReader, BarcodeFormat } from '@zxing/library';
 
 function IsbnScanner({ onDetected, onClose }) {
   const videoRef = useRef(null);
-  const formats = [BarcodeFormat.EAN_13]; // Only looking for EAN-13 barcode formats
-  const hints = new Map();
-  hints.set(BarcodeFormat.POSSIBLE_FORMATS, formats);
-  const codeReader = new BrowserMultiFormatReader(hints);
+  const canvasRef = useRef(null);
+  const [codeReader] = useState(
+    () =>
+      new BrowserMultiFormatReader(
+        new Map([[BarcodeFormat.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13]]])
+      )
+  );
+
+  const processImage = (videoElement) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    // Set canvas size to match video
+    canvas.width = videoElement.videoWidth;
+    canvas.height = videoElement.videoHeight;
+
+    // Draw original video frame
+    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+    // Apply image processing
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const processed = enhanceBarcode(imageData);
+    context.putImageData(processed, 0, 0);
+  };
+
+  const enhanceBarcode = (imageData) => {
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      const threshold = 128;
+      const value = avg > threshold ? 255 : 0;
+      data[i] = data[i + 1] = data[i + 2] = value;
+    }
+    return imageData;
+  };
 
   useEffect(() => {
     const startScanning = async () => {
@@ -21,18 +52,27 @@ function IsbnScanner({ onDetected, onClose }) {
           videoRef.current,
           (result, err) => {
             if (result) {
-              onDetected(result.getText());
-              codeReader.reset();
-              onClose();
-            }
-            if (err) {
-              // Ignore NotFoundException entirely in the console log
-              if (!/NotFoundException\d*:/.test(err.message)) {
-                console.error('Barcode scan error:', err);
+              const scannedCode = result.getText();
+              if (scannedCode.length === 13 && /^\d+$/.test(scannedCode)) {
+                onDetected(scannedCode);
+                codeReader.reset();
+                onClose();
               }
+            }
+            if (err && !(err instanceof TypeError)) {
+              console.error('Barcode scan error:', err);
             }
           }
         );
+
+        const captureAndProcess = () => {
+          if (videoRef.current && canvasRef.current) {
+            processImage(videoRef.current);
+          }
+          requestAnimationFrame(captureAndProcess);
+        };
+
+        captureAndProcess();
       } catch (error) {
         console.error('Error initializing barcode scanner:', error);
       }
@@ -43,11 +83,17 @@ function IsbnScanner({ onDetected, onClose }) {
     return () => {
       codeReader.reset();
     };
-  }, [onDetected, onClose]);
+  }, [codeReader, onDetected, onClose]);
 
   return (
     <div className='isbn-scanner'>
-      <video ref={videoRef} style={{ width: '100%' }} />
+      <video
+        ref={videoRef}
+        style={{ width: '100%', display: 'none' }}
+        autoPlay
+        playsInline
+      />
+      <canvas ref={canvasRef} style={{ width: '100%' }} />
       <button
         onClick={() => {
           codeReader.reset();

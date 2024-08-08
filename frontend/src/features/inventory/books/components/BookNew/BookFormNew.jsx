@@ -44,21 +44,24 @@ function BookFormNew({ isOpen, onClose }) {
     updateField('title', e.target.value);
   }
 
-  function handleSelectSuggestion(book) {
-    setFormData({
-      ...formData,
-      title: book.title,
-      authors: book.authors.join(', '),
-      publisher: book.publisher,
-      publishedDate: book.publishedDate,
-      description: book.description,
-      isbn: book.isbn,
-      categories: book.categories.join(', '),
-      thumbnailUrl: book.thumbnailUrl,
-      imageUrl: book.imageUrl,
-      language: book.language,
-    });
-  }
+  const handleSelectSuggestion = useCallback(
+    (book) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        title: book.title,
+        authors: book.authors.join(', '),
+        publisher: book.publisher,
+        publishedDate: book.publishedDate,
+        description: book.description,
+        isbn: book.isbn,
+        categories: book.categories.join(', '),
+        thumbnailUrl: book.imageLinks?.smallThumbnail || '',
+        imageUrl: book.imageLinks?.thumbnail || '',
+        language: book.language,
+      }));
+    },
+    [setFormData]
+  );
 
   async function handleSave(e) {
     e.preventDefault();
@@ -109,16 +112,16 @@ function BookFormNew({ isOpen, onClose }) {
             industryIdentifiers.find((id) => id.type === 'ISBN_13')?.identifier || isbn;
 
           handleSelectSuggestion({
-            title: bookInfo.title || 'Unknown Title',
-            authors: bookInfo.authors || ['Unknown Author'],
-            publisher: bookInfo.publisher || 'Unknown Publisher',
-            publishedDate: bookInfo.publishedDate || '',
-            description: bookInfo.description || '',
+            title: bookInfo.title,
+            authors: bookInfo.authors || ['N/A'],
+            publisher: bookInfo.publisher || 'N/A',
+            publishedDate: bookInfo.publishedDate || '1900-01-01',
+            description: bookInfo.description || 'N/A',
             isbn: isbn13,
-            categories: bookInfo.categories || ['Uncategorized'],
-            thumbnailUrl: bookInfo.imageLinks?.smallThumbnail || '',
-            imageUrl: bookInfo.imageLinks?.thumbnail || '',
-            language: bookInfo.language || 'unknown',
+            categories: bookInfo.categories || ['N/A'],
+            thumbnailUrl: bookInfo.imageLinks?.smallThumbnail || 'N/A',
+            imageUrl: bookInfo.imageLinks?.thumbnail || 'N/A',
+            language: bookInfo.language || 'N/A',
           });
           toast.success('Fetched!');
         } else {
