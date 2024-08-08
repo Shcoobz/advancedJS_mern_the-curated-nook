@@ -11,11 +11,12 @@ import {
   handleSaveNewEntity,
   useHandleSuccess,
   useValidate,
-  validateISBN,
   validateTitle,
 } from '../../../../utils/formUtils';
 import Modal from '../../../../../components/common/Modal';
 import BookFormTableNew from './BookFormTableNew';
+
+import { ScanButton } from '../../../../../components/common/Buttons';
 import IsbnScanner from '../../../../../components/common/IsbnScanner';
 
 function BookFormNew({ isOpen, onClose }) {
@@ -37,35 +38,27 @@ function BookFormNew({ isOpen, onClose }) {
     });
   });
 
-  useValidate(formData.isbn, validateISBN, (isValid) => {
-    setFormData((prev) => {
-      if (prev.validIsbn !== isValid) {
-        return { ...prev, validIsbn: isValid };
-      }
-      return prev;
-    });
-  });
-
   useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
 
-  const handleSelectSuggestion = useCallback(
-    (book) => {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        title: book.title,
-        authors: book.authors.join(', '),
-        publisher: book.publisher,
-        publishedDate: book.publishedDate,
-        description: book.description,
-        isbn: book.isbn,
-        categories: book.categories.join(', '),
-        thumbnailUrl: book.thumbnailUrl,
-        imageUrl: book.imageUrl,
-        language: book.language,
-      }));
-    },
-    [setFormData]
-  );
+  function handleTitleChange(e) {
+    updateField('title', e.target.value);
+  }
+
+  function handleSelectSuggestion(book) {
+    setFormData({
+      ...formData,
+      title: book.title,
+      authors: book.authors.join(', '),
+      publisher: book.publisher,
+      publishedDate: book.publishedDate,
+      description: book.description,
+      isbn: book.isbn,
+      categories: book.categories.join(', '),
+      thumbnailUrl: book.thumbnailUrl,
+      imageUrl: book.imageUrl,
+      language: book.language,
+    });
+  }
 
   async function handleSave(e) {
     e.preventDefault();
@@ -84,9 +77,9 @@ function BookFormNew({ isOpen, onClose }) {
     }
   }
 
-  function handleScan() {
+  const handleScan = () => {
     setIsScanning(true);
-  }
+  };
 
   const handleIsbnScan = useCallback(
     async (isbn) => {
@@ -127,7 +120,7 @@ function BookFormNew({ isOpen, onClose }) {
             imageUrl: bookInfo.imageLinks?.thumbnail || '',
             language: bookInfo.language || 'unknown',
           });
-          toast.success('Book information fetched successfully');
+          toast.success('Fetched!');
         } else {
           toast.error(`No book found with ISBN: ${isbn}`);
         }
@@ -150,6 +143,7 @@ function BookFormNew({ isOpen, onClose }) {
           canSave={canSave}
           handleSave={handleSave}
           onClose={onClose}
+          handleTitleChange={handleTitleChange}
           handleSelectSuggestion={handleSelectSuggestion}
           handleScan={handleScan}
         />

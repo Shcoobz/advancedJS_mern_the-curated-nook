@@ -1,81 +1,60 @@
-import { useEffect, useRef, useState } from 'react';
-import Quagga from 'quagga';
+import { useEffect, useRef } from 'react';
+import { BrowserMultiFormatReader, BarcodeFormat } from '@zxing/library';
 
 function IsbnScanner({ onDetected, onClose }) {
-  const scannerRef = useRef(null);
-  const [error, setError] = useState(null);
-  const [isScanning, setIsScanning] = useState(true);
+  const videoRef = useRef(null);
+  const formats = [BarcodeFormat.EAN_13]; // Only looking for EAN-13 barcode formats
+  const hints = new Map();
+  hints.set(BarcodeFormat.POSSIBLE_FORMATS, formats);
+  const codeReader = new BrowserMultiFormatReader(hints);
 
   useEffect(() => {
-    Quagga.init(
-      {
-        inputStream: {
-          name: 'Live',
-          type: 'LiveStream',
-          target: scannerRef.current,
-          constraints: {
-            width: 1280,
-            height: 720,
-            facingMode: 'environment',
-          },
-        },
-        locator: {
-          patchSize: 'medium',
-          halfSample: true,
-        },
-        numOfWorkers: 2,
-        decoder: {
-          readers: ['ean_reader'],
-        },
-        locate: true,
-      },
-      (err) => {
-        if (err) {
-          console.error(err);
-          setError('Failed to initialize scanner. Please check your camera permissions.');
-          setIsScanning(false);
-          return;
+    const startScanning = async () => {
+      try {
+        const videoInputDevices = await codeReader.listVideoInputDevices();
+        if (videoInputDevices.length === 0) {
+          throw new Error('No video input devices found');
         }
-        Quagga.start();
-
-        setTimeout(() => {
-          const videoCanvas = scannerRef.current.querySelector('canvas');
-          if (videoCanvas) {
-            videoCanvas.setAttribute('willReadFrequently', 'true');
+        const selectedDeviceId = videoInputDevices[0].deviceId;
+        await codeReader.decodeFromVideoDevice(
+          selectedDeviceId,
+          videoRef.current,
+          (result, err) => {
+            if (result) {
+              onDetected(result.getText());
+              codeReader.reset();
+              onClose();
+            }
+            if (err) {
+              // Ignore NotFoundException entirely in the console log
+              if (!/NotFoundException\d*:/.test(err.message)) {
+                console.error('Barcode scan error:', err);
+              }
+            }
           }
-        }, 500);
+        );
+      } catch (error) {
+        console.error('Error initializing barcode scanner:', error);
       }
-    );
+    };
 
-    Quagga.onDetected((result) => {
-      console.log(result);
-
-      if (result.codeResult.code && isScanning) {
-        setIsScanning(false);
-        onDetected(result.codeResult.code);
-        Quagga.stop();
-      }
-    });
+    startScanning();
 
     return () => {
-      Quagga.stop();
-      setIsScanning(false);
+      codeReader.reset();
     };
-  }, [onDetected, isScanning]);
+  }, [onDetected, onClose]);
 
   return (
-    <div className='barcode-scanner'>
-      {error ? (
-        <div className='error-message'>{error}</div>
-      ) : (
-        <>
-          <div ref={scannerRef} className='viewport' />
-          <div className='scanner-overlay'>
-            <p>Align barcode within the frame</p>
-          </div>
-        </>
-      )}
-      <button onClick={onClose}>Close Scanner</button>
+    <div className='isbn-scanner'>
+      <video ref={videoRef} style={{ width: '100%' }} />
+      <button
+        onClick={() => {
+          codeReader.reset();
+          onClose();
+        }}>
+        Close Scanner
+      </button>
     </div>
   );
 }
