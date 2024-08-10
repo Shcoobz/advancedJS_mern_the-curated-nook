@@ -18,6 +18,9 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
     ? book.thumbnailUrl
     : stockImageBook;
 
+  const imageClass =
+    imageUrl === stockImageBook ? 'book__modal-image--stock' : 'book__modal-image';
+
   const tableContent = (
     <div className='book__modal-container'>
       <TableItemDetailHeader
@@ -28,7 +31,7 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
       />
 
       <div className='book__modal-content'>
-        <div className='book__modal-image'>
+        <div className={imageClass}>
           <TableItemDetailImage
             src={imageUrl}
             alt={`Cover of ${book.title}`}

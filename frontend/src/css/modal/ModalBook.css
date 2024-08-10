@@ -21,6 +21,10 @@
 }
 
 .book__modal-image {
+  flex: 0 0 325px;
+}
+
+.book__modal-image--stock {
   flex: 0 0 485px;
 }
 
@@ -48,4 +52,5 @@
   min-height: 110px;
   overflow-y: auto;
   word-wrap: break-word;
+  margin-top: 10px;
 }
