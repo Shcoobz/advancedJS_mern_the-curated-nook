@@ -111,7 +111,7 @@ tr {
   text-overflow: ellipsis;
 
   line-height: 1.2em;
-  max-height: 8em;
+  max-height: 10em;
 }
 
 .book__thumbnail-cell,
@@ -133,4 +133,18 @@ tr {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.table__cell.book__thumbnail-cell {
+  max-width: 150px;
+}
+
+.book__thumbnail-cell img {
+  max-width: 100%;
+  max-height: 210px;
+}
+
+.book__cover-image {
+  max-width: 485px;
+  max-height: 800px;
 }

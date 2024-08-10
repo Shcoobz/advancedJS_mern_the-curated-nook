@@ -30,12 +30,7 @@
 @import './src/css/mediaQuery/MediaQuery768Min.css';
 
 /* || ISBN SCANNER */
-.barcode-scanner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.isbn-scanner {
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
@@ -44,22 +39,23 @@
   z-index: 1000;
 }
 
-.barcode-scanner .viewport {
+.isbn-scanner .viewport {
   width: 100%;
   max-width: 480px;
   height: 320px;
   margin-bottom: 20px;
 }
 
-.barcode-scanner button {
+.isbn-scanner button {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 15px !important;
 }
 
-.barcode-scanner button:hover {
+.isbn-scanner button:hover {
   background-color: #0056b3;
 }

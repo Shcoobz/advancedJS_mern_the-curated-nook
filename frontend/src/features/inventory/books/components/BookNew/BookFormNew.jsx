@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
@@ -16,8 +16,12 @@ import {
 import Modal from '../../../../../components/common/Modal';
 import BookFormTableNew from './BookFormTableNew';
 
-import { ScanButton } from '../../../../../components/common/Buttons';
 import IsbnScanner from '../../../../../components/common/IsbnScanner';
+import {
+  handleIsbnScan,
+  handleScan,
+  handleSelectSuggestion,
+} from '../../../../utils/fetchUtils';
 
 function BookFormNew({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -40,28 +44,13 @@ function BookFormNew({ isOpen, onClose }) {
 
   useHandleSuccess(ENTITY.book, isSuccess, undefined, navigate, setFormData);
 
-  function handleTitleChange(e) {
-    updateField('title', e.target.value);
+  async function handleDetectedIsbn(isbn) {
+    await handleIsbnScan(isbn, setIsScanning, setFormData);
   }
 
-  const handleSelectSuggestion = useCallback(
-    (book) => {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        title: book.title,
-        authors: book.authors.join(', '),
-        publisher: book.publisher,
-        publishedDate: book.publishedDate,
-        description: book.description,
-        isbn: book.isbn,
-        categories: book.categories.join(', '),
-        thumbnailUrl: book.imageLinks?.smallThumbnail || '',
-        imageUrl: book.imageLinks?.thumbnail || '',
-        language: book.language,
-      }));
-    },
-    [setFormData]
-  );
+  function onSelectSuggestion(book) {
+    handleSelectSuggestion(book, undefined, setFormData);
+  }
 
   async function handleSave(e) {
     e.preventDefault();
@@ -80,65 +69,13 @@ function BookFormNew({ isOpen, onClose }) {
     }
   }
 
-  const handleScan = () => {
-    setIsScanning(true);
-  };
-
-  const handleIsbnScan = useCallback(
-    async (isbn) => {
-      console.log('Barcode scanned:', isbn);
-      setIsScanning(false);
-
-      if (!isbn || isbn.length < 10) {
-        toast.error('Invalid ISBN scanned. Please try again.');
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.items && data.items.length > 0) {
-          const bookInfo = data.items[0].volumeInfo;
-          const industryIdentifiers = bookInfo.industryIdentifiers || [];
-          const isbn13 =
-            industryIdentifiers.find((id) => id.type === 'ISBN_13')?.identifier || isbn;
-
-          handleSelectSuggestion({
-            title: bookInfo.title,
-            authors: bookInfo.authors || ['N/A'],
-            publisher: bookInfo.publisher || 'N/A',
-            publishedDate: bookInfo.publishedDate || '1900-01-01',
-            description: bookInfo.description || 'N/A',
-            isbn: isbn13,
-            categories: bookInfo.categories || ['N/A'],
-            thumbnailUrl: bookInfo.imageLinks?.smallThumbnail || 'N/A',
-            imageUrl: bookInfo.imageLinks?.thumbnail || 'N/A',
-            language: bookInfo.language || 'N/A',
-          });
-          toast.success('Fetched!');
-        } else {
-          toast.error(`No book found with ISBN: ${isbn}`);
-        }
-      } catch (error) {
-        console.error('Error fetching book data:', error);
-        toast.error(`Error fetching book data: ${error.message}`);
-      }
-    },
-    [handleSelectSuggestion]
-  );
-
   const modalContent = (
     <>
       {isScanning ? (
-        <IsbnScanner onDetected={handleIsbnScan} onClose={() => setIsScanning(false)} />
+        <IsbnScanner
+          onDetected={handleDetectedIsbn}
+          onClose={() => setIsScanning(false)}
+        />
       ) : (
         <BookFormTableNew
           formData={formData}
@@ -146,9 +83,8 @@ function BookFormNew({ isOpen, onClose }) {
           canSave={canSave}
           handleSave={handleSave}
           onClose={onClose}
-          handleTitleChange={handleTitleChange}
-          handleSelectSuggestion={handleSelectSuggestion}
-          handleScan={handleScan}
+          handleSelectSuggestion={onSelectSuggestion}
+          handleScan={() => handleScan(setIsScanning)}
         />
       )}
     </>

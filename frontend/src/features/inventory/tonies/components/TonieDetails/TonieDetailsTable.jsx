@@ -29,8 +29,8 @@ function TonieDetailsTable({ tonie, onClose, handleEditClick, handleDelete }) {
         <div className='tonie__modal-image'>
           <TableItemDetailImage
             src={imageUrl}
-            alt={`Cover of ${tonie.title}`}
-            title={`Cover Image of ${tonie.title}`}
+            alt={`Cover of ${tonie.name}`}
+            title={`Cover Image of ${tonie.name}`}
             className='tonie__cover-image'
           />
         </div>

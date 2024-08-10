@@ -5,6 +5,8 @@ import BookFormEdit from '../BookEdit/BookFormEdit';
 import BookFormNew from '../BookNew/BookFormNew';
 import BooksListTable from './BooksListTable';
 import BookDetails from '../BookDetails/BookDetails';
+import { TableAboveHeader } from '../../../../../components/common/TableComponents';
+import { UI } from '../../../../../config/common/messages';
 
 function BooksList() {
   const {
@@ -37,7 +39,16 @@ function BooksList() {
   if (isLoading) return <Spinner />;
 
   if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>;
+    content = (
+      <>
+        <TableAboveHeader
+          descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
+          onCreateClick={() => openModal()}
+          onWishlistClick={undefined}
+        />
+        <p className='errmsg'>{error?.data?.message}</p>
+      </>
+    );
   }
 
   if (isSuccess) {
@@ -48,6 +59,7 @@ function BooksList() {
     <>
       <div>
         {content}
+
         {isModalOpen &&
           (selectedBook ? (
             selectedBook.isEditing ? (

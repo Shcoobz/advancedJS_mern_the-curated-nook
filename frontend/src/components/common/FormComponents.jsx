@@ -171,6 +171,7 @@ export function DynamicForm({
 
   const renderFormFields = formFields.map((field, index) => {
     const Component = field.component;
+
     return <Component key={index} {...field} />;
   });
 
