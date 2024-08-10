@@ -30,16 +30,19 @@ function TonieDetailsTable({ tonie, onClose, handleEditClick, handleDelete }) {
           <TableItemDetailImage
             src={imageUrl}
             alt={`Cover of ${tonie.name}`}
-            title={`Cover Image of ${tonie.name}`}
+            titleList={`Cover Image of ${tonie.name}`}
             className='tonie__cover-image'
           />
         </div>
 
         <div className='tonie__modal-info'>
           <div className='tonie__modal-details'>
-            <TableItemDetail label='Description:' value={tonie?.description} />
+            <TableItemDetail label='Title List:' value={tonie.titleList} />
           </div>
         </div>
+      </div>
+      <div className='tonie__modal-description'>
+        <TableItemDetail label='Description:' value={tonie?.description} />
       </div>
     </div>
   );

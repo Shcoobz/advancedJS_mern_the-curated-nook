@@ -31,6 +31,7 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
       query: () => '/tonies/count-wishlist',
       providesTags: provideToniesTags,
     }),
+
     addNewTonie: builder.mutation({
       query: addNewTonieQuery,
       invalidatesTags: invalidateToniesTags,

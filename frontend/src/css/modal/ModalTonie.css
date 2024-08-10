@@ -37,6 +37,22 @@
   flex-direction: column;
 }
 
-/* .tonie__modal-details {
+.tonie__modal-details {
   margin-bottom: 10px;
-} */
+}
+
+.tonie__modal-details .form__value {
+  height: 445px;
+  white-space: pre-line;
+  overflow: auto;
+}
+
+.tonie__modal-description {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  min-height: 110px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  margin-top: 10px;
+}

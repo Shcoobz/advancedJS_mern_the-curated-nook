@@ -24,7 +24,7 @@ function ToniesListTable({ tonies, openModal }) {
             className={'table__row-cursor'}>
             <td className='table__cell item__number'>{index + 1}</td>
             <td className='table__cell tonie__thumbnail-cell'>
-              <img src={thumbnailUrl} alt={tonie.title} />
+              <img src={thumbnailUrl} alt={tonie.titleList} />
             </td>
             <Tonie
               tonie={tonie}

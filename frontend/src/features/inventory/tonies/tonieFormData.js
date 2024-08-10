@@ -18,6 +18,15 @@ const getTonieFormFields = ({ formData, handleFieldChange }) => [
   },
   {
     component: FormTextarea,
+    label: 'Title List:',
+    id: 'titleList',
+    name: 'titleList',
+    rows: 5,
+    value: formData.titleList,
+    onChange: handleFieldChange,
+  },
+  {
+    component: FormTextarea,
     label: 'Description:',
     id: 'description',
     name: 'description',

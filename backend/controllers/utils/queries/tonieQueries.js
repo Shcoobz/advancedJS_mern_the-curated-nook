@@ -24,6 +24,7 @@ export async function createTonie(tonieObject) {
 export function createTonieObject(tonie) {
   return {
     name: tonie.name,
+    titleList: tonie.titleList || DEFAULT.EMPTY_ARRAY,
     description: tonie.description || DEFAULT.NO_DESCRIPTION,
     thumbnailUrl: tonie.thumbnailUrl || DEFAULT.EMPTY_STRING,
     imageUrl: tonie.imageUrl || DEFAULT.EMPTY_STRING,
@@ -37,6 +38,7 @@ export async function findTonieById(id) {
 
 export function updateTonieFields(tonie, updatedFields) {
   tonie.name = updatedFields.name;
+  tonie.titleList = updatedFields.titleList || DEFAULT.EMPTY_ARRAY;
   tonie.description = updatedFields.description || DEFAULT.NO_DESCRIPTION;
   tonie.thumbnailUrl = updatedFields.thumbnailUrl || DEFAULT.EMPTY_STRING;
   tonie.imageUrl = updatedFields.imageUrl || DEFAULT.EMPTY_STRING;

@@ -37,6 +37,7 @@ export function createInitialFormState(type, data = null) {
         ? {
             name: data.name,
             validName: false,
+            titleList: data.titleList,
             description: data.description,
             thumbnailUrl: data.thumbnailUrl,
             imageUrl: data.imageUrl,
@@ -45,6 +46,7 @@ export function createInitialFormState(type, data = null) {
         : {
             name: DEFAULT.emptyString,
             validName: false,
+            titleList: DEFAULT.emptyArray,
             description: DEFAULT.emptyString,
             thumbnailUrl: DEFAULT.emptyString,
             imageUrl: DEFAULT.emptyString,
@@ -278,6 +280,7 @@ export function generateNewUserPayload(formData) {
 export function generateNewToniePayload(formData) {
   return {
     name: setDefaultValue(formData.name),
+    titleList: setDefaultValue(formData.titleList),
     description: setDefaultValue(formData.description),
     thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
     imageUrl: setDefaultValue(formData.imageUrl),
@@ -347,6 +350,7 @@ export function generateExistingToniePayload(tonie, formData) {
   return {
     id: tonie.id,
     name: formData.name,
+    titleList: formData.titleList,
     description: formData.description,
     thumbnailUrl: formData.thumbnailUrl,
     imageUrl: formData.imageUrl,

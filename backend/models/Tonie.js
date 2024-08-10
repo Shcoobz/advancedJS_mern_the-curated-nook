@@ -6,6 +6,13 @@ const tonieSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  titleList: [
+    {
+      type: String,
+      default: 'N/A',
+      trim: true,
+    },
+  ],
   description: {
     type: String,
     default: 'N/A',
