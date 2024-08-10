@@ -4,9 +4,10 @@ import {
   TableItemDetailImage,
 } from '../../../../../components/common/TableComponents';
 import stockImageBook from '../../../../../img/stockimageBook.png';
+import { formatDate } from '../../../../utils/utils';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
-  const displayDate = book.publishedDate === '1900-01-01' ? 'N/A' : book.publishedDate;
+  const displayDate = formatDate(book.publishedDate);
 
   const hasValidImageUrl = book.imageUrl && book.imageUrl !== 'N/A';
   const hasValidThumbnailUrl = book.thumbnailUrl && book.thumbnailUrl !== 'N/A';
@@ -35,7 +36,7 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
             className='book__cover-image'
           />
         </div>
-        
+
         <div className='book__modal-info'>
           <div className='book__modal-details'>
             <TableItemDetail label='Author(s):' value={book?.authors} />

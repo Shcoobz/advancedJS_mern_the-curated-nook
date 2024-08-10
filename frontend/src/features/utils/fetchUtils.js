@@ -92,10 +92,7 @@ export async function fetchSuggestionsByBookISBN(inputValue, setSuggestions) {
                 item.volumeInfo.industryIdentifiers.length > 0
               ? item.volumeInfo.industryIdentifiers[0].identifier
               : '',
-            categories:
-              item.volumeInfo.maturityRating === 'NOT_MATURE'
-                ? ['Kinderbuch']
-                : item.volumeInfo.categories || [],
+            categories: item.volumeInfo.categories || '',
             thumbnailUrl: item.volumeInfo.imageLinks?.smallThumbnail || '',
             imageUrl: item.volumeInfo.imageLinks?.thumbnail || '',
             language: item.volumeInfo.language || '',
