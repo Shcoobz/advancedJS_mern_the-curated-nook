@@ -221,7 +221,6 @@ export async function fetchLegoSetByName(setName, setResults) {
               }
             }
 
-            console.log('legoset: ', legoSet);
             return legoSet;
           })
         )
@@ -255,16 +254,40 @@ export async function fetchLegoSetByNumber(inputValue, setResults) {
     }
 
     const legoSetSuggestions = data.results
-      ? data.results.map((item) => ({
-          id: item.set_num,
-          name: item.name,
-          setNumber: item.set_num,
-          year: item.year ? item.year.toString() : '',
-          numParts: item.num_parts,
-          theme: item.theme_name || 'N/A',
-          thumbnailUrl: item.set_img_url || '',
-          imageUrl: item.set_img_url || '',
-        }))
+      ? await Promise.all(
+          data.results.map(async (item) => {
+            const legoSet = {
+              id: item.set_num,
+              name: item.name,
+              setNumber: item.set_num,
+              year: item.year ? item.year.toString() : '',
+              numParts: item.num_parts,
+              theme: item.theme_name || 'N/A',
+              thumbnailUrl: item.set_img_url || '',
+              imageUrl: item.set_img_url || '',
+              themeId: item.theme_id ? item.theme_id.toString() : 'N/A',
+              themeName: 'N/A',
+            };
+
+            if (item.theme_id) {
+              const themeResponse = await fetch(
+                `https://rebrickable.com/api/v3/lego/themes/${item.theme_id}/`,
+                {
+                  headers: {
+                    Authorization: `key ${import.meta.env.VITE_REBRICKABLE_API_KEY}`,
+                  },
+                }
+              );
+
+              if (themeResponse.ok) {
+                const themeData = await themeResponse.json();
+                legoSet.themeName = themeData.name || 'Unknown Theme';
+              }
+            }
+
+            return legoSet;
+          })
+        )
       : [];
 
     // toast.success(`LEGO sets found for "${inputValue}"`);
