@@ -32,6 +32,10 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       'import.meta.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL),
+      'import.meta.env.VITE_REBRICKABLE_API_KEY': JSON.stringify(
+        env.VITE_REBRICKABLE_API_KEY
+      ),
+      'import.meta.env.VITE_BRICKSET_API_KEY': JSON.stringify(env.VITE_BRICKSET_API_KEY),
     },
   };
 });

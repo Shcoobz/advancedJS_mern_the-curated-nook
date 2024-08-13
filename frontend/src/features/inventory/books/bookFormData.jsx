@@ -21,6 +21,7 @@ const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     onSelectSuggestion: handleSelectSuggestion,
     validClass: getInputClass(formData.validIsbn, 'isbn'),
     fetchSuggestions: fetchSuggestionsByBookISBN,
+    renderItem: (item) => `${item.title} - ${item.authors.join(', ')}`,
     children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
   },
   {
@@ -33,6 +34,7 @@ const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     onSelectSuggestion: handleSelectSuggestion,
     validClass: getInputClass(formData.validTitle),
     fetchSuggestions: fetchSuggestionsByBookTitle,
+    renderItem: (item) => `${item.title} - ${item.authors.join(', ')}`,
     children: <span className='nowrap'>{'[ISBN or TITLE needed]'}</span>,
   },
   {

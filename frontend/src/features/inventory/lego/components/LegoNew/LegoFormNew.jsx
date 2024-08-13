@@ -15,6 +15,7 @@ import {
   validateName,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
+import { handleSelectSuggestion } from '../../../../utils/fetchUtils';
 
 function LegoNewForm({ isOpen, onClose }) {
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ function LegoNewForm({ isOpen, onClose }) {
   });
 
   useHandleSuccess(ENTITY.lego, isSuccess, undefined, navigate, setFormData);
+
+  function onSelectSuggestion(selectedLego) {
+    handleSelectSuggestion(selectedLego, 'lego', setFormData);
+  }
 
   async function handleSave(e) {
     e.preventDefault();
@@ -60,6 +65,7 @@ function LegoNewForm({ isOpen, onClose }) {
       canSave={canSave}
       handleSave={handleSave}
       onClose={onClose}
+      handleSelectSuggestion={onSelectSuggestion}
     />
   );
 

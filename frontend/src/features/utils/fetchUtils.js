@@ -6,11 +6,7 @@ export function debounceFetch(functionToDebounce, inputValue, setSuggestions) {
 }
 
 export async function fetchSuggestionsByBookTitle(inputValue, setSuggestions) {
-  console.log('Fetching suggestions for', inputValue);
-
   if (inputValue.length > 2) {
-    console.log('Fetching data...');
-
     const response = await fetch(
       `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
         inputValue
@@ -18,8 +14,6 @@ export async function fetchSuggestionsByBookTitle(inputValue, setSuggestions) {
     );
 
     const data = await response.json();
-
-    console.log(data);
 
     const bookSuggestions = data.items
       ? data.items.map((item) => {
@@ -107,21 +101,44 @@ export async function fetchSuggestionsByBookISBN(inputValue, setSuggestions) {
   }
 }
 
-export function handleSelectSuggestion(book, isbn, setFormData) {
+export function handleSelectSuggestion(suggestion, type, setFormData) {
   setFormData((prevFormData) => {
-    const updatedFormData = {
-      ...prevFormData,
-      title: book.title || '',
-      authors: book.authors?.join(', ') || 'N/A',
-      publisher: book.publisher || 'N/A',
-      publishedDate: book.publishedDate || '1900-01-01',
-      description: book.description || 'N/A',
-      isbn: book.isbn || '',
-      categories: book.categories?.join(', ') || 'N/A',
-      thumbnailUrl: book.thumbnailUrl || 'N/A',
-      imageUrl: book.imageUrl || 'N/A',
-      language: book.language || 'N/A',
-    };
+    let updatedFormData = { ...prevFormData };
+
+    switch (type) {
+      case 'book':
+        updatedFormData = {
+          ...updatedFormData,
+
+          title: suggestion.title,
+          authors: suggestion.authors?.join(', ') || 'N/A',
+          publisher: suggestion.publisher || 'N/A',
+          publishedDate: suggestion.publishedDate || '1900-01-01',
+          description: suggestion.description || 'N/A',
+          isbn: suggestion.isbn,
+          categories: suggestion.categories?.join(', ') || 'N/A',
+          thumbnailUrl: suggestion.thumbnailUrl || 'N/A',
+          imageUrl: suggestion.imageUrl || 'N/A',
+          language: suggestion.language || 'N/A',
+        };
+        break;
+
+      case 'lego':
+        updatedFormData = {
+          ...updatedFormData,
+
+          name: suggestion.name,
+          setNumber: suggestion.setNumber,
+          thumbnailUrl: suggestion.thumbnailUrl || 'N/A',
+          imageUrl: suggestion.imageUrl || 'N/A',
+          themeId: suggestion.themeId || 'N/A',
+          year: suggestion.year || 'N/A',
+        };
+        break;
+
+      default:
+        console.log('Unhandled suggestion type:', type);
+    }
 
     return updatedFormData;
   });
@@ -151,5 +168,70 @@ export async function handleIsbnScan(isbn, setIsScanning, setFormData) {
     toast.success('Fetched!');
   } else {
     toast.error(`No book found with ISBN: ${isbn}`);
+  }
+}
+
+export async function fetchLegoSetByNumber(setNumber, setSuggestions) {
+  // if (setNumber.length > 2) {
+  //   const apiKey = import.meta.env.VITE_REBRICKABLE_API_KEY;
+  //   const response = await fetch(
+  //     `https://rebrickable.com/api/v3/lego/sets/${encodeURIComponent(
+  //       setNumber
+  //     )}/?key=${apiKey}`
+  //   );
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  //   const data = await response.json();
+  //   const legoSet = data
+  //     ? {
+  //         title: data.name,
+  //       }
+  //     : {};
+  //   setSuggestions([legoSet]);
+  // } else {
+  //   setSuggestions([]);
+  // }
+}
+
+export async function fetchLegoSetByName(setName, setResults) {
+  if (setName.length > 2) {
+    const response = await fetch(
+      `https://rebrickable.com/api/v3/lego/sets/?search=${encodeURIComponent(
+        setName
+      )}&page_size=5`,
+      {
+        headers: {
+          Authorization: `key ${import.meta.env.VITE_REBRICKABLE_API_KEY}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('LEGO data:', data);
+
+    const legoSetSuggestions = data.results
+      ? data.results.map((set) => {
+          const legoSet = {
+            id: set.set_num,
+            name: set.name,
+            setNumber: set.set_num,
+            thumbnailUrl: set.set_img_url || 'N/A',
+            imageUrl: set.set_img_url || 'N/A',
+            themeId: set.theme_id ? set.theme_id.toString() : 'N/A',
+            year: set.year ? set.year.toString() : 'N/A',
+          };
+
+          return legoSet;
+        })
+      : [];
+
+    setResults(legoSetSuggestions);
+  } else {
+    setResults([]);
   }
 }

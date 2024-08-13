@@ -1,6 +1,6 @@
 import { DynamicForm } from '../../../../../components/common/FormComponents.jsx';
 import { handleClick } from '../../../../utils/formUtils.jsx';
-import getLegoFormFields from '../../legoFormData.js';
+import getLegoFormFields from '../../legoFormData';
 
 function LegoFormTableEdit({
   formData,

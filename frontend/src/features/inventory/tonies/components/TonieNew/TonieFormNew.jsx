@@ -15,6 +15,7 @@ import {
   validateName,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
+import { handleSelectSuggestion } from '../../../../utils/fetchUtils';
 
 function TonieFormNew({ isOpen, onClose }) {
   const navigate = useNavigate();

@@ -10,6 +10,7 @@ function FormInputWithSuggestions({
   onSelectSuggestion,
   validClass,
   fetchSuggestions,
+  renderItem,
   children,
 }) {
   const [inputValue, setInputValue] = useState(value);
@@ -58,7 +59,7 @@ function FormInputWithSuggestions({
   return (
     <>
       <label htmlFor={inputId} className='form__label'>
-        {label}:{children}
+        {label}: {children}
       </label>
       <div className='form__input-container'>
         <input
@@ -75,6 +76,7 @@ function FormInputWithSuggestions({
           <SuggestionsDropdown
             suggestions={suggestions}
             onSelectSuggestion={handleSelectSuggestion}
+            renderItem={renderItem}
           />
         )}
       </div>

@@ -294,6 +294,8 @@ export function generateLegoNewPayload(formData) {
     setNumber: setDefaultValue(formData.setNumber, uuidv4()),
     thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
     imageUrl: setDefaultValue(formData.imageUrl),
+    themeId: setDefaultValue(formData.themeId),
+    year: setDefaultValue(formData.year),
     isOnWishlist: formData.isOnWishlist,
   };
 }
@@ -365,6 +367,8 @@ export function generateExistingLegoPayload(lego, formData) {
     setNumber: formData.setNumber,
     thumbnailUrl: formData.thumbnailUrl,
     imageUrl: formData.imageUrl,
+    themeId: formData.themeId,
+    year: formData.year,
     isOnWishlist: formData.isOnWishlist,
   };
 }

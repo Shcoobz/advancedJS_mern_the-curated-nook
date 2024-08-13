@@ -48,8 +48,8 @@ function BookFormNew({ isOpen, onClose }) {
     await handleIsbnScan(isbn, setIsScanning, setFormData);
   }
 
-  function onSelectSuggestion(book) {
-    handleSelectSuggestion(book, undefined, setFormData);
+  function onSelectSuggestion(selectedBook) {
+    handleSelectSuggestion(selectedBook, 'book', setFormData);
   }
 
   async function handleSave(e) {

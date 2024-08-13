@@ -22,6 +22,14 @@ const legoSchema = new mongoose.Schema({
     default: 'N/A',
     trim: true,
   },
+  themeId: {
+    type: String,
+    trim: true,
+  },
+  year: {
+    type: String,
+    trim: true,
+  },
   isOnWishlist: {
     type: Boolean,
     default: false,
