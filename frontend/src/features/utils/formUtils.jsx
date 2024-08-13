@@ -61,6 +61,9 @@ export function createInitialFormState(type, data = null) {
             setNumber: data.setNumber,
             thumbnailUrl: data.thumbnailUrl,
             imageUrl: data.imageUrl,
+            themeId: data.themeId,
+            themeName: data.themeName,
+            year: data.year,
             isOnWishlist: data.isOnWishlist,
           }
         : {
@@ -69,6 +72,9 @@ export function createInitialFormState(type, data = null) {
             setNumber: DEFAULT.emptyString,
             thumbnailUrl: DEFAULT.emptyString,
             imageUrl: DEFAULT.emptyString,
+            themeId: DEFAULT.emptyString,
+            themeName: DEFAULT.emptyString,
+            year: DEFAULT.emptyString,
             isOnWishlist: false,
           };
 
@@ -295,6 +301,7 @@ export function generateLegoNewPayload(formData) {
     thumbnailUrl: setDefaultValue(formData.thumbnailUrl),
     imageUrl: setDefaultValue(formData.imageUrl),
     themeId: setDefaultValue(formData.themeId),
+    themeName: setDefaultValue(formData.themeName),
     year: setDefaultValue(formData.year),
     isOnWishlist: formData.isOnWishlist,
   };
@@ -368,6 +375,7 @@ export function generateExistingLegoPayload(lego, formData) {
     thumbnailUrl: formData.thumbnailUrl,
     imageUrl: formData.imageUrl,
     themeId: formData.themeId,
+    themeName: formData.themeName,
     year: formData.year,
     isOnWishlist: formData.isOnWishlist,
   };

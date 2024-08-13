@@ -13,7 +13,8 @@ const getLegoFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     onChange: handleFieldChange,
     onSelectSuggestion: handleSelectSuggestion,
     validClass: getInputClass(formData.validSetNumber, 'setNumber'),
-    // fetchSuggestions: fetchLegoSetByNumber,
+    fetchSuggestions: fetchLegoSetByNumber,
+    renderItem: (item) => `${item.name} - ${item.setNumber}`,
     children: <span className='nowrap'>{'[SET NUMBER or TITLE needed]'}</span>,
   },
   {
@@ -54,6 +55,15 @@ const getLegoFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     name: 'themeId',
     type: 'text',
     value: formData.themeId,
+    onChange: handleFieldChange,
+  },
+  {
+    component: FormInput,
+    label: 'Theme Name:',
+    id: 'themeName',
+    name: 'themeName',
+    type: 'text',
+    value: formData.themeName,
     onChange: handleFieldChange,
   },
   {

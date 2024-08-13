@@ -20,6 +20,7 @@ export function createLegoObject(lego) {
     thumbnailUrl: lego.thumbnailUrl || DEFAULT.NOT_AVAILABLE,
     imageUrl: lego.imageUrl || DEFAULT.NOT_AVAILABLE,
     themeId: lego.themeId || DEFAULT.NOT_AVAILABLE,
+    themeName: lego.themeName || DEFAULT.NOT_AVAILABLE,
     year: lego.year || DEFAULT.NOT_AVAILABLE,
     isOnWishlist: lego.isOnWishlist || DEFAULT.WISHLIST,
   };
@@ -66,6 +67,7 @@ export function updateLegoFields(lego, updatedFields) {
   lego.thumbnail = updatedFields.thumbnail || DEFAULT.EMPTY_STRING;
   lego.imageUrl = updatedFields.imageUrl || DEFAULT.EMPTY_STRING;
   lego.themeId = updatedFields.themeId || DEFAULT.EMPTY_STRING;
+  lego.themeName = updatedFields.themeName || DEFAULT.EMPTY_STRING;
   lego.year = updatedFields.year || DEFAULT.EMPTY_STRING;
   lego.isOnWishlist = updatedFields.isOnWishlist || DEFAULT.WISHLIST;
 }
