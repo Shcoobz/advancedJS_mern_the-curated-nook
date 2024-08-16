@@ -24,6 +24,10 @@
   flex: 0 0 485px;
 }
 
+.lego__modal-image--stock {
+  flex: 0 0 385px;
+}
+
 .lego__cover-image {
   width: 100%;
   height: auto;

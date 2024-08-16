@@ -8,6 +8,7 @@ import SearchInput from '../../../../components/common/SearchInput';
 import { useMemo, useState } from 'react';
 import { generateTableContent, genericFilter } from '../../../utils/utils';
 import User from '../User/User';
+import NoResults from '../../../../components/common/NoResults';
 
 function UsersListTable({ users, openModal }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,13 +24,13 @@ function UsersListTable({ users, openModal }) {
 
   return (
     <div>
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Users' />
+
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.USER.list.paragraph}
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
-
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Users' />
 
       <table className='table table__users'>
         <thead className='table__thead'>
@@ -43,6 +44,7 @@ function UsersListTable({ users, openModal }) {
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
+      {ids.length === 0 && <NoResults />}
     </div>
   );
 }

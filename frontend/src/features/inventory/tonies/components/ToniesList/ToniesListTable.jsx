@@ -7,6 +7,7 @@ import Tonie from '../Tonie/Tonie';
 import { useMemo, useState } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import SearchInput from '../../../../../components/common/SearchInput';
+import NoResults from '../../../../../components/common/NoResults';
 
 function ToniesListTable({ tonies, openModal }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,13 +23,13 @@ function ToniesListTable({ tonies, openModal }) {
 
   return (
     <div>
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Tonies' />
+
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.TONIE.list.paragraph}
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
-
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Tonies' />
 
       <table className='table table__tonies'>
         <thead className='table__thead'>
@@ -42,6 +43,7 @@ function ToniesListTable({ tonies, openModal }) {
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
+      {ids.length === 0 && <NoResults />}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import Lego from '../Lego/Lego';
 import { useMemo, useState } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import SearchInput from '../../../../../components/common/SearchInput';
+import NoResults from '../../../../../components/common/NoResults';
 
 function LegoListTable({ lego, openModal }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,13 +23,13 @@ function LegoListTable({ lego, openModal }) {
 
   return (
     <div>
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Lego Sets' />
+
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.LEGO.list.paragraph}
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
-
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Lego Sets' />
 
       <table className='table table__lego'>
         <thead className='table__thead'>
@@ -42,6 +43,7 @@ function LegoListTable({ lego, openModal }) {
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
+      {ids.length === 0 && <NoResults />}
     </div>
   );
 }

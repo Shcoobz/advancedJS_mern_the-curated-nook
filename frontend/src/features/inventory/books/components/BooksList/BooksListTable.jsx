@@ -7,6 +7,7 @@ import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import Book from '../Book/Book';
 import { useMemo, useState } from 'react';
 import SearchInput from '../../../../../components/common/SearchInput';
+import NoResults from '../../../../../components/common/NoResults';
 
 function BooksListTable({ books, openModal }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,13 +23,13 @@ function BooksListTable({ books, openModal }) {
 
   return (
     <div>
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Books' />
+
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
-
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Books' />
 
       <table className='table table__books'>
         <thead className='table__thead'>
@@ -43,6 +44,7 @@ function BooksListTable({ books, openModal }) {
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
+      {ids.length === 0 && <NoResults />}
     </div>
   );
 }

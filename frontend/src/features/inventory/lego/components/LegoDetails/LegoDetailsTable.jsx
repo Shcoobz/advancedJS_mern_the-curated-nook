@@ -18,6 +18,9 @@ function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
     ? lego.thumbnailUrl
     : stockImageLego;
 
+  const imageClass =
+    imageUrl === stockImageLego ? 'lego__modal-image--stock' : 'lego__modal-image';
+
   const tableContent = (
     <div className='lego__modal-container'>
       <TableItemDetailHeader
@@ -28,7 +31,7 @@ function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
       />
 
       <div className='lego__modal-content'>
-        <div className='lego__modal-image'>
+        <div className={imageClass}>
           <TableItemDetailImage
             src={imageUrl}
             alt={`Cover of ${lego.title}`}
