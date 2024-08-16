@@ -18,6 +18,7 @@ function UsersList() {
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 

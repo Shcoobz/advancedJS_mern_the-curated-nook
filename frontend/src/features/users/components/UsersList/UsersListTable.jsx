@@ -4,39 +4,22 @@ import {
   TableAboveHeader,
   TableCellHeader,
 } from '../../../../components/common/TableComponents';
-
+import SearchInput from '../../../../components/common/SearchInput';
+import { useMemo, useState } from 'react';
+import { generateTableContent, genericFilter } from '../../../utils/utils';
 import User from '../User/User';
-import stockImageUser from '../../../../img/stockimageUser.png';
-import SortableTableHeader from '../../../../components/common/SortableTableHeader';
 
 function UsersListTable({ users, openModal }) {
-  const { ids, entities } = users;
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const tableContent = ids?.length
-    ? ids.map((userId, index) => {
-        const user = entities[userId];
-        const thumbnailUrl =
-          user.thumbnailUrl && user.thumbnailUrl !== 'N/A'
-            ? user.thumbnailUrl
-            : stockImageUser;
+  const filteredUsers = useMemo(
+    () => genericFilter({ fields: ['username', 'roles'] }, users, searchTerm),
+    [users, searchTerm]
+  );
 
-        return (
-          <tr
-            key={userId}
-            onClick={() => openModal(user)}
-            className={'table__row-cursor'}>
-            <td className='table__cell item__number'>{index + 1}</td>
-            <td className='table__cell user__thumbnail-cell'>
-              <img src={thumbnailUrl} alt={user.title} />
-            </td>
-            <User
-              userId={userId}
-              onEdit={() => openModal({ ...user, isEditing: true })}
-            />
-          </tr>
-        );
-      })
-    : null;
+  const { ids, entities } = filteredUsers;
+
+  const tableContent = generateTableContent(ids, entities, openModal, User, 'user');
 
   return (
     <div>
@@ -45,6 +28,8 @@ function UsersListTable({ users, openModal }) {
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
+
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Users' />
 
       <table className='table table__users'>
         <thead className='table__thead'>

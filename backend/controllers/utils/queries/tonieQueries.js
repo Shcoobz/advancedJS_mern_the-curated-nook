@@ -24,10 +24,13 @@ export async function createTonie(tonieObject) {
 export function createTonieObject(tonie) {
   return {
     name: tonie.name,
-    titleList: tonie.titleList || DEFAULT.EMPTY_ARRAY,
-    description: tonie.description || DEFAULT.NO_DESCRIPTION,
-    thumbnailUrl: tonie.thumbnailUrl || DEFAULT.EMPTY_STRING,
-    imageUrl: tonie.imageUrl || DEFAULT.EMPTY_STRING,
+    titleList:
+      Array.isArray(tonie.titleList) && tonie.titleList.length === 0
+        ? DEFAULT.NOT_AVAILABLE_ARRAY
+        : tonie.titleList || DEFAULT.NOT_AVAILABLE_ARRAY,
+    description: tonie.description || DEFAULT.NOT_AVAILABLE,
+    thumbnailUrl: tonie.thumbnailUrl || DEFAULT.NOT_AVAILABLE,
+    imageUrl: tonie.imageUrl || DEFAULT.NOT_AVAILABLE,
     isOnWishlist: tonie.isOnWishlist || DEFAULT.WISHLIST,
   };
 }
@@ -38,10 +41,13 @@ export async function findTonieById(id) {
 
 export function updateTonieFields(tonie, updatedFields) {
   tonie.name = updatedFields.name;
-  tonie.titleList = updatedFields.titleList || DEFAULT.EMPTY_ARRAY;
-  tonie.description = updatedFields.description || DEFAULT.NO_DESCRIPTION;
-  tonie.thumbnailUrl = updatedFields.thumbnailUrl || DEFAULT.EMPTY_STRING;
-  tonie.imageUrl = updatedFields.imageUrl || DEFAULT.EMPTY_STRING;
+  tonie.titleList =
+    Array.isArray(updatedFields.titleList) && updatedFields.titleList.length === 0
+      ? DEFAULT.NOT_AVAILABLE_ARRAY
+      : updatedFields.titleList || DEFAULT.NOT_AVAILABLE_ARRAY;
+  tonie.description = updatedFields.description || DEFAULT.NOT_AVAILABLE;
+  tonie.thumbnailUrl = updatedFields.thumbnailUrl || DEFAULT.NOT_AVAILABLE;
+  tonie.imageUrl = updatedFields.imageUrl || DEFAULT.NOT_AVAILABLE;
   tonie.isOnWishlist = updatedFields.isOnWishlist || DEFAULT.WISHLIST;
 }
 

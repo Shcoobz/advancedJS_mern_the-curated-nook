@@ -3,39 +3,22 @@ import {
   TableAboveHeader,
   TableCellHeader,
 } from '../../../../../components/common/TableComponents';
-
 import Lego from '../Lego/Lego';
-import stockImageLego from '../../../../../img/stockimageLego.png';
+import { useMemo, useState } from 'react';
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
+import SearchInput from '../../../../../components/common/SearchInput';
 
 function LegoListTable({ lego, openModal }) {
-  const { ids, entities } = lego;
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const tableContent = ids?.length
-    ? ids.map((legoId, index) => {
-        const lego = entities[legoId];
-        const thumbnailUrl =
-          lego.thumbnailUrl && lego.thumbnailUrl !== 'N/A'
-            ? lego.thumbnailUrl
-            : stockImageLego;
+  const filteredLego = useMemo(
+    () => genericFilter({ fields: ['name', 'setNumber'] }, lego, searchTerm),
+    [lego, searchTerm]
+  );
 
-        return (
-          <tr
-            key={legoId}
-            onClick={() => openModal(lego)}
-            className={'table__row-cursor'}>
-            <td className='table__cell item__setNumber'>{index + 1}</td>
-            <td className='table__cell lego__thumbnail-cell'>
-              <img src={thumbnailUrl} alt={lego.title} />
-            </td>
-            <Lego
-              lego={lego}
-              legoId={legoId}
-              onEdit={() => openModal({ ...lego, isEditing: true })}
-            />
-          </tr>
-        );
-      })
-    : null;
+  const { ids, entities } = filteredLego;
+
+  const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego');
 
   return (
     <div>
@@ -44,6 +27,8 @@ function LegoListTable({ lego, openModal }) {
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
+
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Lego Sets' />
 
       <table className='table table__lego'>
         <thead className='table__thead'>

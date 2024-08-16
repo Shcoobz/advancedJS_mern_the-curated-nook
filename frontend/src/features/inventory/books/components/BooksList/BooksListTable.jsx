@@ -3,39 +3,22 @@ import {
   TableCellHeader,
   TableAboveHeader,
 } from '../../../../../components/common/TableComponents';
-
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import Book from '../Book/Book';
-import stockImageBook from '../../../../../img/stockimageBook.png';
+import { useMemo, useState } from 'react';
+import SearchInput from '../../../../../components/common/SearchInput';
 
 function BooksListTable({ books, openModal }) {
-  const { ids, entities } = books;
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const tableContent = ids?.length
-    ? ids.map((bookId, index) => {
-        const book = entities[bookId];
-        const thumbnailUrl =
-          book.thumbnailUrl && book.thumbnailUrl !== 'N/A'
-            ? book.thumbnailUrl
-            : stockImageBook;
+  const filteredBooks = useMemo(
+    () => genericFilter({ fields: ['title', 'categories'] }, books, searchTerm),
+    [books, searchTerm]
+  );
 
-        return (
-          <tr
-            key={bookId}
-            onClick={() => openModal(book)}
-            className={'table__row-cursor'}>
-            <td className='table__cell item__number'>{index + 1}</td>
-            <td className='table__cell book__thumbnail-cell'>
-              <img src={thumbnailUrl} alt={book.title} />
-            </td>
-            <Book
-              book={book}
-              bookId={bookId}
-              onEdit={() => openModal({ ...book, isEditing: true })}
-            />
-          </tr>
-        );
-      })
-    : null;
+  const { ids, entities } = filteredBooks;
+
+  const tableContent = generateTableContent(ids, entities, openModal, Book, 'book');
 
   return (
     <div>
@@ -44,6 +27,8 @@ function BooksListTable({ books, openModal }) {
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
+
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Books' />
 
       <table className='table table__books'>
         <thead className='table__thead'>

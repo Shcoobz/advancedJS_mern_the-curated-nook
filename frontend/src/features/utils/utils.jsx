@@ -58,3 +58,62 @@ export function getSortDirectionSymbol(key, sortConfig, resetSort) {
 
   return DEFAULT.emptyString;
 }
+
+export function generateTableContent(
+  ids,
+  entities,
+  openModal,
+  EntityComponent,
+  entityType
+) {
+  return ids?.length
+    ? ids.map((entityId, index) => {
+        const entity = entities[entityId];
+
+        return (
+          <tr
+            key={entityId}
+            onClick={() => openModal(entity)}
+            className={'table__row-cursor'}>
+            <EntityComponent
+              {...{ [`${entityType}Id`]: entityId }}
+              {...{ [entityType]: entity }}
+              onEdit={() => openModal({ ...entity, isEditing: true })}
+              index={index + 1}
+            />
+          </tr>
+        );
+      })
+    : null;
+}
+
+export function genericFilter({ fields }, collection, searchTerm) {
+  if (!searchTerm) return collection;
+
+  const { ids, entities } = collection;
+  const searchTermLower = searchTerm.toLowerCase();
+
+  const filteredIds = ids.filter((id) => {
+    const entity = entities[id];
+    return fields.some((field) => {
+      const value = entity[field];
+
+      if (typeof value === 'string' && value.toLowerCase().includes(searchTermLower)) {
+        return true;
+      }
+
+      return (
+        Array.isArray(value) &&
+        value.some(
+          (item) =>
+            typeof item === 'string' && item.toLowerCase().includes(searchTermLower)
+        )
+      );
+    });
+  });
+
+  return {
+    ids: filteredIds,
+    entities: collection.entities,
+  };
+}

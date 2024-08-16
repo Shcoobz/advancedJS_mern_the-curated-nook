@@ -13,6 +13,7 @@
 @import './src/css/components/Modal.css';
 @import './src/css/components/Tab.css';
 @import './src/css/components/IsbnScanner.css';
+@import './src/css/components/SearchInput.css';
 
 /* || MODALS */
 @import './src/css/modal/ModalBook.css';

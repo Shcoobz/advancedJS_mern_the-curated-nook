@@ -9,17 +9,19 @@ import {
   TableCell,
   TableCellActions,
 } from '../../../../../components/common/TableComponents';
+import stockImageBook from '../../../../../img/stockimageBook.png';
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
-function BookTable({ book, onEdit }) {
+function BookTable({ book, onEdit, index }) {
   const [deleteBook] = useDeleteBookMutation();
   const dispatch = useDispatch();
   const bookCategoryList = formatCategories(book.categories);
-
   const truncatedDescription = truncateText(book.description, 298);
+  const thumbnailUrl =
+    book.thumbnailUrl && book.thumbnailUrl !== 'N/A' ? book.thumbnailUrl : stockImageBook;
 
   async function handleDelete(e) {
     await handleDeleteEntityList(deleteBook, book.id, TOAST.SUCCESS.BOOK.deleted);
@@ -29,6 +31,12 @@ function BookTable({ book, onEdit }) {
 
   return (
     <>
+      <TableCell className='table__cell item__number' content={index} />
+      <TableCell
+        className='table__cell user__thumbnail-cell'
+        content={<img src={thumbnailUrl} alt={book.title || 'Book'} />}
+      />
+
       <TableCell className='book__title' content={book.title} />
       <TableCell className='book__description' content={truncatedDescription} />
       <TableCell className='book__categories' content={bookCategoryList} />

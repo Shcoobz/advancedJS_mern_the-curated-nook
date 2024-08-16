@@ -173,7 +173,11 @@ export function useHandleSuccess(type, isSuccess, isDelSuccess, navigate, setFor
 }
 
 export const setDefaultValue = (value, defaultValue = 'N/A') => {
-  return value && value.trim() ? value.trim() : defaultValue;
+  if (Array.isArray(value)) {
+    return value.map((item) => (typeof item === 'string' ? item.trim() : defaultValue));
+  }
+
+  return typeof value === 'string' ? value.trim() : defaultValue;
 };
 
 export function setDefaultDate(value) {

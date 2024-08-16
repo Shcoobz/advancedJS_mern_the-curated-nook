@@ -4,37 +4,21 @@ import {
   TableCellHeader,
 } from '../../../../../components/common/TableComponents';
 import Tonie from '../Tonie/Tonie';
-import stockImageTonie from '../../../../../img/stockimageTonie.png';
+import { useMemo, useState } from 'react';
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
+import SearchInput from '../../../../../components/common/SearchInput';
 
 function ToniesListTable({ tonies, openModal }) {
-  const { ids, entities } = tonies;
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const tableContent = ids?.length
-    ? ids.map((tonieId, index) => {
-        const tonie = entities[tonieId];
-        const thumbnailUrl =
-          tonie.thumbnailUrl && tonie.thumbnailUrl !== 'N/A'
-            ? tonie.thumbnailUrl
-            : stockImageTonie;
+  const filteredTonies = useMemo(
+    () => genericFilter({ fields: ['name'] }, tonies, searchTerm),
+    [tonies, searchTerm]
+  );
 
-        return (
-          <tr
-            key={tonieId}
-            onClick={() => openModal(tonie)}
-            className={'table__row-cursor'}>
-            <td className='table__cell item__number'>{index + 1}</td>
-            <td className='table__cell tonie__thumbnail-cell'>
-              <img src={thumbnailUrl} alt={tonie.titleList} />
-            </td>
-            <Tonie
-              tonie={tonie}
-              tonieId={tonieId}
-              onEdit={() => openModal({ ...tonie, isEditing: true })}
-            />
-          </tr>
-        );
-      })
-    : null;
+  const { ids, entities } = filteredTonies;
+
+  const tableContent = generateTableContent(ids, entities, openModal, Tonie, 'tonie');
 
   return (
     <div>
@@ -43,6 +27,8 @@ function ToniesListTable({ tonies, openModal }) {
         onCreateClick={() => openModal()}
         onWishlistClick={undefined}
       />
+
+      <SearchInput setSearchTerm={setSearchTerm} searchType='Tonies' />
 
       <table className='table table__tonies'>
         <thead className='table__thead'>

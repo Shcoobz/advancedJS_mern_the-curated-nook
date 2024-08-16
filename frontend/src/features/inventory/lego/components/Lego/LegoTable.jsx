@@ -7,11 +7,13 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { handleDeleteEntityList, isUUID } from '../../../../utils/formUtils';
 import { TOAST } from '../../../../../config/common/messages';
+import stockImageLego from '../../../../../img/stockimageLego.png';
 
-function LegoTable({ lego, onEdit }) {
+function LegoTable({ lego, onEdit, index }) {
   const [deleteLego] = useDeleteLegoMutation();
   const dispatch = useDispatch();
-
+  const thumbnailUrl =
+    lego.thumbnailUrl && lego.thumbnailUrl !== 'N/A' ? lego.thumbnailUrl : stockImageLego;
   const displaySetNumber = isUUID(lego.setNumber) ? 'N/A' : lego.setNumber;
 
   async function handleDelete(e) {
@@ -22,6 +24,11 @@ function LegoTable({ lego, onEdit }) {
 
   return (
     <>
+      <TableCell className='table__cell item__number' content={index} />
+      <TableCell
+        className='table__cell user__thumbnail-cell'
+        content={<img src={thumbnailUrl} alt={lego.name || 'Lego Set'} />}
+      />
       <TableCell className='lego__name' content={lego.name} />
       <TableCell className='lego__setNumber' content={displaySetNumber} />
 
