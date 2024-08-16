@@ -6,11 +6,6 @@ const legoSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  description: {
-    type: String,
-    default: 'N/A',
-    trim: true,
-  },
   setNumber: [
     {
       type: String,

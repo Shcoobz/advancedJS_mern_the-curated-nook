@@ -39,7 +39,10 @@ function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
 
         <div className='lego__modal-info'>
           <div className='lego__modal-details'>
-            <TableItemDetail label='SetNumber:' value={displaySetNumber} />
+            <TableItemDetail label='Set number:' value={displaySetNumber} />
+            <TableItemDetail label='Theme ID:' value={lego.themeId} />
+            <TableItemDetail label='Theme name:' value={lego.themeName} />
+            <TableItemDetail label='Year:' value={lego.year} />
           </div>
         </div>
       </div>

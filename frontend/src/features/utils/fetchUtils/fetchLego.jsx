@@ -26,12 +26,11 @@ async function transformSetData(results) {
         id: set.set_num,
         name: set.name,
         setNumber: set.set_num,
-        year: set.year ? set.year.toString() : 'N/A',
-        theme: set.theme_name || 'N/A',
         thumbnailUrl: set.set_img_url || 'N/A',
         imageUrl: set.set_img_url || 'N/A',
-        themeId: set.theme_id ? set.theme_id.toString() : 'N/A',
+        themeId: set.theme_id.toString() || 'N/A',
         themeName: themeName || 'N/A',
+        year: set.year.toString() || 'N/A',
       };
     })
   );

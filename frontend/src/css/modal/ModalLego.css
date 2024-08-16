@@ -2,7 +2,7 @@
   width: 95%;
   max-width: 1100px;
   height: 95%;
-  max-height: 610px;
+  max-height: 525px;
   display: flex;
   flex-direction: column;
 }
@@ -37,6 +37,6 @@
   flex-direction: column;
 }
 
-/* .lego__modal-details {
+.lego__modal-details {
   margin-bottom: 10px;
-} */
+}
