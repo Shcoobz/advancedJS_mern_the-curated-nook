@@ -153,3 +153,29 @@ export const ENTITY = {
   lego: 'lego',
   book: 'book',
 };
+
+export const SORTING = {
+  ORDER: {
+    ascending: 1,
+    descending: -1,
+    equal: 0,
+  },
+  DIRECTION: {
+    ascending: 'ascending',
+    descending: 'descending',
+  },
+  SYMBOL: {
+    ascending: ' ▲',
+    descending: ' ▼',
+    reset: '✖',
+  },
+  TYPE: {
+    user: 'user',
+    note: 'note',
+  },
+  ACTIONS: {
+    sortDesc: 'Sort Descending',
+    sortAsc: 'Sort Ascending',
+    resetSorting: 'Reset Sorting',
+  },
+};

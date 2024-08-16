@@ -41,7 +41,6 @@ function UserTable({ user, onEdit }) {
         content={userRolesString}
         statusClass={cellStatus}
       />
-
       <TableCellActions
         onEdit={onEdit}
         handleDelete={handleDelete}

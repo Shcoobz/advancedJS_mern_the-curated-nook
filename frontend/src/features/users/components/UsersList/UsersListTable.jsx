@@ -7,6 +7,7 @@ import {
 
 import User from '../User/User';
 import stockImageUser from '../../../../img/stockimageUser.png';
+import SortableTableHeader from '../../../../components/common/SortableTableHeader';
 
 function UsersListTable({ users, openModal }) {
   const { ids, entities } = users;

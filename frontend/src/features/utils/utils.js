@@ -1,3 +1,5 @@
+import { DEFAULT, SORTING } from '../../config/common/constants';
+
 export function replaceHtmlEntities(str) {
   return str.replace(/&quot;/g, '"');
 }
@@ -24,4 +26,35 @@ export function formatDate(dateString) {
   month = month.length < 2 ? '0' + month : month;
 
   return `${day}-${month}-${year}`;
+}
+
+export function getSortDirectionSymbol(key, sortConfig, resetSort) {
+  if (sortConfig.key === key) {
+    return (
+      <>
+        <span
+          title={
+            sortConfig.direction === SORTING.DIRECTION.ascending
+              ? SORTING.ACTIONS.sortDesc
+              : SORTING.ACTIONS.sortAsc
+          }
+          className='table__sort-symbol'>
+          {sortConfig.direction === SORTING.DIRECTION.ascending
+            ? SORTING.SYMBOL.ascending
+            : SORTING.SYMBOL.descending}
+        </span>
+        <span
+          onClick={(e) => {
+            e.stopPropagation();
+            resetSort();
+          }}
+          title={SORTING.ACTIONS.resetSorting}
+          className='table__reset-sort-symbol'>
+          {SORTING.SYMBOL.reset}
+        </span>
+      </>
+    );
+  }
+
+  return DEFAULT.emptyString;
 }
