@@ -1,6 +1,9 @@
 import { FormCheckbox, FormInput } from '../../../components/common/FormComponents';
 import FormInputWithSuggestions from '../../../components/common/FormInputWithSuggestions';
-import { fetchLegoSetByName, fetchLegoSetByNumber } from '../../utils/fetchUtils';
+import {
+  fetchLegoSetByNumber,
+  fetchLegoSetByName,
+} from '../../utils/fetchUtils/fetchLego';
 import { getInputClass } from '../../utils/formUtils';
 
 const getLegoFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [

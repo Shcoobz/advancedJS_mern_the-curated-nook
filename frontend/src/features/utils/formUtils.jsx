@@ -58,6 +58,7 @@ export function createInitialFormState(type, data = null) {
         ? {
             name: data.name,
             validName: false,
+            description: data.description,
             setNumber: data.setNumber,
             thumbnailUrl: data.thumbnailUrl,
             imageUrl: data.imageUrl,
@@ -69,6 +70,7 @@ export function createInitialFormState(type, data = null) {
         : {
             name: DEFAULT.emptyString,
             validName: false,
+            description: DEFAULT.emptyString,
             setNumber: DEFAULT.emptyString,
             thumbnailUrl: DEFAULT.emptyString,
             imageUrl: DEFAULT.emptyString,

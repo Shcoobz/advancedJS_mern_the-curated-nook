@@ -11,6 +11,12 @@ export const API = {
     usersList: 'usersList',
     booksList: 'booksList',
   },
+  KEY: {
+    rebrickable: import.meta.env.VITE_REBRICKABLE_API_KEY,
+  },
+  BASE_URL: {
+    rebrickable: 'https://rebrickable.com/api/v3/lego/',
+  },
 };
 
 export const PATH = {
