@@ -17,9 +17,9 @@ export function WishlistButton({ onClick }) {
   );
 }
 
-export function CreateButton({ onClick }) {
+export function CreateButton({ onClick, text }) {
   return (
-    <button className='icon-button button__create' title='New' onClick={onClick}>
+    <button className='icon-button button__create' title={text} onClick={onClick}>
       <FontAwesomeIcon icon={faPlus} />
     </button>
   );
