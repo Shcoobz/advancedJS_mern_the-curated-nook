@@ -1,0 +1,14 @@
+.no-results-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.no-results-container p {
+  font-size: 16px;
+  color: #666;
+  font-size: 26px;
+  margin-top: 20px;
+}

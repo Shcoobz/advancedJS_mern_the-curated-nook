@@ -4,14 +4,14 @@ import {
   TableAboveHeader,
   TableCellHeader,
 } from '../../../../components/common/TableComponents';
-import SearchInput from '../../../../components/common/SearchInput';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../utils/utils';
+import { useOutletContext } from 'react-router-dom';
 import User from '../User/User';
 import NoResults from '../../../../components/common/NoResults';
 
 function UsersListTable({ users, openModal }) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const { searchTerm } = useOutletContext();
 
   const filteredUsers = useMemo(
     () => genericFilter({ fields: ['username', 'roles'] }, users, searchTerm),
@@ -24,8 +24,6 @@ function UsersListTable({ users, openModal }) {
 
   return (
     <div>
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Users' />
-
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.USER.list.paragraph}
         onCreateClick={() => openModal()}

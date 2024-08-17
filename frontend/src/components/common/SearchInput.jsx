@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { DEFAULT, SORTING } from '../../config/common/constants';
 
-function SearchInput({ setSearchTerm, searchType = '' }) {
+function SearchInput({ setSearchTerm, currentTab = 'All' }) {
   const [localSearchTerm, setLocalSearchTerm] = useState(DEFAULT.emptyString);
-  const placeholderText = `Search${searchType ? ' ' + searchType : ''}...`;
 
   function handleInputChange(e) {
     const value = e.target.value;
@@ -17,11 +16,19 @@ function SearchInput({ setSearchTerm, searchType = '' }) {
     setSearchTerm(DEFAULT.emptyString);
   }
 
+  function getPlaceholder() {
+    if (currentTab === 'All') {
+      return 'Search ...';
+    } else {
+      return `Search ${currentTab} ...`;
+    }
+  }
+
   return (
     <div className='search-container'>
       <input
         type='text'
-        placeholder={placeholderText}
+        placeholder={getPlaceholder()}
         value={localSearchTerm}
         onChange={handleInputChange}
         className='search-input__input'

@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
 import { LINK } from '../../config/common/constants';
+import SearchInput from '../../components/common/SearchInput';
 
-function Tabs({ currentPath, userCount, bookCount, tonieCount, legoCount, children }) {
+function Tabs({
+  currentPath,
+  userCount,
+  bookCount,
+  tonieCount,
+  legoCount,
+  children,
+  onSearch,
+}) {
   const tabs = [
     { name: 'Users', path: LINK.USER.viewUsers, count: userCount },
     { name: 'Books', path: LINK.BOOK.viewBooks, count: bookCount },
@@ -9,8 +18,13 @@ function Tabs({ currentPath, userCount, bookCount, tonieCount, legoCount, childr
     { name: 'Lego', path: LINK.LEGO.viewLego, count: legoCount },
   ];
 
+  function getCurrentTab() {
+    return tabs.find((tab) => currentPath.includes(tab.path))?.name || 'All';
+  }
+
   return (
     <div className='tabs-container'>
+      <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
       <div className='inventory-header'>Inventory:</div>
       <div className='tabs'>
         {tabs.map((tab) => (

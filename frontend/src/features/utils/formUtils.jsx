@@ -192,9 +192,11 @@ export function setDefaultDate(value) {
   return value === '' ? '1900-01-01' : value;
 }
 
-export const createUpdateField = (setFormData) => (field, value) => {
-  setFormData((prev) => ({ ...prev, [field]: value }));
-};
+export function createUpdateField(setFormData) {
+  return (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+}
 
 export function handleClick(updateField) {
   return function (event) {
@@ -235,6 +237,7 @@ export async function handleDeleteEntityList(deleteFunction, entityId, successMe
 
 export function isUUID(string) {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
   return uuidRegex.test(string);
 }
 

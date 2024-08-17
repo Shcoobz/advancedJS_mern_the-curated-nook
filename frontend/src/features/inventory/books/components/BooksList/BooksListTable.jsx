@@ -5,12 +5,12 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import Book from '../Book/Book';
-import { useMemo, useState } from 'react';
-import SearchInput from '../../../../../components/common/SearchInput';
+import { useMemo } from 'react';
 import NoResults from '../../../../../components/common/NoResults';
+import { useOutletContext } from 'react-router-dom';
 
 function BooksListTable({ books, openModal }) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const { searchTerm } = useOutletContext();
 
   const filteredBooks = useMemo(
     () => genericFilter({ fields: ['title', 'categories'] }, books, searchTerm),
@@ -23,8 +23,6 @@ function BooksListTable({ books, openModal }) {
 
   return (
     <div>
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Books' />
-
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
         onCreateClick={() => openModal()}

@@ -4,13 +4,13 @@ import {
   TableCellHeader,
 } from '../../../../../components/common/TableComponents';
 import Lego from '../Lego/Lego';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
-import SearchInput from '../../../../../components/common/SearchInput';
 import NoResults from '../../../../../components/common/NoResults';
+import { useOutletContext } from 'react-router-dom';
 
 function LegoListTable({ lego, openModal }) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const { searchTerm } = useOutletContext();
 
   const filteredLego = useMemo(
     () => genericFilter({ fields: ['name', 'setNumber'] }, lego, searchTerm),
@@ -23,8 +23,6 @@ function LegoListTable({ lego, openModal }) {
 
   return (
     <div>
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Lego Sets' />
-
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.LEGO.list.paragraph}
         onCreateClick={() => openModal()}

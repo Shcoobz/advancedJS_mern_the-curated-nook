@@ -4,13 +4,13 @@ import {
   TableCellHeader,
 } from '../../../../../components/common/TableComponents';
 import Tonie from '../Tonie/Tonie';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
-import SearchInput from '../../../../../components/common/SearchInput';
 import NoResults from '../../../../../components/common/NoResults';
+import { useOutletContext } from 'react-router-dom';
 
 function ToniesListTable({ tonies, openModal }) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const { searchTerm } = useOutletContext();
 
   const filteredTonies = useMemo(
     () => genericFilter({ fields: ['name'] }, tonies, searchTerm),
@@ -23,8 +23,6 @@ function ToniesListTable({ tonies, openModal }) {
 
   return (
     <div>
-      <SearchInput setSearchTerm={setSearchTerm} searchType='Tonies' />
-
       <TableAboveHeader
         descriptionText={UI.BS.PAGE.TONIE.list.paragraph}
         onCreateClick={() => openModal()}

@@ -16,8 +16,7 @@ function BackstageLayout() {
   const [bookCount, setBookCount] = useState(null);
   const [tonieCount, setTonieCount] = useState(null);
   const [legoCount, setLegoCount] = useState(null);
-
-  // Todo: add isInCollection && setIsInCollection state here or pass it down?
+  const [searchTerm, setSearchTerm] = useState('');
 
   const showTabs =
     location.pathname.includes(LINK.USER.viewUsers) ||
@@ -31,27 +30,20 @@ function BackstageLayout() {
   const { data: legoInCollectionCountData } = useGetLegoInCollectionCountQuery();
 
   useEffect(() => {
-    if (userCountData) {
-      setUserCount(userCountData.count);
-    }
-
-    if (bookInCollectionCountData) {
-      setBookCount(bookInCollectionCountData.count);
-    }
-
-    if (tonieInCollectionCountData) {
-      setTonieCount(tonieInCollectionCountData.count);
-    }
-
-    if (legoInCollectionCountData) {
-      setLegoCount(legoInCollectionCountData.count);
-    }
+    if (userCountData) setUserCount(userCountData.count);
+    if (bookInCollectionCountData) setBookCount(bookInCollectionCountData.count);
+    if (tonieInCollectionCountData) setTonieCount(tonieInCollectionCountData.count);
+    if (legoInCollectionCountData) setLegoCount(legoInCollectionCountData.count);
   }, [
     userCountData,
     bookInCollectionCountData,
     tonieInCollectionCountData,
     legoInCollectionCountData,
   ]);
+
+  function handleSearch(term) {
+    setSearchTerm(term);
+  }
 
   return (
     <>
@@ -63,8 +55,9 @@ function BackstageLayout() {
             userCount={userCount}
             bookCount={bookCount}
             tonieCount={tonieCount}
-            legoCount={legoCount}>
-            <Outlet />
+            legoCount={legoCount}
+            onSearch={handleSearch}>
+            <Outlet context={{ searchTerm }} />
           </Tabs>
         ) : (
           <Outlet />
