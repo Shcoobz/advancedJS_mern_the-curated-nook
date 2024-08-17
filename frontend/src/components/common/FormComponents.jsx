@@ -62,7 +62,7 @@ export function FormInput({
   type,
   value,
   onChange,
-  validClass = '',
+  validClass,
   children,
 }) {
   return (
@@ -73,7 +73,7 @@ export function FormInput({
       </label>
 
       <input
-        className={`form__input modal__input${validClass}`}
+        className={`form__input ${validClass} modal__input`}
         id={id}
         name={name}
         type={type}

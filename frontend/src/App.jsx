@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { PATH } from './config/common/constants';
+
 import Layout from '../src/components/Layout';
 import Public from '../src/components/Public';
 import Login from '../src/features/auth/components/Login';
@@ -21,7 +23,7 @@ import LegoList from './features/inventory/lego/components/LegoList/LegoList';
 import LegoNewForm from './features/inventory/lego/components/LegoNew/LegoFormNew';
 import LegoEdit from './features/inventory/lego/components/LegoEdit/LegoEdit';
 
-import { PATH } from './config/common/constants';
+import Prefetch from './features/auth/components/Prefetch';
 
 function App() {
   return (
@@ -30,34 +32,36 @@ function App() {
         <Route index element={<Public />} />
         <Route path={PATH.login} element={<Login />} />
 
-        <Route path={PATH.backstage} element={<BackstageLayout />}>
-          <Route index element={<Welcome />} />
+        <Route element={<Prefetch />}>
+          <Route path={PATH.backstage} element={<BackstageLayout />}>
+            <Route index element={<Welcome />} />
 
-          <Route path={PATH.users}>
-            <Route index element={<UsersList />} />
-            <Route path='new' element={<UserFormNew />} />
-            <Route path=':id' element={<UserEdit />} />
-          </Route>
+            <Route path={PATH.users}>
+              <Route index element={<UsersList />} />
+              <Route path='new' element={<UserFormNew />} />
+              <Route path=':id' element={<UserEdit />} />
+            </Route>
 
-          <Route path={PATH.books}>
-            <Route index element={<BooksList />} />
-            <Route path='new' element={<BookFormNew />} />
-            <Route path=':id' element={<BookEdit />} />
-          </Route>
+            <Route path={PATH.books}>
+              <Route index element={<BooksList />} />
+              <Route path='new' element={<BookFormNew />} />
+              <Route path=':id' element={<BookEdit />} />
+            </Route>
 
-          <Route path={PATH.tonies}>
-            <Route index element={<ToniesList />} />
-            <Route path='new' element={<TonieFormNew />} />
-            <Route path=':id' element={<TonieEdit />} />
-          </Route>
+            <Route path={PATH.tonies}>
+              <Route index element={<ToniesList />} />
+              <Route path='new' element={<TonieFormNew />} />
+              <Route path=':id' element={<TonieEdit />} />
+            </Route>
 
-          <Route path={PATH.lego}>
-            <Route index element={<LegoList />} />
-            <Route path='new' element={<LegoNewForm />} />
-            <Route path=':id' element={<LegoEdit />} />
+            <Route path={PATH.lego}>
+              <Route index element={<LegoList />} />
+              <Route path='new' element={<LegoNewForm />} />
+              <Route path=':id' element={<LegoEdit />} />
+            </Route>
           </Route>
+          {/* End Backstage */}
         </Route>
-        {/* End Backstage */}
       </Route>
     </Routes>
   );

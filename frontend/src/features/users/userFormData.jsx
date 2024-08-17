@@ -45,7 +45,7 @@ const getUserFormFields = ({ formData, handleFieldChange }) => {
       size: '3',
       value: formData.roles,
       onChange: handleFieldChange,
-      validClass: getInputClass(formData.roles.length, 'roles'),
+      validClass: getInputClass(formData.roles.length === 0, 'roles'),
       options: generateOptionsFromRoles(ROLE),
     },
   ];

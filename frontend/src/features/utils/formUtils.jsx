@@ -248,7 +248,9 @@ export function getErrorMessageClass(isError, isDelError = false) {
 export function getInputClass(validity, type = 'default') {
   if (type === 'roles') {
     return validity ? CLASS_NAME.formIncomplete : DEFAULT.emptyString;
-  } else if (type === 'isbn') {
+  }
+
+  if (type === 'isbn') {
     return validity ? DEFAULT.emptyString : CLASS_NAME.formIncomplete;
   }
 
