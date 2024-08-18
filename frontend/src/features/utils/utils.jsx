@@ -64,7 +64,8 @@ export function generateTableContent(
   entities,
   openModal,
   EntityComponent,
-  entityType
+  entityType,
+  isWishlist = false
 ) {
   return ids?.length
     ? ids.map((entityId, index) => {
@@ -80,6 +81,7 @@ export function generateTableContent(
               {...{ [entityType]: entity }}
               onEdit={() => openModal({ ...entity, isEditing: true })}
               index={index + 1}
+              isWishlist={isWishlist}
             />
           </tr>
         );

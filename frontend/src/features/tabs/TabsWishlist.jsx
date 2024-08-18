@@ -2,20 +2,18 @@ import { Link } from 'react-router-dom';
 import { LINK } from '../../config/common/constants';
 import SearchInput from '../../components/common/SearchInput';
 
-function Tabs({
+function WishlistTabs({
   currentPath,
-  userCount,
-  bookCount,
-  tonieCount,
-  legoCount,
+  bookWishlistCount,
+  tonieWishlistCount,
+  legoWishlistCount,
   children,
   onSearch,
 }) {
   const tabs = [
-    { name: 'Users', path: LINK.USER.viewUsers, count: userCount },
-    { name: 'Books', path: LINK.BOOK.viewBooks, count: bookCount },
-    { name: 'Tonies', path: LINK.TONIE.viewTonies, count: tonieCount },
-    { name: 'Lego', path: LINK.LEGO.viewLego, count: legoCount },
+    { name: 'Books', path: LINK.BOOK.wishlist, count: bookWishlistCount },
+    { name: 'Tonies', path: LINK.TONIE.wishlist, count: tonieWishlistCount },
+    { name: 'Lego', path: LINK.LEGO.wishlist, count: legoWishlistCount },
   ];
 
   function getCurrentTab() {
@@ -25,7 +23,7 @@ function Tabs({
   return (
     <div className='tabs-container'>
       <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
-      <div className='inventory-header'>Inventory:</div>
+      <div className='wishlist-header'>Wishlist:</div>
       <div className='tabs'>
         {tabs.map((tab) => (
           <Link
@@ -41,4 +39,4 @@ function Tabs({
   );
 }
 
-export default Tabs;
+export default WishlistTabs;

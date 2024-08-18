@@ -28,7 +28,8 @@ tr {
 }
 
 .button__create,
-.button__wishlist {
+.button__wishlist,
+.button__inventory {
   margin-left: auto;
   color: var(--TABLE-COLOR);
 }

@@ -4,6 +4,7 @@ import {
   createNewTonie,
   deleteTonie,
   getAllToniesInCollection,
+  getAllToniesOnWishlist,
   getTonieCollectionCount,
   getTonieWishlistCount,
   updateTonie,
@@ -17,6 +18,8 @@ tonieRouter
   .post(createNewTonie)
   .patch(updateTonie)
   .delete(deleteTonie);
+
+tonieRouter.route('/wishlist').get(getAllToniesOnWishlist);
 
 tonieRouter.get('/count-collection', getTonieCollectionCount);
 tonieRouter.get('/count-wishlist', getTonieWishlistCount);

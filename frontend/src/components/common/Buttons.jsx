@@ -6,6 +6,7 @@ import {
   faTimes,
   faTrashCan,
   faBarcode,
+  faWarehouse,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -13,6 +14,14 @@ export function WishlistButton({ onClick }) {
   return (
     <button className='icon-button button__wishlist' title='Wishlist' onClick={onClick}>
       <FontAwesomeIcon icon={faHeart} />
+    </button>
+  );
+}
+
+export function InventoryButton({ onClick }) {
+  return (
+    <button className='icon-button button__inventory' title='Inventory' onClick={onClick}>
+      <FontAwesomeIcon icon={faWarehouse} />
     </button>
   );
 }

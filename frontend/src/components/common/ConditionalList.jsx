@@ -6,6 +6,7 @@ function ConditionalList({
   descriptionText,
   onCreateClick,
   onWishlistClick,
+  onHomeClick,
   table,
   createButtonText = 'New',
 }) {
@@ -13,8 +14,9 @@ function ConditionalList({
     <TableAboveHeader
       descriptionText={descriptionText}
       onCreateClick={onCreateClick}
-      onWishlistClick={onWishlistClick}
+      actionOnClick={onWishlistClick || onHomeClick}
       createButtonText={createButtonText}
+      isWishlist={!!onWishlistClick}
     />
   );
 

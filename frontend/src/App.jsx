@@ -24,6 +24,7 @@ import LegoNewForm from './features/inventory/lego/components/LegoNew/LegoFormNe
 import LegoEdit from './features/inventory/lego/components/LegoEdit/LegoEdit';
 
 import Prefetch from './features/auth/components/Prefetch';
+import TonieWishlist from './features/inventory/tonies/components/TonieWishlist/TonieWishlist';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
               <Route index element={<ToniesList />} />
               <Route path='new' element={<TonieFormNew />} />
               <Route path=':id' element={<TonieEdit />} />
+              <Route path='wishlist' element={<TonieWishlist />} />
             </Route>
 
             <Route path={PATH.lego}>

@@ -22,6 +22,12 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
       providesTags: provideToniesTags,
     }),
 
+    getToniesOnWishlist: builder.query({
+      query: () => '/tonies/wishlist',
+      transformResponse: transformTonieResponse,
+      providesTags: provideToniesTags,
+    }),
+
     getToniesInCollectionCount: builder.query({
       query: () => '/tonies/count-collection',
       providesTags: provideToniesTags,
@@ -51,6 +57,7 @@ export const toniesApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetToniesQuery,
+  useGetToniesOnWishlistQuery,
   useGetToniesInCollectionCountQuery,
   useGetToniesOnWishlistCountQuery,
   useAddNewTonieMutation,
@@ -70,3 +77,19 @@ export const {
   selectById: selectTonieById,
   selectIds: selectTonieIds,
 } = toniesAdapter.getSelectors((state) => selectToniesData(state) ?? initialState);
+
+export const selectWishlistToniesResult =
+  toniesApiSlice.endpoints.getToniesOnWishlist.select();
+
+const selectWishlistToniesData = createSelector(
+  selectWishlistToniesResult,
+  (toniesResult) => toniesResult.data
+);
+
+export const {
+  selectAll: selectAllWishlistTonies,
+  selectById: selectWishlistTonieById,
+  selectIds: selectWishlistTonieIds,
+} = toniesAdapter.getSelectors(
+  (state) => selectWishlistToniesData(state) ?? initialState
+);

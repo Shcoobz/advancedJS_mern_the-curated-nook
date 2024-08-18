@@ -46,14 +46,17 @@ export const LINK = {
   BOOK: {
     books: '/books',
     viewBooks: '/backstage/books',
+    wishlist: '/backstage/books/wishlist',
   },
   TONIE: {
     tonies: '/tonies',
     viewTonies: '/backstage/tonies',
+    wishlist: '/backstage/tonies/wishlist',
   },
   LEGO: {
     lego: '/lego',
     viewLego: '/backstage/lego',
+    wishlist: '/backstage/lego/wishlist',
   },
 };
 

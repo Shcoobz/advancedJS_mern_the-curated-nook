@@ -3,6 +3,7 @@ import {
   CreateButton,
   DeleteButton,
   EditButton,
+  InventoryButton,
   WishlistButton,
 } from './Buttons';
 
@@ -74,15 +75,20 @@ export function TableItemDetail({ label, value, className }) {
 export function TableAboveHeader({
   descriptionText,
   onCreateClick,
-  onWishlistClick,
+  actionOnClick,
   createButtonText,
+  isWishlist,
 }) {
   return (
     <div className='table__above-header'>
       <TableDescription text={descriptionText} />
       <div className='above-header buttons__action'>
         <CreateButton onClick={onCreateClick} text={createButtonText} />
-        <WishlistButton onClick={onWishlistClick} />
+        {isWishlist ? (
+          <WishlistButton onClick={actionOnClick} />
+        ) : (
+          <InventoryButton onClick={actionOnClick} />
+        )}
       </div>
     </div>
   );

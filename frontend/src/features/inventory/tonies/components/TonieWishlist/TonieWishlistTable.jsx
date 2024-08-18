@@ -1,13 +1,13 @@
-import { UI } from '../../../../../config/common/messages';
-import { TableCellHeader } from '../../../../../components/common/TableComponents';
-import Tonie from '../Tonie/Tonie';
-import { useMemo } from 'react';
-import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
+import { useMemo } from 'react';
+import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import ConditionalList from '../../../../../components/common/ConditionalList';
+import { UI } from '../../../../../config/common/messages';
+import Tonie from '../Tonie/Tonie';
 import { LINK } from '../../../../../config/common/constants';
 
-function ToniesListTable({ tonies, openModal }) {
+function TonieWishlistTable({ tonies, openModal }) {
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,9 +18,16 @@ function ToniesListTable({ tonies, openModal }) {
 
   const { ids, entities } = filteredTonies;
 
-  const tableContent = generateTableContent(ids, entities, openModal, Tonie, 'tonie');
+  const tableContent = generateTableContent(
+    ids,
+    entities,
+    openModal,
+    Tonie,
+    'tonie',
+    true
+  );
 
-  const tonieTable = ids.length > 0 && (
+  const tonieWishlistTable = ids.length > 0 && (
     <table className='table table__tonies'>
       <thead className='table__thead'>
         <tr>
@@ -35,8 +42,8 @@ function ToniesListTable({ tonies, openModal }) {
     </table>
   );
 
-  function handleWishlistClick() {
-    navigate(LINK.TONIE.wishlist);
+  function handleHomeClick() {
+    navigate(LINK.TONIE.viewTonies);
   }
 
   return (
@@ -44,11 +51,11 @@ function ToniesListTable({ tonies, openModal }) {
       ids={ids}
       descriptionText={UI.BS.PAGE.TONIE.list.paragraph}
       onCreateClick={() => openModal()}
-      onWishlistClick={handleWishlistClick}
-      table={tonieTable}
+      onHomeClick={handleHomeClick}
+      table={tonieWishlistTable}
       createButtonText='New Tonie'
     />
   );
 }
 
-export default ToniesListTable;
+export default TonieWishlistTable;

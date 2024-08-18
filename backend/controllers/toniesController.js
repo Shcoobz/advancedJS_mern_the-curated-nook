@@ -6,6 +6,7 @@ import {
   deleteTonieFromDatabase,
   extractTonieDetails,
   fetchAllToniesInCollection,
+  fetchAllToniesOnWishlist,
   findTonieById,
   findTonieByName,
   saveTonie,
@@ -23,6 +24,16 @@ import {
 
 export async function getAllToniesInCollection(req, res) {
   const tonies = await fetchAllToniesInCollection();
+
+  if (!tonies?.length) {
+    return sendNotFound(res, ENTITY.TONIE);
+  }
+
+  return sendItems(res, tonies);
+}
+
+export async function getAllToniesOnWishlist(req, res) {
+  const tonies = await fetchAllToniesOnWishlist();
 
   if (!tonies?.length) {
     return sendNotFound(res, ENTITY.TONIE);
