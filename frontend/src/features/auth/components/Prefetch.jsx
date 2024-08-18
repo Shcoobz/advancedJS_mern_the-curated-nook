@@ -5,6 +5,9 @@ import { usersApiSlice } from '../../users/api/usersApiSlice';
 import { booksApiSlice } from '../../inventory/books/api/booksApiSlice';
 import { legoApiSlice } from '../../inventory/lego/api/legoApiSlice';
 import { toniesApiSlice } from '../../inventory/tonies/api/toniesApiSlice';
+import { booksWishlistApiSlice } from '../../inventory/books/api/booksWishlistApiSlice';
+import { legoWishlistApiSlice } from '../../inventory/lego/api/legoWishlistApiSlice';
+import { toniesWishlistApiSlice } from '../../inventory/tonies/api/tonieWishlistApiSlice';
 
 function Prefetch() {
   useEffect(() => {
@@ -15,6 +18,16 @@ function Prefetch() {
     const lego = store.dispatch(legoApiSlice.endpoints.getLego.initiate());
     const tonies = store.dispatch(toniesApiSlice.endpoints.getTonies.initiate());
 
+    const wishlistBooks = store.dispatch(
+      booksWishlistApiSlice.endpoints.getBooksOnWishlist.initiate()
+    );
+    const wishlistLego = store.dispatch(
+      legoWishlistApiSlice.endpoints.getLegoOnWishlist.initiate()
+    );
+    const wishlistTonies = store.dispatch(
+      toniesWishlistApiSlice.endpoints.getToniesOnWishlist.initiate()
+    );
+
     return () => {
       console.log('Prefetch: unsubscribing');
 
@@ -22,6 +35,10 @@ function Prefetch() {
       books.unsubscribe();
       lego.unsubscribe();
       tonies.unsubscribe();
+
+      wishlistBooks.unsubscribe();
+      wishlistLego.unsubscribe();
+      wishlistTonies.unsubscribe();
     };
   }, []);
 
