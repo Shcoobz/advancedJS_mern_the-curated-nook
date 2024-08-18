@@ -21,9 +21,9 @@ function WishlistTabs({
   }
 
   return (
-    <div className='tabs-container'>
+    <div className='tabs__container'>
+      <div className='tabs__header'>{'>>> Wishlist <<<'}</div>
       <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
-      <div className='wishlist-header'>Wishlist:</div>
       <div className='tabs'>
         {tabs.map((tab) => (
           <Link
@@ -34,7 +34,7 @@ function WishlistTabs({
           </Link>
         ))}
       </div>
-      <div className='tab-content'>{children}</div>
+      <div className='tab__content'>{children}</div>
     </div>
   );
 }

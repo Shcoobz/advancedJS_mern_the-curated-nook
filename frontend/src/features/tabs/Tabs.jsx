@@ -23,9 +23,9 @@ function Tabs({
   }
 
   return (
-    <div className='tabs-container'>
+    <div className='tabs__container'>
+      <div className='tabs__header'> {'>>> Inventory <<<'} </div>
       <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
-      <div className='inventory-header'>Inventory:</div>
       <div className='tabs'>
         {tabs.map((tab) => (
           <Link
@@ -36,7 +36,7 @@ function Tabs({
           </Link>
         ))}
       </div>
-      <div className='tab-content'>{children}</div>
+      <div className='tab__content'>{children}</div>
     </div>
   );
 }
