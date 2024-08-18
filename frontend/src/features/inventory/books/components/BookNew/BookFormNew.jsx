@@ -22,11 +22,15 @@ import {
   handleScan,
   handleSelectSuggestion,
 } from '../../../../utils/fetchUtils';
+import { useAddNewWishlistBookMutation } from '../../api/booksWishlistApiSlice';
 
-function BookFormNew({ isOpen, onClose }) {
+function BookFormNew({ isOpen, onClose, isWishlist = false }) {
   const navigate = useNavigate();
 
-  const [addNewBook, { isLoading, isSuccess }] = useAddNewBookMutation();
+  const [addNewBook] = useAddNewBookMutation();
+  const [addNewWishlistBook] = useAddNewWishlistBookMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState(createInitialFormState(ENTITY.book));
   const [isScanning, setIsScanning] = useState(false);
 
@@ -54,16 +58,16 @@ function BookFormNew({ isOpen, onClose }) {
 
   async function handleSave(e) {
     e.preventDefault();
+    setIsLoading(true);
 
-    const result = await handleSaveNewEntity(
-      addNewBook,
-      formData,
-      generateNewBookPayload
-    );
+    const addBookFn = isWishlist ? addNewWishlistBook : addNewBook;
+
+    const result = await handleSaveNewEntity(addBookFn, formData, generateNewBookPayload);
 
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
+      setIsSuccess(true);
       onClose();
       toast.success(TOAST.SUCCESS.BOOK.created);
     }

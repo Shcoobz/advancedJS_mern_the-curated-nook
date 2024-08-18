@@ -14,17 +14,19 @@ import UserEdit from './features/users/components/UserEdit/UserEdit';
 import BooksList from './features/inventory/books/components/BooksList/BooksList';
 import BookFormNew from './features/inventory/books/components/BookNew/BookFormNew';
 import BookEdit from './features/inventory/books/components/BookEdit/BookEdit';
+import BookWishlist from './features/inventory/books/components/BookWishlist/BookWishlist';
 
 import ToniesList from './features/inventory/tonies/components/ToniesList/ToniesList';
 import TonieFormNew from './features/inventory/tonies/components/TonieNew/TonieFormNew';
 import TonieEdit from './features/inventory/tonies/components/TonieEdit/TonieEdit';
+import TonieWishlist from './features/inventory/tonies/components/TonieWishlist/TonieWishlist';
 
 import LegoList from './features/inventory/lego/components/LegoList/LegoList';
 import LegoNewForm from './features/inventory/lego/components/LegoNew/LegoFormNew';
 import LegoEdit from './features/inventory/lego/components/LegoEdit/LegoEdit';
+import LegoWishlist from './features/inventory/lego/components/LegoWishlist/LegoWishlist';
 
 import Prefetch from './features/auth/components/Prefetch';
-import TonieWishlist from './features/inventory/tonies/components/TonieWishlist/TonieWishlist';
 
 function App() {
   return (
@@ -47,6 +49,7 @@ function App() {
               <Route index element={<BooksList />} />
               <Route path='new' element={<BookFormNew />} />
               <Route path=':id' element={<BookEdit />} />
+              <Route path='wishlist' element={<BookWishlist />} />
             </Route>
 
             <Route path={PATH.tonies}>
@@ -60,6 +63,7 @@ function App() {
               <Route index element={<LegoList />} />
               <Route path='new' element={<LegoNewForm />} />
               <Route path=':id' element={<LegoEdit />} />
+              <Route path='wishlist' element={<LegoWishlist />} />
             </Route>
           </Route>
           {/* End Backstage */}

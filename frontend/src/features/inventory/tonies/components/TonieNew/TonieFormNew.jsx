@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useAddNewTonieMutation } from '../../api/toniesApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import Modal from '../../../../../components/common/Modal';
-import TonieFormTableNew from './TonieFormTableNew';
+import { ENTITY } from '../../../../../config/common/constants';
+import { useAddNewWishlistTonieMutation } from '../../api/tonieWishlistApiSlice';
 import {
   createInitialFormState,
   createUpdateField,
@@ -14,8 +14,8 @@ import {
   useValidate,
   validateName,
 } from '../../../../utils/formUtils';
-import { ENTITY } from '../../../../../config/common/constants';
-import { useAddNewWishlistTonieMutation } from '../../api/tonieWishlistApiSlice';
+import Modal from '../../../../../components/common/Modal';
+import TonieFormTableNew from './TonieFormTableNew';
 
 function TonieFormNew({ isOpen, onClose, isWishlist = false }) {
   const navigate = useNavigate();

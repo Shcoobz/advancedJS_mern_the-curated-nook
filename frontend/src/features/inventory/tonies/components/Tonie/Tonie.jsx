@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectTonieById } from '../../api/toniesApiSlice';
-import TonieTable from './TonieTable';
 import { selectWishlistTonieById } from '../../api/tonieWishlistApiSlice';
+import TonieTable from './TonieTable';
 
 function Tonie({ tonieId, onEdit, index, isWishlist = false }) {
   const selectTonie = isWishlist ? selectWishlistTonieById : selectTonieById;

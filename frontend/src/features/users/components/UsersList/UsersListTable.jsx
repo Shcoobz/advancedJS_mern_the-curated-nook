@@ -39,7 +39,6 @@ function UsersListTable({ users, openModal }) {
       ids={ids}
       descriptionText={UI.BS.PAGE.USER.list.paragraph}
       onCreateClick={() => openModal()}
-      onWishlistClick={undefined}
       table={userTable}
       createButtonText='New User'
     />

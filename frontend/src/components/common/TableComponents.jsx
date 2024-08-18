@@ -84,11 +84,8 @@ export function TableAboveHeader({
       <TableDescription text={descriptionText} />
       <div className='above-header buttons__action'>
         <CreateButton onClick={onCreateClick} text={createButtonText} />
-        {isWishlist ? (
-          <WishlistButton onClick={actionOnClick} />
-        ) : (
-          <InventoryButton onClick={actionOnClick} />
-        )}
+        {isWishlist && actionOnClick && <WishlistButton onClick={actionOnClick} />}
+        {!isWishlist && actionOnClick && <InventoryButton onClick={actionOnClick} />}
       </div>
     </div>
   );

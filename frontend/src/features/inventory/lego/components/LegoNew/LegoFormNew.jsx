@@ -16,11 +16,15 @@ import {
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
 import { handleSelectSuggestion } from '../../../../utils/fetchUtils';
+import { useAddNewWishlistLegoMutation } from '../../api/legoWishlistApiSlice';
 
-function LegoNewForm({ isOpen, onClose }) {
+function LegoNewForm({ isOpen, onClose, isWishlist = false }) {
   const navigate = useNavigate();
 
-  const [addLegoNew, { isLoading, isSuccess }] = useAddLegoNewMutation();
+  const [addNewLego] = useAddLegoNewMutation();
+  const [addNewWishlistLego] = useAddNewWishlistLegoMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState(createInitialFormState(ENTITY.lego));
 
   const canSave = Boolean(formData.name) && !isLoading;
@@ -43,16 +47,16 @@ function LegoNewForm({ isOpen, onClose }) {
 
   async function handleSave(e) {
     e.preventDefault();
+    setIsLoading(true);
 
-    const result = await handleSaveNewEntity(
-      addLegoNew,
-      formData,
-      generateLegoNewPayload
-    );
+    const addLegoFn = isWishlist ? addNewWishlistLego : addNewLego;
+
+    const result = await handleSaveNewEntity(addLegoFn, formData, generateLegoNewPayload);
 
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
+      setIsSuccess(true);
       onClose();
       toast.success(TOAST.SUCCESS.LEGO.created);
     }

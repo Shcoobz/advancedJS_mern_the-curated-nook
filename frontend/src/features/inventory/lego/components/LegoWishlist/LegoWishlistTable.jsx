@@ -1,13 +1,13 @@
-import { UI } from '../../../../../config/common/messages';
-import { TableCellHeader } from '../../../../../components/common/TableComponents';
-import Lego from '../Lego/Lego';
 import { useMemo } from 'react';
-import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import ConditionalList from '../../../../../components/common/ConditionalList';
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
+import Lego from '../Lego/Lego';
+import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import { LINK } from '../../../../../config/common/constants';
+import ConditionalList from '../../../../../components/common/ConditionalList';
+import { UI } from '../../../../../config/common/messages';
 
-function LegoListTable({ lego, openModal }) {
+function LegoWishlistTable({ lego, openModal }) {
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,9 +18,9 @@ function LegoListTable({ lego, openModal }) {
 
   const { ids, entities } = filteredLego;
 
-  const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego');
+  const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego', true);
 
-  const legoTable = ids.length > 0 && (
+  const legoWishlistTable = ids.length > 0 && (
     <table className='table table__lego'>
       <thead className='table__thead'>
         <tr>
@@ -35,8 +35,8 @@ function LegoListTable({ lego, openModal }) {
     </table>
   );
 
-  function handleWishlistClick() {
-    navigate(LINK.LEGO.wishlist);
+  function handleHomeClick() {
+    navigate(LINK.LEGO.viewLego);
   }
 
   return (
@@ -44,11 +44,11 @@ function LegoListTable({ lego, openModal }) {
       ids={ids}
       descriptionText={UI.BS.PAGE.LEGO.list.paragraph}
       onCreateClick={() => openModal()}
-      onWishlistClick={handleWishlistClick}
-      table={legoTable}
-      createButtonText='New Lego Set'
+      onHomeClick={handleHomeClick}
+      table={legoWishlistTable}
+      createButtonText='New Lego'
     />
   );
 }
 
-export default LegoListTable;
+export default LegoWishlistTable;

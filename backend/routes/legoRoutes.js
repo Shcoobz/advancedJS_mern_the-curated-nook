@@ -32,6 +32,8 @@ legoRouter
   .patch(updateLego)
   .delete(deleteLego);
 
+legoRouter.route('/wishlist').get(getAllLegoOnWishlist);
+
 legoRouter.get('/count-collection', getLegoCollectionCount);
 legoRouter.get('/count-wishlist', getLegoWishlistCount);
 

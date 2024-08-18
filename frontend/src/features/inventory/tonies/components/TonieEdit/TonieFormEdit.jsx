@@ -16,12 +16,21 @@ import {
   validateName,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
+import {
+  useDeleteWishlistTonieMutation,
+  useUpdateWishlistTonieMutation,
+} from '../../api/tonieWishlistApiSlice';
 
-function TonieFormEdit({ tonie, isOpen, onClose }) {
+function TonieFormEdit({ tonie, isOpen, onClose, isWishlist = false }) {
   const navigate = useNavigate();
 
-  const [updateTonie, { isLoading, isSuccess }] = useUpdateTonieMutation();
-  const [deleteTonie, { isSuccess: isDelSuccess }] = useDeleteTonieMutation();
+  const [updateTonie] = useUpdateTonieMutation();
+  const [updateWishlistTonie] = useUpdateWishlistTonieMutation();
+  const [deleteTonie] = useDeleteTonieMutation();
+  const [deleteWishlistTonie] = useDeleteWishlistTonieMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isDelSuccess, setIsDelSuccess] = useState(false);
   const [formData, setFormData] = useState(createInitialFormState(ENTITY.tonie, tonie));
 
   const canSave = Boolean(formData.name) && !isLoading;
@@ -40,9 +49,12 @@ function TonieFormEdit({ tonie, isOpen, onClose }) {
 
   async function handleSave(e) {
     e.preventDefault();
+    setIsLoading(true);
+
+    const updateTonieFn = isWishlist ? updateWishlistTonie : updateTonie;
 
     const result = await handleSaveExistingEntity(
-      updateTonie,
+      updateTonieFn,
       tonie,
       formData,
       generateExistingToniePayload
@@ -51,6 +63,7 @@ function TonieFormEdit({ tonie, isOpen, onClose }) {
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
+      setIsSuccess(true);
       onClose();
       toast.success(TOAST.SUCCESS.TONIE.updated);
     }
@@ -58,11 +71,16 @@ function TonieFormEdit({ tonie, isOpen, onClose }) {
 
   async function handleDelete(e) {
     e.preventDefault();
-    const result = await handleDeleteEntity(deleteTonie, tonie.id);
+    setIsLoading(true);
+
+    const deleteTonieFn = isWishlist ? deleteWishlistTonie : deleteTonie;
+
+    const result = await handleDeleteEntity(deleteTonieFn, tonie.id);
 
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
+      setIsDelSuccess(true);
       onClose();
       toast.success(TOAST.SUCCESS.TONIE.deleted);
     }

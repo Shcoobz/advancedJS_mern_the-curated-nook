@@ -27,11 +27,6 @@ export const legoApiSlice = apiSlice.injectEndpoints({
       providesTags: provideLegoTags,
     }),
 
-    getLegoOnWishlistCount: builder.query({
-      query: () => '/lego/count-wishlist',
-      providesTags: provideLegoTags,
-    }),
-
     addLegoNew: builder.mutation({
       query: addLegoNewQuery,
       invalidatesTags: invalidateLegoTags,
@@ -52,7 +47,6 @@ export const legoApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetLegoQuery,
   useGetLegoInCollectionCountQuery,
-  useGetLegoOnWishlistCountQuery,
   useAddLegoNewMutation,
   useUpdateLegoMutation,
   useDeleteLegoMutation,

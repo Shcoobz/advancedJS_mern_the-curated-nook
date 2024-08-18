@@ -27,11 +27,6 @@ export const booksApiSlice = apiSlice.injectEndpoints({
       providesTags: provideBooksTags,
     }),
 
-    getBooksOnWishlistCount: builder.query({
-      query: () => '/books/count-wishlist',
-      providesTags: provideBooksTags,
-    }),
-
     addNewBook: builder.mutation({
       query: addNewBookQuery,
       invalidatesTags: invalidateBooksTags,
@@ -52,7 +47,6 @@ export const booksApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetBooksQuery,
   useGetBooksInCollectionCountQuery,
-  useGetBooksOnWishlistCountQuery,
   useAddNewBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,

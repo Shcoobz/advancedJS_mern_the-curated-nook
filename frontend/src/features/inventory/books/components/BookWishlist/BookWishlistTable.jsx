@@ -1,13 +1,13 @@
-import { UI } from '../../../../../config/common/messages';
-import { TableCellHeader } from '../../../../../components/common/TableComponents';
-import { generateTableContent, genericFilter } from '../../../../utils/utils';
-import Book from '../Book/Book';
 import { useMemo } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import ConditionalList from '../../../../../components/common/ConditionalList';
+import { generateTableContent, genericFilter } from '../../../../utils/utils';
+import Book from '../Book/Book';
+import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import { LINK } from '../../../../../config/common/constants';
+import ConditionalList from '../../../../../components/common/ConditionalList';
+import { UI } from '../../../../../config/common/messages';
 
-function BooksListTable({ books, openModal }) {
+function BookWishlistTable({ books, openModal }) {
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,9 +18,9 @@ function BooksListTable({ books, openModal }) {
 
   const { ids, entities } = filteredBooks;
 
-  const tableContent = generateTableContent(ids, entities, openModal, Book, 'book');
+  const tableContent = generateTableContent(ids, entities, openModal, Book, 'book', true);
 
-  const bookTable = ids.length > 0 && (
+  const bookWishlistTable = ids.length > 0 && (
     <table className='table table__books'>
       <thead className='table__thead'>
         <tr>
@@ -36,8 +36,8 @@ function BooksListTable({ books, openModal }) {
     </table>
   );
 
-  function handleWishlistClick() {
-    navigate(LINK.BOOK.wishlist);
+  function handleHomeClick() {
+    navigate(LINK.BOOK.viewBooks);
   }
 
   return (
@@ -45,11 +45,11 @@ function BooksListTable({ books, openModal }) {
       ids={ids}
       descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
       onCreateClick={() => openModal()}
-      onWishlistClick={handleWishlistClick}
-      table={bookTable}
+      onHomeClick={handleHomeClick}
+      table={bookWishlistTable}
       createButtonText='New Book'
     />
   );
 }
 
-export default BooksListTable;
+export default BookWishlistTable;

@@ -1,21 +1,17 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import BackstageHeader from './BackstageHeader';
-import BackstageFooter from './BackstageFooter';
-import Tabs from '../../features/tabs/Tabs';
 import { LINK } from '../../config/common/constants';
 import { useEffect, useState } from 'react';
 import { useGetUsersCountQuery } from '../../features/users/api/usersApiSlice';
-import {
-  useGetBooksInCollectionCountQuery,
-  useGetBooksOnWishlistCountQuery,
-} from '../../features/inventory/books/api/booksApiSlice';
+import { useGetBooksInCollectionCountQuery } from '../../features/inventory/books/api/booksApiSlice';
 import { useGetToniesInCollectionCountQuery } from '../../features/inventory/tonies/api/toniesApiSlice';
-import {
-  useGetLegoInCollectionCountQuery,
-  useGetLegoOnWishlistCountQuery,
-} from '../../features/inventory/lego/api/legoApiSlice';
+import { useGetLegoInCollectionCountQuery } from '../../features/inventory/lego/api/legoApiSlice';
 import WishlistTabs from '../../features/tabs/TabsWishlist';
 import { useGetToniesOnWishlistCountQuery } from '../../features/inventory/tonies/api/tonieWishlistApiSlice';
+import { useGetLegoOnWishlistCountQuery } from '../../features/inventory/lego/api/legoWishlistApiSlice';
+import { useGetBooksOnWishlistCountQuery } from '../../features/inventory/books/api/booksWishlistApiSlice';
+import BackstageHeader from './BackstageHeader';
+import BackstageFooter from './BackstageFooter';
+import Tabs from '../../features/tabs/Tabs';
 
 function BackstageLayout() {
   const location = useLocation();
