@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useGetToniesOnWishlistQuery } from '../../api/toniesApiSlice';
+
 import Spinner from '../../../../../components/common/Spinner';
 import TonieWishlistTable from './TonieWishlistTable';
 import TonieFormEdit from '../TonieEdit/TonieFormEdit';
 import TonieDetails from '../TonieDetails/TonieDetails';
 import TonieFormNew from '../TonieNew/TonieFormNew';
+import { useGetToniesOnWishlistQuery } from '../../api/tonieWishlistApiSlice';
 
 function TonieWishlist() {
   const {

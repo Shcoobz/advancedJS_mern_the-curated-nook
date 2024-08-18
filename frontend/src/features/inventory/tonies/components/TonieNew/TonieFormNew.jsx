@@ -15,11 +15,15 @@ import {
   validateName,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
+import { useAddNewWishlistTonieMutation } from '../../api/tonieWishlistApiSlice';
 
-function TonieFormNew({ isOpen, onClose }) {
+function TonieFormNew({ isOpen, onClose, isWishlist = false }) {
   const navigate = useNavigate();
 
-  const [addNewTonie, { isLoading, isSuccess }] = useAddNewTonieMutation();
+  const [addNewTonie] = useAddNewTonieMutation();
+  const [addNewWishlistTonie] = useAddNewWishlistTonieMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState(createInitialFormState(ENTITY.tonie));
 
   const canSave = Boolean(formData.name) && !isLoading;
@@ -38,9 +42,12 @@ function TonieFormNew({ isOpen, onClose }) {
 
   async function handleSave(e) {
     e.preventDefault();
+    setIsLoading(true);
+
+    const addTonieFn = isWishlist ? addNewWishlistTonie : addNewTonie;
 
     const result = await handleSaveNewEntity(
-      addNewTonie,
+      addTonieFn,
       formData,
       generateNewToniePayload
     );
@@ -48,6 +55,7 @@ function TonieFormNew({ isOpen, onClose }) {
     if (!result.success) {
       toast.error(result.errorMessage);
     } else {
+      setIsSuccess(true);
       onClose();
       toast.success(TOAST.SUCCESS.TONIE.created);
     }

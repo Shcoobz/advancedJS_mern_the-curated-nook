@@ -9,15 +9,13 @@ import {
   useGetBooksInCollectionCountQuery,
   useGetBooksOnWishlistCountQuery,
 } from '../../features/inventory/books/api/booksApiSlice';
-import {
-  useGetToniesInCollectionCountQuery,
-  useGetToniesOnWishlistCountQuery,
-} from '../../features/inventory/tonies/api/toniesApiSlice';
+import { useGetToniesInCollectionCountQuery } from '../../features/inventory/tonies/api/toniesApiSlice';
 import {
   useGetLegoInCollectionCountQuery,
   useGetLegoOnWishlistCountQuery,
 } from '../../features/inventory/lego/api/legoApiSlice';
 import WishlistTabs from '../../features/tabs/TabsWishlist';
+import { useGetToniesOnWishlistCountQuery } from '../../features/inventory/tonies/api/tonieWishlistApiSlice';
 
 function BackstageLayout() {
   const location = useLocation();
