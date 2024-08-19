@@ -9,8 +9,11 @@ import {
   getTonieWishlistCount,
   updateTonie,
 } from '../controllers/toniesController.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const tonieRouter = express.Router();
+
+tonieRouter.use(verifyJWT);
 
 tonieRouter
   .route(ENDPOINT.ROOT)
@@ -21,7 +24,8 @@ tonieRouter
 
 tonieRouter.route('/wishlist').get(getAllToniesOnWishlist);
 
-tonieRouter.get('/count-collection', getTonieCollectionCount);
-tonieRouter.get('/count-wishlist', getTonieWishlistCount);
+tonieRouter.route('/count-collection').get(getTonieCollectionCount);
+
+tonieRouter.route('/count-wishlist').get(getTonieWishlistCount);
 
 export default tonieRouter;

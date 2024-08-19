@@ -39,16 +39,7 @@ function BooksList() {
   if (isLoading) return <Spinner />;
 
   if (isError) {
-    content = (
-      <>
-        <TableAboveHeader
-          descriptionText={UI.BS.PAGE.BOOK.list.paragraph}
-          onCreateClick={() => openModal()}
-          onWishlistClick={undefined}
-        />
-        <p className='errmsg'>{error?.data?.message}</p>
-      </>
-    );
+    content = <p className='errmsg'>{error?.data?.message}</p>;
   }
 
   if (isSuccess) {

@@ -7,8 +7,11 @@ import {
   deleteUser,
   getUserCount,
 } from '../controllers/usersController.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const userRouter = express.Router();
+
+userRouter.use(verifyJWT);
 
 userRouter
   .route(ENDPOINT.ROOT)
@@ -17,6 +20,6 @@ userRouter
   .patch(updateUser)
   .delete(deleteUser);
 
-userRouter.get('/count', getUserCount);
+userRouter.route('/count').get(getUserCount);
 
 export default userRouter;

@@ -30,6 +30,8 @@ export const ERROR = {
   INVALID_DATA: (entity) => `Invalid ${entity} data received!`,
   FIELDS_REQUIRED: (entity, fields) => `${fields} is required for ${entity}!`,
   ID_REQUIRED: (entity) => `${entity} ID Required!`,
+  UNAUTHORIZED: 'Unauthorized',
+  FORBIDDEN: 'Forbidden',
   CORS: {
     NOT_ALLOWED: 'Not allowed by CORS!',
   },

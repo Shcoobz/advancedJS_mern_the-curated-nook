@@ -9,8 +9,11 @@ import {
   getBookWishlistCount,
   updateBook,
 } from '../controllers/booksController.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const bookRouter = express.Router();
+
+bookRouter.use(verifyJWT);
 
 bookRouter
   .route(ENDPOINT.ROOT)
@@ -21,7 +24,7 @@ bookRouter
 
 bookRouter.route('/wishlist').get(getAllBooksOnWishlist);
 
-bookRouter.get('/count-collection', getBookCollectionCount);
-bookRouter.get('/count-wishlist', getBookWishlistCount);
+bookRouter.route('/count-collection').get(getBookCollectionCount);
+bookRouter.route('/count-wishlist').get(getBookWishlistCount);
 
 export default bookRouter;

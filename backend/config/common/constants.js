@@ -44,6 +44,7 @@ export const ROUTE = {
 
 export const ENDPOINT = {
   ROOT: '/',
+  AUTH: '/auth',
   USERS: '/users',
   BOOKS: '/books',
   LEGO: '/lego',

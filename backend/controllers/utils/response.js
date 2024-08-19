@@ -52,3 +52,15 @@ export function sendEntityDeleted(res, entity, title, id) {
     message: SUCCESS.DELETED(entity, title, id),
   });
 }
+
+export function sendUnauthorized(res) {
+  return res.status(HTTP_STATUS.ERROR.UNAUTHORIZED).json({ message: ERROR.UNAUTHORIZED });
+}
+
+export function sendForbidden(res) {
+  return res.status(HTTP_STATUS.ERROR.FORBIDDEN).json({ message: ERROR.FORBIDDEN });
+}
+
+export function sendNoContent(res) {
+  return res.status(HTTP_STATUS.SUCCESS.NO_CONTENT);
+}

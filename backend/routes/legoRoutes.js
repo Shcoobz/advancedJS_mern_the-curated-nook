@@ -9,21 +9,11 @@ import {
   getLegoWishlistCount,
   updateLego,
 } from '../controllers/legoController.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const legoRouter = express.Router();
 
-// Todo: do for all inventory items or make new get at /wishlist
-function handleGetLego(req, res) {
-  const { type } = req.query;
-
-  if (type === 'wishlist') {
-    return getAllLegoOnWishlist(req, res);
-  }
-
-  if (type === 'collection') {
-    return getAllLegoInCollection(req, res);
-  }
-}
+legoRouter.use(verifyJWT);
 
 legoRouter
   .route(ENDPOINT.ROOT)
@@ -34,7 +24,7 @@ legoRouter
 
 legoRouter.route('/wishlist').get(getAllLegoOnWishlist);
 
-legoRouter.get('/count-collection', getLegoCollectionCount);
-legoRouter.get('/count-wishlist', getLegoWishlistCount);
+legoRouter.route('/count-collection').get(getLegoCollectionCount);
+legoRouter.route('/count-wishlist').get(getLegoWishlistCount);
 
 export default legoRouter;
