@@ -13,7 +13,7 @@ function UsersList() {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery(undefined, {
+  } = useGetUsersQuery('usersList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
@@ -34,11 +34,11 @@ function UsersList() {
     setSelectedUser(null);
   }
 
-  if (isLoading) return <Spinner />;
-
   if (isError) {
     content = <p className='errmsg'>{error?.data?.message}</p>;
   }
+
+  if (isLoading) return <Spinner />;
 
   if (isSuccess) {
     content = <UsersListTable users={users} openModal={openModal} />;

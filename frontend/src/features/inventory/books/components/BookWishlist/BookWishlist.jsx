@@ -13,7 +13,7 @@ function BookWishlist() {
     isSuccess,
     isError,
     error,
-  } = useGetBooksOnWishlistQuery(undefined, {
+  } = useGetBooksOnWishlistQuery('wishlistBooks', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

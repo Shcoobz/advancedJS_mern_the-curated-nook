@@ -14,7 +14,7 @@ function ToniesList() {
     isSuccess,
     isError,
     error,
-  } = useGetToniesQuery(undefined, {
+  } = useGetToniesQuery('toniesList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

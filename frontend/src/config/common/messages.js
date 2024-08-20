@@ -69,7 +69,7 @@ export const UI = {
 
 export const ERROR = {
   API: {
-    loginExpired: 'Your login has expired!',
+    loginExpired: 'Your login has expired! ',
   },
 };
 

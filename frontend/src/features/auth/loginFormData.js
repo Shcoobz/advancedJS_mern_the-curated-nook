@@ -1,7 +1,13 @@
 import { LoginButton } from '../../components/common/Buttons';
-import { FormInput } from '../../components/common/FormComponents';
+import { FormCheckbox, FormInput } from '../../components/common/FormComponents';
 
-export function getLoginFormFields({ formData, handleFieldChange, handleSubmit }) {
+export function getLoginFormFields({
+  formData,
+  handleFieldChange,
+  handleSubmit,
+  handleToggle,
+  persist,
+}) {
   return [
     {
       component: FormInput,
@@ -30,6 +36,14 @@ export function getLoginFormFields({ formData, handleFieldChange, handleSubmit }
       className: 'form__login-button',
       children: 'Login',
       onClick: handleSubmit,
+    },
+    {
+      component: FormCheckbox,
+      label: 'Remember Me',
+      id: 'persist',
+      name: 'persist',
+      checked: persist,
+      onChange: handleToggle,
     },
   ];
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   CloseButton,
   DeleteButton,
@@ -111,8 +112,6 @@ export function FormCheckbox({ label, id, name, checked, onChange }) {
   return (
     <>
       <label className='form__label form__checkbox-container' htmlFor={id}>
-        {label}
-
         <input
           className='form__checkbox'
           id={id}
@@ -121,6 +120,7 @@ export function FormCheckbox({ label, id, name, checked, onChange }) {
           checked={checked}
           onChange={onChange}
         />
+        {label}
       </label>
     </>
   );
@@ -167,6 +167,7 @@ export function DynamicForm({
   onClose,
   handleDelete,
   hideSaveButton = false,
+  handleToggle,
 }) {
   const formFields = getFormFields({
     formData,
@@ -194,9 +195,19 @@ export function DynamicForm({
         renderFormFields={renderFormFields}
         handleSave={handleSave}
         canSave={canSave}
+        handleToggle={handleToggle}
       />
     </>
   );
 
   return formContent;
+}
+
+export function FormErrorMessage({ message }) {
+  return (
+    <p className='errmsg'>
+      {message}
+      <Link to='/'> Please login again!</Link>.
+    </p>
+  );
 }

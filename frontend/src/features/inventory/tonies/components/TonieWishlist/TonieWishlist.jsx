@@ -13,7 +13,7 @@ function TonieWishlist() {
     isSuccess,
     isError,
     error,
-  } = useGetToniesOnWishlistQuery(undefined, {
+  } = useGetToniesOnWishlistQuery('wishlistTonies', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

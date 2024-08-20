@@ -5,8 +5,6 @@ import BookFormEdit from '../BookEdit/BookFormEdit';
 import BookFormNew from '../BookNew/BookFormNew';
 import BooksListTable from './BooksListTable';
 import BookDetails from '../BookDetails/BookDetails';
-import { TableAboveHeader } from '../../../../../components/common/TableComponents';
-import { UI } from '../../../../../config/common/messages';
 
 function BooksList() {
   const {
@@ -15,7 +13,7 @@ function BooksList() {
     isSuccess,
     isError,
     error,
-  } = useGetBooksQuery(undefined, {
+  } = useGetBooksQuery('booksList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

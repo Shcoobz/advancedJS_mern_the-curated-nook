@@ -13,7 +13,7 @@ function LegoList() {
     isSuccess,
     isError,
     error,
-  } = useGetLegoQuery(undefined, {
+  } = useGetLegoQuery('legoList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

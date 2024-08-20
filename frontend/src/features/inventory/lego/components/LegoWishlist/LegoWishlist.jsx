@@ -13,7 +13,7 @@ function LegoWishlist() {
     isSuccess,
     isError,
     error,
-  } = useGetLegoOnWishlistQuery(undefined, {
+  } = useGetLegoOnWishlistQuery('wishlistLego', {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

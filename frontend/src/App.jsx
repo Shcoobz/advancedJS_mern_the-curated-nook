@@ -27,46 +27,62 @@ import LegoEdit from './features/inventory/lego/components/LegoEdit/LegoEdit';
 import LegoWishlist from './features/inventory/lego/components/LegoWishlist/LegoWishlist';
 
 import Prefetch from './features/auth/components/Prefetch';
+import PersistLogin from './features/auth/components/PersistLogin';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 function App() {
+  useEffect(() => {
+    setTimeout(() => {
+      const authFailedMessage = sessionStorage.getItem('authFailed');
+
+      if (authFailedMessage) {
+        toast.error(authFailedMessage);
+        sessionStorage.removeItem('authFailed');
+      }
+    }, 500);
+  }, []);
+
   return (
     <Routes>
       <Route path={PATH.root} element={<Layout />}>
         <Route index element={<Public />} />
         <Route path={PATH.login} element={<Login />} />
 
-        <Route element={<Prefetch />}>
-          <Route path={PATH.backstage} element={<BackstageLayout />}>
-            <Route index element={<Welcome />} />
+        <Route element={<PersistLogin />}>
+          <Route element={<Prefetch />}>
+            <Route path={PATH.backstage} element={<BackstageLayout />}>
+              <Route index element={<Welcome />} />
 
-            <Route path={PATH.users}>
-              <Route index element={<UsersList />} />
-              <Route path='new' element={<UserFormNew />} />
-              <Route path=':id' element={<UserEdit />} />
-            </Route>
+              <Route path={PATH.users}>
+                <Route index element={<UsersList />} />
+                <Route path='new' element={<UserFormNew />} />
+                <Route path=':id' element={<UserEdit />} />
+              </Route>
 
-            <Route path={PATH.books}>
-              <Route index element={<BooksList />} />
-              <Route path='new' element={<BookFormNew />} />
-              <Route path=':id' element={<BookEdit />} />
-              <Route path='wishlist' element={<BookWishlist />} />
-            </Route>
+              <Route path={PATH.books}>
+                <Route index element={<BooksList />} />
+                <Route path='new' element={<BookFormNew />} />
+                <Route path=':id' element={<BookEdit />} />
+                <Route path='wishlist' element={<BookWishlist />} />
+              </Route>
 
-            <Route path={PATH.tonies}>
-              <Route index element={<ToniesList />} />
-              <Route path='new' element={<TonieFormNew />} />
-              <Route path=':id' element={<TonieEdit />} />
-              <Route path='wishlist' element={<TonieWishlist />} />
-            </Route>
+              <Route path={PATH.tonies}>
+                <Route index element={<ToniesList />} />
+                <Route path='new' element={<TonieFormNew />} />
+                <Route path=':id' element={<TonieEdit />} />
+                <Route path='wishlist' element={<TonieWishlist />} />
+              </Route>
 
-            <Route path={PATH.lego}>
-              <Route index element={<LegoList />} />
-              <Route path='new' element={<LegoNewForm />} />
-              <Route path=':id' element={<LegoEdit />} />
-              <Route path='wishlist' element={<LegoWishlist />} />
+              <Route path={PATH.lego}>
+                <Route index element={<LegoList />} />
+                <Route path='new' element={<LegoNewForm />} />
+                <Route path=':id' element={<LegoEdit />} />
+                <Route path='wishlist' element={<LegoWishlist />} />
+              </Route>
             </Route>
+            {/* End Backstage */}
           </Route>
-          {/* End Backstage */}
         </Route>
       </Route>
     </Routes>

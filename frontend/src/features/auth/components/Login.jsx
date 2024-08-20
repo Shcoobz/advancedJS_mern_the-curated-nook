@@ -16,6 +16,7 @@ import {
 } from '../../utils/formUtils';
 
 import Spinner from '../../../components/common/Spinner';
+import usePersist from '../../../hooks/usePersist';
 
 function Login({ onClose }) {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Login({ onClose }) {
   const [login, { isLoading }] = useLoginMutation();
   const [loginAttempted, setLoginAttempted] = useState(false);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [persist, setPersist] = usePersist();
 
   const updateField = createUpdateField(setFormData);
   const handleFieldChange = handleClick(updateField);
@@ -32,6 +34,7 @@ function Login({ onClose }) {
   useEffect(() => {
     if (!loginAttempted) {
       const usernameInput = document.getElementById('username');
+
       if (usernameInput) {
         usernameInput.focus();
       }
@@ -39,6 +42,7 @@ function Login({ onClose }) {
 
     if (loginAttempted && loginFailed) {
       const passwordInput = document.getElementById('password');
+
       if (passwordInput) {
         passwordInput.focus();
       }
@@ -68,7 +72,17 @@ function Login({ onClose }) {
   }
 
   function loginFormFields() {
-    return getLoginFormFields({ formData, handleFieldChange, handleSubmit });
+    return getLoginFormFields({
+      formData,
+      handleFieldChange,
+      handleSubmit,
+      handleToggle,
+      persist,
+    });
+  }
+
+  function handleToggle() {
+    return setPersist((prev) => !prev);
   }
 
   if (isLoading) return <Spinner />;
