@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../api/authApiSlice';
@@ -32,17 +32,13 @@ function Login({ onClose }) {
   useEffect(() => {
     if (!loginAttempted) {
       const usernameInput = document.getElementById('username');
-
       if (usernameInput) {
         usernameInput.focus();
       }
     }
-  }, [loginAttempted]);
 
-  useEffect(() => {
     if (loginAttempted && loginFailed) {
       const passwordInput = document.getElementById('password');
-
       if (passwordInput) {
         passwordInput.focus();
       }
