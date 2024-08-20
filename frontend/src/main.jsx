@@ -10,6 +10,7 @@ import '../index.css';
 import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -17,7 +18,13 @@ root.render(
         <Routes>
           <Route path='/*' element={<App />} />
         </Routes>
-        <ToastContainer autoClose={1000} />
+        <ToastContainer
+          autoClose={1500}
+          closeOnClick
+          pauseOnHover
+          pauseOnFocusLoss
+          aria-live='assertive'
+        />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
