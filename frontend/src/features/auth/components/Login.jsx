@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../api/authApiSlice';
@@ -23,20 +23,36 @@ function Login({ onClose }) {
 
   const [formData, setFormData] = useState(createInitialFormState(ENTITY.login));
   const [login, { isLoading }] = useLoginMutation();
+  const [loginAttempted, setLoginAttempted] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const updateField = createUpdateField(setFormData);
   const handleFieldChange = handleClick(updateField);
 
   useEffect(() => {
-    const usernameInput = document.getElementById('username');
+    if (!loginAttempted) {
+      const usernameInput = document.getElementById('username');
 
-    if (usernameInput) {
-      usernameInput.focus();
+      if (usernameInput) {
+        usernameInput.focus();
+      }
     }
-  }, []);
+  }, [loginAttempted]);
+
+  useEffect(() => {
+    if (loginAttempted && loginFailed) {
+      const passwordInput = document.getElementById('password');
+
+      if (passwordInput) {
+        passwordInput.focus();
+      }
+    }
+  }, [loginAttempted, loginFailed]);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    setLoginAttempted(true);
 
     if (!validateFormData(formData)) return;
 
@@ -47,8 +63,11 @@ function Login({ onClose }) {
       setFormData({ username: '', password: '' });
       toast.success('Login successful!');
       navigate('/backstage');
+      setLoginFailed(false);
+      setLoginAttempted(false);
     } catch (err) {
       handleLoginError(err);
+      setLoginFailed(true);
     }
   }
 
