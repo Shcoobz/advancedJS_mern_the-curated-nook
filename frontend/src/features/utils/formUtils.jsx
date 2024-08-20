@@ -111,6 +111,12 @@ export function createInitialFormState(type, data = null) {
             isOnWishlist: false,
           };
 
+    case 'login':
+      return {
+        username: '',
+        password: '',
+      };
+
     default:
       throw new Error(`Unknown type: ${type}`);
   }

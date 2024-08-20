@@ -37,25 +37,11 @@ export function setRefreshTokenCookie(res, refreshToken) {
 
 export async function verifyRefreshToken(refreshToken, res) {
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
-    // if (err) return res.status(403).json({ message: 'Forbidden' });
     if (err) return sendForbidden(res);
 
-    // const foundUser = await User.findOne({ username: decoded.username }).exec();
     const foundUser = await findUserByName(decoded.username);
-
-    // if (!foundUser) return res.status(401).json({ message: 'Unauthorized' });
     if (!foundUser) return sendUnauthorized(res);
 
-    // const accessToken = jwt.sign(
-    //   {
-    //     UserInfo: {
-    //       username: foundUser.username,
-    //       roles: foundUser.roles,
-    //     },
-    //   },
-    //   process.env.ACCESS_TOKEN_SECRET,
-    //   { expiresIn: '15m' }
-    // );
     const accessToken = createAccessToken(
       foundUser.username,
       foundUser.roles,

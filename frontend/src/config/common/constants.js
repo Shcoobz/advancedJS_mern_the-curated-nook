@@ -155,6 +155,7 @@ export const ENTITY = {
   tonie: 'tonie',
   lego: 'lego',
   book: 'book',
+  login: 'login',
 };
 
 export const SORTING = {

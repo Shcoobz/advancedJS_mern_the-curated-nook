@@ -91,3 +91,17 @@ export function SubmitButton({ canSave }) {
     </button>
   );
 }
+
+export function LoginButton({
+  component: Component = 'button',
+  type,
+  className,
+  children,
+  ...props
+}) {
+  return (
+    <Component type={type} className={`login-button ${className}`} {...props}>
+      {children}
+    </Component>
+  );
+}

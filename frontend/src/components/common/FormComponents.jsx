@@ -13,16 +13,19 @@ export function FormHeader({
   handleDelete,
   handleScan,
   onClose,
+  hideSaveButton = false,
 }) {
   return (
     <div className='form-header__container modal__header-container'>
       <h2>{title}</h2>
       <div className='form-header__action-buttons modal__header-action-buttons'>
-        <SaveButton
-          handleSave={handleSave}
-          canSave={canSave}
-          className='table__button table__button-save modal__button-save'
-        />
+        {!hideSaveButton && (
+          <SaveButton
+            handleSave={handleSave}
+            canSave={canSave}
+            className='table__button table__button-save modal__button-save'
+          />
+        )}
         {handleDelete && (
           <DeleteButton
             handleDelete={handleDelete}
@@ -163,6 +166,7 @@ export function DynamicForm({
   handleScan,
   onClose,
   handleDelete,
+  hideSaveButton = false,
 }) {
   const formFields = getFormFields({
     formData,
@@ -184,6 +188,7 @@ export function DynamicForm({
         onClose={onClose}
         handleDelete={handleDelete}
         handleScan={handleScan}
+        hideSaveButton={hideSaveButton}
       />
       <FormBody
         renderFormFields={renderFormFields}

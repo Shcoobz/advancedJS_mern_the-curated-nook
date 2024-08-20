@@ -68,6 +68,20 @@
   border: 2px solid var(--TABLE-COLOR);
 }
 
+.form__login-button {
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 15px;
+  border: 2px solid var(--TABLE-COLOR);
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.form__login-button:hover {
+  background-color: #f0f0f0;
+}
+
 .form__input--text,
 .form__textarea--text {
   min-height: 150px;
