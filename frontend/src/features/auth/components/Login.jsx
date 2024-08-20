@@ -11,6 +11,8 @@ import {
   createInitialFormState,
   createUpdateField,
   handleClick,
+  handleLoginError,
+  validateFormData,
 } from '../../utils/formUtils';
 
 import Spinner from '../../../components/common/Spinner';
@@ -33,37 +35,6 @@ function Login({ onClose }) {
     }
   }, []);
 
-  function validateFormData(formData) {
-    if (!formData.username) {
-      toast.error('Username needed!');
-      return false;
-    }
-
-    if (!formData.password) {
-      toast.error('Password needed!');
-      return false;
-    }
-
-    return true;
-  }
-
-  function handleLoginError(err) {
-    if (!err.status) {
-      toast.error('No Server Response. Please try again later.');
-    } else {
-      switch (err.status) {
-        case 400:
-          toast.error('Missing Username or Password');
-          break;
-        case 401:
-          toast.error('Unauthorized');
-          break;
-        default:
-          toast.error(`Login failed: ${err.data?.message || 'Unknown error'}`);
-      }
-    }
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -74,9 +45,7 @@ function Login({ onClose }) {
 
       dispatch(setCredentials({ accessToken }));
       setFormData({ username: '', password: '' });
-
       toast.success('Login successful!');
-
       navigate('/backstage');
     } catch (err) {
       handleLoginError(err);

@@ -422,3 +422,34 @@ export function generateExistingBookPayload(book, formData) {
     isOnWishlist: formData.isOnWishlist,
   };
 }
+
+export function validateFormData(formData) {
+  if (!formData.username) {
+    toast.error('Username needed!');
+    return false;
+  }
+
+  if (!formData.password) {
+    toast.error('Password needed!');
+    return false;
+  }
+
+  return true;
+}
+
+export function handleLoginError(err) {
+  if (!err.status) {
+    toast.error('No Server Response. Please try again later.');
+  } else {
+    switch (err.status) {
+      case 400:
+        toast.error('Missing Username or Password');
+        break;
+      case 401:
+        toast.error('Unauthorized');
+        break;
+      default:
+        toast.error(`Login failed: ${err.data?.message || 'Unknown error'}`);
+    }
+  }
+}
