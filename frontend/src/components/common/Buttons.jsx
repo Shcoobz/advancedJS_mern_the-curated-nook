@@ -7,6 +7,7 @@ import {
   faTrashCan,
   faBarcode,
   faWarehouse,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -103,5 +104,13 @@ export function LoginButton({
     <Component type={type} className={`login-button ${className}`} {...props}>
       {children}
     </Component>
+  );
+}
+
+export function LogoutButton({ onClick }) {
+  return (
+    <button className='icon-button' title='Logout' onClick={onClick}>
+      <FontAwesomeIcon icon={faRightFromBracket} />
+    </button>
   );
 }
