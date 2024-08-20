@@ -3,10 +3,14 @@ import {
   TableItemDetailHeader,
   TableItemDetailImage,
 } from '../../../../../components/common/TableComponents';
+import useAuth from '../../../../../hooks/useAuth';
 import stockImageBook from '../../../../../img/stockimageBook.png';
 import { formatDate } from '../../../../utils/utils';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const displayDate = formatDate(book.publishedDate);
 
   const hasValidImageUrl = book.imageUrl && book.imageUrl !== 'N/A';
@@ -28,6 +32,7 @@ function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
+        isProtected={isProtected}
       />
 
       <div className='book__modal-content'>

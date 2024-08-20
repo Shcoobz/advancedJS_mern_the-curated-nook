@@ -6,8 +6,11 @@ import ConditionalList from '../../../../../components/common/ConditionalList';
 import { UI } from '../../../../../config/common/messages';
 import Tonie from '../Tonie/Tonie';
 import { LINK } from '../../../../../config/common/constants';
+import useAuth from '../../../../../hooks/useAuth';
 
 function TonieWishlistTable({ tonies, openModal }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -17,6 +20,10 @@ function TonieWishlistTable({ tonies, openModal }) {
   );
 
   const { ids, entities } = filteredTonies;
+
+  const tableClass = isProtected
+    ? 'table__tonies--with-actions'
+    : 'table__tonies--without-actions';
 
   const tableContent = generateTableContent(
     ids,
@@ -28,14 +35,15 @@ function TonieWishlistTable({ tonies, openModal }) {
   );
 
   const tonieWishlistTable = ids.length > 0 && (
-    <table className='table table__tonies'>
+    <table className={`table ${tableClass}`}>
       <thead className='table__thead'>
         <tr>
           <TableCellHeader label='No.' className='tonie__number' />
           <TableCellHeader label='Image' className='tonie__thumbnail' />
           <TableCellHeader label='Name' className='tonie__name' />
           <TableCellHeader label='Description' className='tonie__description' />
-          <TableCellHeader label='Actions' className='tonie__action' />
+
+          {isProtected && <TableCellHeader label='Actions' className='tonie__action' />}
         </tr>
       </thead>
       <tbody>{tableContent}</tbody>
@@ -54,6 +62,7 @@ function TonieWishlistTable({ tonies, openModal }) {
       onHomeClick={handleHomeClick}
       table={tonieWishlistTable}
       createButtonText='New Tonie'
+      isProtected={isProtected}
     />
   );
 }

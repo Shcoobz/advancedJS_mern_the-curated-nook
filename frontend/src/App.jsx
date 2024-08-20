@@ -30,8 +30,15 @@ import Prefetch from './features/auth/components/Prefetch';
 import PersistLogin from './features/auth/components/PersistLogin';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const { isUser, isSuperuser, isAdmin } = useAuth();
+
+  const basicProtection = isUser || isSuperuser || isAdmin;
+  const higherProtection = isSuperuser || isAdmin;
+  const highestProtection = isAdmin;
+
   useEffect(() => {
     setTimeout(() => {
       const authFailedMessage = sessionStorage.getItem('authFailed');
@@ -56,29 +63,32 @@ function App() {
 
               <Route path={PATH.users}>
                 <Route index element={<UsersList />} />
-                <Route path='new' element={<UserFormNew />} />
-                <Route path=':id' element={<UserEdit />} />
+                {highestProtection && <Route path='new' element={<UserFormNew />} />}
+                {highestProtection && <Route path=':id' element={<UserEdit />} />}
               </Route>
 
               <Route path={PATH.books}>
                 <Route index element={<BooksList />} />
-                <Route path='new' element={<BookFormNew />} />
-                <Route path=':id' element={<BookEdit />} />
                 <Route path='wishlist' element={<BookWishlist />} />
+
+                {higherProtection && <Route path=':id' element={<BookEdit />} />}
+                {higherProtection && <Route path='new' element={<BookFormNew />} />}
               </Route>
 
               <Route path={PATH.tonies}>
                 <Route index element={<ToniesList />} />
-                <Route path='new' element={<TonieFormNew />} />
-                <Route path=':id' element={<TonieEdit />} />
                 <Route path='wishlist' element={<TonieWishlist />} />
+
+                {higherProtection && <Route path='new' element={<TonieFormNew />} />}
+                {higherProtection && <Route path=':id' element={<TonieEdit />} />}
               </Route>
 
               <Route path={PATH.lego}>
                 <Route index element={<LegoList />} />
-                <Route path='new' element={<LegoNewForm />} />
-                <Route path=':id' element={<LegoEdit />} />
                 <Route path='wishlist' element={<LegoWishlist />} />
+
+                {higherProtection && <Route path='new' element={<LegoNewForm />} />}
+                {higherProtection && <Route path=':id' element={<LegoEdit />} />}
               </Route>
             </Route>
             {/* End Backstage */}

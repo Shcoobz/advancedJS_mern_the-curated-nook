@@ -6,8 +6,11 @@ import { generateTableContent, genericFilter } from '../../../utils/utils';
 import { useOutletContext } from 'react-router-dom';
 import User from '../User/User';
 import ConditionalList from '../../../../components/common/ConditionalList';
+import useAuth from '../../../../hooks/useAuth';
 
 function UsersListTable({ users, openModal }) {
+  const { isAdmin } = useAuth();
+  const isProtected = isAdmin;
   const { searchTerm } = useOutletContext();
 
   const filteredUsers = useMemo(
@@ -17,17 +20,24 @@ function UsersListTable({ users, openModal }) {
 
   const { ids, entities } = filteredUsers;
 
+  const tableClass = isProtected
+    ? 'table__users--with-actions'
+    : 'table__users--without-actions';
+
   const tableContent = generateTableContent(ids, entities, openModal, User, 'user');
 
   const userTable = ids.length > 0 && (
-    <table className='table table__users'>
+    <table className={`table ${tableClass}`}>
       <thead className='table__thead'>
         <tr>
           <TableCellHeader label='No.' className='user__number' />
           <TableCellHeader label='Image' className='user__thumbnail' />
           <TableCellHeader label={TABLE.TITLE.USER.name} className='user__username' />
           <TableCellHeader label={TABLE.TITLE.USER.roles} className='user__roles' />
-          <TableCellHeader label={TABLE.TITLE.USER.action} className='user__action' />
+
+          {isProtected && (
+            <TableCellHeader label={TABLE.TITLE.USER.action} className='user__action' />
+          )}
         </tr>
       </thead>
       <tbody>{tableContent}</tbody>
@@ -41,6 +51,7 @@ function UsersListTable({ users, openModal }) {
       onCreateClick={() => openModal()}
       table={userTable}
       createButtonText='New User'
+      isProtected={isProtected}
     />
   );
 }

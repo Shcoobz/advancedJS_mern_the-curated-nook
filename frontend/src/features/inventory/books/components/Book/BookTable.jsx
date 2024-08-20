@@ -10,12 +10,16 @@ import {
   TableCellActions,
 } from '../../../../../components/common/TableComponents';
 import stockImageBook from '../../../../../img/stockimageBook.png';
+import useAuth from '../../../../../hooks/useAuth';
 
 function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
 function BookTable({ book, onEdit, index }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const [deleteBook] = useDeleteBookMutation();
   const dispatch = useDispatch();
   const bookCategoryList = formatCategories(book.categories);
@@ -41,12 +45,14 @@ function BookTable({ book, onEdit, index }) {
       <TableCell className='book__description' content={truncatedDescription} />
       <TableCell className='book__categories' content={bookCategoryList} />
 
-      <TableCellActions
-        onEdit={onEdit}
-        handleDelete={handleDelete}
-        item={book}
-        className='list__actions'
-      />
+      {isProtected && (
+        <TableCellActions
+          onEdit={onEdit}
+          handleDelete={handleDelete}
+          item={book}
+          className='list__actions'
+        />
+      )}
     </>
   );
 }

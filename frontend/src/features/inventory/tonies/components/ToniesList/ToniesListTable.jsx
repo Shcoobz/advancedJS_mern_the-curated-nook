@@ -6,8 +6,11 @@ import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { LINK } from '../../../../../config/common/constants';
+import useAuth from '../../../../../hooks/useAuth';
 
 function ToniesListTable({ tonies, openModal }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,17 +21,21 @@ function ToniesListTable({ tonies, openModal }) {
 
   const { ids, entities } = filteredTonies;
 
+  const tableClass = isProtected
+    ? 'table__tonies--with-actions'
+    : 'table__tonies--without-actions';
+
   const tableContent = generateTableContent(ids, entities, openModal, Tonie, 'tonie');
 
   const tonieTable = ids.length > 0 && (
-    <table className='table table__tonies'>
+    <table className={`table ${tableClass}`}>
       <thead className='table__thead'>
         <tr>
           <TableCellHeader label='No.' className='tonie__number' />
           <TableCellHeader label='Image' className='tonie__thumbnail' />
           <TableCellHeader label='Name' className='tonie__name' />
           <TableCellHeader label='Description' className='tonie__description' />
-          <TableCellHeader label='Actions' className='tonie__action' />
+          {isProtected && <TableCellHeader label='Actions' className='tonie__action' />}
         </tr>
       </thead>
       <tbody>{tableContent}</tbody>
@@ -47,6 +54,7 @@ function ToniesListTable({ tonies, openModal }) {
       onWishlistClick={handleWishlistClick}
       table={tonieTable}
       createButtonText='New Tonie'
+      isProtected={isProtected}
     />
   );
 }

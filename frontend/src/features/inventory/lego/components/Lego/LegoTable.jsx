@@ -8,8 +8,12 @@ import {
 import { handleDeleteEntityList, isUUID } from '../../../../utils/formUtils';
 import { TOAST } from '../../../../../config/common/messages';
 import stockImageLego from '../../../../../img/stockimageLego.png';
+import useAuth from '../../../../../hooks/useAuth';
 
 function LegoTable({ lego, onEdit, index }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const [deleteLego] = useDeleteLegoMutation();
   const dispatch = useDispatch();
   const thumbnailUrl =
@@ -32,12 +36,14 @@ function LegoTable({ lego, onEdit, index }) {
       <TableCell className='lego__name' content={lego.name} />
       <TableCell className='lego__setNumber' content={displaySetNumber} />
 
-      <TableCellActions
-        onEdit={onEdit}
-        handleDelete={handleDelete}
-        item={lego}
-        className='list__actions'
-      />
+      {isProtected && (
+        <TableCellActions
+          onEdit={onEdit}
+          handleDelete={handleDelete}
+          item={lego}
+          className='list__actions'
+        />
+      )}
     </>
   );
 }

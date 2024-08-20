@@ -6,8 +6,11 @@ import { useMemo } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { LINK } from '../../../../../config/common/constants';
+import useAuth from '../../../../../hooks/useAuth';
 
 function BooksListTable({ books, openModal }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,10 +21,14 @@ function BooksListTable({ books, openModal }) {
 
   const { ids, entities } = filteredBooks;
 
+  const tableClass = isProtected
+    ? 'table__books--with-actions'
+    : 'table__books--without-actions';
+
   const tableContent = generateTableContent(ids, entities, openModal, Book, 'book');
 
   const bookTable = ids.length > 0 && (
-    <table className='table table__books'>
+    <table className={`table ${tableClass}`}>
       <thead className='table__thead'>
         <tr>
           <TableCellHeader label='No.' className='book__number' />
@@ -29,7 +36,8 @@ function BooksListTable({ books, openModal }) {
           <TableCellHeader label='Title' className='book__title' />
           <TableCellHeader label='Description' className='book__description' />
           <TableCellHeader label='Categories' className='book__categories' />
-          <TableCellHeader label='Edit' className='book__action' />
+
+          {isProtected && <TableCellHeader label='Edit' className='book__action' />}
         </tr>
       </thead>
       <tbody>{tableContent}</tbody>
@@ -48,6 +56,7 @@ function BooksListTable({ books, openModal }) {
       onWishlistClick={handleWishlistClick}
       table={bookTable}
       createButtonText='New Book'
+      isProtected={isProtected}
     />
   );
 }

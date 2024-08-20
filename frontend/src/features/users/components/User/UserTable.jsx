@@ -9,6 +9,7 @@ import { apiSlice } from '../../../../app/api/apiSlice';
 import { handleDeleteEntityList } from '../../../utils/formUtils';
 import { TOAST } from '../../../../config/common/messages';
 import stockImageUser from '../../../../img/stockimageUser.png';
+import useAuth from '../../../../hooks/useAuth';
 
 function formatRoles(roles) {
   return roles.toString().replaceAll(DEFAULT.comma, DEFAULT.commaSpace);
@@ -19,6 +20,9 @@ function getCellStatus(userActive) {
 }
 
 function UserTable({ user, onEdit, index }) {
+  const { isAdmin } = useAuth();
+  const isProtected = isAdmin;
+
   const [deleteUser] = useDeleteUserMutation();
   const dispatch = useDispatch();
   const userRolesString = formatRoles(user.roles);
@@ -55,13 +59,16 @@ function UserTable({ user, onEdit, index }) {
         content={userRolesString}
         statusClass={cellStatus}
       />
-      <TableCellActions
-        onEdit={onEdit}
-        handleDelete={handleDelete}
-        item={user}
-        statusClass={cellStatus}
-        className={'list__actions'}
-      />
+
+      {isProtected && (
+        <TableCellActions
+          onEdit={onEdit}
+          handleDelete={handleDelete}
+          item={user}
+          statusClass={cellStatus}
+          className={'list__actions'}
+        />
+      )}
     </>
   );
 }

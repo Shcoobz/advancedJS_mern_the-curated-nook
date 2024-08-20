@@ -3,10 +3,14 @@ import {
   TableItemDetailHeader,
   TableItemDetailImage,
 } from '../../../../components/common/TableComponents';
+import useAuth from '../../../../hooks/useAuth';
 
 import stockImageUser from '../../../../img/stockimageUser.png';
 
 function UserDetailsTable({ user, onClose, handleEditClick, handleDelete }) {
+  const { isAdmin } = useAuth();
+  const isProtected = isAdmin;
+
   const formattedRoles = user.roles.join(', ');
 
   const hasValidImageUrl = user.imageUrl && user.imageUrl !== 'N/A';
@@ -25,6 +29,7 @@ function UserDetailsTable({ user, onClose, handleEditClick, handleDelete }) {
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
+        isProtected={isProtected}
       />
 
       <div className='user__modal-content'>

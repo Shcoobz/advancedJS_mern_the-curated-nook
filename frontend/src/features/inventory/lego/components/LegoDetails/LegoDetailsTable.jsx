@@ -5,8 +5,12 @@ import {
 } from '../../../../../components/common/TableComponents';
 import { isUUID } from '../../../../utils/formUtils';
 import stockImageLego from '../../../../../img/stockimageLego.png';
+import useAuth from '../../../../../hooks/useAuth';
 
 function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const displaySetNumber = isUUID(lego.setNumber) ? 'N/A' : lego.setNumber;
 
   const hasValidImageUrl = lego.imageUrl && lego.imageUrl !== 'N/A';
@@ -28,6 +32,7 @@ function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
+        isProtected={isProtected}
       />
 
       <div className='lego__modal-content'>

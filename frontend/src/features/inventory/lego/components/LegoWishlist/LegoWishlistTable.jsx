@@ -6,8 +6,11 @@ import { TableCellHeader } from '../../../../../components/common/TableComponent
 import { LINK } from '../../../../../config/common/constants';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { UI } from '../../../../../config/common/messages';
+import useAuth from '../../../../../hooks/useAuth';
 
 function LegoWishlistTable({ lego, openModal }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
   const navigate = useNavigate();
   const { searchTerm } = useOutletContext();
 
@@ -18,17 +21,21 @@ function LegoWishlistTable({ lego, openModal }) {
 
   const { ids, entities } = filteredLego;
 
+  const tableClass = isProtected
+    ? 'table__lego--with-actions'
+    : 'table__lego--without-actions';
+
   const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego', true);
 
   const legoWishlistTable = ids.length > 0 && (
-    <table className='table table__lego'>
+    <table className={`table ${tableClass}`}>
       <thead className='table__thead'>
         <tr>
           <TableCellHeader label='No.' className='lego__number' />
           <TableCellHeader label='Image' className='lego__thumbnail' />
           <TableCellHeader label='Name' className='lego__name' />
           <TableCellHeader label='Set Number' className='lego__setNumber' />
-          <TableCellHeader label='Edit' className='lego__action' />
+          {isProtected && <TableCellHeader label='Edit' className='lego__action' />}
         </tr>
       </thead>
       <tbody>{tableContent}</tbody>
@@ -47,6 +54,7 @@ function LegoWishlistTable({ lego, openModal }) {
       onHomeClick={handleHomeClick}
       table={legoWishlistTable}
       createButtonText='New Lego'
+      isProtected={isProtected}
     />
   );
 }

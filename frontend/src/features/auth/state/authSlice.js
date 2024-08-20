@@ -15,13 +15,18 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logOut, setSessionExpired, clearSessionExpired } =
-  authSlice.actions;
+export const { setCredentials, logOut } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export function selectCurrentToken(state, sliceName) {
+export function selectCurrentToken(state) {
+  const sliceName = API.AUTH.sliceName;
+
   return state[sliceName].token;
 }
+
+// export function selectCurrentToken(state, sliceName) {
+//   return state[sliceName].token;
+// }
 
 // ==> call: const currentToken = selectCurrentToken(state, API.AUTH.sliceName);

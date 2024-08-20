@@ -9,6 +9,7 @@ function ConditionalList({
   onHomeClick,
   table,
   createButtonText = 'New',
+  isProtected,
 }) {
   const header = (
     <TableAboveHeader
@@ -17,6 +18,7 @@ function ConditionalList({
       actionOnClick={onWishlistClick || onHomeClick}
       createButtonText={createButtonText}
       isWishlist={!!onWishlistClick}
+      isProtected={isProtected}
     />
   );
 

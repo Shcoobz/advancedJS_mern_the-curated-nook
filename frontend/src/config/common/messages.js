@@ -13,7 +13,7 @@ export const UI = {
     status: 'Status: ',
     PAGE: {
       WELCOME: {
-        greeting: 'Hallöchen!',
+        greeting: 'Hallöchen,',
         paragraph: `Occaecat nisi Lorem dolor adipisicing fugiat cillum cillum ex esse velit officia.
         Sunt duis aliquip aliquip nisi commodo id aute nulla culpa. Laborum magna ipsum
         ullamco ea Lorem. Proident cupidatat commodo adipisicing id nisi eiusmod. Nostrud

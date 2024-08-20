@@ -42,20 +42,44 @@ tr {
   gap: 0.1em;
 }
 
-.table__users {
-  grid-template-columns: var(--GRID-USERS);
+.table__users--with-actions {
+  grid-template-columns: var(--GRID-USERS-TABLE);
 }
 
-.table__books {
-  grid-template-columns: var(--GRID-BOOKS);
+.table__users--without-actions {
+  grid-template-columns: var(--GRID-USERS-TABLE-NO-ACTIONS);
+}
+
+.table__books--with-actions {
+  grid-template-columns: var(--GRID-BOOKS-TABLE);
+}
+
+.table__books--without-actions {
+  grid-template-columns: var(--GRID-BOOKS-TABLE-NO-ACTIONS);
 }
 
 .table__tonies {
   grid-template-columns: var(--GRID-TONIES);
 }
 
+.table__tonies--with-actions {
+  grid-template-columns: var(--GRID-TONIES-LIST);
+}
+
+.table__tonies--without-actions {
+  grid-template-columns: var(--GRID-TONIES-LIST-NO-ACTIONS);
+}
+
 .table__lego {
   grid-template-columns: var(--GRID-LEGO);
+}
+
+.table__lego--with-actions {
+  grid-template-columns: var(--GRID-LEGO-LIST);
+}
+
+.table__lego--without-actions {
+  grid-template-columns: var(--GRID-LEGO-LIST-NO-ACTIONS);
 }
 
 .table__button {

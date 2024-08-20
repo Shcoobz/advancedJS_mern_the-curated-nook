@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { UI } from '../../../config/common/messages';
 import { DATE, LINK } from '../../../config/common/constants';
+import useAuth from '../../../hooks/useAuth';
 
 // Todo:
 // * add nice buttons instead of just links
@@ -11,6 +12,8 @@ import { DATE, LINK } from '../../../config/common/constants';
 // * make time && date bigger, center?
 
 function Welcome() {
+  const { username, isSuperuser, isAdmin } = useAuth();
+
   const date = new Date();
   const formatDate = new Intl.DateTimeFormat(DATE.locale, {
     dateStyle: DATE.dateStyle,
@@ -26,7 +29,9 @@ function Welcome() {
 
       <br />
 
-      <h1>{UI.BS.PAGE.WELCOME.greeting}</h1>
+      <h1>
+        {UI.BS.PAGE.WELCOME.greeting} {username} !
+      </h1>
 
       <br />
 
@@ -36,10 +41,6 @@ function Welcome() {
 
       <p>
         <Link to={LINK.USER.viewUsers}>{UI.BS.PAGE.WELCOME.viewUsers}</Link>
-      </p>
-
-      <p>
-        <Link to={'/backstage/users/new'}>Add new User</Link>
       </p>
 
       <p>

@@ -8,8 +8,12 @@ import { apiSlice } from '../../../../../app/api/apiSlice';
 import { handleDeleteEntityList } from '../../../../utils/formUtils';
 import { TOAST } from '../../../../../config/common/messages';
 import stockImageTonie from '../../../../../img/stockimageTonie.png';
+import useAuth from '../../../../../hooks/useAuth';
 
 function TonieTable({ tonie, onEdit, onClose, index }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const [deleteTonie] = useDeleteTonieMutation();
   const dispatch = useDispatch();
 
@@ -33,13 +37,16 @@ function TonieTable({ tonie, onEdit, onClose, index }) {
       />
       <TableCell className='tonie__name' content={tonie.name} />
       <TableCell className='tonie__description' content={tonie.description} />
-      <TableCellActions
-        onEdit={onEdit}
-        handleDelete={handleDelete}
-        item={tonie}
-        onClose={onClose}
-        className='list__actions'
-      />
+
+      {isProtected && (
+        <TableCellActions
+          onEdit={onEdit}
+          handleDelete={handleDelete}
+          item={tonie}
+          onClose={onClose}
+          className='list__actions'
+        />
+      )}
     </>
   );
 }

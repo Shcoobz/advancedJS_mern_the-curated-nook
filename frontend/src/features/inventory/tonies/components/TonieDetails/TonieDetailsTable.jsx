@@ -3,10 +3,14 @@ import {
   TableItemDetailHeader,
   TableItemDetailImage,
 } from '../../../../../components/common/TableComponents';
+import useAuth from '../../../../../hooks/useAuth';
 
 import stockImageTonie from '../../../../../img/stockimageTonie.png';
 
 function TonieDetailsTable({ tonie, onClose, handleEditClick, handleDelete }) {
+  const { isSuperuser, isAdmin } = useAuth();
+  const isProtected = isSuperuser || isAdmin;
+
   const hasValidImageUrl = tonie.imageUrl && tonie.imageUrl !== 'N/A';
   const hasValidThumbnailUrl = tonie.thumbnailUrl && tonie.thumbnailUrl !== 'N/A';
 
@@ -23,6 +27,7 @@ function TonieDetailsTable({ tonie, onClose, handleEditClick, handleDelete }) {
         handleEditClick={handleEditClick}
         handleDelete={handleDelete}
         onClose={onClose}
+        isProtected={isProtected}
       />
 
       <div className='tonie__modal-content'>

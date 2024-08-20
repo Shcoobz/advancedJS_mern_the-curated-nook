@@ -50,13 +50,14 @@ export const TableItemDetailHeader = ({
   handleEditClick,
   handleDelete,
   onClose,
+  isProtected,
 }) => {
   return (
     <div className='form-header__container'>
       <h2>{title}</h2>
       <div className='form-header__action-buttons'>
-        <EditButton onClick={handleEditClick} />
-        <DeleteButton handleDelete={handleDelete} />
+        {isProtected && <EditButton onClick={handleEditClick} />}
+        {isProtected && <DeleteButton handleDelete={handleDelete} />}
         <CloseButton onClick={onClose} />
       </div>
     </div>
@@ -78,12 +79,13 @@ export function TableAboveHeader({
   actionOnClick,
   createButtonText,
   isWishlist,
+  isProtected,
 }) {
   return (
     <div className='table__above-header'>
       <TableDescription text={descriptionText} />
       <div className='above-header buttons__action'>
-        <CreateButton onClick={onCreateClick} text={createButtonText} />
+        {isProtected && <CreateButton onClick={onCreateClick} text={createButtonText} />}
         {isWishlist && actionOnClick && <WishlistButton onClick={actionOnClick} />}
         {!isWishlist && actionOnClick && <InventoryButton onClick={actionOnClick} />}
       </div>

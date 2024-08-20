@@ -6,10 +6,9 @@ import { useRefreshMutation } from '../api/authApiSlice';
 import { Outlet } from 'react-router-dom';
 import Spinner from '../../../components/common/Spinner';
 import { FormErrorMessage } from '../../../components/common/FormComponents';
-import { API } from '../../../config/common/constants';
 
 function PersistLogin() {
-  const token = useSelector((state) => selectCurrentToken(state, API.AUTH.sliceName));
+  const token = useSelector(selectCurrentToken);
 
   const effectRan = useRef(false);
   const [persist] = usePersist();
@@ -20,11 +19,19 @@ function PersistLogin() {
   let content;
 
   useEffect(() => {
-    if (effectRan.current === true || import.meta.env.VITE_NODE_ENV !== 'development') {
-      // React 18 Strict Mode
-      verifyRefreshToken();
+    // if (effectRan.current === true || import.meta.env.VITE_NODE_ENV !== 'development') {
+    //   // React 18 Strict Mode
+    //   verifyRefreshToken();
 
-      if (!token && persist) verifyRefreshToken();
+    //   if (!token && persist) verifyRefreshToken();
+    // }
+
+    if (effectRan.current === true && import.meta.env.VITE_NODE_ENV !== 'development') {
+      return;
+    }
+
+    if (!token && persist) {
+      verifyRefreshToken();
     }
 
     return () => (effectRan.current = true);
@@ -66,7 +73,6 @@ function PersistLogin() {
 
     case token && isUninitialized:
       // persist: yes, token: yes
-      console.log(isUninitialized);
       content = <Outlet />;
       break;
 
