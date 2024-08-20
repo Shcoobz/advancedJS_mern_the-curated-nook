@@ -33,8 +33,6 @@ function PersistLogin() {
   }, []);
 
   async function verifyRefreshToken() {
-    console.log('verifying refresh token');
-
     try {
       //const response =
       await refresh();
@@ -48,31 +46,26 @@ function PersistLogin() {
   switch (true) {
     case !persist:
       // persist: no
-      console.log('no persist');
       content = <Outlet />;
       break;
 
     case isLoading:
       // persist: yes, token: no
-      console.log('loading');
       content = <Spinner />;
       break;
 
     case isError:
       // persist: yes, token: no
-      console.log('error');
       content = <FormErrorMessage message={error.data?.message} />;
       break;
 
     case isSuccess && trueSuccess:
       // persist: yes, token: yes
-      console.log('success');
       content = <Outlet />;
       break;
 
     case token && isUninitialized:
       // persist: yes, token: yes
-      console.log('token and uninit');
       console.log(isUninitialized);
       content = <Outlet />;
       break;

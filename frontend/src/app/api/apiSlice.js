@@ -3,7 +3,6 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { API, HTTP_STATUS, LINK, TAG_TYPE } from '../../config/common/constants';
 import { getToken, prepareRequestHeaders, refreshToken } from './apiSliceUtils';
 import { logOut, setCredentials } from '../../features/auth/state/authSlice';
-import { toast } from 'react-toastify';
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
@@ -23,10 +22,6 @@ async function baseQueryWithReauth(args, api, extraOptions) {
 
     const refreshResult = await refreshToken(api, extraOptions);
     console.log('api slice: refresh Result: ', refreshResult);
-
-    // if (!refreshResult) {
-    //   return await baseQuery(args, api, extraOptions);
-    // }
 
     if (refreshResult?.data) {
       api.dispatch(setCredentials({ ...refreshResult.data }));
