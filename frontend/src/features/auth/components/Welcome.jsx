@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UI } from '../../../config/common/messages';
 import { DATE, LINK } from '../../../config/common/constants';
 import useAuth from '../../../hooks/useAuth';
@@ -12,6 +12,7 @@ import useAuth from '../../../hooks/useAuth';
 // * make time && date bigger, center?
 
 function Welcome() {
+  const navigate = useNavigate();
   const { username, isSuperuser, isAdmin } = useAuth();
 
   const date = new Date();
@@ -22,6 +23,12 @@ function Welcome() {
 
   let formattedDateTime = formatDate.format(date);
   let today = formattedDateTime.replace(' um ', ' || Uhrzeit: ').replace('MESZ', '');
+
+  function handleNavigate(path) {
+    return () => {
+      navigate(path);
+    };
+  }
 
   const content = (
     <section className='welcome'>
@@ -39,21 +46,9 @@ function Welcome() {
 
       <br />
 
-      <p>
-        <Link to={LINK.USER.viewUsers}>{UI.BS.PAGE.WELCOME.viewUsers}</Link>
-      </p>
-
-      <p>
-        <Link to={LINK.BOOK.viewBooks}>{UI.BS.PAGE.WELCOME.viewBooks}</Link>
-      </p>
-
-      <p>
-        <Link to={LINK.TONIE.viewTonies}>{UI.BS.PAGE.WELCOME.viewTonies}</Link>
-      </p>
-
-      <p>
-        <Link to={LINK.LEGO.viewLego}>{UI.BS.PAGE.WELCOME.viewLego}</Link>
-      </p>
+      <button onClick={handleNavigate(LINK.BOOK.viewBooks)}>Inventory</button>
+      <button onClick={handleNavigate(LINK.USER.viewBooks)}>Add User</button>
+      <button onClick={handleNavigate(LINK.BOOK.wishlist)}>Wishlist</button>
     </section>
   );
 

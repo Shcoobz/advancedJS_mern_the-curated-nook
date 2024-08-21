@@ -8,6 +8,10 @@ import {
   faBarcode,
   faWarehouse,
   faRightFromBracket,
+  faUser,
+  faBook,
+  faGamepad,
+  faCubes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -35,9 +39,12 @@ export function CreateButton({ onClick, text }) {
   );
 }
 
-export function ScanButton({ handleScan }) {
+export function ScanButton({ handleScan, className }) {
   return (
-    <button className='icon-button button__scan' title='Scan' onClick={handleScan}>
+    <button
+      className={`icon-button button__create ${className || ''}`}
+      title='Scan'
+      onClick={handleScan}>
       <FontAwesomeIcon icon={faBarcode} />
     </button>
   );
@@ -111,6 +118,26 @@ export function LogoutButton({ onClick }) {
   return (
     <button className='icon-button' title='Logout' onClick={onClick}>
       <FontAwesomeIcon icon={faRightFromBracket} />
+    </button>
+  );
+}
+
+const iconMapping = {
+  user: faUser,
+  book: faBook,
+  tonie: faGamepad,
+  lego: faCubes,
+};
+
+export function CreateHeaderButton({ onClick, title, item }) {
+  const icon = iconMapping[item];
+
+  return (
+    <button
+      className='icon-button backstage-header__create-button'
+      onClick={onClick}
+      title={title}>
+      <FontAwesomeIcon icon={icon} />
     </button>
   );
 }
