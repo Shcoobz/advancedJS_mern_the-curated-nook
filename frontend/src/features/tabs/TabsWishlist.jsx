@@ -12,8 +12,8 @@ function WishlistTabs({
 }) {
   const tabs = [
     { name: 'Books', path: LINK.BOOK.wishlist, count: bookWishlistCount },
-    { name: 'Tonies', path: LINK.TONIE.wishlist, count: tonieWishlistCount },
     { name: 'Lego', path: LINK.LEGO.wishlist, count: legoWishlistCount },
+    { name: 'Tonies', path: LINK.TONIE.wishlist, count: tonieWishlistCount },
   ];
 
   function getCurrentTab() {

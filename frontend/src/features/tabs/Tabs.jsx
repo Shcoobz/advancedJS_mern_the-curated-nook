@@ -16,8 +16,8 @@ function Tabs({
 
   const tabs = [
     { name: 'Books', path: LINK.BOOK.viewBooks, count: bookCount },
-    { name: 'Tonies', path: LINK.TONIE.viewTonies, count: tonieCount },
     { name: 'Lego', path: LINK.LEGO.viewLego, count: legoCount },
+    { name: 'Tonies', path: LINK.TONIE.viewTonies, count: tonieCount },
   ];
 
   if (isSuperuser || isAdmin) {
