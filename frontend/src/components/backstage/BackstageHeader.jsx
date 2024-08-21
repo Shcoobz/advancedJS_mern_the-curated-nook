@@ -16,8 +16,9 @@ import LegoFormNew from '../../features/inventory/lego/components/LegoNew/LegoFo
 const BACKSTAGE_REGEX = /^\/backstage(\/)?$/;
 const USERS_REGEX = /^\/backstage\/users(\/)?$/;
 const BOOKS_REGEX = /^\/backstage\/books(\/)?$/;
-const TONIES_REGEX = /^\/backstage\/tonies(\/)?$/;
 const LEGO_REGEX = /^\/backstage\/lego(\/)?$/;
+const TONIES_REGEX = /^\/backstage\/tonies(\/)?$/;
+
 let backstageClass = null;
 
 function BackstageHeader() {
@@ -30,6 +31,8 @@ function BackstageHeader() {
   const [openModal, setOpenModal] = useState(null);
 
   const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation();
+
+  let buttonContent = [];
 
   useEffect(() => {
     if (isSuccess) {
@@ -64,44 +67,63 @@ function BackstageHeader() {
 
   if (isLoading) return <Spinner />;
 
+  if (highestProtection) {
+    if (USERS_REGEX.test(pathname)) {
+      buttonContent.push(
+        <CreateHeaderButton
+          onClick={handleOpenModal('user')}
+          title='New User'
+          item='user'
+        />
+      );
+    }
+  }
+
+  if (higherProtection) {
+    if (BOOKS_REGEX.test(pathname)) {
+      buttonContent.push(
+        <CreateHeaderButton
+          onClick={handleOpenModal('book')}
+          title='New Book'
+          item='book'
+        />
+      );
+    }
+  }
+
+  if (higherProtection) {
+    if (LEGO_REGEX.test(pathname)) {
+      buttonContent.push(
+        <CreateHeaderButton
+          onClick={handleOpenModal('lego')}
+          title='New Lego'
+          item='lego'
+        />
+      );
+    }
+  }
+
+  if (higherProtection) {
+    if (TONIES_REGEX.test(pathname)) {
+      buttonContent.push(
+        <CreateHeaderButton
+          onClick={handleOpenModal('tonie')}
+          title='New Tonie'
+          item='tonie'
+        />
+      );
+    }
+  }
+
+  buttonContent.push(<LogoutButton key='logout' onClick={sendLogout} />);
+
   const backstageHeaderContent = (
     <header className='backstage-header'>
       <div className={`backstage-header__container ${backstageClass}`}>
         <Link to={LINK.bsRoot}>
           <h1 className='backstage-header__title'>{UI.BS.title}</h1>
         </Link>
-        <nav className='backstage-header__nav'>
-          {highestProtection && (
-            <CreateHeaderButton
-              onClick={handleOpenModal('user')}
-              title='New User'
-              item='user'
-            />
-          )}
-          {higherProtection && (
-            <CreateHeaderButton
-              onClick={handleOpenModal('book')}
-              title='New Book'
-              item='book'
-            />
-          )}
-          {higherProtection && (
-            <CreateHeaderButton
-              onClick={handleOpenModal('lego')}
-              title='New Lego'
-              item='lego'
-            />
-          )}
-          {higherProtection && (
-            <CreateHeaderButton
-              onClick={handleOpenModal('tonie')}
-              title='New Tonie'
-              item='tonie'
-            />
-          )}
-
-          <LogoutButton onClick={sendLogout} />
-        </nav>
+        <nav className='backstage-header__nav'>{buttonContent}</nav>
       </div>
       {openModal === 'user' && <UserFormNew isOpen={true} onClose={handleCloseModal} />}
       {openModal === 'book' && <BookFormNew isOpen={true} onClose={handleCloseModal} />}
