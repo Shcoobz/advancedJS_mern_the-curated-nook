@@ -31,7 +31,3 @@
 /* || MEDIA QUERIES */
 @import './src/css/mediaQuery/MediaQuery400Max.css';
 @import './src/css/mediaQuery/MediaQuery768Min.css';
-
-.backstage-header__create-button {
-  color: white !important;
-}

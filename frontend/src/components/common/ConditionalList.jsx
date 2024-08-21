@@ -1,24 +1,12 @@
 import { TableAboveHeader } from './TableComponents';
 import NoResults from './NoResults';
 
-function ConditionalList({
-  ids,
-  descriptionText,
-  onCreateClick,
-  onWishlistClick,
-  onHomeClick,
-  table,
-  createButtonText = 'New',
-  isProtected,
-}) {
+function ConditionalList({ ids, descriptionText, onWishlistClick, onHomeClick, table }) {
   const header = (
     <TableAboveHeader
       descriptionText={descriptionText}
-      onCreateClick={onCreateClick}
       actionOnClick={onWishlistClick || onHomeClick}
-      createButtonText={createButtonText}
       isWishlist={!!onWishlistClick}
-      isProtected={isProtected}
     />
   );
 

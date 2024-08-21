@@ -64,7 +64,7 @@ function BackstageHeader() {
 
   if (isLoading) return <Spinner />;
 
-  const content = (
+  const backstageHeaderContent = (
     <header className='backstage-header'>
       <div className={`backstage-header__container ${backstageClass}`}>
         <Link to={LINK.bsRoot}>
@@ -110,7 +110,7 @@ function BackstageHeader() {
     </header>
   );
 
-  return content;
+  return backstageHeaderContent;
 }
 
 export default BackstageHeader;

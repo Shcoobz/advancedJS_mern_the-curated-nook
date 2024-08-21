@@ -73,19 +73,11 @@ export function TableItemDetail({ label, value, className }) {
   );
 }
 
-export function TableAboveHeader({
-  descriptionText,
-  onCreateClick,
-  actionOnClick,
-  createButtonText,
-  isWishlist,
-  isProtected,
-}) {
+export function TableAboveHeader({ descriptionText, actionOnClick, isWishlist }) {
   return (
     <div className='table__above-header'>
       <TableDescription text={descriptionText} />
       <div className='above-header buttons__action'>
-        {isProtected && <CreateButton onClick={onCreateClick} text={createButtonText} />}
         {isWishlist && actionOnClick && <WishlistButton onClick={actionOnClick} />}
         {!isWishlist && actionOnClick && <InventoryButton onClick={actionOnClick} />}
       </div>
