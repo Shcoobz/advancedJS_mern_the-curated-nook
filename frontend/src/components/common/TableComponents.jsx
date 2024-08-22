@@ -1,11 +1,4 @@
-import {
-  CloseButton,
-  CreateButton,
-  DeleteButton,
-  EditButton,
-  InventoryButton,
-  WishlistButton,
-} from './Buttons';
+import { CloseButton, DeleteButton, EditButton } from './Buttons';
 
 export function TableDescription({ text }) {
   return <p className='table__description'>{text}</p>;
@@ -69,18 +62,6 @@ export function TableItemDetail({ label, value, className }) {
     <div className={`form__group ${className || ''}`}>
       <label className='form__label'>{label}</label>
       <p className='form__value'>{value}</p>
-    </div>
-  );
-}
-
-export function TableAboveHeader({ descriptionText, actionOnClick, isWishlist }) {
-  return (
-    <div className='table__above-header'>
-      <TableDescription text={descriptionText} />
-      <div className='above-header buttons__action'>
-        {isWishlist && actionOnClick && <WishlistButton onClick={actionOnClick} />}
-        {!isWishlist && actionOnClick && <InventoryButton onClick={actionOnClick} />}
-      </div>
     </div>
   );
 }

@@ -141,3 +141,25 @@ export function CreateHeaderButton({ onClick, title, item }) {
     </button>
   );
 }
+
+export function InventoryWishlistButton({
+  pathname,
+  handleInventoryClick,
+  handleWishlistClick,
+}) {
+  const isInWishlist = pathname.includes('wishlist');
+  const onClickHandler = isInWishlist ? handleInventoryClick : handleWishlistClick;
+  const buttonText = isInWishlist ? 'Inventory' : 'Wishlist';
+  const buttonIcon = isInWishlist ? faWarehouse : faHeart;
+
+  return (
+    <button
+      className={`icon-button backstage-header__${
+        isInWishlist ? 'button__inventory' : 'button__wishlist'
+      }`}
+      title={buttonText}
+      onClick={onClickHandler}>
+      <FontAwesomeIcon icon={buttonIcon} />
+    </button>
+  );
+}

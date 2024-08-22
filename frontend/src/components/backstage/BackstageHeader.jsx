@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react';
 import { LINK } from '../../config/common/constants';
 import { UI } from '../../config/common/messages';
 import { useSendLogoutMutation } from '../../features/auth/api/authApiSlice';
-import { CreateHeaderButton, LogoutButton } from '../common/Buttons';
+import {
+  CreateHeaderButton,
+  InventoryWishlistButton,
+  LogoutButton,
+} from '../common/Buttons';
 
 import Spinner from '../common/Spinner';
 import useAuth from '../../hooks/useAuth';
@@ -15,9 +19,12 @@ import LegoFormNew from '../../features/inventory/lego/components/LegoNew/LegoFo
 
 const BACKSTAGE_REGEX = /^\/backstage(\/)?$/;
 const USERS_REGEX = /^\/backstage\/users(\/)?$/;
-const BOOKS_REGEX = /^\/backstage\/books(\/)?$/;
-const LEGO_REGEX = /^\/backstage\/lego(\/)?$/;
-const TONIES_REGEX = /^\/backstage\/tonies(\/)?$/;
+// const BOOKS_REGEX = /^\/backstage\/books(\/)?$/;
+// const LEGO_REGEX = /^\/backstage\/lego(\/)?$/;
+// const TONIES_REGEX = /^\/backstage\/tonies(\/)?$/;
+const BOOKS_REGEX = /^\/backstage\/books(\/[a-z]+)?(\/)?$/;
+const TONIES_REGEX = /^\/backstage\/tonies(\/[a-z]+)?(\/)?$/;
+const LEGO_REGEX = /^\/backstage\/lego(\/[a-z]+)?(\/)?$/;
 
 let backstageClass = null;
 
@@ -65,6 +72,10 @@ function BackstageHeader() {
     setOpenModal(null);
   }
 
+  function handleNavigate(path) {
+    return () => navigate(path);
+  }
+
   if (isLoading) return <Spinner />;
 
   if (highestProtection) {
@@ -91,6 +102,17 @@ function BackstageHeader() {
     }
   }
 
+  if (BOOKS_REGEX.test(pathname)) {
+    buttonContent.push(
+      <InventoryWishlistButton
+        key='inventory-wishlist'
+        pathname={pathname}
+        handleInventoryClick={handleNavigate(LINK.BOOK.viewBooks)}
+        handleWishlistClick={handleNavigate(LINK.BOOK.wishlist)}
+      />
+    );
+  }
+
   if (higherProtection) {
     if (LEGO_REGEX.test(pathname)) {
       buttonContent.push(
@@ -103,6 +125,17 @@ function BackstageHeader() {
     }
   }
 
+  if (LEGO_REGEX.test(pathname)) {
+    buttonContent.push(
+      <InventoryWishlistButton
+        key='inventory-wishlist'
+        pathname={pathname}
+        handleInventoryClick={handleNavigate(LINK.LEGO.viewLego)}
+        handleWishlistClick={handleNavigate(LINK.LEGO.wishlist)}
+      />
+    );
+  }
+
   if (higherProtection) {
     if (TONIES_REGEX.test(pathname)) {
       buttonContent.push(
@@ -113,6 +146,17 @@ function BackstageHeader() {
         />
       );
     }
+  }
+
+  if (TONIES_REGEX.test(pathname)) {
+    buttonContent.push(
+      <InventoryWishlistButton
+        key='inventory-wishlist-tonie'
+        pathname={pathname}
+        handleInventoryClick={handleNavigate(LINK.TONIE.viewTonies)}
+        handleWishlistClick={handleNavigate(LINK.TONIE.wishlist)}
+      />
+    );
   }
 
   buttonContent.push(<LogoutButton key='logout' onClick={sendLogout} />);

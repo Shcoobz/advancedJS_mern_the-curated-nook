@@ -1,18 +1,13 @@
-import { TableAboveHeader } from './TableComponents';
+import { TableDescription } from './TableComponents';
 import NoResults from './NoResults';
 
-function ConditionalList({ ids, descriptionText, onWishlistClick, onHomeClick, table }) {
-  const header = (
-    <TableAboveHeader
-      descriptionText={descriptionText}
-      actionOnClick={onWishlistClick || onHomeClick}
-      isWishlist={!!onWishlistClick}
-    />
-  );
+function ConditionalList({ ids, descriptionText, table }) {
+  const header = <TableDescription text={descriptionText} />;
 
   return (
     <div>
       {header}
+      <br />
       {ids.length > 0 ? table : <NoResults />}
     </div>
   );
