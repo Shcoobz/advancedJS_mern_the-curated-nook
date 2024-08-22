@@ -9,18 +9,11 @@ export async function fetchUsersWithoutPasswords() {
 }
 
 export async function findUserByName(username) {
-  return User.findOne({ username }).lean().exec();
+  return User.findOne({ username })
+    .collation({ locale: 'en', strength: 2 })
+    .lean()
+    .exec();
 }
-
-// export async function findUserByName(username) {
-//   return await User.findOne({ username })
-//     .collation({
-//       locale: LOCALE_SETTINGS.DEFAULT_LOCALE,
-//       strength: LOCALE_SETTINGS.DEFAULT_STRENGTH,
-//     })
-//     .lean()
-//     .exec();
-// }
 
 export async function hashPassword(password) {
   return await bcrypt.hash(password, BCRYPT.SALT_ROUNDS);

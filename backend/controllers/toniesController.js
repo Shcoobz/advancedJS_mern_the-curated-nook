@@ -89,10 +89,12 @@ export async function deleteTonie(req, res) {
 
 export async function getTonieCollectionCount(req, res) {
   const count = await Tonie.countDocuments({ isOnWishlist: false });
+
   return res.json({ count });
 }
 
 export async function getTonieWishlistCount(req, res) {
   const count = await Tonie.countDocuments({ isOnWishlist: true });
+
   return res.json({ count });
 }

@@ -6,13 +6,11 @@ const bookSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  authors: [
-    {
-      type: String,
-      default: 'N/A',
-      trim: true,
-    },
-  ],
+  authors: {
+    type: [String],
+    default: ['N/A'],
+    trim: true,
+  },
   publisher: {
     type: String,
     default: 'N/A',
@@ -28,19 +26,15 @@ const bookSchema = new mongoose.Schema({
     default: 'N/A',
     trim: true,
   },
-  isbn: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
-  categories: [
-    {
-      type: String,
-      default: 'N/A',
-      trim: true,
-    },
-  ],
+  isbn: {
+    type: [String],
+    trim: true,
+  },
+  categories: {
+    type: [String],
+    default: ['N/A'],
+    trim: true,
+  },
   thumbnailUrl: {
     type: String,
     default: 'N/A',

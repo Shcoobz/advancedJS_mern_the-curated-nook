@@ -14,7 +14,7 @@ export async function fetchAllToniesOnWishlist() {
 }
 
 export async function findTonieByName(name) {
-  return Tonie.findOne({ name }).lean().exec();
+  return Tonie.findOne({ name }).collation({ locale: 'en', strength: 2 }).lean().exec();
 }
 
 export async function createTonie(tonieObject) {

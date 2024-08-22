@@ -17,7 +17,6 @@ function Prefetch() {
     const books = store.dispatch(booksApiSlice.endpoints.getBooks.initiate());
     const lego = store.dispatch(legoApiSlice.endpoints.getLego.initiate());
     const tonies = store.dispatch(toniesApiSlice.endpoints.getTonies.initiate());
-
     const wishlistBooks = store.dispatch(
       booksWishlistApiSlice.endpoints.getBooksOnWishlist.initiate()
     );
