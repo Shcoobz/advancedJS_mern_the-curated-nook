@@ -1,16 +1,21 @@
-import { useSelector } from 'react-redux';
-import { selectBookById } from '../../api/booksApiSlice';
+import { useGetBooksQuery } from '../../api/booksApiSlice';
 import BookTable from './BookTable';
-import { selectWishlistBookById } from '../../api/booksWishlistApiSlice';
+import { useGetBooksOnWishlistQuery } from '../../api/booksWishlistApiSlice';
 
 function Book({ bookId, onEdit, index, isWishlist = false }) {
-  const selectBook = isWishlist ? selectWishlistBookById : selectBookById;
-
-  const book = useSelector((state) => {
-    const selected = selectBook(state, bookId);
-
-    return selected;
+  const { book: inventoryBook } = useGetBooksQuery('booksList', {
+    selectFromResult: ({ data }) => ({
+      book: data?.entities[bookId],
+    }),
   });
+
+  const { book: wishlistBook } = useGetBooksOnWishlistQuery('wishlistBooks', {
+    selectFromResult: ({ data }) => ({
+      book: data?.entities[bookId],
+    }),
+  });
+
+  const book = isWishlist ? wishlistBook : inventoryBook;
 
   if (!book) return null;
 

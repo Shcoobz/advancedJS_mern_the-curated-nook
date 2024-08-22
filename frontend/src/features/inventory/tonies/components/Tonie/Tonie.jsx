@@ -1,17 +1,22 @@
-import { useSelector } from 'react-redux';
-import { selectTonieById } from '../../api/toniesApiSlice';
-import { selectWishlistTonieById } from '../../api/tonieWishlistApiSlice';
+import { useGetToniesQuery } from '../../api/toniesApiSlice';
+import { useGetToniesOnWishlistQuery } from '../../api/tonieWishlistApiSlice';
 import TonieTable from './TonieTable';
 
 function Tonie({ tonieId, onEdit, index, isWishlist = false }) {
-  const selectTonie = isWishlist ? selectWishlistTonieById : selectTonieById;
-
-  const tonie = useSelector((state) => {
-    const selected = selectTonie(state, tonieId);
-
-    return selected;
+  const { tonie: inventoryTonie } = useGetToniesQuery('toniesList', {
+    selectFromResult: ({ data }) => ({
+      tonie: data?.entities[tonieId],
+    }),
   });
 
+  const { tonie: wishlistTonie } = useGetToniesOnWishlistQuery('wishlistTonies', {
+    selectFromResult: ({ data }) => ({
+      tonie: data?.entities[tonieId],
+    }),
+  });
+
+  const tonie = isWishlist ? wishlistTonie : inventoryTonie;
+  
   if (!tonie) return null;
 
   const content = <TonieTable tonie={tonie} onEdit={onEdit} index={index} />;

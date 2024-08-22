@@ -13,32 +13,30 @@ function Prefetch() {
   useEffect(() => {
     console.log('Prefetch: subscribing');
 
-    const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
-    const books = store.dispatch(booksApiSlice.endpoints.getBooks.initiate());
-    const lego = store.dispatch(legoApiSlice.endpoints.getLego.initiate());
-    const tonies = store.dispatch(toniesApiSlice.endpoints.getTonies.initiate());
-    const wishlistBooks = store.dispatch(
-      booksWishlistApiSlice.endpoints.getBooksOnWishlist.initiate()
-    );
-    const wishlistLego = store.dispatch(
-      legoWishlistApiSlice.endpoints.getLegoOnWishlist.initiate()
-    );
-    const wishlistTonies = store.dispatch(
-      toniesWishlistApiSlice.endpoints.getToniesOnWishlist.initiate()
+    store.dispatch(usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true }));
+
+    store.dispatch(booksApiSlice.util.prefetch('getBooks', 'booksList', { force: true }));
+    store.dispatch(
+      booksWishlistApiSlice.util.prefetch('getBooksOnWishlist', 'wishlistBook', {
+        force: true,
+      })
     );
 
-    return () => {
-      console.log('Prefetch: unsubscribing');
+    store.dispatch(legoApiSlice.util.prefetch('getLego', 'legoList', { force: true }));
+    store.dispatch(
+      legoWishlistApiSlice.util.prefetch('getLegoOnWishlist', 'wishlistLego', {
+        force: true,
+      })
+    );
 
-      users.unsubscribe();
-      books.unsubscribe();
-      lego.unsubscribe();
-      tonies.unsubscribe();
-
-      wishlistBooks.unsubscribe();
-      wishlistLego.unsubscribe();
-      wishlistTonies.unsubscribe();
-    };
+    store.dispatch(
+      toniesApiSlice.util.prefetch('getTonies', 'toniesList', { force: true })
+    );
+    store.dispatch(
+      toniesWishlistApiSlice.util.prefetch('getToniesOnWishlist', 'wishlistTonie', {
+        force: true,
+      })
+    );
   }, []);
 
   return <Outlet />;

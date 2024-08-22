@@ -1,16 +1,21 @@
-import { useSelector } from 'react-redux';
-import { selectLegoById } from '../../api/legoApiSlice';
+import { useGetLegoQuery } from '../../api/legoApiSlice';
+import { useGetLegoOnWishlistQuery } from '../../api/legoWishlistApiSlice';
 import LegoTable from './LegoTable';
-import { selectWishlistLegoById } from '../../api/legoWishlistApiSlice';
 
 function Lego({ legoId, onEdit, index, isWishlist = false }) {
-  const selectLego = isWishlist ? selectWishlistLegoById : selectLegoById;
-
-  const lego = useSelector((state) => {
-    const selected = selectLego(state, legoId);
-
-    return selected;
+  const { lego: inventoryLego } = useGetLegoQuery('legoList', {
+    selectFromResult: ({ data }) => ({
+      lego: data?.entities[legoId],
+    }),
   });
+
+  const { lego: wishlistLego } = useGetLegoOnWishlistQuery('wishlistLego', {
+    selectFromResult: ({ data }) => ({
+      lego: data?.entities[legoId],
+    }),
+  });
+
+  const lego = isWishlist ? wishlistLego : inventoryLego;
 
   if (!lego) return null;
 

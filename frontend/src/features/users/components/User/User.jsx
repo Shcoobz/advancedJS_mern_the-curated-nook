@@ -1,9 +1,12 @@
-import { useSelector } from 'react-redux';
-import { selectUserById } from '../../api/usersApiSlice';
+import { useGetUsersQuery } from '../../api/usersApiSlice';
 import UserTable from './UserTable';
 
 function User({ userId, onEdit, index }) {
-  const user = useSelector((state) => selectUserById(state, userId));
+  const { user } = useGetUsersQuery('usersList', {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[userId],
+    }),
+  });
 
   if (!user) return null;
 
