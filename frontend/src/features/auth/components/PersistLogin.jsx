@@ -19,19 +19,11 @@ function PersistLogin() {
   let content;
 
   useEffect(() => {
-    // if (effectRan.current === true || import.meta.env.VITE_NODE_ENV !== 'development') {
-    //   // React 18 Strict Mode
-    //   verifyRefreshToken();
-
-    //   if (!token && persist) verifyRefreshToken();
-    // }
-
-    if (effectRan.current === true && import.meta.env.VITE_NODE_ENV !== 'development') {
-      return;
-    }
-
-    if (!token && persist) {
+    if (effectRan.current === true || import.meta.env.VITE_NODE_ENV !== 'development') {
+      // React 18 Strict Mode
       verifyRefreshToken();
+
+      if (!token && persist) verifyRefreshToken();
     }
 
     return () => (effectRan.current = true);

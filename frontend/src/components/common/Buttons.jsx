@@ -1,7 +1,6 @@
 import {
   faHeart,
   faPenToSquare,
-  faPlus,
   faSave,
   faTimes,
   faTrashCan,

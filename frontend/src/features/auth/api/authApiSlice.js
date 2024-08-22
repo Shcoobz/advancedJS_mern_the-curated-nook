@@ -19,18 +19,25 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           // const { data } =
           await queryFulfilled;
-          // console.log(data);
+          // console.log('Logout successful:', data);
 
           dispatch(logOut());
 
           setTimeout(() => {
             dispatch(apiSlice.util.resetApiState());
           }, 1000);
+
+          sessionStorage.setItem(
+            'logoutSuccess',
+            'You have been successfully logged out.'
+          );
         } catch (err) {
           console.log(err);
+          sessionStorage.setItem('logoutSuccess', 'Logout failed. Please try again.');
         }
       },
     }),
+
     refresh: builder.mutation({
       query: () => ({
         url: '/auth/refresh',
@@ -40,6 +47,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           const { accessToken } = data;
+
           dispatch(setCredentials({ accessToken }));
         } catch (err) {
           console.log(err);

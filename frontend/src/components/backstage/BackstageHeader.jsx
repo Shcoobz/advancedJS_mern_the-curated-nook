@@ -1,9 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { LINK } from '../../config/common/constants';
 import { UI } from '../../config/common/messages';
-import { useSendLogoutMutation } from '../../features/auth/api/authApiSlice';
+
 import {
   CreateHeaderButton,
   InventoryWishlistButton,
@@ -16,6 +15,7 @@ import BookFormNew from '../../features/inventory/books/components/BookNew/BookF
 import UserFormNew from '../../features/users/components/UserNew/UserFormNew';
 import TonieFormNew from '../../features/inventory/tonies/components/TonieNew/TonieFormNew';
 import LegoFormNew from '../../features/inventory/lego/components/LegoNew/LegoFormNew';
+import { useSendLogoutMutation } from '../../features/auth/api/authApiSlice';
 
 const BACKSTAGE_REGEX = /^\/backstage(\/)?$/;
 const USERS_REGEX = /^\/backstage\/users(\/)?$/;
@@ -34,20 +34,9 @@ function BackstageHeader() {
   const { pathname } = useLocation();
   const [openModal, setOpenModal] = useState(null);
 
-  const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation();
+  const [sendLogout, { isLoading }] = useSendLogoutMutation();
 
   let buttonContent = [];
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Log out successful!');
-      navigate('/');
-    }
-
-    if (isError && error) {
-      toast.error(`Logout failed: ${error?.data?.message}`);
-    }
-  }, [isSuccess, isError, error, navigate]);
 
   function handleOpenModal(modalName) {
     return () => {

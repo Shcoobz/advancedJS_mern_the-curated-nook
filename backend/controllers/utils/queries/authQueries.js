@@ -16,12 +16,12 @@ export function createAccessToken(username, roles, secret) {
       },
     },
     secret,
-    { expiresIn: '15m' }
+    { expiresIn: '5s' }
   );
 }
 
 export function createRefreshToken(username, secret) {
-  return jwt.sign({ username: username }, secret, { expiresIn: '7d' });
+  return jwt.sign({ username: username }, secret, { expiresIn: '10s' });
 }
 
 export function setRefreshTokenCookie(res, refreshToken) {

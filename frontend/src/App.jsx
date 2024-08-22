@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { PATH } from './config/common/constants';
 
 import Layout from '../src/components/Layout';
@@ -32,18 +32,37 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { ROLE } from './config/common/constants';
 import RequireAuth from './features/auth/components/RequireAuth';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
   useEffect(() => {
-    setTimeout(() => {
+    function checkMessages() {
+      const logoutMessage = sessionStorage.getItem('logoutSuccess');
+
+      if (logoutMessage) {
+        toast.success(logoutMessage);
+        sessionStorage.removeItem('logoutSuccess');
+      }
+
       const authFailedMessage = sessionStorage.getItem('authFailed');
 
       if (authFailedMessage) {
         toast.error(authFailedMessage);
         sessionStorage.removeItem('authFailed');
+
+        navigate('/');
       }
-    }, 500);
-  }, []);
+    }
+
+    checkMessages();
+
+    const intervalId = setInterval(checkMessages, 500);
+
+    return () => clearInterval(intervalId);
+  }, [auth, navigate]);
 
   return (
     <Routes>
