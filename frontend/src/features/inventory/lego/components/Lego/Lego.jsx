@@ -1,27 +1,12 @@
-import { useGetLegoQuery } from '../../api/legoApiSlice';
-import { useGetLegoOnWishlistQuery } from '../../api/legoWishlistApiSlice';
-import LegoTable from './LegoTable';
+import { memo } from 'react';
+import LegoData from './LegoData';
 
-function Lego({ legoId, onEdit, index, isWishlist = false }) {
-  const { lego: inventoryLego } = useGetLegoQuery('legoList', {
-    selectFromResult: ({ data }) => ({
-      lego: data?.entities[legoId],
-    }),
-  });
-
-  const { lego: wishlistLego } = useGetLegoOnWishlistQuery('wishlistLego', {
-    selectFromResult: ({ data }) => ({
-      lego: data?.entities[legoId],
-    }),
-  });
-
-  const lego = isWishlist ? wishlistLego : inventoryLego;
-
-  if (!lego) return null;
-
-  const content = <LegoTable lego={lego} onEdit={onEdit} index={index} />;
-
-  return content;
+function LegoDataWrapper({ legoId, onEdit, index, isWishlist = false }) {
+  return (
+    <LegoData legoId={legoId} onEdit={onEdit} index={index} isWishlist={isWishlist} />
+  );
 }
+
+const Lego = memo(LegoDataWrapper);
 
 export default Lego;

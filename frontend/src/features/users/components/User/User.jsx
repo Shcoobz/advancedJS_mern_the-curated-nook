@@ -1,18 +1,10 @@
-import { useGetUsersQuery } from '../../api/usersApiSlice';
-import UserTable from './UserTable';
+import { memo } from 'react';
+import UserData from './UserData';
 
-function User({ userId, onEdit, index }) {
-  const { user } = useGetUsersQuery('usersList', {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[userId],
-    }),
-  });
+const UserDataWrapper = ({ userId, onEdit, index }) => {
+  return <UserData userId={userId} onEdit={onEdit} index={index} />;
+};
 
-  if (!user) return null;
-
-  const content = <UserTable user={user} onEdit={onEdit} index={index} />;
-
-  return content;
-}
+const User = memo(UserDataWrapper);
 
 export default User;
