@@ -233,7 +233,7 @@ export async function handleDeleteEntityList(deleteFunction, entityId, successMe
   const response = await deleteFunction({ id: entityId });
 
   if (response.error) {
-    toast.error(response.error.data.message);
+    toast.error(response.error?.data.message);
     return { success: false, errorMessage: getErrorContent(response.error) };
   }
 

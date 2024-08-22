@@ -34,7 +34,7 @@ export function InventoryButton({ onClick }) {
 export function CreateButton({ onClick, text }) {
   return (
     <button className='icon-button button__create' title={text} onClick={onClick}>
-      <FontAwesomeIcon icon={faPlus} />
+      {text}
     </button>
   );
 }

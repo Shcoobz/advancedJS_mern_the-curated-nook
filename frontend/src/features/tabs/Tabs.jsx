@@ -20,12 +20,14 @@ function Tabs({
     { name: 'Tonies', path: LINK.TONIE.viewTonies, count: tonieCount },
   ];
 
+  const visibleTabs = tabs.filter((tab) => tab.count > 0);
+
   if (isSuperuser || isAdmin) {
     tabs.unshift({ name: 'Users', path: LINK.USER.viewUsers, count: userCount });
   }
 
   function getCurrentTab() {
-    return tabs.find((tab) => currentPath.includes(tab.path))?.name;
+    return visibleTabs.find((tab) => currentPath.includes(tab.path))?.name;
   }
 
   return (
@@ -33,12 +35,12 @@ function Tabs({
       <div className='tabs__header'> {'>>> Inventory <<<'} </div>
       <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
       <div className='tabs'>
-        {tabs.map((tab) => (
+        {visibleTabs.map((tab) => (
           <Link
             key={tab.name}
             to={tab.path}
             className={`tab ${currentPath.includes(tab.path) ? 'active' : ''}`}>
-            {tab.name} {tab.count > 0 ? `- ${tab.count}` : ''}
+            {tab.name} - {tab.count}
           </Link>
         ))}
       </div>

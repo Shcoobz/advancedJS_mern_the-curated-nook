@@ -16,8 +16,10 @@ function WishlistTabs({
     { name: 'Tonies', path: LINK.TONIE.wishlist, count: tonieWishlistCount },
   ];
 
+  const visibleTabs = tabs.filter((tab) => tab.count > 0);
+
   function getCurrentTab() {
-    return tabs.find((tab) => currentPath.includes(tab.path))?.name;
+    return visibleTabs.find((tab) => currentPath.includes(tab.path))?.name;
   }
 
   return (
@@ -25,12 +27,12 @@ function WishlistTabs({
       <div className='tabs__header'>{'>>> Wishlist <<<'}</div>
       <SearchInput setSearchTerm={onSearch} currentTab={getCurrentTab()} />
       <div className='tabs'>
-        {tabs.map((tab) => (
+        {visibleTabs.map((tab) => (
           <Link
             key={tab.name}
             to={tab.path}
             className={`tab ${currentPath.includes(tab.path) ? 'active' : ''}`}>
-            {tab.name} {tab.count > 0 ? `- ${tab.count}` : ''}
+            {tab.name} - {tab.count}
           </Link>
         ))}
       </div>

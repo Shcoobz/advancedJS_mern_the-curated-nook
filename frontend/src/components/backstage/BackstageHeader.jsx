@@ -19,9 +19,6 @@ import LegoFormNew from '../../features/inventory/lego/components/LegoNew/LegoFo
 
 const BACKSTAGE_REGEX = /^\/backstage(\/)?$/;
 const USERS_REGEX = /^\/backstage\/users(\/)?$/;
-// const BOOKS_REGEX = /^\/backstage\/books(\/)?$/;
-// const LEGO_REGEX = /^\/backstage\/lego(\/)?$/;
-// const TONIES_REGEX = /^\/backstage\/tonies(\/)?$/;
 const BOOKS_REGEX = /^\/backstage\/books(\/[a-z]+)?(\/)?$/;
 const TONIES_REGEX = /^\/backstage\/tonies(\/[a-z]+)?(\/)?$/;
 const LEGO_REGEX = /^\/backstage\/lego(\/[a-z]+)?(\/)?$/;
@@ -48,7 +45,7 @@ function BackstageHeader() {
     }
 
     if (isError && error) {
-      toast.error(`Logout failed: ${error.data?.message}`);
+      toast.error(`Logout failed: ${error?.data?.message}`);
     }
   }, [isSuccess, isError, error, navigate]);
 

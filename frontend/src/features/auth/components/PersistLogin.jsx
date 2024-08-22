@@ -63,7 +63,7 @@ function PersistLogin() {
 
     case isError:
       // persist: yes, token: no
-      content = <FormErrorMessage message={error.data?.message} />;
+      content = <FormErrorMessage message={error?.data?.message} />;
       break;
 
     case isSuccess && trueSuccess:
