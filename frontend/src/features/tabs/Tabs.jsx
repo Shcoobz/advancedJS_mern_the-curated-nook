@@ -23,7 +23,7 @@ function Tabs({
   const visibleTabs = tabs.filter((tab) => tab.count > 0);
 
   if (isSuperuser || isAdmin) {
-    tabs.unshift({ name: 'Users', path: LINK.USER.viewUsers, count: userCount });
+    visibleTabs.unshift({ name: 'Users', path: LINK.USER.viewUsers, count: userCount });
   }
 
   function getCurrentTab() {

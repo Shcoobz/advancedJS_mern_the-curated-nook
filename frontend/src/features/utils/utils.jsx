@@ -67,26 +67,27 @@ export function generateTableContent(
   entityType,
   isWishlist = false
 ) {
-  return ids?.length
-    ? ids.map((entityId, index) => {
-        const entity = entities[entityId];
+  return (
+    ids?.length &&
+    ids.map((entityId, index) => {
+      const entity = entities[entityId];
 
-        return (
-          <tr
-            key={entityId}
-            onClick={() => openModal(entity)}
-            className={'table__row-cursor'}>
-            <EntityComponent
-              {...{ [`${entityType}Id`]: entityId }}
-              {...{ [entityType]: entity }}
-              onEdit={() => openModal({ ...entity, isEditing: true })}
-              index={index + 1}
-              isWishlist={isWishlist}
-            />
-          </tr>
-        );
-      })
-    : null;
+      return (
+        <tr
+          key={entityId}
+          onClick={() => openModal(entity)}
+          className={'table__row-cursor'}>
+          <EntityComponent
+            {...{ [`${entityType}Id`]: entityId }}
+            {...{ [entityType]: entity }}
+            onEdit={() => openModal({ ...entity, isEditing: true })}
+            index={index + 1}
+            isWishlist={isWishlist}
+          />
+        </tr>
+      );
+    })
+  );
 }
 
 export function genericFilter({ fields }, collection, searchTerm) {

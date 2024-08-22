@@ -49,16 +49,6 @@ function BackstageHeader() {
     }
   }, [isSuccess, isError, error, navigate]);
 
-  if (
-    !BACKSTAGE_REGEX.test(pathname) &&
-    !USERS_REGEX.test(pathname) &&
-    !BOOKS_REGEX.test(pathname) &&
-    !TONIES_REGEX.test(pathname) &&
-    !LEGO_REGEX.test(pathname)
-  ) {
-    backstageClass = 'backstage-header__container--small';
-  }
-
   function handleOpenModal(modalName) {
     return () => {
       setOpenModal(modalName);
@@ -73,12 +63,23 @@ function BackstageHeader() {
     return () => navigate(path);
   }
 
+  if (
+    !BACKSTAGE_REGEX.test(pathname) &&
+    !USERS_REGEX.test(pathname) &&
+    !BOOKS_REGEX.test(pathname) &&
+    !TONIES_REGEX.test(pathname) &&
+    !LEGO_REGEX.test(pathname)
+  ) {
+    backstageClass = 'backstage-header__container--small';
+  }
+
   if (isLoading) return <Spinner />;
 
   if (highestProtection) {
     if (USERS_REGEX.test(pathname)) {
       buttonContent.push(
         <CreateHeaderButton
+          key='create-user'
           onClick={handleOpenModal('user')}
           title='New User'
           item='user'
@@ -91,6 +92,7 @@ function BackstageHeader() {
     if (BOOKS_REGEX.test(pathname)) {
       buttonContent.push(
         <CreateHeaderButton
+          key='create-book'
           onClick={handleOpenModal('book')}
           title='New Book'
           item='book'
@@ -114,6 +116,7 @@ function BackstageHeader() {
     if (LEGO_REGEX.test(pathname)) {
       buttonContent.push(
         <CreateHeaderButton
+          key='create-lego'
           onClick={handleOpenModal('lego')}
           title='New Lego'
           item='lego'
@@ -137,6 +140,7 @@ function BackstageHeader() {
     if (TONIES_REGEX.test(pathname)) {
       buttonContent.push(
         <CreateHeaderButton
+          key='create-tonie'
           onClick={handleOpenModal('tonie')}
           title='New Tonie'
           item='tonie'
