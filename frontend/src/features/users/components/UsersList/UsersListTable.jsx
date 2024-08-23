@@ -4,9 +4,10 @@ import { TableCellHeader } from '../../../../components/common/TableComponents';
 import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../utils/utils';
 import { useOutletContext } from 'react-router-dom';
-import User from '../User/User';
+import User from '../User/User_old';
 import ConditionalList from '../../../../components/common/ConditionalList';
 import useAuth from '../../../../hooks/useAuth';
+import MemoizedEntity from '../../../entity/Components/entity/MemoizedEntity';
 
 function UsersListTable({ users, openModal }) {
   const { isAdmin } = useAuth();
@@ -24,7 +25,15 @@ function UsersListTable({ users, openModal }) {
     ? 'table__users--with-actions'
     : 'table__users--without-actions';
 
-  const tableContent = generateTableContent(ids, entities, openModal, User, 'user');
+  // const tableContent = generateTableContent(ids, entities, openModal, User, 'user');
+
+  const tableContent = generateTableContent(
+    ids,
+    entities,
+    openModal,
+    MemoizedEntity,
+    'user'
+  );
 
   const userTable = ids.length > 0 && (
     <table className={`table ${tableClass}`}>

@@ -1,12 +1,13 @@
 import { UI } from '../../../../../config/common/messages';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
-import Lego from '../Lego/Lego';
+import Lego from '../Lego/Lego_old';
 import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { LINK } from '../../../../../config/common/constants';
 import useAuth from '../../../../../hooks/useAuth';
+import MemoizedEntity from '../../../../entity/Components/entity/MemoizedEntity';
 
 function LegoListTable({ lego, openModal }) {
   const { isSuperuser, isAdmin } = useAuth();
@@ -26,7 +27,15 @@ function LegoListTable({ lego, openModal }) {
     ? 'table__lego--with-actions'
     : 'table__lego--without-actions';
 
-  const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego');
+  // const tableContent = generateTableContent(ids, entities, openModal, Lego, 'lego');
+
+  const tableContent = generateTableContent(
+    ids,
+    entities,
+    openModal,
+    MemoizedEntity,
+    'lego'
+  );
 
   const legoTable = ids.length > 0 && (
     <table className={`table ${tableClass}`}>

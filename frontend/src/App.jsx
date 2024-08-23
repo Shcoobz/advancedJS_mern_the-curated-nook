@@ -33,8 +33,11 @@ import { toast } from 'react-toastify';
 import { ROLE } from './config/common/constants';
 import RequireAuth from './features/auth/components/RequireAuth';
 import { useSelector } from 'react-redux';
+import useTitle from './hooks/useTitle';
 
 function App() {
+  useTitle('The Curated Nook');
+
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 

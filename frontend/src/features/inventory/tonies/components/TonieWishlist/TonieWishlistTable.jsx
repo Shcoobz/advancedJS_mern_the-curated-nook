@@ -4,9 +4,10 @@ import { useMemo } from 'react';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { UI } from '../../../../../config/common/messages';
-import Tonie from '../Tonie/Tonie';
+import Tonie from '../Tonie/Tonie_old';
 import { LINK } from '../../../../../config/common/constants';
 import useAuth from '../../../../../hooks/useAuth';
+import MemoizedEntity from '../../../../entity/Components/entity/MemoizedEntity';
 
 function TonieWishlistTable({ tonies, openModal }) {
   const { isSuperuser, isAdmin } = useAuth();
@@ -25,11 +26,20 @@ function TonieWishlistTable({ tonies, openModal }) {
     ? 'table__tonies--with-actions'
     : 'table__tonies--without-actions';
 
+  // const tableContent = generateTableContent(
+  //   ids,
+  //   entities,
+  //   openModal,
+  //   Tonie,
+  //   'tonie',
+  //   true
+  // );
+
   const tableContent = generateTableContent(
     ids,
     entities,
     openModal,
-    Tonie,
+    MemoizedEntity,
     'tonie',
     true
   );
