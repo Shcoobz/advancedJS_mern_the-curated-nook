@@ -1,6 +1,6 @@
 import { TOAST } from '../../../../config/common/messages';
 import { useUpdateUserMutation, useDeleteUserMutation } from '../../api/usersApiSlice';
-import UserFormTableEdit from './UserFormTableEdit';
+import UserFormEditTable from './UserFormEditTable';
 import {
   canSaveExistingUserForm,
   generateExistingUserPayload,
@@ -23,7 +23,7 @@ function UserFormEdit({ user, isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       isWishlist={false}
-      FormTable={UserFormTableEdit}
+      FormTable={UserFormEditTable}
       useUpdateMutation={useUpdateUserMutation}
       useDeleteMutation={useDeleteUserMutation}
       generateExistingPayload={generateExistingUserPayload}

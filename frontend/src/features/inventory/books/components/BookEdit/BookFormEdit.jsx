@@ -1,6 +1,6 @@
 import { useDeleteBookMutation, useUpdateBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import BookFormTableEdit from './BookFormTableEdit';
+import BookFormEditTable from './BookFormEditTable';
 import {
   canSave,
   generateExistingBookPayload,
@@ -30,7 +30,7 @@ function BookFormEdit({ book, isOpen, onClose, isWishlist = false }) {
       isOpen={isOpen}
       onClose={onClose}
       isWishlist={isWishlist}
-      FormTable={BookFormTableEdit}
+      FormTable={BookFormEditTable}
       useUpdateMutation={useUpdateBookMutation}
       useUpdateWishlistMutation={useUpdateWishlistBookMutation}
       useDeleteMutation={useDeleteBookMutation}

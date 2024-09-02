@@ -1,22 +1,24 @@
-import { DynamicForm } from '../../../../../components/common/FormComponents.jsx';
-import { handleClick } from '../../../../utils/formUtils.jsx';
-import getLegoFormFields from '../../legoFormData';
+import { DynamicForm } from '../../../../components/common/FormComponents';
+import { handleClick } from '../../../utils/formUtils';
 
-function LegoFormTableEdit({
+function EntityFormEditTable({
   formData,
   updateField,
   canSave,
   handleSave,
   handleDelete,
   onClose,
+  getFormFields,
+  entityType,
+  titleField,
 }) {
   const handleFieldChange = handleClick(updateField);
 
   return (
     <DynamicForm
-      title={`Edit Lego Set: ${formData.name}`}
+      title={`Edit ${entityType}: ${formData[titleField]}`}
       formData={formData}
-      getFormFields={getLegoFormFields}
+      getFormFields={getFormFields}
       handleFieldChange={handleFieldChange}
       handleSave={handleSave}
       canSave={canSave}
@@ -26,4 +28,4 @@ function LegoFormTableEdit({
   );
 }
 
-export default LegoFormTableEdit;
+export default EntityFormEditTable;

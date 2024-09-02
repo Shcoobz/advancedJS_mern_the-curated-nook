@@ -1,6 +1,6 @@
 import { useDeleteLegoMutation, useUpdateLegoMutation } from '../../api/legoApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import LegoFormTableEdit from './LegoFormTableEdit';
+import LegoFormEditTable from './LegoFormEditTable';
 import {
   canSave,
   generateExistingLegoPayload,
@@ -28,7 +28,7 @@ function LegoFormEdit({ lego, isOpen, onClose, isWishlist = false }) {
       isOpen={isOpen}
       onClose={onClose}
       isWishlist={isWishlist}
-      FormTable={LegoFormTableEdit}
+      FormTable={LegoFormEditTable}
       useUpdateMutation={useUpdateLegoMutation}
       useUpdateWishlistMutation={useUpdateWishlistLegoMutation}
       useDeleteMutation={useDeleteLegoMutation}

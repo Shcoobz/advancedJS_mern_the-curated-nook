@@ -1,6 +1,6 @@
 import { useDeleteTonieMutation, useUpdateTonieMutation } from '../../api/toniesApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import TonieFormTableEdit from './TonieFormTableEdit';
+import TonieFormEditTable from './TonieFormEditTable';
 import {
   canSave,
   generateExistingToniePayload,
@@ -28,7 +28,7 @@ function TonieFormEdit({ tonie, isOpen, onClose, isWishlist = false }) {
       isOpen={isOpen}
       onClose={onClose}
       isWishlist={isWishlist}
-      FormTable={TonieFormTableEdit}
+      FormTable={TonieFormEditTable}
       useUpdateMutation={useUpdateTonieMutation}
       useUpdateWishlistMutation={useUpdateWishlistTonieMutation}
       useDeleteMutation={useDeleteTonieMutation}
