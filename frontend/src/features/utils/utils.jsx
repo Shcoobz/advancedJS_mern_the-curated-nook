@@ -28,6 +28,14 @@ export function formatDate(dateString) {
   return `${day}-${month}-${year}`;
 }
 
+export function formatDateForInput(dateString) {
+  if (dateString && dateString.length === 7) {
+    return `${dateString}-01`;
+  }
+
+  return dateString;
+}
+
 export function getSortDirectionSymbol(key, sortConfig, resetSort) {
   if (sortConfig.key === key) {
     return (

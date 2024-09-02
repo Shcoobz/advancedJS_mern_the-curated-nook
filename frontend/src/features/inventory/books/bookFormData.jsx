@@ -9,6 +9,7 @@ import {
   fetchSuggestionsByBookTitle,
 } from '../../utils/fetchUtils';
 import { getInputClass } from '../../utils/formUtils';
+import { formatDateForInput } from '../../utils/utils';
 
 const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [
   {
@@ -61,7 +62,7 @@ const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion
     id: 'publishedDate',
     name: 'publishedDate',
     type: 'date',
-    value: formData.publishedDate,
+    value: formatDateForInput(formData.publishedDate),
     onChange: handleFieldChange,
   },
   {
