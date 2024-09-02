@@ -24,6 +24,7 @@ function createEntityData(
       selectFromResult: ({ data }) => ({
         item: data?.entities[itemId],
       }),
+
       skip: !isWishlist || !wishlistQueryName,
     });
 

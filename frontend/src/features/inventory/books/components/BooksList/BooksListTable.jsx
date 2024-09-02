@@ -25,8 +25,6 @@ function BooksListTable({ books, openModal }) {
     ? 'table__books--with-actions'
     : 'table__books--without-actions';
 
-  // const tableContent = generateTableContent(ids, entities, openModal, Book, 'book');
-
   const tableContent = generateTableContent(
     ids,
     entities,

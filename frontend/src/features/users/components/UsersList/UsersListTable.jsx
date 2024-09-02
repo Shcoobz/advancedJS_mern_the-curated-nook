@@ -4,7 +4,6 @@ import { TableCellHeader } from '../../../../components/common/TableComponents';
 import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../utils/utils';
 import { useOutletContext } from 'react-router-dom';
-import User from '../User/User_old';
 import ConditionalList from '../../../../components/common/ConditionalList';
 import useAuth from '../../../../hooks/useAuth';
 import MemoizedEntity from '../../../entity/Components/entity/MemoizedEntity';

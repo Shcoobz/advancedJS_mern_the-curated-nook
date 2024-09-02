@@ -1,42 +1,20 @@
-import { toast } from 'react-toastify';
 import { useDeleteBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import Modal from '../../../../../components/common/Modal';
 import BookDetailsTable from './BookDetailsTable';
-import { handleDeleteEntity } from '../../../../utils/formUtils';
+import EntityDetails from '../../../../entity/Components/entityDetails/entityDetails';
 
 function BookDetails({ book, isOpen, onClose, onEdit }) {
-  const [deleteBook] = useDeleteBookMutation();
-
-  if (!book) return null;
-
-  function handleEditClick() {
-    const updatedBook = { ...book, isEditing: true };
-    onEdit(updatedBook);
-  }
-
-  async function handleDelete(e) {
-    e.preventDefault();
-
-    const result = await handleDeleteEntity(deleteBook, book.id);
-
-    if (!result.success) {
-      toast.error(result.errorMessage);
-    } else {
-      onClose();
-      toast.success(TOAST.SUCCESS.BOOK.deleted);
-    }
-  }
-
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className='book__modal'>
-      <BookDetailsTable
-        book={book}
-        onClose={onClose}
-        handleEditClick={handleEditClick}
-        handleDelete={handleDelete}
-      />
-    </Modal>
+    <EntityDetails
+      entity={book}
+      entityName='Book'
+      isOpen={isOpen}
+      onClose={onClose}
+      onEdit={onEdit}
+      useDeleteMutation={useDeleteBookMutation}
+      DetailsTable={BookDetailsTable}
+      successMessage={TOAST.SUCCESS.BOOK.deleted}
+    />
   );
 }
 

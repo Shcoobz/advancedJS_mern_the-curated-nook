@@ -1,42 +1,20 @@
-import { toast } from 'react-toastify';
 import { useDeleteTonieMutation } from '../../api/toniesApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import Modal from '../../../../../components/common/Modal';
 import TonieDetailsTable from './TonieDetailsTable';
-import { handleDeleteEntity } from '../../../../utils/formUtils';
+import EntityDetails from '../../../../entity/Components/entityDetails/entityDetails';
 
 function TonieDetails({ tonie, isOpen, onClose, onEdit }) {
-  const [deleteTonie] = useDeleteTonieMutation();
-
-  if (!tonie) return null;
-
-  function handleEditClick() {
-    const updatedTonie = { ...tonie, isEditing: true };
-    onEdit(updatedTonie);
-  }
-
-  async function handleDelete(e) {
-    e.preventDefault();
-
-    const result = await handleDeleteEntity(deleteTonie, tonie.id);
-
-    if (!result.success) {
-      toast.error(result.errorMessage);
-    } else {
-      onClose();
-      toast.success(TOAST.SUCCESS.TONIE.deleted);
-    }
-  }
-
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className='tonie__modal'>
-      <TonieDetailsTable
-        tonie={tonie}
-        onClose={onClose}
-        handleEditClick={handleEditClick}
-        handleDelete={handleDelete}
-      />
-    </Modal>
+    <EntityDetails
+      entity={tonie}
+      entityName='Tonie'
+      isOpen={isOpen}
+      onClose={onClose}
+      onEdit={onEdit}
+      useDeleteMutation={useDeleteTonieMutation}
+      DetailsTable={TonieDetailsTable}
+      successMessage={TOAST.SUCCESS.TONIE.deleted}
+    />
   );
 }
 
