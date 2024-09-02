@@ -1,22 +1,16 @@
-import { useParams } from 'react-router-dom';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
-import Spinner from '../../../../../components/common/Spinner';
 import BookFormEdit from './BookFormEdit';
+import EntityEdit from '../../../../entity/Components/EntityEdit/EntityEdit';
 
 function BookEdit() {
-  const { id } = useParams();
-
-  const { book } = useGetBooksQuery('booksList', {
-    selectFromResult: ({ data }) => ({
-      book: data?.entities[id],
-    }),
-  });
-
-  if (!book) return <Spinner />;
-
-  const content = <BookFormEdit book={book} />;
-
-  return content;
+  return (
+    <EntityEdit
+      useGetQuery={useGetBooksQuery}
+      queryName='booksList'
+      EntityFormEdit={BookFormEdit}
+      entityName='book'
+    />
+  );
 }
 
 export default BookEdit;

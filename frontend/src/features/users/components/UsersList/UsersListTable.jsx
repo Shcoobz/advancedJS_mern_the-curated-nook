@@ -6,7 +6,7 @@ import { generateTableContent, genericFilter } from '../../../utils/utils';
 import { useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../components/common/ConditionalList';
 import useAuth from '../../../../hooks/useAuth';
-import MemoizedEntity from '../../../entity/Components/entity/MemoizedEntity';
+import MemoizedEntity from '../../../entity/Components/Entity/MemoizedEntity';
 
 function UsersListTable({ users, openModal }) {
   const { isAdmin } = useAuth();

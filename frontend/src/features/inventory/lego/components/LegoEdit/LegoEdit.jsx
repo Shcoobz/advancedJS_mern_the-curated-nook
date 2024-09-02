@@ -1,22 +1,16 @@
-import { useParams } from 'react-router-dom';
 import { useGetLegoQuery } from '../../api/legoApiSlice';
-import Spinner from '../../../../../components/common/Spinner';
 import LegoFormEdit from './LegoFormEdit';
+import EntityEdit from '../../../../entity/Components/EntityEdit/EntityEdit';
 
 function LegoEdit() {
-  const { id } = useParams();
-
-  const { lego } = useGetLegoQuery('legoList', {
-    selectFromResult: ({ data }) => ({
-      lego: data?.entities[id],
-    }),
-  });
-
-  if (!lego) return <Spinner />;
-
-  const content = <LegoFormEdit lego={lego} />;
-
-  return content;
+  return (
+    <EntityEdit
+      useGetQuery={useGetLegoQuery}
+      queryName='legoList'
+      EntityFormEdit={LegoFormEdit}
+      entityName='lego'
+    />
+  );
 }
 
 export default LegoEdit;

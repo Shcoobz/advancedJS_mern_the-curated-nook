@@ -1,4 +1,4 @@
-import createEntityData from '../../../../entity/Components/entity/createEntityData';
+import createEntityData from '../../../../entity/Components/Entity/createEntityData';
 import { useGetToniesQuery } from '../../api/toniesApiSlice';
 import { useGetToniesOnWishlistQuery } from '../../api/tonieWishlistApiSlice';
 import TonieTable from './TonieTable';

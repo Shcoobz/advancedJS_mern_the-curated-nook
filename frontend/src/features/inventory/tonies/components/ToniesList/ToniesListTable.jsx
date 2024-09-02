@@ -6,7 +6,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { LINK } from '../../../../../config/common/constants';
 import useAuth from '../../../../../hooks/useAuth';
-import MemoizedEntity from '../../../../entity/Components/entity/MemoizedEntity';
+import MemoizedEntity from '../../../../entity/Components/Entity/MemoizedEntity';
 
 function ToniesListTable({ tonies, openModal }) {
   const { isSuperuser, isAdmin } = useAuth();

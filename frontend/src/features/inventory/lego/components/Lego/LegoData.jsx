@@ -1,4 +1,4 @@
-import createEntityData from '../../../../entity/Components/entity/createEntityData';
+import createEntityData from '../../../../entity/Components/Entity/createEntityData';
 import { useGetLegoQuery } from '../../api/legoApiSlice';
 import { useGetLegoOnWishlistQuery } from '../../api/legoWishlistApiSlice';
 import LegoTable from './LegoTable';
