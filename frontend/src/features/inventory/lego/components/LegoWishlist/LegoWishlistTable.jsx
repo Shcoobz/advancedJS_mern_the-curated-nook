@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
-import Lego from '../Lego/Lego_old';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import { LINK } from '../../../../../config/common/constants';
 import ConditionalList from '../../../../../components/common/ConditionalList';

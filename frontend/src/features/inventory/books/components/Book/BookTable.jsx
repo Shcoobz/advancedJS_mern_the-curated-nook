@@ -16,19 +16,20 @@ function formatCategories(categories) {
   return categories.join(DEFAULT.commaSpace);
 }
 
-function BookTable({ book, onEdit, index }) {
+function BookTable({ item, onEdit, index }) {
   const { isSuperuser, isAdmin } = useAuth();
   const isProtected = isSuperuser || isAdmin;
 
   const [deleteBook] = useDeleteBookMutation();
   const dispatch = useDispatch();
-  const bookCategoryList = formatCategories(book.categories);
-  const truncatedDescription = truncateText(book.description, 298);
+
+  const bookCategoryList = formatCategories(item.categories);
+  const truncatedDescription = truncateText(item.description, 298);
   const thumbnailUrl =
-    book.thumbnailUrl && book.thumbnailUrl !== 'N/A' ? book.thumbnailUrl : stockImageBook;
+    item.thumbnailUrl && item.thumbnailUrl !== 'N/A' ? item.thumbnailUrl : stockImageBook;
 
   async function handleDelete(e) {
-    await handleDeleteEntityList(deleteBook, book.id, TOAST.SUCCESS.BOOK.deleted);
+    await handleDeleteEntityList(deleteBook, item.id, TOAST.SUCCESS.BOOK.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'Book', id: 'LIST' }]));
   }
@@ -38,10 +39,10 @@ function BookTable({ book, onEdit, index }) {
       <TableCell className='table__cell item__number' content={index} />
       <TableCell
         className='table__cell user__thumbnail-cell'
-        content={<img src={thumbnailUrl} alt={book.title || 'Book'} />}
+        content={<img src={thumbnailUrl} alt={item.title || 'Book'} />}
       />
 
-      <TableCell className='book__title' content={book.title} />
+      <TableCell className='book__title' content={item.title} />
       <TableCell className='book__description' content={truncatedDescription} />
       <TableCell className='book__categories' content={bookCategoryList} />
 
@@ -49,7 +50,7 @@ function BookTable({ book, onEdit, index }) {
         <TableCellActions
           onEdit={onEdit}
           handleDelete={handleDelete}
-          item={book}
+          item={item}
           className='list__actions'
         />
       )}

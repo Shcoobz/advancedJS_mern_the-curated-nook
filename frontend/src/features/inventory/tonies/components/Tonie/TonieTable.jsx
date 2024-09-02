@@ -10,7 +10,7 @@ import { TOAST } from '../../../../../config/common/messages';
 import stockImageTonie from '../../../../../img/stockimageTonie.png';
 import useAuth from '../../../../../hooks/useAuth';
 
-function TonieTable({ tonie, onEdit, onClose, index }) {
+function TonieTable({ item, onEdit, onClose, index }) {
   const { isSuperuser, isAdmin } = useAuth();
   const isProtected = isSuperuser || isAdmin;
 
@@ -18,12 +18,12 @@ function TonieTable({ tonie, onEdit, onClose, index }) {
   const dispatch = useDispatch();
 
   const thumbnailUrl =
-    tonie.thumbnailUrl && tonie.thumbnailUrl !== 'N/A'
-      ? tonie.thumbnailUrl
+    item.thumbnailUrl && item.thumbnailUrl !== 'N/A'
+      ? item.thumbnailUrl
       : stockImageTonie;
 
   async function handleDelete(e) {
-    await handleDeleteEntityList(deleteTonie, tonie.id, TOAST.SUCCESS.TONIE.deleted);
+    await handleDeleteEntityList(deleteTonie, item.id, TOAST.SUCCESS.TONIE.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'Tonie', id: 'LIST' }]));
   }
@@ -33,16 +33,16 @@ function TonieTable({ tonie, onEdit, onClose, index }) {
       <TableCell className='table__cell item__number' content={index} />
       <TableCell
         className='table__cell user__thumbnail-cell'
-        content={<img src={thumbnailUrl} alt={tonie.name || 'Tonie'} />}
+        content={<img src={thumbnailUrl} alt={item.name || 'Tonie'} />}
       />
-      <TableCell className='tonie__name' content={tonie.name} />
-      <TableCell className='tonie__description' content={tonie.description} />
+      <TableCell className='tonie__name' content={item.name} />
+      <TableCell className='tonie__description' content={item.description} />
 
       {isProtected && (
         <TableCellActions
           onEdit={onEdit}
           handleDelete={handleDelete}
-          item={tonie}
+          item={item}
           onClose={onClose}
           className='list__actions'
         />

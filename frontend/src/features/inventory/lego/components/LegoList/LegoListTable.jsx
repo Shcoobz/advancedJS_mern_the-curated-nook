@@ -1,6 +1,5 @@
 import { UI } from '../../../../../config/common/messages';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
-import Lego from '../Lego/Lego_old';
 import { useMemo } from 'react';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
 import { useNavigate, useOutletContext } from 'react-router-dom';

@@ -1,7 +1,6 @@
 import { UI } from '../../../../../config/common/messages';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import { generateTableContent, genericFilter } from '../../../../utils/utils';
-import Book from '../Book/Book_old';
 import { useMemo } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import ConditionalList from '../../../../../components/common/ConditionalList';

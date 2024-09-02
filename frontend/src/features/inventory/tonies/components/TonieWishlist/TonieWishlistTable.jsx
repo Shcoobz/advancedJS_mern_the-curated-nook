@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { TableCellHeader } from '../../../../../components/common/TableComponents';
 import ConditionalList from '../../../../../components/common/ConditionalList';
 import { UI } from '../../../../../config/common/messages';
-import Tonie from '../Tonie/Tonie_old';
 import { LINK } from '../../../../../config/common/constants';
 import useAuth from '../../../../../hooks/useAuth';
 import MemoizedEntity from '../../../../entity/Components/entity/MemoizedEntity';

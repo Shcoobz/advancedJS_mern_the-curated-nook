@@ -19,20 +19,20 @@ function getCellStatus(userActive) {
   return userActive ? DEFAULT.emptyString : 'table__cell--inactive';
 }
 
-function UserTable({ user, onEdit, index }) {
+function UserTable({ item, onEdit, index }) {
   const { isAdmin } = useAuth();
   const isProtected = isAdmin;
 
   const [deleteUser] = useDeleteUserMutation();
   const dispatch = useDispatch();
-  const userRolesString = formatRoles(user.roles);
-  const cellStatus = getCellStatus(user.active);
+  const userRolesString = formatRoles(item.roles);
+  const cellStatus = getCellStatus(item.active);
 
   const thumbnailUrl =
-    user.thumbnailUrl && user.thumbnailUrl !== 'N/A' ? user.thumbnailUrl : stockImageUser;
+  item.thumbnailUrl && item.thumbnailUrl !== 'N/A' ? item.thumbnailUrl : stockImageUser;
 
   async function handleDelete(e) {
-    await handleDeleteEntityList(deleteUser, user.id, TOAST.SUCCESS.USER.deleted);
+    await handleDeleteEntityList(deleteUser, item.id, TOAST.SUCCESS.USER.deleted);
 
     dispatch(apiSlice.util.invalidateTags([{ type: 'User', id: 'LIST' }]));
   }
@@ -46,12 +46,12 @@ function UserTable({ user, onEdit, index }) {
       />
       <TableCell
         className='table__cell user__thumbnail-cell'
-        content={<img src={thumbnailUrl} alt={user.username || 'User'} />}
+        content={<img src={thumbnailUrl} alt={item.username || 'User'} />}
         statusClass={cellStatus}
       />
       <TableCell
         className='user__username'
-        content={user.username}
+        content={item.username}
         statusClass={cellStatus}
       />
       <TableCell
@@ -64,7 +64,7 @@ function UserTable({ user, onEdit, index }) {
         <TableCellActions
           onEdit={onEdit}
           handleDelete={handleDelete}
-          item={user}
+          item={item}
           statusClass={cellStatus}
           className={'list__actions'}
         />

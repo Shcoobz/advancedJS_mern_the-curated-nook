@@ -1,18 +1,13 @@
+import createEntityData from '../../../entity/Components/entity/createEntityData';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
 import UserTable from './UserTable';
 
-function UserData({ userId, onEdit, index }) {
-  const { user } = useGetUsersQuery('usersList', {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[userId],
-    }),
-  });
-
-  if (!user) return null;
-
-  const content = <UserTable user={user} onEdit={onEdit} index={index} />;
-
-  return content;
-}
+const UserData = createEntityData(
+  useGetUsersQuery,
+  undefined,
+  UserTable,
+  'usersList',
+  undefined
+);
 
 export default UserData;

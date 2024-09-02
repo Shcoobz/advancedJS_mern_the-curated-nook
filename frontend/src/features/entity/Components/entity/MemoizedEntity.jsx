@@ -15,15 +15,14 @@ function EntityWrapper({ type, id, onEdit, index, isWishlist = false }) {
   const DataComponent = dataComponents[type];
 
   if (!DataComponent) {
-    console.error(`No component found for type: ${type}`);
     return null;
   }
 
   const props = {
-    [`${type}Id`]: id,
+    itemId: id,
     onEdit,
     index,
-    ...(type !== 'user' && { isWishlist }),
+    isWishlist: type !== 'user' ? isWishlist : undefined,
   };
 
   return <DataComponent {...props} />;
