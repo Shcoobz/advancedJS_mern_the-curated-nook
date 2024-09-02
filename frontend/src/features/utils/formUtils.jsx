@@ -122,6 +122,7 @@ export function createInitialFormState(type, data = null) {
   }
 }
 
+// remove
 export function useValidate(value, validateFn, updateValidationStatus) {
   useEffect(() => {
     const isValid = validateFn(value);
@@ -453,3 +454,7 @@ export function handleLoginError(err) {
     }
   }
 }
+
+export const canSave = (requiredFields) => (formData, isLoading) => {
+  return !isLoading && requiredFields.every((field) => Boolean(formData[field]));
+};
