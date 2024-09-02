@@ -1,7 +1,7 @@
 import { useDeleteBookMutation } from '../../api/booksApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
+import EntityDetails from '../../../../entity/Components/EntityDetails/EntityDetails';
 import BookDetailsTable from './BookDetailsTable';
-import EntityDetails from '../../../../entity/Components/entityDetails/entityDetails';
 
 function BookDetails({ book, isOpen, onClose, onEdit }) {
   return (

@@ -1,7 +1,7 @@
 import { useDeleteUserMutation } from '../../api/usersApiSlice';
 import { TOAST } from '../../../../config/common/messages';
 import UserDetailsTable from './UserDetailsTable';
-import EntityDetails from '../../../entity/Components/entityDetails/entityDetails';
+import EntityDetails from '../../../entity/Components/EntityDetails/EntityDetails';
 
 function UserDetails({ user, isOpen, onClose, onEdit }) {
   return (

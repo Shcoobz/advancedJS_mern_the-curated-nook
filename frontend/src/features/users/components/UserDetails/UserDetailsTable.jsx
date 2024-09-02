@@ -1,56 +1,34 @@
-import {
-  TableItemDetail,
-  TableItemDetailHeader,
-  TableItemDetailImage,
-} from '../../../../components/common/TableComponents';
-import useAuth from '../../../../hooks/useAuth';
-
 import stockImageUser from '../../../../img/stockimageUser.png';
+import EntityDetailsTable from '../../../entity/Components/EntityDetails/EntityDetailsTable';
 
 function UserDetailsTable({ user, onClose, handleEditClick, handleDelete }) {
-  const { isAdmin } = useAuth();
-  const isProtected = isAdmin;
-
   const formattedRoles = user.roles.join(', ');
 
-  const hasValidImageUrl = user.imageUrl && user.imageUrl !== 'N/A';
-  const hasValidThumbnailUrl = user.thumbnailUrl && user.thumbnailUrl !== 'N/A';
+  const imageConfig = {
+    imageUrl: user.imageUrl,
+    thumbnailUrl: user.thumbnailUrl,
+    stockImage: stockImageUser,
+    altText: `Avatar of ${user.username}`,
+    titleText: `Avatar of ${user.username}`,
+    className: 'user__cover-image',
+  };
 
-  const imageUrl = hasValidImageUrl
-    ? user.imageUrl
-    : hasValidThumbnailUrl
-    ? user.thumbnailUrl
-    : stockImageUser;
+  const details = [
+    { label: 'Username:', value: user.username },
+    { label: 'Roles:', value: formattedRoles },
+    { label: 'Active:', value: user.active ? 'Yes' : 'No' },
+  ];
 
   const tableContent = (
-    <div className='user__modal-container'>
-      <TableItemDetailHeader
-        title={`User: ${user?.username}`}
-        handleEditClick={handleEditClick}
-        handleDelete={handleDelete}
-        onClose={onClose}
-        isProtected={isProtected}
-      />
-
-      <div className='user__modal-content'>
-        <div className='user__modal-image'>
-          <TableItemDetailImage
-            src={imageUrl}
-            alt={`Cover of ${user.title}`}
-            title={`Cover Image of ${user.title}`}
-            className='user__cover-image'
-          />
-        </div>
-
-        <div className='user__modal-info'>
-          <div className='user__modal-details'>
-            <TableItemDetail label='Username:' value={user?.username} />
-            <TableItemDetail label='Roles:' value={formattedRoles} />
-            <TableItemDetail label='Active:' value={user?.active ? 'Yes' : 'No'} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <EntityDetailsTable
+      item={user}
+      onClose={onClose}
+      handleEditClick={handleEditClick}
+      handleDelete={handleDelete}
+      type='user'
+      imageConfig={imageConfig}
+      details={details}
+    />
   );
 
   return tableContent;
