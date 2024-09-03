@@ -1,21 +1,15 @@
-import { handleClick } from '../../../utils/formUtils';
-import { DynamicForm } from '../../../../components/common/FormComponents';
 import getUserFormFields from '../../userFormData';
+import EntityFormNewTable from '../../../entity/Components/EntityNew/EntityFormNewTable';
 
-function UserFormTableNew({ formData, updateField, canSave, handleSave, onClose }) {
-  const handleFieldChange = handleClick(updateField);
-
+function UserFormNewTable(props) {
   return (
-    <DynamicForm
-      title={`New User: ${formData.username}`}
-      formData={formData}
+    <EntityFormNewTable
+      entityType='User'
       getFormFields={getUserFormFields}
-      handleFieldChange={handleFieldChange}
-      handleSave={handleSave}
-      canSave={canSave}
-      onClose={onClose}
+      titleField='username'
+      {...props}
     />
   );
 }
 
-export default UserFormTableNew;
+export default UserFormNewTable;

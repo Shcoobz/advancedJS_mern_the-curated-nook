@@ -1,21 +1,14 @@
-import { handleClick } from '../../../../utils/formUtils';
-import { DynamicForm } from '../../../../../components/common/FormComponents';
 import getTonieFormFields from '../../tonieFormData';
+import EntityFormNewTable from '../../../../entity/Components/EntityNew/EntityFormNewTable';
 
-function TonieFormTableNew({ formData, updateField, canSave, handleSave, onClose }) {
-  const handleFieldChange = handleClick(updateField);
-
+function TonieFormNewTable(props) {
   return (
-    <DynamicForm
-      title='Create Tonie'
-      formData={formData}
+    <EntityFormNewTable
+      entityType='Tonie'
       getFormFields={getTonieFormFields}
-      handleFieldChange={handleFieldChange}
-      handleSave={handleSave}
-      canSave={canSave}
-      onClose={onClose}
+      {...props}
     />
   );
 }
 
-export default TonieFormTableNew;
+export default TonieFormNewTable;
