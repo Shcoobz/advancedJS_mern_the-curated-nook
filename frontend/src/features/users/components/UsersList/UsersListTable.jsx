@@ -1,6 +1,6 @@
 import { TABLE } from '../../../../config/common/constants';
 import { UI } from '../../../../config/common/messages';
-import EntityListTable from '../../../entity/Components/EntityList/EntityListTable';
+import EntityListTable from '../../../entity/components/EntityList/EntityListTable';
 
 function UsersListTable({ users, openModal }) {
   const filterFields = ['username', 'roles'];

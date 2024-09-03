@@ -1,5 +1,5 @@
-import EntityFormNewTable from '../../../../entity/Components/EntityNew/EntityFormNewTable';
-import getBookFormFields from '../../bookFormData';
+import getBookFormFields from '../../../../../data/bookFormData';
+import EntityFormNewTable from '../../../../entity/components/EntityNew/EntityFormNewTable';
 
 function BookFormNewTable(props) {
   return (

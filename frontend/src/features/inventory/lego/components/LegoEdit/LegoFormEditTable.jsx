@@ -1,5 +1,5 @@
-import EntityFormEditTable from '../../../../entity/Components/EntityEdit/EntityFormEditTable.jsx';
-import getLegoFormFields from '../../legoFormData.jsx';
+import getLegoFormFields from '../../../../../data/legoFormData.jsx';
+import EntityFormEditTable from '../../../../entity/components/EntityEdit/EntityFormEditTable.jsx';
 
 function LegoFormEditTable({ props }) {
   return (

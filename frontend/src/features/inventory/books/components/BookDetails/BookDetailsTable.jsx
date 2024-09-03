@@ -1,5 +1,5 @@
 import { formatDate } from '../../../../utils/utils';
-import EntityDetailsTable from '../../../../entity/Components/EntityDetails/EntityDetailsTable';
+import EntityDetailsTable from '../../../../entity/components/EntityDetails/EntityDetailsTable';
 import stockImageBook from '../../../../../img/stockimageBook.png';
 
 function BookDetailsTable({ book, onClose, handleEditClick, handleDelete }) {

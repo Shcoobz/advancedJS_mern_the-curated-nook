@@ -3,7 +3,7 @@ import BookWishlistTable from './BookWishlistTable';
 import BookFormEdit from '../BookEdit/BookFormEdit';
 import BookDetails from '../BookDetails/BookDetails';
 import BookFormNew from '../BookNew/BookFormNew';
-import EntityWishlist from '../../../../entity/Components/EntityWishlist/EntityWishlist';
+import EntityWishlist from '../../../../entity/components/EntityWishlist/EntityWishlist';
 
 function BookWishlist() {
   return (

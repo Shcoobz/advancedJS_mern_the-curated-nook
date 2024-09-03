@@ -1,4 +1,4 @@
-import createEntityData from '../../../../entity/Components/Entity/createEntityData';
+import createEntityData from '../../../../entity/components/Entity/createEntityData';
 import { useGetBooksQuery } from '../../api/booksApiSlice';
 import { useGetBooksOnWishlistQuery } from '../../api/booksWishlistApiSlice';
 import BookTable from './BookTable';

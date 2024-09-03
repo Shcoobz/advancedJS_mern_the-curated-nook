@@ -1,5 +1,5 @@
-import EntityFormEditTable from '../../../../entity/Components/EntityEdit/EntityFormEditTable';
-import getTonieFormFields from '../../tonieFormData';
+import getTonieFormFields from '../../../../../data/tonieFormData';
+import EntityFormEditTable from '../../../../entity/components/EntityEdit/EntityFormEditTable';
 
 function TonieFormTableEdit(props) {
   return (

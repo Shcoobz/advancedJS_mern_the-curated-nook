@@ -1,6 +1,6 @@
 import { UI } from '../../../../../config/common/messages';
 import { LINK } from '../../../../../config/common/constants';
-import EntityListTable from '../../../../entity/Components/EntityList/EntityListTable';
+import EntityListTable from '../../../../entity/components/EntityList/EntityListTable';
 
 function BooksListTable({ books, openModal }) {
   const filterFields = ['title', 'categories'];

@@ -3,7 +3,7 @@ import UserFormEdit from '../UserEdit/UserFormEdit';
 import UserFormNew from '../UserNew/UserFormNew';
 import UsersListTable from './UsersListTable';
 import UserDetails from '../UserDetails/UserDetails';
-import EntityList from '../../../entity/Components/EntityList/EntityList';
+import EntityList from '../../../entity/components/EntityList/EntityList';
 
 function UsersList() {
   return (

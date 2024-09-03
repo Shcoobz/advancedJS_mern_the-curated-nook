@@ -11,7 +11,7 @@ import {
   useDeleteWishlistTonieMutation,
   useUpdateWishlistTonieMutation,
 } from '../../api/tonieWishlistApiSlice';
-import EntityFormEdit from '../../../../entity/Components/EntityEdit/EntityFormEdit';
+import EntityFormEdit from '../../../../entity/components/EntityEdit/EntityFormEdit';
 
 function TonieFormEdit({ tonie, isOpen, onClose, isWishlist = false }) {
   const validations = {

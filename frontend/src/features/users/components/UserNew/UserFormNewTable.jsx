@@ -1,5 +1,5 @@
-import getUserFormFields from '../../userFormData';
-import EntityFormNewTable from '../../../entity/Components/EntityNew/EntityFormNewTable';
+import getUserFormFields from '../../../../data/userFormData';
+import EntityFormNewTable from '../../../entity/components/EntityNew/EntityFormNewTable';
 
 function UserFormNewTable(props) {
   return (

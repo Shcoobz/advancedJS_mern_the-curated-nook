@@ -3,7 +3,7 @@ import ToniesListTable from './ToniesListTable';
 import TonieFormEdit from '../TonieEdit/TonieFormEdit';
 import TonieDetails from '../TonieDetails/TonieDetails';
 import TonieFormNew from '../TonieNew/TonieFormNew';
-import EntityList from '../../../../entity/Components/EntityList/EntityList';
+import EntityList from '../../../../entity/components/EntityList/EntityList';
 
 function ToniesList() {
   return (

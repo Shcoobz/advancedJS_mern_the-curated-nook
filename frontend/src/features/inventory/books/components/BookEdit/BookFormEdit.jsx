@@ -12,7 +12,7 @@ import {
   useDeleteWishlistBookMutation,
   useUpdateWishlistBookMutation,
 } from '../../api/booksWishlistApiSlice';
-import EntityFormEdit from '../../../../entity/Components/EntityEdit/EntityFormEdit';
+import EntityFormEdit from '../../../../entity/components/EntityEdit/EntityFormEdit';
 
 function BookFormEdit({ book, isOpen, onClose, isWishlist = false }) {
   const validations = {

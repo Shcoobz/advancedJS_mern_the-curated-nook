@@ -1,6 +1,6 @@
 import { useGetLegoQuery } from '../../api/legoApiSlice';
 import LegoFormEdit from './LegoFormEdit';
-import EntityEdit from '../../../../entity/Components/EntityEdit/EntityEdit';
+import EntityEdit from '../../../../entity/components/EntityEdit/EntityEdit';
 
 function LegoEdit() {
   return (

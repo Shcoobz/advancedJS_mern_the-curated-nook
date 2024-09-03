@@ -1,6 +1,6 @@
 import { useGetToniesQuery } from '../../api/toniesApiSlice';
 import TonieFormEdit from './TonieFormEdit';
-import EntityEdit from '../../../../entity/Components/EntityEdit/EntityEdit';
+import EntityEdit from '../../../../entity/components/EntityEdit/EntityEdit';
 
 function TonieEdit() {
   return (

@@ -2,10 +2,10 @@ import {
   FormCheckbox,
   FormInput,
   FormSelect,
-} from '../../components/common/FormComponents';
-import { ROLE } from '../../config/common/constants';
-import { UI } from '../../config/common/messages';
-import { generateOptionsFromRoles, getInputClass } from '../utils/formUtils';
+} from '../components/common/FormComponents';
+import { ROLE } from '../config/common/constants';
+import { UI } from '../config/common/messages';
+import { generateOptionsFromRoles, getInputClass } from '../features/utils/formUtils';
 
 const getUserFormFields = ({ formData, handleFieldChange }) => {
   const fields = [

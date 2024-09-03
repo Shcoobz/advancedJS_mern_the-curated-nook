@@ -1,5 +1,5 @@
-import EntityFormEditTable from '../../../entity/Components/EntityEdit/EntityFormEditTable';
-import getUserFormFields from '../../userFormData';
+import getUserFormFields from '../../../../data/userFormData';
+import EntityFormEditTable from '../../../entity/components/EntityEdit/EntityFormEditTable';
 
 function UserFormEditTable(props) {
   return (

@@ -1,6 +1,6 @@
 import { useDeleteLegoMutation } from '../../api/legoApiSlice';
 import { TOAST } from '../../../../../config/common/messages';
-import EntityDetails from '../../../../entity/Components/EntityDetails/EntityDetails';
+import EntityDetails from '../../../../entity/components/EntityDetails/EntityDetails';
 import LegoDetailsTable from './LegoDetailsTable';
 
 function LegoDetails({ lego, isOpen, onClose, onEdit }) {

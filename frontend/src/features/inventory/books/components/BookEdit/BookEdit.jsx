@@ -1,6 +1,6 @@
 import { useGetBooksQuery } from '../../api/booksApiSlice';
 import BookFormEdit from './BookFormEdit';
-import EntityEdit from '../../../../entity/Components/EntityEdit/EntityEdit';
+import EntityEdit from '../../../../entity/components/EntityEdit/EntityEdit';
 
 function BookEdit() {
   return (

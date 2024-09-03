@@ -1,6 +1,6 @@
 import { UI } from '../../../../../config/common/messages';
 import { LINK } from '../../../../../config/common/constants';
-import EntityListTable from '../../../../entity/Components/EntityList/EntityListTable';
+import EntityListTable from '../../../../entity/components/EntityList/EntityListTable';
 
 function LegoListTable({ lego, openModal }) {
   const filterFields = ['name', 'setNumber'];

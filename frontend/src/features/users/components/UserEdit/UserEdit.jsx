@@ -1,6 +1,6 @@
 import { useGetUsersQuery } from '../../api/usersApiSlice';
 import UserFormEdit from './UserFormEdit';
-import EntityEdit from '../../../entity/Components/EntityEdit/EntityEdit';
+import EntityEdit from '../../../entity/components/EntityEdit/EntityEdit';
 
 function UserEdit() {
   return (

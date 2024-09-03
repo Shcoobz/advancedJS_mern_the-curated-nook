@@ -25,6 +25,8 @@ function EntityWishlist({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEntity, setSelectedEntity] = useState(null);
+  const pluralEntityName = getPluralEntityName(entityName);
+  const singularEntityName = getSingularEntityName(entityName);
 
   let content;
 
@@ -45,7 +47,6 @@ function EntityWishlist({
   }
 
   if (isSuccess) {
-    const pluralEntityName = getPluralEntityName(entityName);
     content = (
       <WishlistTable
         {...{ [pluralEntityName.toLowerCase()]: wishlist }}
@@ -53,8 +54,6 @@ function EntityWishlist({
       />
     );
   }
-
-  const singularEntityName = getSingularEntityName(entityName);
 
   const wishlistContent = (
     <>

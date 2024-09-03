@@ -4,7 +4,7 @@ import { generateNewBookPayload, validateTitle } from '../../../../utils/formUti
 import BookFormTableNew from './BookFormNewTable';
 import { handleIsbnScan, handleSelectSuggestion } from '../../../../utils/fetchUtils';
 import { useAddNewWishlistBookMutation } from '../../api/booksWishlistApiSlice';
-import EntityFormNew from '../../../../entity/Components/EntityNew/EntityFormNew';
+import EntityFormNew from '../../../../entity/components/EntityNew/EntityFormNew';
 import { formatDate, formatDateForInput } from '../../../../utils/utils';
 
 function BookFormNew({ isOpen, onClose, isWishlist = false }) {

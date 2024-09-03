@@ -8,7 +8,7 @@ import {
   validateUsername,
 } from '../../../utils/formUtils';
 import { ENTITY } from '../../../../config/common/constants';
-import EntityFormEdit from '../../../entity/Components/EntityEdit/EntityFormEdit';
+import EntityFormEdit from '../../../entity/components/EntityEdit/EntityFormEdit';
 
 function UserFormEdit({ user, isOpen, onClose }) {
   const validations = {

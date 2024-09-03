@@ -38,13 +38,13 @@ export function TableCellActions({ onEdit, handleDelete, item, statusClass, clas
   );
 }
 
-export const TableItemDetailHeader = ({
+export function TableItemDetailHeader({
   title,
   handleEditClick,
   handleDelete,
   onClose,
   isProtected,
-}) => {
+}) {
   return (
     <div className='form-header__container'>
       <h2>{title}</h2>
@@ -55,7 +55,7 @@ export const TableItemDetailHeader = ({
       </div>
     </div>
   );
-};
+}
 
 export function TableItemDetail({ label, value, className }) {
   return (

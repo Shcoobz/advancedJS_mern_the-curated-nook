@@ -1,4 +1,4 @@
-import createEntityData from '../../../entity/Components/Entity/createEntityData';
+import createEntityData from '../../../entity/components/Entity/createEntityData';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
 import UserTable from './UserTable';
 

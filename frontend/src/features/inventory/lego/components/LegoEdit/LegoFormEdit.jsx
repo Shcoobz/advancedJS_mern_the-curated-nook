@@ -11,7 +11,7 @@ import {
   useDeleteWishlistLegoMutation,
   useUpdateWishlistLegoMutation,
 } from '../../api/legoWishlistApiSlice';
-import EntityFormEdit from '../../../../entity/Components/EntityEdit/EntityFormEdit';
+import EntityFormEdit from '../../../../entity/components/EntityEdit/EntityFormEdit';
 
 function LegoFormEdit({ lego, isOpen, onClose, isWishlist = false }) {
   const validations = {

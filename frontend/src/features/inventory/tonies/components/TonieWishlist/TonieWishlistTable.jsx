@@ -6,7 +6,7 @@ import ConditionalList from '../../../../../components/common/ConditionalList';
 import { UI } from '../../../../../config/common/messages';
 import { LINK } from '../../../../../config/common/constants';
 import useAuth from '../../../../../hooks/useAuth';
-import MemoizedEntity from '../../../../entity/Components/Entity/MemoizedEntity';
+import MemoizedEntity from '../../../../entity/components/Entity/MemoizedEntity';
 
 function TonieWishlistTable({ tonies, openModal }) {
   const { isSuperuser, isAdmin } = useAuth();

@@ -6,7 +6,7 @@ import {
 import useAuth from '../../../../../hooks/useAuth';
 
 import stockImageTonie from '../../../../../img/stockimageTonie.png';
-import EntityDetailsTable from '../../../../entity/Components/EntityDetails/EntityDetailsTable';
+import EntityDetailsTable from '../../../../entity/components/EntityDetails/EntityDetailsTable';
 
 function TonieDetailsTable({ tonie, onClose, handleEditClick, handleDelete }) {
   // const { isSuperuser, isAdmin } = useAuth();

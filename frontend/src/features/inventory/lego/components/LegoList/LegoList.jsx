@@ -2,7 +2,7 @@ import { useGetLegoQuery } from '../../api/legoApiSlice';
 import LegoListTable from './LegoListTable';
 import LegoFormEdit from '../LegoEdit/LegoFormEdit';
 import LegoDetails from '../LegoDetails/LegoDetails';
-import EntityList from '../../../../entity/Components/EntityList/EntityList';
+import EntityList from '../../../../entity/components/EntityList/EntityList';
 import LegoFormNew from '../LegoNew/LegoFormNew';
 
 function LegoList() {

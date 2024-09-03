@@ -1,5 +1,5 @@
-import EntityFormEditTable from '../../../../entity/Components/EntityEdit/EntityFormEditTable';
-import getBookFormFields from '../../bookFormData';
+import getBookFormFields from '../../../../../data/bookFormData';
+import EntityFormEditTable from '../../../../entity/components/EntityEdit/EntityFormEditTable';
 
 function BookFormEditTable(props) {
   return (

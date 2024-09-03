@@ -3,7 +3,7 @@ import LegoFormEdit from '../LegoEdit/LegoFormEdit';
 import LegoDetails from '../LegoDetails/LegoDetails';
 import LegoWishlistTable from './LegoWishlistTable';
 import LegoFormNew from '../LegoNew/LegoFormNew';
-import EntityWishlist from '../../../../entity/Components/EntityWishlist/EntityWishlist';
+import EntityWishlist from '../../../../entity/components/EntityWishlist/EntityWishlist';
 
 function LegoWishlist() {
   return (

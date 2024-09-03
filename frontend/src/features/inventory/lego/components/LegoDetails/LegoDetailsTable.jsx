@@ -1,6 +1,6 @@
 import { isUUID } from '../../../../utils/formUtils';
 import stockImageLego from '../../../../../img/stockimageLego.png';
-import EntityDetailsTable from '../../../../entity/Components/EntityDetails/EntityDetailsTable';
+import EntityDetailsTable from '../../../../entity/components/EntityDetails/EntityDetailsTable';
 
 function LegoDetailsTable({ lego, onClose, handleEditClick, handleDelete }) {
   const displaySetNumber = isUUID(lego.setNumber) ? 'N/A' : lego.setNumber;

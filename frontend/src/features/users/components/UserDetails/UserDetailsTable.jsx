@@ -1,5 +1,5 @@
 import stockImageUser from '../../../../img/stockimageUser.png';
-import EntityDetailsTable from '../../../entity/Components/EntityDetails/EntityDetailsTable';
+import EntityDetailsTable from '../../../entity/components/EntityDetails/EntityDetailsTable';
 
 function UserDetailsTable({ user, onClose, handleEditClick, handleDelete }) {
   const formattedRoles = user.roles.join(', ');

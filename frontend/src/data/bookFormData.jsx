@@ -2,14 +2,14 @@ import {
   FormCheckbox,
   FormInput,
   FormTextarea,
-} from '../../../components/common/FormComponents';
-import FormInputWithSuggestions from '../../../components/common/FormInputWithSuggestions';
+} from '../components/common/FormComponents';
+import FormInputWithSuggestions from '../components/common/FormInputWithSuggestions';
 import {
   fetchSuggestionsByBookISBN,
   fetchSuggestionsByBookTitle,
-} from '../../utils/fetchUtils';
-import { getInputClass } from '../../utils/formUtils';
-import { formatDateForInput } from '../../utils/utils';
+} from '../features/utils/fetchUtils';
+import { getInputClass } from '../features/utils/formUtils';
+import { formatDateForInput } from '../features/utils/utils';
 
 const getBookFormFields = ({ formData, handleFieldChange, handleSelectSuggestion }) => [
   {

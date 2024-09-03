@@ -2,8 +2,8 @@ import {
   FormCheckbox,
   FormInput,
   FormTextarea,
-} from '../../../components/common/FormComponents';
-import { getInputClass } from '../../utils/formUtils';
+} from '../components/common/FormComponents';
+import { getInputClass } from '../features/utils/formUtils';
 
 const getTonieFormFields = ({ formData, handleFieldChange }) => [
   {

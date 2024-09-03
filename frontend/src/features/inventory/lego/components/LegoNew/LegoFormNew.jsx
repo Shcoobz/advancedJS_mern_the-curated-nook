@@ -3,7 +3,7 @@ import { generateLegoNewPayload, validateName } from '../../../../utils/formUtil
 import { ENTITY } from '../../../../../config/common/constants';
 import { handleSelectSuggestion } from '../../../../utils/fetchUtils';
 import { useAddNewWishlistLegoMutation } from '../../api/legoWishlistApiSlice';
-import EntityFormNew from '../../../../entity/Components/EntityNew/EntityFormNew';
+import EntityFormNew from '../../../../entity/components/EntityNew/EntityFormNew';
 import LegoFormTableNew from './LegoFormNewTable';
 
 function LegoFormNew({ isOpen, onClose, isWishlist = false }) {

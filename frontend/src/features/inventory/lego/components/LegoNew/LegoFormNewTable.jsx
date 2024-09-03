@@ -1,5 +1,5 @@
-import EntityFormNewTable from '../../../../entity/Components/EntityNew/EntityFormNewTable';
-import getLegoFormFields from '../../legoFormData';
+import getLegoFormFields from '../../../../../data/legoFormData';
+import EntityFormNewTable from '../../../../entity/components/EntityNew/EntityFormNewTable';
 
 function LegoFormNewTable(props) {
   return (

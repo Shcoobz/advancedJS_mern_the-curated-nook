@@ -6,7 +6,7 @@ import {
   validateUsername,
 } from '../../../utils/formUtils';
 import { ENTITY } from '../../../../config/common/constants';
-import EntityFormNew from '../../../entity/Components/EntityNew/EntityFormNew';
+import EntityFormNew from '../../../entity/components/EntityNew/EntityFormNew';
 
 function UserFormNew({ isOpen, onClose }) {
   const validations = {

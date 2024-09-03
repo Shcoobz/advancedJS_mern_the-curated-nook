@@ -3,7 +3,7 @@ import BookFormEdit from '../BookEdit/BookFormEdit';
 import BookFormNew from '../BookNew/BookFormNew';
 import BooksListTable from './BooksListTable';
 import BookDetails from '../BookDetails/BookDetails';
-import EntityList from '../../../../entity/Components/EntityList/EntityList';
+import EntityList from '../../../../entity/components/EntityList/EntityList';
 
 function BooksList() {
   return (

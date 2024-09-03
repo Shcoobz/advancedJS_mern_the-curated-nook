@@ -3,7 +3,7 @@ import TonieWishlistTable from './TonieWishlistTable';
 import TonieFormEdit from '../TonieEdit/TonieFormEdit';
 import TonieDetails from '../TonieDetails/TonieDetails';
 import TonieFormNew from '../TonieNew/TonieFormNew';
-import EntityWishlist from '../../../../entity/Components/EntityWishlist/EntityWishlist';
+import EntityWishlist from '../../../../entity/components/EntityWishlist/EntityWishlist';
 
 function TonieWishlist() {
   return (
