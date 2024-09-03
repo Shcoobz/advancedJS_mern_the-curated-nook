@@ -1,77 +1,21 @@
-import { useState } from 'react';
 import { useGetUsersQuery } from '../../api/usersApiSlice';
-import Spinner from '../../../../components/common/Spinner';
 import UserFormEdit from '../UserEdit/UserFormEdit';
 import UserFormNew from '../UserNew/UserFormNew';
 import UsersListTable from './UsersListTable';
 import UserDetails from '../UserDetails/UserDetails';
+import EntityList from '../../../entity/Components/EntityList/EntityList';
 
 function UsersList() {
-  const {
-    data: users,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetUsersQuery('usersList', {
-    pollingInterval: 60000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-  });
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-
-  let content;
-
-  function openModal(user = null) {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  }
-
-  function closeModal() {
-    setIsModalOpen(false);
-    setSelectedUser(null);
-  }
-
-  if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>;
-  }
-
-  if (isLoading) return <Spinner />;
-
-  if (isSuccess) {
-    content = <UsersListTable users={users} openModal={openModal} />;
-  }
-
-  const usersList = (
-    <>
-      <div>
-        {content}
-        {isModalOpen &&
-          (selectedUser ? (
-            selectedUser.isEditing ? (
-              <UserFormEdit
-                user={selectedUser}
-                isOpen={isModalOpen}
-                onClose={closeModal}
-              />
-            ) : (
-              <UserDetails
-                user={selectedUser}
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onEdit={openModal}
-              />
-            )
-          ) : (
-            <UserFormNew isOpen={isModalOpen} onClose={closeModal} />
-          ))}
-      </div>
-    </>
+  return (
+    <EntityList
+      entityName='user'
+      useGetQuery={useGetUsersQuery}
+      ListTable={UsersListTable}
+      FormEdit={UserFormEdit}
+      FormNew={UserFormNew}
+      Details={UserDetails}
+    />
   );
-
-  return usersList;
 }
 
 export default UsersList;

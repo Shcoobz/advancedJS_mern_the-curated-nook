@@ -458,3 +458,23 @@ export function handleLoginError(err) {
 export const canSave = (requiredFields) => (formData, isLoading) => {
   return !isLoading && requiredFields.every((field) => Boolean(formData[field]));
 };
+
+export function getPluralEntityName(entityName) {
+  if (entityName === 'lego') {
+    return 'lego';
+  } else if (entityName.endsWith('s')) {
+    return entityName;
+  } else {
+    return entityName + 's';
+  }
+}
+
+export function getSingularEntityName(entityName) {
+  if (entityName === 'lego') {
+    return 'lego';
+  } else if (entityName.endsWith('s')) {
+    return entityName.slice(0, -1);
+  } else {
+    return entityName;
+  }
+}
