@@ -30,6 +30,13 @@ function EntityDetailsTable({
     ? thumbnailUrl
     : stockImage;
 
+  const isStockImage = displayImageUrl === stockImage;
+
+  const imageContainerClass =
+    type === 'lego'
+      ? `${type}__modal-image${isStockImage ? '--stock' : ''}`
+      : `${type}__modal-image`;
+
   const tableContent = (
     <div className={`${type}__modal-container`}>
       <TableItemDetailHeader
@@ -43,7 +50,7 @@ function EntityDetailsTable({
       />
 
       <div className={`${type}__modal-content`}>
-        <div className={`${type}__modal-image`}>
+        <div className={imageContainerClass}>
           <TableItemDetailImage
             src={displayImageUrl}
             alt={altText}
