@@ -1,12 +1,12 @@
 import getLegoFormFields from '../../../../../data/legoFormData.jsx';
 import EntityFormEditTable from '../../../../entity/components/EntityEdit/EntityFormEditTable.jsx';
 
-function LegoFormEditTable({ props }) {
+function LegoFormEditTable(props) {
   return (
     <EntityFormEditTable
       {...props}
       getFormFields={getLegoFormFields}
-      entityType='Lego Set'
+      entityType='Lego'
       titleField='name'
     />
   );
