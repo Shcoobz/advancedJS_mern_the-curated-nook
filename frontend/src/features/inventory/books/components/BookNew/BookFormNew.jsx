@@ -1,6 +1,10 @@
 import { useAddNewBookMutation } from '../../api/booksApiSlice';
 import { ENTITY } from '../../../../../config/common/constants';
-import { generateNewBookPayload, validateTitle } from '../../../../utils/formUtils';
+import {
+  generateNewBookPayload,
+  validateISBN,
+  validateTitle,
+} from '../../../../utils/formUtils';
 import BookFormTableNew from './BookFormNewTable';
 import { handleIsbnScan, handleSelectSuggestion } from '../../../../utils/fetchUtils';
 import { useAddNewWishlistBookMutation } from '../../api/booksWishlistApiSlice';
@@ -9,6 +13,7 @@ import { formatDate, formatDateForInput } from '../../../../utils/utils';
 
 function BookFormNew({ isOpen, onClose, isWishlist = false }) {
   const validations = {
+    isbn: validateISBN,
     title: validateTitle,
   };
 

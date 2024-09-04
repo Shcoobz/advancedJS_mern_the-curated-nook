@@ -151,6 +151,11 @@ export function validateISBN(isbn) {
   return isbn.trim().length > 0;
 }
 
+export function validateSetNumber(setNumber) {
+  const setNumberStr = setNumber != null ? String(setNumber) : '';
+  return setNumberStr.trim().length > 0;
+}
+
 export function useHandleSuccess(type, isSuccess, isDelSuccess, navigate, setFormData) {
   useEffect(() => {
     if (isSuccess || isDelSuccess) {

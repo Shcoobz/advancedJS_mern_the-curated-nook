@@ -5,6 +5,7 @@ import {
   canSave,
   generateExistingLegoPayload,
   validateName,
+  validateSetNumber,
 } from '../../../../utils/formUtils';
 import { ENTITY } from '../../../../../config/common/constants';
 import {
@@ -16,6 +17,7 @@ import EntityFormEdit from '../../../../entity/components/EntityEdit/EntityFormE
 function LegoFormEdit({ lego, isOpen, onClose, isWishlist = false }) {
   const validations = {
     name: validateName,
+    setNumber: validateSetNumber,
   };
 
   const requiredFields = ['name'];
